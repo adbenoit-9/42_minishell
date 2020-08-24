@@ -24,7 +24,7 @@ pwd:
     ** OÙ ? **
         - dans la variable env PWD
 export:
-    - sans arg particulier
+    - sans arg ? particulier
     - ne fait rien s'il ne trouve pas '='
     - peut export plusieurs variables
         ex : 'export test=ok hcbsvbdk test1=cool', dans env on aura : test=ok et test1=cool
