@@ -3,7 +3,7 @@
 *******************************************************
 
 Afficher un prompt en l’attente d’une nouvelle commande:
-    - On utilisera surement un read
+    - read ?
 Chercher et lancer le bon executable: 
     - $PATH stock les chemins qui permet d'accéder aux exécutables
 echo:
