@@ -26,11 +26,11 @@ pwd:
 export:
     - sans arg particulier
     - ne fait rien s'il ne trouve pas '='
-    - peux export plusieurs variables
+    - peut export plusieurs variables
         ex : 'export test=ok hcbsvbdk test1=cool', dans env on aura : test=ok et test1=cool
 unset:
     - ne fait rien s'il ne trouve pas la variable
-    - peux unset plusieurs variables
+    - peut unset plusieurs variables
         ex : 'unset test hcbsvbdk test1', test et test1 supprimées d'env
     - erreur si il y a un '=' mais ne stop pas la commande
         ex : 'unset test= test1' erreur sur 'test=' et test1 supprimées d'env
@@ -38,9 +38,9 @@ env:
     ** OÙ ? **
         - int main(int argc, char *argv[], char *envp[])
 exit:
-    - fermer notre programme de na pas etre correcter car
+    - juste fermer notre programme de va pas etre correcte car
     plusieurs ouvertures de bash = plusieurs exit.
-    - solution ? fork
+    - solution ? fork ? j'ai pas encore tout compris de ce truc
 point virgule:
     - exécute les commandes a la suite
     - si une a une erreur, va quand meme executer les autres
@@ -62,7 +62,7 @@ redirections:
         * >> : ediriger à la fin d'un fichier
         * < : envoie le contenu d'un fichier à une commande
 dollar:
-    - $VARIABLE_ENVIRONNEMENT : la recuperer dans env
+    - $VARIABLE_ENVIRONNEMENT : la récupérer dans env
 $?:
     - l'état de sortie de la dernière commande exécutée
 pipe:
