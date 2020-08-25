@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/08/26 01:56:17 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/08/25 22:06:09 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/08/25 22:06:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main()
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char shell[] = {0xF0, 0x9F, 0x90, 0x9A, ':', ' '};
-	char buffer[4098];
-	t_list	*order;
-	int	ret;
+	unsigned int i;
 
-	write(1, "\033[1mLesPetitsCoquillages", 27);
-	write(1, shell, 6);
-	// write(1, ": ", 2);
-	ret = read(0, buffer, 4098);
-	buffer[ret] = 0;
-	order = NULL;
-	parsing(buffer, &order);
-	while (order)
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && i < n)
 	{
-		printf("output = %s\n", order->output);
-		order = order->next;
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
+	if (i != n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/25 18:27:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 01:34:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@
 #define EXPORT 4
 #define UNSET 5
 #define EXIT 6
-#define UNKOWN 8
+#define UNKNOW 8
 #define ERROR 9
 
+#define NONE -1
 #define PIPE 0
 #define COMA 1
 #define RIGHT 2
@@ -32,21 +33,31 @@
 #define D_LEFT 5
 #define AND 6
 #define OR 7
+#define NUM_SEP 8
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-typedef struct	s_order
+typedef struct	s_list
 {
 	char			*output;
 	char			*input;
 	int				command;
 	int				sep;
 	int				ret;
-	struct s_order	*next;
-}				t_order;
+	struct s_list	*next;
+}				t_list;
+
+typedef int     (*t_function)(char *, t_list *);
 
 void 	set_output(char *input, char **output);
+int parsing(char *input, t_list **order);
+int    ft_error(t_list *order);
 size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		init_lst(char *input, t_list **order, int command);
+t_list	*ft_lstnew(int command);
+void	ft_lstadd_back(t_list **alst, t_list *new);
 
 #endif
