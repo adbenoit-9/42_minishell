@@ -4,17 +4,17 @@
 
 Afficher un prompt en l’attente d’une nouvelle commande:
     - read ?
-Chercher et lancer le bon executable: 
+Chercher et lancer le bon executable:
     - $PATH stock les chemins qui permet d'accéder aux exécutables
 echo:
     - arg -n => pas de retour a la ligne
-    - $ => 
-        ex : 
+    - $ =>
+        ex :
         * echo '\n' = \n
         * echo \n = n
         * echo $'\n' = retour a la ligne
         * echo $"\n" = \n
-        conclusion : 
+        conclusion :
 cd:
     ** OÙ ? **
         - arg - ? dans la variable env OLDPWD (je sais pas si on doit le gerer)
@@ -68,5 +68,5 @@ $?:
 pipe:
     - idée : utiliser les redirections
 CTRL-C: nouvelle ligne bash
-CTRL-D: exit
+CTRL-D: exit = EOF
 CTRL-\: bah euh ca fait rien lol

@@ -1,0 +1,4 @@
+- Créer une fonction qui lit ce qui est rentré sur stdin:
+	buffer de base (genre 4096 car je crois aue c'est la taille standard) qui est soit terminé par "\0" si la ligne est plus courte, soit réalloué si elle est plus grande.
+- Trouver comment mettre un emoji coquillage (LOL)
+-
