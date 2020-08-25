@@ -2,6 +2,15 @@
 ************************ INDEX ************************
 *******************************************************
 
+******* Utiliser git *******
+
+naviguer dans les branches:
+git checkout nom_branche
+
+copier un fichier d'une branche a une autre:
+git checkout nom_branche_ou_est_le_fichier -- fichier
+
+****************************
 Afficher un prompt en l’attente d’une nouvelle commande:
     - read ?
 Chercher et lancer le bon executable:
