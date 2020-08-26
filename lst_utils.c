@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_list.c                                        :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/26 00:41:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 02:06:51 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_lstnew(int command)
+t_list	*ft_lstnew(int cmd)
 {
 	t_list	*list;
 
 	if (!(list = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
-	list->command = command;
+	list->cmd = cmd;
 	list->ret = 0;
 	list->next = NULL;
 	return (list);

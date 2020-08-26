@@ -6,35 +6,35 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:02:57 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/26 01:36:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 02:19:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unknow_command(char *input, t_list *order)
+int	unknow_cmd(char *input, t_list *cmd_lst)
 {
 	(void)input;
-	(void)order;
+	(void)cmd_lst;
 	return (0);
 }
 
-int parsing(char *input, t_list **order)
+int parsing(char *input, t_list **cmd_lst)
 {
     int 				i;
 	size_t				size;
-    char				*commands[7] = {"echo ", "cd ", "pwd ", "env ",
+    char				*cmd_str[7] = {"echo ", "cd ", "pwd ", "env ",
 									"export ", "unset ", "exit "};
 
     i = 0;
-    while (i < 7)
+    while (i < NUM_CMD)
     {
-		size = ft_strlen(commands[i]);
-        if (ft_strncmp(commands[i], input, size) == 0)
-            return (init_lst(input + size, order, i));
+		size = ft_strlen(cmd_str[i]);
+        if (ft_strncmp(cmd_str[i], input, size) == 0)
+            return (save_cmd(input + size, cmd_lst, i));
         i++;
     }
-	if (i == 7)
-		return (unknow_command(input, *order));
+	if (i == NUM_CMD)
+		return (unknow_cmd(input, *cmd_lst));
     return (0);
 }

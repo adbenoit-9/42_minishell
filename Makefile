@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/08/26 00:39:31 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/08/26 02:22:20 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ HEADER		=	$(INC)minishell.h
 
 SRCS_PATH	=	./
 
-SRCS		=	deal_list.c		deal_output.c \
+SRCS		=	lst_utils.c		set_output.c \
 				ft_error.c		ft_strncmp.c \
 				main.c			parsing.c \
-				ft_strlen.c		init_lst.c
+				ft_strlen.c		save_cmd.c
 
 CC			=	gcc
 
