@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:37:39 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/26 12:46:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 14:54:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		deal_space(char *input, char **output, int i, int *j)
 	return (i);
 }
 
-void	find_var(char *var, char *output, int j)
+void	find_var(char *var, char **output, int *j)
 {
 	(void)var;
 	(void)output;
@@ -40,11 +40,10 @@ int		deal_dollar(char *input, char **output, int i, int *j)
 	int		size;
 
 	size = 0;
-	if (input[i] == '$')
+	if (input[i] == '$' && input[i + 1] && input[i + 1] != '$' && input[i + 1] != ' ' && input[i + 1] != '\\')
 	{
 		++i;
-		while (input[i + size] && input[i + size] != '\'' && input[i + size] != '\"'
-		&& input[i + size] != '$' && input[i + size] != ' ')
+		while (input[i + size] && input[i + size] != '\'' && input[i + size] != '\"' && input[i + size] != '$' && input[i + size] != ' ')
 			++size;
 		if (!(var = malloc(size + 1)))
 			return (ft_error(NULL));
@@ -56,10 +55,16 @@ int		deal_dollar(char *input, char **output, int i, int *j)
 		}
 		var[k] = 0;
 		// rechercher la variable dans env et mettre sa valeur dans output
-		find_var(var, *output, *j);
+		// find_var(var, output, j);
 		// en attendant elle n'existe pas pour moi
 		free(var);
 		return (i);
+	}
+	else if (input[i] == '$')
+	{
+		(*output)[*j] = input[i];
+		++i;
+		++(*j);
 	}
 	return (i);
 }

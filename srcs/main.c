@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/08/26 02:17:53 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:11:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main()
 	char shell[] = {0xF0, 0x9F, 0x90, 0x9A, ':', ' '};
 	char buffer[4098];
 	t_list	*cmd_lst;
+	t_list	*tmp;
 	int	ret;
 
 	write(1, "\033[1mLesPetitsCoquillages", 27);
@@ -26,9 +27,10 @@ int main()
 	buffer[ret] = 0;
 	cmd_lst = NULL;
 	parsing(buffer, &cmd_lst);
-	while (cmd_lst)
+	tmp = cmd_lst;
+	while (tmp)
 	{
 		printf("output = %s\n", cmd_lst->output);
-		cmd_lst = cmd_lst->next;
+		tmp = cmd_lst->next;
 	}
 }
