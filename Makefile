@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/08/26 02:22:20 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/08/26 02:53:59 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ INC			=	includes/
 
 HEADER		=	$(INC)minishell.h
 
-SRCS_PATH	=	./
+SRCS_PATH	=	srcs/
 
 SRCS		=	lst_utils.c		set_output.c \
 				ft_error.c		ft_strncmp.c \
