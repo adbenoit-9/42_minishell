@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_init.c                                         :+:      :+:    :+:   */
+/*   save_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/26 02:20:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 02:59:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			save_cmd(char *input, t_list **cmd_lst, int cmd)
 	input[size] != ';' && input[size] != '|' && ft_strncmp(input + size, "&&", 2) != 0)
 		++size;
 	if (!(new->input = malloc(size + 1)) || !(new->output = malloc(size + 1)))
-		return (ft_error(new));
+		return (ft_error(cmd_lst));
 	i = -1;
 	while (++i < size)
 		new->input[i] = input[i];
