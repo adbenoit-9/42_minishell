@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_output.c                                      :+:      :+:    :+:   */
+/*   set_output.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:37:39 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/25 18:56:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/26 12:46:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,44 @@ int		deal_space(char *input, char **output, int i, int *j)
 	return (i);
 }
 
+void	find_var(char *var, char *output, int j)
+{
+	(void)var;
+	(void)output;
+	(void)j;
+}
+
+int		deal_dollar(char *input, char **output, int i, int *j)
+{
+	char	*var;
+	int		k;
+	int		size;
+
+	size = 0;
+	if (input[i] == '$')
+	{
+		++i;
+		while (input[i + size] && input[i + size] != '\'' && input[i + size] != '\"'
+		&& input[i + size] != '$' && input[i + size] != ' ')
+			++size;
+		if (!(var = malloc(size + 1)))
+			return (ft_error(NULL));
+		k = -1;
+		while (++k < size)
+		{
+			var[k] = input[i];
+			i++;
+		}
+		var[k] = 0;
+		// rechercher la variable dans env et mettre sa valeur dans output
+		find_var(var, *output, *j);
+		// en attendant elle n'existe pas pour moi
+		free(var);
+		return (i);
+	}
+	return (i);
+}
+
 int		deal_quote(char *input, char **output, int i, int *j)
 {
 	char	quote;
@@ -36,6 +74,8 @@ int		deal_quote(char *input, char **output, int i, int *j)
 		i++;
 		while (input[i] != quote)
 		{
+			if (quote == '\"')
+				deal_dollar(input, output,i, j);
 			(*output)[*j] = input[i];
 			++(*j);
 			++i;
@@ -68,7 +108,9 @@ void 	set_output(char *input, char **output)
 		i = deal_space(input, output, i, &j);
 		i = deal_backslash(input, output, i, &j);
 		i = deal_quote(input, output, i, &j);
-		if (input[i] != ' ' && input[i] != '\\' && input[i] != '\'' && input[i] != '\"')
+		i = deal_dollar(input, output,i, &j);
+		if (input[i] != ' ' && input[i] != '\\' && input[i] != '\''
+		&& input[i] != '\"' && input[i] != '$')
 		{
 			(*output)[j] = input[i];
 			++i;
