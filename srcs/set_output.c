@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:37:39 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/26 14:54:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/29 16:03:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		deal_quote(char *input, char **output, int i, int *j)
 	{
 		quote = input[i];
 		i++;
-		while (input[i] != quote)
+		while (input[i] && input[i] != quote)
 		{
 			if (quote == '\"')
 				deal_dollar(input, output,i, j);

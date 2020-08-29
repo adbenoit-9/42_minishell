@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/08/26 16:11:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/29 16:18:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main()
 	tmp = cmd_lst;
 	while (tmp)
 	{
-		printf("output = %s\n", cmd_lst->output);
-		tmp = cmd_lst->next;
+		printf("output = %s\n", tmp->output);
+		tmp = tmp->next;
 	}
 }

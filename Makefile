@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/08/26 02:53:59 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/08/29 16:58:00 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ OBJS_NAME	=	$(SRCS:.c=.o)
 
 OBJS		=	$(addprefix $(OBJ_PATH),$(OBJS_NAME))
 
-all: $(NAME)
+all: $(NAME) run
 
 $(NAME): $(OBJS)
 	@printf "\n"
@@ -45,6 +45,9 @@ $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c $(HEADER)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
+run: $(NAME)
+	@cat minishell.txt
+	@./$(NAME)
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_PATH)
@@ -59,3 +62,5 @@ re: fclean all
 debug:
 	@echo "\033[34;1mOBJS\033[0;m = $(OBJS)"
 	@echo "\033[34;1mHEADER\033[0;m = $(HEADER)\n"
+
+.PHONY: all clean fclean re run
