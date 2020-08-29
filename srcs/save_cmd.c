@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/29 16:26:45 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/08/29 17:11:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ static int	set_sep(char *input, t_list **cmd_lst)
 	return (0);
 }
 
-int			save_cmd(char *input, t_list **cmd_lst, int cmd)
+static size_t	define_size(char *input)
 {
-	int i;
-	int size;
+	size_t size;
 	char quote;
-	t_list *new;
 
-	new = ft_lstnew(cmd);
 	size = -1;
 	while (input[size] &&  input[size] != '>' && input[size] != '<' &&
 	input[size] != ';' && input[size] != '|' && ft_strncmp(input + size, "&&", 2) != 0)
@@ -57,6 +54,17 @@ int			save_cmd(char *input, t_list **cmd_lst, int cmd)
 			++size;
 		++size;
 	}
+	return (size);
+}
+
+int			save_cmd(char *input, t_list **cmd_lst, int cmd)
+{
+	size_t	i;
+	size_t	size;
+	t_list	*new;
+
+	new = ft_lstnew(cmd);
+	size = define_size(input);
 	if (!(new->input = malloc(size + 1)) || !(new->output = malloc(size + 1)))
 		return (ft_error(*cmd_lst));
 	i = -1;
