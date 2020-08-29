@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/08/29 16:58:00 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/08/29 22:39:45 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,15 @@ HEADER		=	$(INC)minishell.h
 
 SRCS_PATH	=	srcs/
 
-SRCS		=	lst_utils.c		set_output.c \
-				ft_error.c		ft_strncmp.c \
-				main.c			parsing.c \
-				ft_strlen.c		save_cmd.c
+SRCS		=	cd_cmd.c		env_cmd.c \
+				exit_cmd.c		ft_error.c \
+				ft_strncmp.c	main.c \
+				pwd_cmd.c		set_output.c \
+				echo_cmd.c		execute.c \
+				export_cmd.c	ft_strlen.c \
+				lst_utils.c		parsing.c \
+				save_cmd.c		unset_cmd.c
+
 
 CC			=	gcc
 
