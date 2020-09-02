@@ -58,7 +58,5 @@ void 	set_input(char *str, char **input)
 			++j;
 		}
 	}
-	if (j != 0)
-		(*input)[j - 1] = 0;
 	(*input)[j] = 0;
 }

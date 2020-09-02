@@ -1,1 +1,1 @@
-echo oolalala tu pues\ttrop $'lol ouiaaas \nceest nul' '\t' "\t" '|'; echo mouuuuuais "$huhu" '$huhu'  $huhu $"$huhu" $'$huhu' $'huhu' $"huhu" \n
+   echo -phrase simple \n$'\n'$'-carateres speciaux activés:\n\0apparait pas''-non activé\t', "non activé\t" '|' $'\n'-; echo -\\n "$var1" '$var2'     $var3$'\n'- $"\'$var4"$'\n'- $'\'$var5'$'\n'-'\n' $'var6'$'\n'-   $"var7"      ;    echo -"'""phrase:'entre guillemets'ok"\\//\\$'\n- suite de caracteres speciaux: \n\"\ttab\"\"\"\"'; echo -test guillemets: $'\n''\'', '\'', \', \", '\"', "\"", "\'"

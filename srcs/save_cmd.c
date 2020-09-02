@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 18:55:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 20:29:14 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static size_t	define_size(char *str)
 			quote = str[size];
 			++size;
 		}
-		while (quote != 0 && str[size] && str[size] != quote)
+		while (quote != 0 && str[size] && (str[size] != quote ||
+		(size != 0 && str[size - 1] == '\\' && str[size] == quote)))
 			++size;
 		++size;
 	}
@@ -77,6 +78,8 @@ int			save_cmd(char *str, t_list **cmd_lst, int cmd)
 	while (++i < size - 1)
 		new->input[i] = str[j + i];
 	new->input[i] = 0;
+	if (i != 0 && new->input[i - 1] == '\n')
+		new->input[i - 1] = 0;
 	i += set_sep(str + j + i, &new);
 	if (cmd != UNKNOW)
 		set_input(new->input, &new->input);

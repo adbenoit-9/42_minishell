@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/02 17:11:22 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/02 22:48:15 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS		=	cd_cmd.c		env_cmd.c \
 				export_cmd.c	ft_strlen.c \
 				lst_utils.c		parsing.c \
 				save_cmd.c		unset_cmd.c \
-				deal_char.c
+				deal_char.c		deal_quote.c
 
 
 CC			=	gcc
