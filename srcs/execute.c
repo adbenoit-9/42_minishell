@@ -19,9 +19,10 @@ void    execute(t_list **cmd_lst)
     int			i;
 
     i = 0;
-    while (i < NUM_CMD && (*cmd_lst)->cmd != i)
+    while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
         ++i;
     if (i == NUM_CMD)
         ft_error(NULL);
-    cmd_fct[i](cmd_lst);
+    if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
+        cmd_fct[i](cmd_lst);
 }

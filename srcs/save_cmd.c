@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 17:23:56 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 18:55:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static size_t	define_size(char *str)
 			++size;
 		++size;
 	}
-	printf("size = %zu\n", size);
 	return (size);
 }
 
@@ -75,14 +74,15 @@ int			save_cmd(char *str, t_list **cmd_lst, int cmd)
 	j = 0;
 	while (str[j] == ' ')
 		++j;
-	while (++i < size)
+	while (++i < size - 1)
 		new->input[i] = str[j + i];
 	new->input[i] = 0;
-	i += set_sep(str + i, &new);
-	set_input(new->input, &new->input);
+	i += set_sep(str + j + i, &new);
+	if (cmd != UNKNOW)
+		set_input(new->input, &new->input);
 	ft_listadd_back(cmd_lst, new);
 	if (str[i])
-		return (parsing(str + i, cmd_lst));
+		return (parsing(str + j + i, cmd_lst));
 	else
 		return (0);
 }

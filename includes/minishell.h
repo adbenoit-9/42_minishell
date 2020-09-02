@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 17:07:56 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 18:16:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #define MINISHELL_H
 
 #define ECHO 0
-#define ECHO_N 7
+#define ECHO_N 8
 #define CD 1
 #define PWD 2
 #define ENV 3
 #define EXPORT 4
 #define UNSET 5
 #define EXIT 6
-#define UNKNOW 8
+#define UNKNOW 7
 #define ERROR 9
 #define NUM_CMD 7
 

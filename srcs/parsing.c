@@ -6,35 +6,33 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 22:02:57 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/29 22:47:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 18:55:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unknow_cmd(char *input, t_list *cmd_lst)
+int parsing(char *str, t_list **cmd_lst)
 {
-	(void)input;
-	(void)cmd_lst;
-	return (0);
-}
-
-int parsing(char *input, t_list **cmd_lst)
-{
-    int 				i;
-	size_t				size;
-    char				*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
-									"export", "unset", "exit"};
+    int		i;
+    int		j;
+	size_t	size;
+    char	*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
+								"export", "unset", "exit"};
 
     i = 0;
-    while (i < NUM_CMD)
+    j = 0;
+    while (str[j] == ' ')
+        ++j;
+    while (str[j] && i < NUM_CMD)
     {
 		size = ft_strlen(cmd_str[i]);
-        if (ft_strncmp(cmd_str[i], input, size) == 0)
-            return (save_cmd(input + size, cmd_lst, i));
+        if (ft_strncmp(cmd_str[i], str + j, size) == 0 &&
+		(str[j + size] == ' ' || str[j + size] == '\n'))
+            return (save_cmd(str + j + size, cmd_lst, i));
         i++;
     }
-	if (i == NUM_CMD)
-		return (unknow_cmd(input, *cmd_lst));
-    return (0);
+	if (str[j] && str[j] != '\n' && i == UNKNOW)
+		return (save_cmd(str + j, cmd_lst, i));
+	return (0);
 }
