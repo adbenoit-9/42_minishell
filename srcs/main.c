@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/08/29 22:51:59 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:12:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int main()
 		parsing(buffer, &cmd_lst);
 		execute(&cmd_lst);
 		tmp = cmd_lst;
-		printf("%sOur output:%s\n", "\033[1;4;34m", "\033[0m");
+		printf("%sOur input:%s\n", "\033[1;4;34m", "\033[0m");
 		while (tmp)
 		{
-			printf("%s\n", tmp->output);
+			printf("%s\n", tmp->input);
 			tmp = tmp->next;
 		}
-		printf("%sReal output:%s\n", "\033[1;4;34m", "\033[0m");
+		printf("%sReal input:%s\n", "\033[1;4;34m", "\033[0m");
 		system(buffer);
 	}
 	return (0);

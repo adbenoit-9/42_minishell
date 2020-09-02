@@ -1,0 +1,1 @@
+echo oolalala tu pues\ttrop $'lol ouiaaas \nceest nul' '\t' "\t" '|'; echo mouuuuuais "$huhu" '$huhu'  $huhu $"$huhu" $'$huhu' $'huhu' $"huhu" \n

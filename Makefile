@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/08/29 22:39:45 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/02 17:11:22 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,12 @@ SRCS_PATH	=	srcs/
 SRCS		=	cd_cmd.c		env_cmd.c \
 				exit_cmd.c		ft_error.c \
 				ft_strncmp.c	main.c \
-				pwd_cmd.c		set_output.c \
+				pwd_cmd.c		set_input.c \
 				echo_cmd.c		execute.c \
 				export_cmd.c	ft_strlen.c \
 				lst_utils.c		parsing.c \
-				save_cmd.c		unset_cmd.c
+				save_cmd.c		unset_cmd.c \
+				deal_char.c
 
 
 CC			=	gcc
