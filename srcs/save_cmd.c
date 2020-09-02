@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 17:13:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/02 17:23:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static size_t	define_size(char *str)
 			++size;
 		++size;
 	}
+	printf("size = %zu\n", size);
 	return (size);
 }
 
