@@ -29,14 +29,6 @@ int		deal_space(char *str, char **input, int *j)
 	return (i);
 }
 
-void	find_var(char *var, char **input, int *j)
-{
-	(void)var;
-	(void)input;
-	(void)j;
-}
-
-
 void 	set_input(char *str, char **input)
 {
 	int	i;

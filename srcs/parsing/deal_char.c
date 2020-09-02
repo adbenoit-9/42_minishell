@@ -6,11 +6,15 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 23:30:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 00:20:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static void	find_var(char *var, char **input, int *j)
+// {
+// }
 
 static int		deal_var(char *str)
 {
