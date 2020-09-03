@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/04 00:13:45 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/04 00:30:40 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,10 @@ PARS_PATH 	= srcs/parsing/
 SRCS		=	ft_error.c		main.c \
 				execute.c		lst_utils.c
 
-CMD 		=	cd_cmd.c		env_cmd.c \
-				export_cmd.c	echo_cmd.c \
-				exit_cmd.c		pwd_cmd.c \
-				unset_cmd.c
+CMD 		=	ft_cd.c			ft_env.c \
+				ft_export.c		ft_echo.c \
+				ft_exit.c		ft_pwd.c \
+				ft_unset.c
 
 PARS 		=	parsing.c		deal_quote.c \
 				deal_dollar.c	save_cmd.c \
