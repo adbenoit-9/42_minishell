@@ -16,14 +16,9 @@ int		deal_space(char *str, char **input, int *j)
 {
 	int i;
 
+	(*input)[*j] = ' ';
+	++(*j);
 	i = 0;
-	if (str[i] == ' ')
-	{
-		(*input)[*j] = ' ';
-		i++;
-		++(*j);
-
-	}
 	while (str[i] == ' ')
 		i++;
 	return (i);
@@ -34,21 +29,25 @@ void 	set_input(char *str, char **input)
 	int	i;
 	int j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i])
+	while (str[++i])
 	{
-		i += deal_space(str + i, input, &j);
-		i += deal_backslash(str + i, input, &j);
-		i += deal_quote(str + i, input, &j, 0);
-		i += deal_dollar(str + i, input, &j);
-		if (str[i] != ' ' && str[i] != '\\' && str[i] != '\''
-		&& str[i] != '\"' && str[i] != '$')
+		if (str[i] == ' ')
+			i += deal_space(str + i + 1, input, &j);
+		else if (str[i] == '\\')
 		{
-			(*input)[j] = str[i];
-			++i;
+			(*input)[j] = str[++i];
 			++j;
 		}
+		else if (str[i] == '\'')
+			i += deal_simple_quote(str + i + 1, input, &j, 0);
+		else if (str[i] == '\"')
+			i += deal_double_quote(str + i + 1, input, &j);
+		else if (str[i] == '$')
+			i += deal_dollar(str + i + 1, input, &j);
+		else
+			(*input)[j++] = str[i];
 	}
 	(*input)[j] = 0;
 }

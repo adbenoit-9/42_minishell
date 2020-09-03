@@ -6,52 +6,32 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 23:58:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 22:31:53 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	special_char(char *str, char **input, int *j, int len)
+static int	special_char(char c, char **input, int *j, int len)
 {
-	int i;
+	int		i;
+	char	list[8] = "abntrvf\\";
+	char	become[8] = "\a\b\n\t\r\v\f\\";
 
 	i = 0;
-    if (str[i] == '\\' && str[i + 1])
+	while (i < 8)
 	{
+		if (c == list[i])
+		{
+			(*input)[*j] = become[i];
+			++(*j);
+			return (1);
+		}
 		++i;
-        if (str[i] == 'n')
-        	(*input)[*j] = '\n';
-        else if (str[i] == 't')
-        	(*input)[*j] = '\t';
-        else if (str[i] == 'r')
-        	(*input)[*j] = '\r';
-        else if (str[i] == 'v')
-        	(*input)[*j] = '\v';
-        else if (str[i] == 'f')
-        	(*input)[*j] = '\f';
-        else if (str[i] == 'a')
-        	(*input)[*j] = '\a';
-        else if (str[i] == 'b')
-        	(*input)[*j] = '\b';
-        else if (str[i] == '\'')
-        	(*input)[*j] = '\'';
-        else if (str[i] == '\"')
-        	(*input)[*j] = '\"';
-        else if (str[i] == '\\')
-        	(*input)[*j] = '\\';
-        else if (str[i] == '\'')
-        	(*input)[*j] = '\'';
-        else if (str[i] == '0')
-        {
-        	i = len;
-        	--(*j);
-        }
 	}
-	else
-    	(*input)[*j] = str[i];
-     ++(*j);
-    return (i);
+	if (c == '0')
+		return (len);
+    return (0);
 }
 
 static int	len_simple_quote(char *str, int dollar)
@@ -69,7 +49,7 @@ static int	len_simple_quote(char *str, int dollar)
     return (len);
 }
 
-static int	parse_simple_quote(char *str, char **input, int *j, int dollar)
+int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 {
 	int i;
     int len;
@@ -78,56 +58,38 @@ static int	parse_simple_quote(char *str, char **input, int *j, int dollar)
     len = len_simple_quote(str, dollar);
 	while (i < len)
 	{
-	    if (dollar == 1)
-            i += special_char(str + i, input, j, i);
+	    if (dollar == 1 && str[i] == '\\' && str[++i])
+			i += special_char(str[i], input, j, len);
 		else
-		{
-			(*input)[*j] = str[i];
-			++(*j);
-		}
-		++i;
-	}
-	return (len + 1);
-}
-
-static int	parse_double_quote(char *str, char **input, int *j)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && str[i] != '\"')
-	{
-		i += deal_dollar(str + i, input, j);
-		if (str[i] == '\\' && str[i + 1] == '\"')
-		{
-			i += 2;
-			(*input)[*j] = '\"';
-			++(*j);
-		}
-		if (str[i] != '\"')
 		{
 			(*input)[*j] = str[i];
 			++(*j);
 			++i;
 		}
 	}
-	return (i + 1);
+	return (len + 1);
 }
 
-int			deal_quote(char *str, char **input, int *j, int dollar)
+int			deal_double_quote(char *str, char **input, int *j)
 {
-	int		i;
+	int i;
 
-	i = 0;
-    if (str[i] == '\'')
+	i = -1;
+	while (str[++i] && str[i] != '\"')
 	{
-		++i;
-		i += parse_simple_quote(str + i, input, j, dollar);
+		if (str[i] == '$')
+			i += deal_dollar(str + i + 1, input, j);
+		else if (str[i] == '\\' && str[i + 1] == '\"')
+		{
+			++i;
+			(*input)[*j] = '\"';
+			++(*j);
+		}
+		else if (str[i] != '\"')
+		{
+			(*input)[*j] = str[i];
+			++(*j);
+		}
 	}
-	else if (str[i] == '\"')
-	{
-		++i;
-		i += parse_double_quote(str + i, input, j);
-	}
-	return (i);
+	return (i + 1);
 }

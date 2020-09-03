@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 22:48:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 22:31:53 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    ft_export(t_list **cmd_lst);
 void    ft_unset(t_list **cmd_lst);
 void    ft_echo(t_list **cmd_lst);
 int		deal_dollar(char *str, char **input, int *j);
-int		deal_quote(char *str, char **input, int *j, int dollar);
-int		deal_backslash(char *str, char **input, int *j);
+int		deal_simple_quote(char *str, char **input, int *j, int dollar);
+int		deal_double_quote(char *str, char **input, int *j);
 
 #endif

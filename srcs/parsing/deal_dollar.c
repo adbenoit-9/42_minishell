@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_char.c                                        :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 00:20:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 22:31:53 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		deal_var(char *str)
 	int		i;
 	int		k;
 	
-	i = 1;
+	i = 0;
 	size = 0;
 	while (str[i + size] && str[i + size] != '\'' && str[i + size] != '\"'
 	&& str[i + size] != '$' && str[i + size] != ' ')
@@ -49,38 +49,18 @@ int			deal_dollar(char *str, char **input, int *j)
 	int 	i;
 
 	i = 0;
-	if (str[i] == '$' && str[i + 1] && str[i + 1] != '$' && str[i + 1] != ' '
-	&& str[i + 1] != '\\' && str[i + 1] != '\'' && str[i + 1] != '\"')
+	if (str[i] && str[i] != '$' && str[i] != ' ' && str[i] != '\\'
+	&& str[i] != '\'' && str[i] != '\"')
 		i += deal_var(str + i);
-	else if (str[i] == '$' && str[i + 1] == '\'')
-	{
-		++i;
-		i += deal_quote(str + i, input, j, 1);
-	}
-	else if (str[i] == '$' && str[i + 1] == '\"')
-	{
-		++i;
-		i += deal_quote(str + i, input, j, 0);
-	}
-	else if (str[i] == '$')
+	else if (str[i] == '\'')
+		i += deal_simple_quote(str + i + 1, input, j, 1) + 1;
+	else if (str[i] == '\"')
+		i += deal_double_quote(str + i + 1, input, j) + 1;
+	else
 	{
 		(*input)[*j] = str[i];
 		++i;
 		++(*j);
-	}
-	return (i);
-}
-
-int			deal_backslash(char *str, char **input, int *j)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '\\' && str[++i])
-	{
-		(*input)[*j] = str[i];
-		++(*j);
-		return (i + 1);
 	}
 	return (i);
 }

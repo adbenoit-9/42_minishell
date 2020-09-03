@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/03 00:13:14 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/03 22:36:30 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ SRCS		=	ft_error.c		ft_strncmp.c \
 				ft_strlen.c		lst_utils.c
 
 CMD 		=	cd_cmd.c		env_cmd.c \
-				export_cmd.c	save_cmd.c \
-				echo_cmd.c		exit_cmd.c \
-				pwd_cmd.c		unset_cmd.c
+				export_cmd.c	echo_cmd.c \
+				exit_cmd.c		pwd_cmd.c \
+				unset_cmd.c
 
-PARS 		=	deal_char.c		deal_quote.c \
-				parsing.c		set_input.c
+PARS 		=	parsing.c		deal_quote.c \
+				deal_dollar.c	save_cmd.c \
+				set_input.c
 
 CC			=	gcc
 
