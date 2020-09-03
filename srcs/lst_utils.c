@@ -6,25 +6,27 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/29 22:22:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 23:52:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_listnew(int cmd)
+t_stock	*ft_stocknew(int cmd)
 {
-	t_list	*list;
+	t_stock	*list;
 
-	if (!(list = (t_list *)malloc(sizeof(t_list))))
+	if (!(list = (t_stock *)malloc(sizeof(t_stock))))
 		return (NULL);
 	list->cmd = cmd;
 	list->ret = 0;
+	list->output = NULL;
+	list->input = NULL;
 	list->next = NULL;
 	return (list);
 }
 
-static t_list	*ft_listlast(t_list *lst)
+static t_stock	*ft_stocklast(t_stock *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -33,13 +35,13 @@ static t_list	*ft_listlast(t_list *lst)
 	return (lst);
 }
 
-void	ft_listadd_back(t_list **alst, t_list *new)
+void	ft_stockadd_back(t_stock **alst, t_stock *new)
 {
 	if (alst)
 	{
 		if (*alst == NULL)
 			*alst = new;
 		else
-			ft_listlast(*alst)->next = new;
+			ft_stocklast(*alst)->next = new;
 	}
 }

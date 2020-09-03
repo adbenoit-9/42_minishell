@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/03 22:36:30 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/04 00:13:45 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,8 @@ CMD_PATH 	= srcs/cmd/
 
 PARS_PATH 	= srcs/parsing/
 
-SRCS		=	ft_error.c		ft_strncmp.c \
-				main.c			execute.c \
-				ft_strlen.c		lst_utils.c
+SRCS		=	ft_error.c		main.c \
+				execute.c		lst_utils.c
 
 CMD 		=	cd_cmd.c		env_cmd.c \
 				export_cmd.c	echo_cmd.c \
@@ -39,6 +38,10 @@ CC			=	gcc
 
 CFLAGS		=	-Wall -Wextra -Werror
 
+LIB_DIR		=	libft
+
+LIB			=	$(LIB_DIR)/libft.a
+
 OBJ_PATH	=	obj/
 
 OBJS_NAME	=	$(SRCS:.c=.o)
@@ -47,11 +50,16 @@ OBJS_NAME	+=	$(PARS:.c=.o)
 
 OBJS		=	$(addprefix $(OBJ_PATH),$(OBJS_NAME))
 
-all: $(NAME) run
+all: $(LIB) $(NAME) run
 
-$(NAME): $(OBJS)
+$(LIB) :
+	@make -C $(LIB_DIR)
 	@printf "\n"
-	@$(CC) -o $(NAME) $(OBJS)
+	@echo "Compilation of \033[33;1m$(LIB_DIR)\033[0;1m: [\033[1;32mOK\0]"
+
+$(NAME) : $(OBJS)
+	@printf "\n"
+	@$(CC) -o $(NAME) $(OBJS) $(LIB)
 	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
 
 $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c $(HEADER)
@@ -72,13 +80,16 @@ $(OBJ_PATH)%.o:	$(PARS_PATH)%.c $(HEADER)
 run: $(NAME)
 	@cat minishell.txt
 	@./$(NAME)
+
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_PATH)
+	@make -C $(LIB_DIR) clean
 	@echo "\033[33;1m$(NAME)\033[0;1m: objects deleted\033[0m"
 
 fclean:	clean
 	@rm -rf $(NAME)
+	@make -C $(LIB_DIR) fclean
 	@echo "\033[33;1m$(NAME)\033[0;1m: $(NAME) deleted\033[0m"
 
 re: fclean all

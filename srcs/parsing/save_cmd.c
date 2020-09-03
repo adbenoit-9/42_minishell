@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 22:29:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 22:59:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_sep(char *str, t_list **cmd_lst)
+static int	set_sep(char *str, t_stock **cmd_lst)
 {
 	char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>", "<<", "&&", "||"};
 	int	 i;
@@ -60,14 +60,14 @@ static size_t	define_size(char *str)
 	return (size);
 }
 
-int			save_cmd(char *str, t_list **cmd_lst, int cmd)
+int			save_cmd(char *str, t_stock **cmd_lst, int cmd)
 {
 	size_t	i;
 	size_t	size;
-	t_list	*new;
+	t_stock	*new;
 	int		j;
 
-	new = ft_listnew(cmd);
+	new = ft_stocknew(cmd);
 	size = define_size(str);
 	if (!(new->input = malloc(size + 1)))
 		return (ft_error(*cmd_lst));
@@ -83,7 +83,7 @@ int			save_cmd(char *str, t_list **cmd_lst, int cmd)
 	i += set_sep(str + j + i, &new);
 	if (cmd != UNKNOW)
 		set_input(new->input, &new->input);
-	ft_listadd_back(cmd_lst, new);
+	ft_stockadd_back(cmd_lst, new);
 	if (str[i])
 		return (parsing(str + j + i, cmd_lst));
 	else

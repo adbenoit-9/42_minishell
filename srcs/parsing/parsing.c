@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int parsing(char *str, t_list **cmd_lst)
+int parsing(char *str, t_stock **cmd_lst)
 {
     int		i;
     int		j;

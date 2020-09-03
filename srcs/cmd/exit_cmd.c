@@ -6,18 +6,19 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 00:04:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 23:38:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_exit(t_list **cmd_lst)
+void    ft_exit(t_stock **cmd_lst, char *envp[])
 {
     // int value;
     int i;
 
     i = 0;
+    (void)envp;
     write(1, "exit\n", 5);
     while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '\n')
     {

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 22:31:53 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/03 23:41:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,36 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "../libft/libft_header/libft.h"
 
-typedef struct	s_list
+typedef struct	s_stock
 {
 	char			*input;
 	char			*output;
 	int				cmd;
 	int				sep;
 	int				ret;
-	struct s_list	*next;
-}				t_list;
+	struct s_stock	*next;
+}				t_stock;
 
-typedef void     (*t_function)(t_list **);
+typedef void     (*t_function)(t_stock **, char **);
 
 void 	set_input(char *str, char **input);
-int 	parsing(char *str, t_list **cmd_lst);
-int		ft_error(t_list *cmd_lst);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		save_cmd(char *str, t_list **cmd_lst, int cmd);
-t_list	*ft_listnew(int cmd);
-void	ft_listadd_back(t_list **alst, t_list *new);
-void    execute(t_list **cmd);
-void    ft_exit(t_list **cmd_lst);
-void    ft_pwd(t_list **cmd_lst);
-void    ft_cd(t_list **cmd_lst);
-void    ft_env(t_list **cmd_lst);
-void    ft_export(t_list **cmd_lst);
-void    ft_unset(t_list **cmd_lst);
-void    ft_echo(t_list **cmd_lst);
+int 	parsing(char *str, t_stock **cmd_lst);
+int		ft_error(t_stock *cmd_lst);
+// size_t	ft_strlen(const char *s);
+// int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		save_cmd(char *str, t_stock **cmd_lst, int cmd);
+t_stock	*ft_stocknew(int cmd);
+void	ft_stockadd_back(t_stock **alst, t_stock *new);
+void    execute(t_stock **cmd, char *envp[]);
+void    ft_exit(t_stock **cmd_lst, char *envp[]);
+void    ft_pwd(t_stock **cmd_lst, char *envp[]);
+void    ft_cd(t_stock **cmd_lst, char *envp[]);
+void    ft_env(t_stock **cmd_lst, char *envp[]);
+void    ft_export(t_stock **cmd_lst, char *envp[]);
+void    ft_unset(t_stock **cmd_lst, char *envp[]);
+void    ft_echo(t_stock **cmd_lst, char *envp[]);
 int		deal_dollar(char *str, char **input, int *j);
 int		deal_simple_quote(char *str, char **input, int *j, int dollar);
 int		deal_double_quote(char *str, char **input, int *j);

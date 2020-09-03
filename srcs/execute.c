@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void    execute(t_list **cmd_lst)
+void    execute(t_stock **cmd_lst, char *envp[])
 {
     t_function	cmd_fct[NUM_CMD] = {ft_echo, ft_cd, ft_pwd, ft_env,
 									ft_export, ft_unset, ft_exit};
@@ -24,5 +24,7 @@ void    execute(t_list **cmd_lst)
     if (i == NUM_CMD)
         ft_error(NULL);
     if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
-        cmd_fct[i](cmd_lst);
+        cmd_fct[i](cmd_lst, envp);
+    if ((*cmd_lst)->next)
+        execute(&(*cmd_lst)->next, envp);
 }
