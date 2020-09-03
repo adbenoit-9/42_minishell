@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 23:41:16 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/04 00:50:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ typedef void     (*t_function)(t_stock **, char **);
 void 	set_input(char *str, char **input);
 int 	parsing(char *str, t_stock **cmd_lst);
 int		ft_error(t_stock *cmd_lst);
-// size_t	ft_strlen(const char *s);
-// int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		save_cmd(char *str, t_stock **cmd_lst, int cmd);
 t_stock	*ft_stocknew(int cmd);
 void	ft_stockadd_back(t_stock **alst, t_stock *new);
