@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 22:59:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/07 19:58:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static size_t	define_size(char *str)
 	char quote;
 
 	size = 0;
-	while (str[size] == ' ')
-		++size;
 	while (str[size] &&  str[size] != '>' && str[size] != '<' &&
 	str[size] != ';' && str[size] != '|' && ft_strncmp(str + size, "&&", 2) != 0)
 	{
@@ -68,19 +66,18 @@ int			save_cmd(char *str, t_stock **cmd_lst, int cmd)
 	int		j;
 
 	new = ft_stocknew(cmd);
-	size = define_size(str);
-	if (!(new->input = malloc(size + 1)))
-		return (ft_error(*cmd_lst));
-	i = -1;
 	j = 0;
 	while (str[j] == ' ')
 		++j;
+	size = define_size(str + j - 1);
+	if (!(new->input = malloc(size + 1)))
+		return (ft_error(*cmd_lst));
+	i = -1;
 	while (++i < size - 1)
 		new->input[i] = str[j + i];
 	new->input[i] = 0;
-	if (i != 0 && new->input[i - 1] == '\n')
-		new->input[i - 1] = 0;
 	i += set_sep(str + j + i, &new);
+	printf("%s\n", new->input);
 	if (cmd != UNKNOW)
 		set_input(new->input, &new->input);
 	ft_stockadd_back(cmd_lst, new);
