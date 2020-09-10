@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int parsing(char *str, t_stock **cmd_lst)
+int parsing(char *str, t_stock **cmd_lst, char *envp[])
 {
     int		i;
     int		j;
@@ -29,10 +29,10 @@ int parsing(char *str, t_stock **cmd_lst)
 		size = ft_strlen(cmd_str[i]);
         if (ft_strncmp(cmd_str[i], str + j, size) == 0 &&
 		(str[j + size] == ' ' || str[j + size] == '\n'))
-            return (save_cmd(str + j + size, cmd_lst, i));
+            return (save_cmd(str + j + size, cmd_lst, i, envp));
         i++;
     }
 	if (str[j] && str[j] != '\n' && i == UNKNOW)
-		return (save_cmd(str + j, cmd_lst, i));
+		return (save_cmd(str + j, cmd_lst, i, envp));
 	return (0);
 }

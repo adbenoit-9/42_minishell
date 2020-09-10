@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/04 00:50:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/10 17:46:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ typedef struct	s_stock
 
 typedef void     (*t_function)(t_stock **, char **);
 
-void 	set_input(char *str, char **input);
-int 	parsing(char *str, t_stock **cmd_lst);
+void	*ft_realloc(void *ptr, int newsize);
+char	**realloc_tab(char **ptr, int newsize);
+void 	set_input(char *str, char **input, char *envp[]);
+int 	parsing(char *str, t_stock **cmd_lst, char *envp[]);
 int		ft_error(t_stock *cmd_lst);
-int		save_cmd(char *str, t_stock **cmd_lst, int cmd);
+int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[]);
 t_stock	*ft_stocknew(int cmd);
 void	ft_stockadd_back(t_stock **alst, t_stock *new);
 void    execute(t_stock **cmd, char *envp[]);
@@ -67,8 +69,8 @@ void    ft_env(t_stock **cmd_lst, char *envp[]);
 void    ft_export(t_stock **cmd_lst, char *envp[]);
 void    ft_unset(t_stock **cmd_lst, char *envp[]);
 void    ft_echo(t_stock **cmd_lst, char *envp[]);
-int		deal_dollar(char *str, char **input, int *j);
+int		deal_dollar(char *str, char **input, int *j, char *envp[]);
 int		deal_simple_quote(char *str, char **input, int *j, int dollar);
-int		deal_double_quote(char *str, char **input, int *j);
+int		deal_double_quote(char *str, char **input, int *j, char *envp[]);
 
 #endif

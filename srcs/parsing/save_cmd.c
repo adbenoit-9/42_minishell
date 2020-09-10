@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 15:50:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/10 17:47:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static size_t	define_size(char *str)
 	return (size);
 }
 
-int			save_cmd(char *str, t_stock **cmd_lst, int cmd)
+int			save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	size;
@@ -80,10 +80,10 @@ int			save_cmd(char *str, t_stock **cmd_lst, int cmd)
 	new->input[i] = 0;
 	i += set_sep(str + j + i, &new);
 	if (cmd != UNKNOW)
-		set_input(new->input, &new->input);
+		set_input(new->input, &new->input, envp);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[i])
-		return (parsing(str + j + i, cmd_lst));
+		return (parsing(str + j + i, cmd_lst, envp));
 	else
 		return (0);
 }

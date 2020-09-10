@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/09/07 18:32:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/10 17:51:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ int main(int argc, char *argv[], char *envp[])
 		ret = read(0, buffer, 4098);
 		buffer[ret] = 0;
 		cmd_lst = NULL;
-		parsing(buffer, &cmd_lst);
+		parsing(buffer, &cmd_lst, envp);
 		execute(&cmd_lst, envp);
 		tmp = cmd_lst;
+		printf("%sinput:%s\n", "\033[1;4;34m", "\033[0m");
 		while (tmp)
 		{
-			printf("%sinput:%s ", "\033[1;4;34m", "\033[0m");
 			printf("%s\n", tmp->input);
-			printf("%soutput:%s ", "\033[1;4;34m", "\033[0m");
+			tmp = tmp->next;
+		}
+		tmp = cmd_lst;
+		printf("%soutput:%s\n", "\033[1;4;34m", "\033[0m");
+		while (tmp)
+		{
 			printf("%s\n", tmp->output);
 			tmp = tmp->next;
 		}

@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/04 00:30:40 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/10 16:26:34 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CMD_PATH 	= srcs/cmd/
 PARS_PATH 	= srcs/parsing/
 
 SRCS		=	ft_error.c		main.c \
-				execute.c		lst_utils.c
+				execute.c		lst_utils.c\
+				ft_realloc.c
 
 CMD 		=	ft_cd.c			ft_env.c \
 				ft_export.c		ft_echo.c \

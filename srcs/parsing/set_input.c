@@ -24,7 +24,7 @@ int		deal_space(char *str, char **input, int *j)
 	return (i);
 }
 
-void 	set_input(char *str, char **input)
+void 	set_input(char *str, char **input, char *envp[])
 {
 	int	i;
 	int j;
@@ -43,9 +43,9 @@ void 	set_input(char *str, char **input)
 		else if (str[i] == '\'')
 			i += deal_simple_quote(str + i + 1, input, &j, 0);
 		else if (str[i] == '\"')
-			i += deal_double_quote(str + i + 1, input, &j);
+			i += deal_double_quote(str + i + 1, input, &j, envp);
 		else if (str[i] == '$')
-			i += deal_dollar(str + i + 1, input, &j);
+			i += deal_dollar(str + i + 1, input, &j, envp);
 		else
 			(*input)[j++] = str[i];
 	}
