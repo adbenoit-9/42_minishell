@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 17:45:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/10 18:46:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_var(char *var,char **input, int k, char *envp[])
+static int	get_var(char *var,char **input, int k, char *envp[])
 {
 	int	i;
 	int	j;
@@ -22,17 +22,10 @@ static int	find_var(char *var,char **input, int k, char *envp[])
 	i = 0;
 	size = ft_strlen(var);
 	size_var = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], var, size) == 0 && envp[i][size] == '=')
-		{
-			j = size - 1;
-			while (envp[i][++j])
-				++size_var;
-			break ;
-		}
-		++i;
-	}
+	i = find_var(envp, var);
+	j = 0;
+	while (envp[i][++j])
+		++size_var;
 	if (size_var > size)
 		*input = ft_realloc(*input, ft_strlen(*input) + size_var - size + 1);
 	j = size;
@@ -68,10 +61,11 @@ static int		deal_var(char *str, char **input, int *j, char *envp[])
 		++i;
 	}
 	var[k] = 0;
-	*j = find_var(var, input, *j, envp);
+	*j = get_var(var, input, *j, envp);
 	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
 	// printf("var = %s, %p\n", var, &var);
 	// free(var);
+	// var = NULL;
 	// printf("var = %s, %p\n", var, &var);
 	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
 	return (i);

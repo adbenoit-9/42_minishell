@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -21,12 +22,11 @@ int    ft_arg_env(t_stock **cmd_lst)
     ret = 0;
     str = NULL;
     new = NULL;
-    if ((*cmd_lst)->input[0] != '\n')
+    if ((*cmd_lst)->input[0] != '\0')
     {
         ret = 1;
         str = strdup("env: ");
         new = ft_strjoin(str, (*cmd_lst)->input);
-        new[ft_strlen(new) - 1] = '\0';
         free(str);
         str = ft_strjoin(new, ": error (argument management for 'env' not required)\n");
         free(new);

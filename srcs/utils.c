@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 18:11:25 by mabriand         ###   ########.fr       */
+/*   Created: 2020/09/10 18:46:33 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/09/10 18:46:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_pwd(t_stock **cmd_lst, char *envp[])
+int			find_var(char *envp[], char *var)
 {
-    size_t  size;
-    char    *buf;
+	int	i;
+	int size;
 
-    size = 0;
-    buf = NULL;
-    (void)envp;
-    //(*cmd_lst)->ret = 0; on sait pas à quoi ca sert
-    (*cmd_lst)->output = getcwd(buf, size);
-    return ;
+	size = ft_strlen(var);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], var, size) == 0)
+			return (i);
+		++i;
+	}
+	return (-1);
 }
