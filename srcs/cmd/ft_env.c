@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_cmd.c                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 22:52:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/10 17:45:22 by mabriand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@ int    ft_arg_env(t_stock **cmd_lst)
     int     ret;
     char    *str;
     char    *new;
-    
+
     ret = 0;
     str = NULL;
     new = NULL;
-    if ((*cmd_lst)->input != '\0')
+    if ((*cmd_lst)->input[0] != '\n')
     {
         ret = 1;
         str = strdup("env: ");
-        new = ft_strjoin(str, (*cmd_lst)->input); // il faut supprimer le '\n' de l'input
+        new = ft_strjoin(str, (*cmd_lst)->input);
+        new[ft_strlen(new) - 1] = '\0';
         free(str);
         str = ft_strjoin(new, ": error (argument management for 'env' not required)\n");
         free(new);
         (*cmd_lst)->output = str;
-        // str final (passé à (*cmd_lst)->output) à FREE à la fin 
+        // str final (passé à (*cmd_lst)->output) à FREE à la fin
         // (donc pas dans cette fonction forcément mais ici il y a forcément un LEAK!
 
         //(*cmd_lst)->ret = 1; ça pour le moment on sait pas trop pk l'utiliser
@@ -44,7 +45,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     char    *str;
     char    *new;
     int     index;
-   
+
     str = NULL;
     new = NULL;
     index = 0;
@@ -67,7 +68,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     new = ft_strjoin(str, "\n");
     free(str);
     (*cmd_lst)->output = new;
-    // new final (passé à (*cmd_lst)->output) à FREE à la fin 
+    // new final (passé à (*cmd_lst)->output) à FREE à la fin
     // (donc pas dans cette fonction forcément mais ici il y a forcément un LEAK!
     return ;
 }
