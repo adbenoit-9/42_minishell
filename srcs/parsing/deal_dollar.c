@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 18:46:48 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/11 17:03:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int		deal_var(char *str, char **input, int *j, char *envp[])
 	// free(var);
 	// var = NULL;
 	// printf("var = %s, %p\n", var, &var);
-	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
+	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, str, str[i]);
 	return (i);
 }
 
