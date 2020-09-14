@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 17:16:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:55:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		++j;
 	size = define_size(str + j);
 	if (!(new->input = malloc(size + 1)))
-		return (ft_error(*cmd_lst));
+		return (ft_error(cmd_lst));
 	i = -1;
 	while (++i < size - 1)
 		new->input[i] = str[j + i];
