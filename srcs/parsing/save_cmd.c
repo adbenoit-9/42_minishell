@@ -6,17 +6,17 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 15:38:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:16:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_sep(char *str, t_stock **cmd_lst)
+static int		set_sep(char *str, t_stock **cmd_lst)
 {
-	char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>", "<<", "&&", "||"};
-	int	 i;
-	int	 size;
+	static char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>", "<<", "&&", "||"};
+	int			i;
+	int			size;
 
 	i = 0;
 	while (i < NUM_SEP)
@@ -37,12 +37,12 @@ static int	set_sep(char *str, t_stock **cmd_lst)
 
 static size_t	define_size(char *str)
 {
-	size_t size;
-	char quote;
+	size_t	size;
+	char	quote;
 
 	size = 0;
-	while (str[size] &&  str[size] != '>' && str[size] != '<' &&
-	str[size] != ';' && str[size] != '|' && ft_strncmp(str + size, "&&", 2) != 0)
+	while (str[size] && str[size] != '>' && str[size] != '<' && str[size]
+	!= ';' && str[size] != '|' && ft_strncmp(str + size, "&&", 2) != 0)
 	{
 		quote = 0;
 		if (str[size] == '\"' || str[size] == '\'')
@@ -60,7 +60,7 @@ static size_t	define_size(char *str)
 	return (size);
 }
 
-int			save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
+int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	size;

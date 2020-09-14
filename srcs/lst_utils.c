@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/03 23:52:16 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:19:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_stock	*ft_stocknew(int cmd)
+t_stock			*ft_stocknew(int cmd)
 {
 	t_stock	*list;
 
@@ -35,7 +35,7 @@ static t_stock	*ft_stocklast(t_stock *lst)
 	return (lst);
 }
 
-void	ft_stockadd_back(t_stock **alst, t_stock *new)
+void			ft_stockadd_back(t_stock **alst, t_stock *new)
 {
 	if (alst)
 	{

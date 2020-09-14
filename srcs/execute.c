@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                         :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/29 22:13:08 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/08/29 22:39:00 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/09/14 17:17:06 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/09/14 17:17:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    execute(t_stock **cmd_lst, char *envp[])
+void	execute(t_stock **cmd_lst, char *envp[])
 {
-    t_function	cmd_fct[NUM_CMD] = {ft_echo, ft_cd, ft_pwd, ft_env,
+	int					i;
+	static t_function	cmd_fct[NUM_CMD] = {ft_echo, ft_cd, ft_pwd, ft_env,
 									ft_export, ft_unset, ft_exit};
-    int			i;
 
-    i = 0;
-    if (!(*cmd_lst))
-        return ;
-    while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
-        ++i;
-    if (i == NUM_CMD)
-        return ;
-    if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
-        cmd_fct[i](cmd_lst, envp);
-    if ((*cmd_lst)->next)
-        execute(&(*cmd_lst)->next, envp);
+	i = 0;
+	if (!(*cmd_lst))
+		return ;
+	while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
+		++i;
+	if (i == NUM_CMD)
+		return ;
+	if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
+		cmd_fct[i](cmd_lst, envp);
+	if ((*cmd_lst)->next)
+		execute(&(*cmd_lst)->next, envp);
 }

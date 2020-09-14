@@ -6,16 +6,16 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 16:23:16 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:08:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_var(char *var,char **input, int k, char *envp[])
+static int	get_var(char *var, char **input, int k, char *envp[])
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	size_t	size;
 	size_t	size_var;
 
@@ -41,16 +41,17 @@ static int	get_var(char *var,char **input, int k, char *envp[])
 	return (k);
 }
 
-static int		deal_var(char *str, char **input, int *j, char *envp[])
+static int	deal_var(char *str, char **input, int *j, char *envp[])
 {
 	char	*var;
 	int		size;
 	int		i;
 	int		k;
-	
+
 	i = 0;
 	size = 0;
-	while ((str[size] > 47 && str[size] < 58) || (str[size] > 64 && str[size] < 89)|| (str[size] > 96 && str[size] < 123))
+	while ((str[size] > 47 && str[size] < 58) || (str[size] > 64 &&
+	str[size] < 89) || (str[size] > 96 && str[size] < 123))
 		++size;
 	if (!(var = malloc(size + 1)))
 		return (ft_error(NULL));
@@ -73,7 +74,7 @@ static int		deal_var(char *str, char **input, int *j, char *envp[])
 
 int			deal_dollar(char *str, char **input, int *j, char *envp[])
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	if (str[i] && str[i] != '$' && str[i] != ' ' && str[i] != '\\'

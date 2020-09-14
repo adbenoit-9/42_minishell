@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_input.c                                       :+:      :+:    :+:   */
+/*   set_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 17:37:39 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/02 16:51:53 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/09/14 17:16:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		deal_space(char *str, char **input, int *j)
 	return (i);
 }
 
-void 	set_input(char *str, char **input, char *envp[])
+void	set_input(char *str, char **input, char *envp[])
 {
 	int	i;
 	int j;

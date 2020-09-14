@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 17:46:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:10:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	special_char(char c, char **input, int *j, int len)
 {
-	int		i;
-	char	list[8] = "abntrvf\\";
-	char	become[8] = "\a\b\n\t\r\v\f\\";
+	int			i;
+	static char	list[8] = "abntrvf\\";
+	static char	become[8] = "\a\b\n\t\r\v\f\\";
 
 	i = 0;
 	while (i < 8)
@@ -31,34 +31,34 @@ static int	special_char(char c, char **input, int *j, int len)
 	}
 	if (c == '0')
 		return (len);
-    return (0);
+	return (0);
 }
 
 static int	len_simple_quote(char *str, int dollar)
 {
-    int len;
+	int len;
 
-    len = 0;
-    while (str[len] && str[len] != '\'')
-    {
-    	if (dollar == 1 && str[len] == '\\' && str[len + 1])
-            len += 2;
-    	else
-            ++len;
-    }
-    return (len);
+	len = 0;
+	while (str[len] && str[len] != '\'')
+	{
+		if (dollar == 1 && str[len] == '\\' && str[len + 1])
+			len += 2;
+		else
+			++len;
+	}
+	return (len);
 }
 
 int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 {
 	int i;
-    int len;
+	int len;
 
 	i = 0;
-    len = len_simple_quote(str, dollar);
+	len = len_simple_quote(str, dollar);
 	while (i < len)
 	{
-	    if (dollar == 1 && str[i] == '\\' && str[++i])
+		if (dollar == 1 && str[i] == '\\' && str[++i])
 			i += special_char(str[i], input, j, len);
 		else
 		{
