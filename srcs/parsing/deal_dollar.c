@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/11 17:03:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 16:23:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	get_var(char *var,char **input, int k, char *envp[])
 	i = 0;
 	size = ft_strlen(var);
 	size_var = 0;
-	i = find_var(envp, var);
+	if ((i = find_var(envp, var)) == -1)
+		return (k);
 	j = 0;
 	while (envp[i][++j])
 		++size_var;
@@ -49,8 +50,7 @@ static int		deal_var(char *str, char **input, int *j, char *envp[])
 	
 	i = 0;
 	size = 0;
-	while (str[size] && str[size] != '\'' && str[size] != '\"'
-	&& str[size] != '$' && str[size] != ' ')
+	while ((str[size] > 47 && str[size] < 58) || (str[size] > 64 && str[size] < 89)|| (str[size] > 96 && str[size] < 123))
 		++size;
 	if (!(var = malloc(size + 1)))
 		return (ft_error(NULL));

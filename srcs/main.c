@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/09/14 15:47:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:57:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int main(int argc, char *argv[], char *envp[])
 		}
 		free(cmd_lst);
 		cmd_lst = NULL;
-		printf("%sReal input:%s\n", "\033[1;4;34m", "\033[0m");
-		system(buffer);
+		// printf("%sReal input:%s\n", "\033[1;4;34m", "\033[0m");
+		// system(buffer);
 	}
 	return (0);
 }

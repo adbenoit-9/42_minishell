@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:46:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 18:48:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 16:14:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int			find_var(char *envp[], char *var)
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], var, size) == 0)
+		if (ft_strncmp(envp[i], var, size) == 0 && envp[i][size] == '=')
 			return (i);
 		++i;
 	}
 	return (-1);
 }
+   
