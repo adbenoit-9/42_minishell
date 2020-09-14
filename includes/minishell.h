@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 18:46:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:10:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define MINISHELL_H
 
 #define ECHO 0
-#define ECHO_N 8
 #define CD 1
 #define PWD 2
 #define ENV 3
@@ -74,5 +73,6 @@ int		deal_dollar(char *str, char **input, int *j, char *envp[]);
 int		deal_simple_quote(char *str, char **input, int *j, int dollar);
 int		deal_double_quote(char *str, char **input, int *j, char *envp[]);
 int		find_var(char *envp[], char *var);
+char    *output_error(char *cmd, char *arg, char *err);
 
 #endif

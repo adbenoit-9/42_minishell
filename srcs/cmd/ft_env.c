@@ -16,21 +16,12 @@
 int    ft_arg_env(t_stock **cmd_lst)
 {
     int     ret;
-    char    *str;
-    char    *new;
 
     ret = 0;
-    str = NULL;
-    new = NULL;
     if ((*cmd_lst)->input[0] != '\0')
     {
         ret = 1;
-        str = strdup("env: ");
-        new = ft_strjoin(str, (*cmd_lst)->input);
-        free(str);
-        str = ft_strjoin(new, ": error (argument management for 'env' not required)\n");
-        free(new);
-        (*cmd_lst)->output = str;
+        (*cmd_lst)->output = output_error("env: ", (*cmd_lst)->input, ": error (argument management for 'env' not required)\n");
         // str final (passé à (*cmd_lst)->output) à FREE à la fin
         // (donc pas dans cette fonction forcément mais ici il y a forcément un LEAK!
 

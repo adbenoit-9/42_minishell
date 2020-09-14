@@ -32,7 +32,7 @@ int parsing(char *str, t_stock **cmd_lst, char *envp[])
             return (save_cmd(str + j + size, cmd_lst, i, envp));
         i++;
     }
-	if (str[j] && str[j] != '\n' && i == UNKNOW)
+    if (str[j] && str[j] != '\n' && i == UNKNOW)
 		return (save_cmd(str + j, cmd_lst, i, envp));
 	return (0);
 }

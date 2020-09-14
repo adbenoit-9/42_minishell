@@ -19,10 +19,12 @@ void    execute(t_stock **cmd_lst, char *envp[])
     int			i;
 
     i = 0;
+    if (!(*cmd_lst))
+        return ;
     while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
         ++i;
     if (i == NUM_CMD)
-        ft_error(NULL);
+        return ;
     if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
         cmd_fct[i](cmd_lst, envp);
     if ((*cmd_lst)->next)
