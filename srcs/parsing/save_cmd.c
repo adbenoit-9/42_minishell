@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 15:54:40 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 19:30:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	while (str[i] == ' ')
 		++i;
 	size = define_size(str + i);
-	if (!(new->input = malloc(size + 1)))
+	if (!(new->input = malloc(size)))
 		return (ft_error(cmd_lst));
 	new->input = ft_strncpy(new->input, str + i, size);
 	size += set_sep(str + i + size, &new);
 	if (cmd != UNKNOW)
 		set_input(new->input, &new->input, envp);
+	// if (!(new->input = ft_realloc(new->input, ft_strlen(new->input))))
+	// 	ft_error(cmd_lst);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[size])
 		return (parsing(str + i + size, cmd_lst, envp));
