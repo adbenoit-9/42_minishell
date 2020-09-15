@@ -6,31 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 16:14:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 16:34:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	get_var(char *var, char **input, int j, char *envp[])
-{
-	int		i;
-	size_t	k;
-	size_t	len;
-
-	if ((i = find_var(envp, var)) == -1)
-		return (j);
-	k = ft_strlen(var);
-	len = ft_strlen(envp[i]);
-	if (len > k)
-		*input = ft_realloc(*input, ft_strlen(*input) + len - k + 1);
-	while (envp[i][++k])
-	{
-		(*input)[j] = envp[i][k];
-		++j;
-	}
-	return (j);
-}
 
 static int	deal_var(char *str, char **input, int *j, char *envp[])
 {
@@ -44,7 +24,7 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 	if (!(var = malloc(i + 1)))
 		return (ft_error(NULL));
 	var = ft_strncpy(var, str, i);
-	*j = get_var(var, input, *j, envp);
+	*input = replace_var_by_value(var, envp, *input, j);
 	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
 	// printf("var = %s, %p\n", var, &var);
 	// free(var);

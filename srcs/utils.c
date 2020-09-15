@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:46:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 17:19:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 16:32:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			find_var(char *envp[], char *var)
+int		find_var(char *envp[], char *var)
 {
 	int	i;
 	int size;
@@ -26,4 +26,24 @@ int			find_var(char *envp[], char *var)
 		++i;
 	}
 	return (-1);
+}
+
+char	*replace_var_by_value(char *var, char *envp[], char *value, int *start)
+{
+	int		i;
+	size_t	k;
+	size_t	len;
+
+	if ((i = find_var(envp, var)) == -1)
+		return (value);
+	k = ft_strlen(var);
+	len = ft_strlen(envp[i]);
+	if (len > k)
+		value = ft_realloc(value, ft_strlen(value) + len - k + 1);
+	while (envp[i][++k])
+	{
+		value[*start] = envp[i][k];
+		++(*start);
+	}
+	return (value);
 }
