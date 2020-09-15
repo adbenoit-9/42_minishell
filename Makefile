@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/15 19:30:38 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/15 20:59:04 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ $(LIB) :
 
 $(NAME) : $(OBJS)
 	@printf "\n"
-	@$(CC) -o $(NAME) $(OBJS) $(LIB)
+	@$(CC) -o $(NAME) $(OBJS) $(LIB) -g3 -fsanitize=address
 	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
 
 $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c $(HEADER)

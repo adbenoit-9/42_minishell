@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 16:34:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 20:57:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,11 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 		++i;
 	if (!(var = malloc(i + 1)))
 		return (ft_error(NULL));
-	var = ft_strncpy(var, str, i);
+	ft_strncpy(var, str, i);
+	var[i] = 0;
 	*input = replace_var_by_value(var, envp, *input, j);
-	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
-	// printf("var = %s, %p\n", var, &var);
-	// free(var);
-	// var = NULL;
-	// printf("var = %s, %p\n", var, &var);
-	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, str, str[i]);
+	free(var);
+	var = NULL;
 	return (i);
 }
 

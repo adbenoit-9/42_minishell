@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 19:30:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 21:05:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	size;
+	size_t	len;
+	char	*input;
 	t_stock	*new;
 
 	new = ft_stocknew(cmd);
@@ -71,14 +73,19 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	while (str[i] == ' ')
 		++i;
 	size = define_size(str + i);
-	if (!(new->input = malloc(size)))
+	if (!(new->input = malloc(size + 1)))
 		return (ft_error(cmd_lst));
-	new->input = ft_strncpy(new->input, str + i, size);
+	ft_strncpy(new->input, str + i, size);
+	new->input[size] = 0;
+	input = ft_strdup(new->input);
 	size += set_sep(str + i + size, &new);
 	if (cmd != UNKNOW)
-		set_input(new->input, &new->input, envp);
-	// if (!(new->input = ft_realloc(new->input, ft_strlen(new->input))))
-	// 	ft_error(cmd_lst);
+		set_input(input, &new->input, envp);
+	if ((len = ft_strlen(new->input)) != size)
+	{
+		if (!(new->input = ft_realloc(new->input, len + 1)))
+			ft_error(cmd_lst);
+	}
 	ft_stockadd_back(cmd_lst, new);
 	if (str[size])
 		return (parsing(str + i + size, cmd_lst, envp));
