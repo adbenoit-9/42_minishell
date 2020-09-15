@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 17:54:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 15:55:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_stock			*ft_stocknew(int cmd)
 		return (NULL);
 	list->cmd = cmd;
 	list->ret = 0;
+	list->sep = NONE;
 	list->output = NULL;
 	list->input = NULL;
 	list->next = NULL;

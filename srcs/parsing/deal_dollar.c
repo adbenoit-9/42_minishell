@@ -6,62 +6,44 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 18:01:23 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/15 16:14:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_var(char *var, char **input, int k, char *envp[])
+static int	get_var(char *var, char **input, int j, char *envp[])
 {
 	int		i;
-	int		j;
-	size_t	size;
-	size_t	size_var;
+	size_t	k;
+	size_t	len;
 
-	i = 0;
-	size = ft_strlen(var);
-	size_var = 0;
 	if ((i = find_var(envp, var)) == -1)
-		return (k);
-	j = 0;
-	while (envp[i][++j])
-		++size_var;
-	if (size_var > size)
-		*input = ft_realloc(*input, ft_strlen(*input) + size_var - size + 1);
-	j = size;
-	if (envp[i])
+		return (j);
+	k = ft_strlen(var);
+	len = ft_strlen(envp[i]);
+	if (len > k)
+		*input = ft_realloc(*input, ft_strlen(*input) + len - k + 1);
+	while (envp[i][++k])
 	{
-		while (envp[i][++j])
-		{
-			(*input)[k] = envp[i][j];
-			++k;
-		}
+		(*input)[j] = envp[i][k];
+		++j;
 	}
-	return (k);
+	return (j);
 }
 
 static int	deal_var(char *str, char **input, int *j, char *envp[])
 {
 	char	*var;
-	int		size;
 	int		i;
-	int		k;
 
 	i = 0;
-	size = 0;
-	while ((str[size] > 47 && str[size] < 58) || (str[size] > 64 &&
-	str[size] < 89) || (str[size] > 96 && str[size] < 123))
-		++size;
-	if (!(var = malloc(size + 1)))
-		return (ft_error(NULL));
-	k = -1;
-	while (++k < size)
-	{
-		var[k] = str[i];
+	while ((str[i] > 47 && str[i] < 58) || (str[i] > 64 &&
+	str[i] < 89) || (str[i] > 96 && str[i] < 123))
 		++i;
-	}
-	var[k] = 0;
+	if (!(var = malloc(i + 1)))
+		return (ft_error(NULL));
+	var = ft_strncpy(var, str, i);
 	*j = get_var(var, input, *j, envp);
 	// printf("i = %d, str = %s | %p, c = \"%c\"\n", i, str, &str, str[i]);
 	// printf("var = %s, %p\n", var, &var);
