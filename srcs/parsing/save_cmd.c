@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 15:29:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/16 17:55:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static size_t	define_size(char *str)
 		while (quote != 0 && str[size] && (str[size] != quote ||
 		(size != 0 && str[size - 1] == '\\' && str[size] == quote)))
 			++size;
-		++size;
+		if (str[size])
+			++size;
 	}
 	if (str[size])
 		return (size);

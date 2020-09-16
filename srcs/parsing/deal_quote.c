@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 15:28:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/16 16:56:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
 			++i;
 		}
 	}
-	return (len + 1);
+	if (str[i] == '\'')
+		return (len + 1);
+	(*cmd_lst)->err = 1;
+	return (len);
 }
 
 int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *envp[])
@@ -91,5 +94,8 @@ int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *envp[])
 			++(*j);
 		}
 	}
-	return (i + 1);
+	if (str[i] == '\"')
+		return (i + 1);
+	(*cmd_lst)->err = 1;
+	return (i);
 }
