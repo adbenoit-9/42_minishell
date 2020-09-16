@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/15 20:59:04 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/16 14:37:35 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ PARS 		=	parsing.c		deal_quote.c \
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
 LIB_DIR		=	libft
 
@@ -60,7 +60,7 @@ $(LIB) :
 
 $(NAME) : $(OBJS)
 	@printf "\n"
-	@$(CC) -o $(NAME) $(OBJS) $(LIB) -g3 -fsanitize=address
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) 
 	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
 
 $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c $(HEADER)

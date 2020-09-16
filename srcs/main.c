@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/09/15 20:28:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/16 14:44:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int main(int argc, char *argv[], char *envp[])
 		printf("%soutput:%s\n", "\033[1;4;34m", "\033[0m");
 		while (tmp)
 		{
-			printf("%s", tmp->output);
+			if ( tmp->output)
+				printf("%s", tmp->output);
 			tmp = tmp->next;
 		}
 		ft_stockclear(&cmd_lst, clear_one);

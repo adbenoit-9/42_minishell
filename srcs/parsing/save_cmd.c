@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 21:05:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:29:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	input = ft_strdup(new->input);
 	size += set_sep(str + i + size, &new);
 	if (cmd != UNKNOW)
-		set_input(input, &new->input, envp);
+		set_input(input, &new, envp);
 	if ((len = ft_strlen(new->input)) != size)
 	{
 		if (!(new->input = ft_realloc(new->input, len + 1)))

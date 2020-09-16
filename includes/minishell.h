@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 16:33:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:25:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_stock
 	int				cmd;
 	int				sep;
 	int				ret;
+	int				err;
 	struct s_stock	*next;
 }				t_stock;
 
@@ -55,7 +56,7 @@ typedef void     (*t_function)(t_stock **, char **);
 
 void	*ft_realloc(void *ptr, int newsize);
 char	**realloc_tab(char **ptr, int newsize);
-void 	set_input(char *str, char **input, char *envp[]);
+void 	set_input(char *str, t_stock **cmd_lst, char *envp[]);
 int 	parsing(char *str, t_stock **cmd_lst, char *envp[]);
 int		ft_error(t_stock **cmd_lst);
 int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[]);
@@ -69,13 +70,14 @@ void    ft_env(t_stock **cmd_lst, char *envp[]);
 void    ft_export(t_stock **cmd_lst, char *envp[]);
 void    ft_unset(t_stock **cmd_lst, char *envp[]);
 void    ft_echo(t_stock **cmd_lst, char *envp[]);
-int		deal_dollar(char *str, char **input, int *j, char *envp[]);
-int		deal_simple_quote(char *str, char **input, int *j, int dollar);
-int		deal_double_quote(char *str, char **input, int *j, char *envp[]);
+int		deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[]);
+int		deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar);
+int		deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *envp[]);
 int		find_var(char *envp[], char *var);
 char    *output_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
 char	*replace_var_by_value(char *var, char *envp[], char *value, int *start);
+int		ft_isalphanum(char c);
 
 #endif
