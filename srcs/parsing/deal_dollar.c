@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 16:46:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:09:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ int			deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[])
 		if (str[i] == '}')
 			++i;
 		else
-			(*cmd_lst)->err = 1;	
+			(*cmd_lst)->err = 1;
 	}
 	else
 	{
 		(*cmd_lst)->input[*j] = str[i - 1];
-		++(*j);
-		(*cmd_lst)->input[*j] = str[i];
+		(*cmd_lst)->input[*j + 1] = str[i];
 		++i;
-		++(*j);
+		*j += 2;
 	}
 	return (i);
 }

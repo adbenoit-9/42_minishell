@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/09/16 14:44:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:14:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[], char *envp[])
 		printf("%sinput:%s\n", "\033[1;4;34m", "\033[0m");
 		while (tmp)
 		{
-			printf("%s\n", tmp->input);
+			printf("%s|\n", tmp->input);
 			tmp = tmp->next;
 		}
 		tmp = cmd_lst;

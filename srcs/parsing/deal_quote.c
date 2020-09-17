@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 16:56:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 14:09:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
 	return (len);
 }
 
-int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *envp[])
+int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *env[])
 {
 	int i;
 
@@ -81,11 +81,11 @@ int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *envp[])
 	while (str[++i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-			i += deal_dollar(str + i + 1, cmd_lst, j, envp);
-		else if (str[i] == '\\' && str[i + 1] == '\"')
+			i += deal_dollar(str + i + 1, cmd_lst, j, env);
+		else if (str[i] == '\\' && (str[i + 1] == '\"' || str[i + 1] == '\\'))
 		{
 			++i;
-			(*cmd_lst)->input[*j] = '\"';
+			(*cmd_lst)->input[*j] = str[i];
 			++(*j);
 		}
 		else if (str[i] != '\"')

@@ -1,2 +1,12 @@
    echo \a-phrase simple \n$'\n'$'-carateres speciaux activés:\n\0apparait pas''-non activé:\t', "non activé:\t" '|' ; echo   - "$HOME " $'\n'-\\n '$var2'     $'\n'-$LANG$'\n'- $"\'$var4"$'\n'- $'\'$var5'$'\n'-'\n' $'var6'$'\\\n'-   $"var7"      ;    echo -"'""phrase:'entre guillemets'ok"\\//\\$'\n- suite de caracteres speciaux: \n\"\ttab\"\"\"\"'; echo -test guillemets: $'\n''\'', '\'', \', \", '\"', "\"", "\'"
+
+
+
+echo "bonjour\toi" ; echo "bonjour\\toi" ; echo "bonjour\"toi" ; echo "bonjour\'toi"	; echo "bonjour'toi"; echo bonjour\toi	 ; echo bonjour\\toi	; echo bonjour\"toi	; echo   bonjour\'toi	; echo  bonjour\ toi	; echo 'bonjour\toi';echo 'bonjour\\toi'	;echo 'bonjour\"toi'; echo 'bonjour"toi'; echo '\bonjourtoi'
+
+echo $var bonjour ; echo "" bonjour ; echo "12\"" ; echo bonjour \; ls
+
+echo ; echo simple ; echo -n simple ; echo simple text ; echo $HOME ; echo "$HOME" ; echo '$HOME' ; echo '\' ; echo "\\" ; echo "\n \n \n" ; echo "\n \\n \\\n" ; echo hi; echo hihi; echo hi";" hihi ; echo hi "   ;   " hihi
+
+echo one; echo two; echo three;
    

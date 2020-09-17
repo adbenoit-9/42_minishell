@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/14 18:04:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:02:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,18 @@
 void	ft_echo(t_stock **cmd_lst, char *envp[])
 {
 	int	i;
+	int	n;
 
 	(void)envp;
 	i = 0;
-	if (ft_strncmp((*cmd_lst)->input, "-n ", 3) == 0)
-		(*cmd_lst)->output = ft_strdup((*cmd_lst)->input + 3);
+	n = 0;
+	while (ft_strncmp((*cmd_lst)->input + i, "-n ", 3) == 0)
+	{
+		++n;
+		i += 3;
+	}
+	if (n > 0)
+		(*cmd_lst)->output = ft_strdup((*cmd_lst)->input + i);
 	else
 		(*cmd_lst)->output = ft_strjoin((*cmd_lst)->input, "\n");
 	if (!((*cmd_lst)->output))

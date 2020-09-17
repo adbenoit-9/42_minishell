@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 16:58:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 15:57:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int		deal_space(char *str, char *input, int *j)
 {
 	int i;
 
-	input[*j] = ' ';
-	++(*j);
 	i = 0;
 	while (str[i] == ' ')
 		i++;
+	if (str[i])
+	{
+		input[*j] = ' ';
+		++(*j);
+	}
 	return (i);
 }
 
