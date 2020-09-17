@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 16:07:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/17 18:38:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,18 @@ static char		*separate_cmd(char *cmd, int k, char *str, size_t *i)
 	return (cmd);
 }
 
+static void		update_input(char **new_input, char *old_input, size_t *len, char *unknow)
+{
+	if ((len[1] = ft_strlen(*new_input)) != len[0])
+		*new_input = ft_realloc(*new_input, len[1] + 1);
+	free(old_input);
+	old_input = ft_strdup(*new_input);
+	if (unknow)
+		*new_input = ft_strjoin(unknow, old_input);
+	free(old_input);
+	free(unknow);
+}
+
 int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
@@ -100,17 +112,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	len[0] += set_sep(str + i + len[0], &new);
 	if (cmd != UNKNOW)
 		set_input(input, &new, envp);
-	if ((len[1] = ft_strlen(new->input)) != len[0])
-	{
-		if (!(new->input = ft_realloc(new->input, len[1] + 1)))
-			ft_error(cmd_lst);
-	}
-	free(input);
-	input = ft_strdup(new->input);
-	if (unknow)
-		new->input = ft_strjoin(unknow, input);
-	free(input);
-	free(unknow);
+	update_input(&new->input, input, len, unknow); //protection malloc
 	ft_stockadd_back(cmd_lst, new);
 	if (str[len[0]])
 		return (parsing(str + i + len[0], cmd_lst, envp));
