@@ -6,44 +6,49 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/18 13:58:28 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 14:58:38 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		set_sep(char *str, t_stock **cmd_lst)
+static char		*get_unknow_cmd(char *cmd, int k, char *str, size_t *i)
 {
-	static char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>", "<<", "&&", "||"};
-	int			i;
-	int			size;
+	int		len;
 
-	i = 0;
-	while (i < NUM_SEP)
+	len = 0;
+	if (k == UNKNOW)
 	{
-		size = i < 4 ? 1 : 2;
-		if (ft_strncmp(sep[i], str, size) == 0)
-		{
-			(*cmd_lst)->sep = i;
-			while (str[size] == ' ')
-				++size;
-			return (size);
-		}
-		i++;
+		while (str[len + *i] && ft_isspace(str[len + *i]) == 0)
+			++len;
+		if (str[len - 1] == '\n')
+			--len;
+		cmd = ft_strndup(str + *i, len);
+		(*i) += len;
+		while (ft_isspace(str[*i]) == 1)
+			++(*i);
 	}
-	(*cmd_lst)->sep = NONE;
-	return (0);
+	return (cmd);
 }
 
-int				ft_issep(char c, char before)
+static void		add_unknow_cmd(char *input, char **new_input, char *cmd)
 {
-	if (c != '>' && c != '<' && c != ';' && c != '|' && c != '&')
-		return (0);
-	if (before == '\\')
-		return (0);
-	return (1);
+	if (cmd)
+	{
+		input = ft_strdup(*new_input);
+		if (input && input[0])
+		{
+			cmd = ft_strjoin(cmd, " ");
+			*new_input = ft_strjoin(cmd, input);
+		}
+		else
+			*new_input = ft_strdup(cmd);
+		free(cmd);
+		free(input);
+	}
 }
-static size_t	define_len(char *str)
+
+static size_t	get_input(char *str, char **input, t_stock **new)
 {
 	size_t	len;
 	char	quote;
@@ -66,26 +71,10 @@ static size_t	define_len(char *str)
 	}
 	if (str[len - 1] == '\n')
 		--len;
+	(*new)->input = ft_strndup(str, len);
+	*input = ft_strdup((*new)->input);
+	len += set_sep(str + len, new);
 	return (len);
-}
-
-static char		*separate_cmd(char *cmd, int k, char *str, size_t *i)
-{
-	int		len;
-
-	len = 0;
-	if (k == UNKNOW)
-	{
-		while (str[len + *i] && ft_isspace(str[len + *i]) == 0)
-			++len;
-		if (str[len - 1] == '\n')
-			--len;
-		cmd = ft_strndup(str + *i, len);
-		(*i) += len;
-		while (ft_isspace(str[*i]) == 1)
-			++(*i);
-	}
-	return (cmd);
 }
 
 int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
@@ -102,32 +91,14 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		++i;
 	unknow = NULL;
 	input = NULL;
-	unknow = separate_cmd(unknow, cmd, str, &i);
-	len[0] = define_len(str + i);
-	new->input = ft_strndup(str + i, len[0]);
-	input = ft_strdup(new->input);
-	len[0] += set_sep(str + i + len[0], &new);
+	unknow = get_unknow_cmd(unknow, cmd, str, &i);
+	len[0] = get_input(str + i, &input, &new);
 	if (cmd != UNKNOW && new->input)
 		set_input(input, &new, envp);
 	if (new->input && (len[1] = ft_strlen(new->input)) != len[0])
-	{
-		if (!(new->input = ft_realloc(new->input, len[1] + 1)))
-			ft_error(cmd_lst);
-	}
+		new->input = ft_realloc(new->input, len[1] + 1);
 	free(input);
-	input = ft_strdup(new->input);
-	if (unknow)
-	{
-		if (input && input[0])
-		{
-			unknow = ft_strjoin(unknow, " ");
-			new->input = ft_strjoin(unknow, input);
-		}
-		else
-			new->input = ft_strdup(unknow);
-		free(unknow);
-	}
-	free(input);
+	add_unknow_cmd(input, &new->input, unknow);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[len[0]])
 		return (parsing(str + i + len[0], cmd_lst, envp));

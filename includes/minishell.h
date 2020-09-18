@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 14:10:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 14:41:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,7 @@ char    *output_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
 char	*replace_var_by_value(char *var, char *envp[], char *value, int *start);
+int		set_sep(char *str, t_stock **cmd_lst);
+int		ft_issep(char c, char before);
 
 #endif
