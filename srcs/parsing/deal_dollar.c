@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 14:09:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 14:18:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	deal_var(char *str, t_stock **cmd_lst, int *j, char *envp[])
 {
 	char	*var;
 	int		i;
+	int		k;
 
 	i = 0;
 	while ((str[i] > 47 && str[i] < 58) || (str[i] > 64 &&
@@ -25,7 +26,13 @@ static int	deal_var(char *str, t_stock **cmd_lst, int *j, char *envp[])
 		return (ft_error(cmd_lst));
 	ft_strncpy(var, str, i);
 	var[i] = 0;
+	k = *j;
 	(*cmd_lst)->input = replace_var_by_value(var, envp, (*cmd_lst)->input, j);
+	if (k == *j)
+	{
+		while (str[i] == ' ' || str[i] == '\t')
+			++i;
+	}
 	free(var);
 	var = NULL;
 	return (i);

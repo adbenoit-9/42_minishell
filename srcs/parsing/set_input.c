@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 15:57:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:51:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		deal_space(char *str, char *input, int *j)
 	int i;
 
 	i = 0;
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i])
 	{
@@ -36,7 +36,7 @@ void	set_input(char *str, t_stock **cmd_lst, char *envp[])
 	j = 0;
 	while (str[++i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '\t')
 			i += deal_space(str + i + 1, (*cmd_lst)->input, &j);
 		else if (str[i] == '\\')
 		{

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 18:38:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 13:58:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,38 @@ static int		set_sep(char *str, t_stock **cmd_lst)
 	return (0);
 }
 
+int				ft_issep(char c, char before)
+{
+	if (c != '>' && c != '<' && c != ';' && c != '|' && c != '&')
+		return (0);
+	if (before == '\\')
+		return (0);
+	return (1);
+}
 static size_t	define_len(char *str)
 {
-	size_t	size;
+	size_t	len;
 	char	quote;
 
-	size = 0;
-	while (str[size] && str[size] != '>' && str[size] != '<' && str[size]
-	!= ';' && str[size] != '|' && ft_strncmp(str + size, "&&", 2) != 0)
+	len = 0;
+	while (str[len] && ft_issep(str[len], str[len - 1]) == 0)
 	{
 		quote = 0;
-		if ((size == 0 || str[size - 1] != '\\') && (str[size] == '\"'
-		|| str[size] == '\''))
+		if ((len == 0 || str[len - 1] != '\\') && (str[len] == '\"'
+		|| str[len] == '\''))
 		{
-			quote = str[size];
-			++size;
+			quote = str[len];
+			++len;
 		}
-		while (quote != 0 && str[size] && (str[size] != quote || (size != 0 &&
-		str[size - 1] == '\\' && str[size - 2] != '\\' && str[size] == '\"')))
-			++size;
-		if (str[size])
-			++size;
+		while (quote != 0 && str[len] && (str[len] != quote || (len != 0 &&
+		str[len - 1] == '\\' && str[len - 2] != '\\' && str[len] == '\"')))
+			++len;
+		if (str[len])
+			++len;
 	}
-	if (str[size])
-		return (size);
-	return (size - 1);
+	if (str[len - 1] == '\n')
+		--len;
+	return (len);
 }
 
 static char		*separate_cmd(char *cmd, int k, char *str, size_t *i)
@@ -69,27 +76,16 @@ static char		*separate_cmd(char *cmd, int k, char *str, size_t *i)
 	len = 0;
 	if (k == UNKNOW)
 	{
-		while (str[len + *i] && str[len + *i] != ' ')
+		while (str[len + *i] && ft_isspace(str[len + *i]) == 0)
 			++len;
-		if (str[*i] == ' ')
-			++len;
-		++len;
+		if (str[len - 1] == '\n')
+			--len;
 		cmd = ft_strndup(str + *i, len);
 		(*i) += len;
+		while (ft_isspace(str[*i]) == 1)
+			++(*i);
 	}
 	return (cmd);
-}
-
-static void		update_input(char **new_input, char *old_input, size_t *len, char *unknow)
-{
-	if ((len[1] = ft_strlen(*new_input)) != len[0])
-		*new_input = ft_realloc(*new_input, len[1] + 1);
-	free(old_input);
-	old_input = ft_strdup(*new_input);
-	if (unknow)
-		*new_input = ft_strjoin(unknow, old_input);
-	free(old_input);
-	free(unknow);
 }
 
 int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
@@ -105,14 +101,33 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	while (str[i] == ' ')
 		++i;
 	unknow = NULL;
+	input = NULL;
 	unknow = separate_cmd(unknow, cmd, str, &i);
 	len[0] = define_len(str + i);
 	new->input = ft_strndup(str + i, len[0]);
 	input = ft_strdup(new->input);
 	len[0] += set_sep(str + i + len[0], &new);
-	if (cmd != UNKNOW)
+	if (cmd != UNKNOW && new->input)
 		set_input(input, &new, envp);
-	update_input(&new->input, input, len, unknow); //protection malloc
+	if (new->input && (len[1] = ft_strlen(new->input)) != len[0])
+	{
+		if (!(new->input = ft_realloc(new->input, len[1] + 1)))
+			ft_error(cmd_lst);
+	}
+	free(input);
+	input = ft_strdup(new->input);
+	if (unknow)
+	{
+		if (input && input[0])
+		{
+			unknow = ft_strjoin(unknow, " ");
+			new->input = ft_strjoin(unknow, input);
+		}
+		else
+			new->input = ft_strdup(unknow);
+		free(unknow);
+	}
+	free(input);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[len[0]])
 		return (parsing(str + i + len[0], cmd_lst, envp));
