@@ -61,7 +61,7 @@ int		ft_launch_process(char *cmd, char *envp[])
 	return (ret);
 }
 
-void    execute(t_stock **cmd_lst, char *envp[])
+int    execute(t_stock **cmd_lst, char *envp[])
 {
     t_function	cmd_fct[NUM_CMD] = {ft_echo, ft_cd, ft_pwd, ft_env,
 									ft_export, ft_unset, ft_exit};
@@ -71,15 +71,15 @@ void    execute(t_stock **cmd_lst, char *envp[])
     i = 0;
     while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
         ++i;
-    if (i == NUM_CMD && (*cmd_lst)->cmd != UNKNOW)
-        ft_error(NULL);
+	if (*cmd_lst == 0)
+		return (0);
     if (*cmd_lst && (*cmd_lst)->cmd != UNKNOW)
         cmd_fct[i](cmd_lst, envp);
 	else if ((*cmd_lst)->cmd == UNKNOW)
 	{
 		if ((ret = ft_launch_process((*cmd_lst)->input, envp)) == 0)
-			(*cmd_lst)->output = output_error("\0", (*cmd_lst)->input, ": command not found");
+			(*cmd_lst)->output = output_error("\0", (*cmd_lst)->input, ": command not found\n");
 	}
-	if ((*cmd_lst)->next)
-        execute(&(*cmd_lst)->next, envp);
+	launch_cmd(cmd_lst, envp);
+	return (0);
 }

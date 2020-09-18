@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 14:50:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/18 16:18:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,5 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 		++i;
 	}
 	if (err != 2)
-	{
-		printf("%sinput:%s\n", "\033[1;4;34m", "\033[0m");
-		printf("%s\n", (*cmd_lst)->input);
-		printf("%soutput:%s\n", "\033[1;4;34m", "\033[0m");
-		printf("%s", (*cmd_lst)->output);
-		ft_stockclear(cmd_lst, clear_one);
 		exit(EXIT_SUCCESS);
-	}
 }
