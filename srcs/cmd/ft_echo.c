@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 19:06:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/21 19:10:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 	fd = -1;
 	if ((*cmd_lst)->sep == NONE || (*cmd_lst)->sep == COMA)
 		fd = 1;
-	// else if ((*cmd_lst)->sep == RIGHT)
-	// 	fd = right_redirect(cmd_lst);
+	else if ((*cmd_lst)->sep == RIGHT)
+		fd = right_redirect(cmd_lst);
 	if (fd == -1)
 		return ;
 	if (ft_echo_n(cmd_lst, &i) > 0)
