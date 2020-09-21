@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/16 15:46:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/21 13:51:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void	ft_unset(t_stock **cmd_lst, char *envp[])
 	{
 		if (ft_isalnum((*cmd_lst)->input[i]) == 0)
 		{
-			(*cmd_lst)->output = output_error("unset: `", (*cmd_lst)->input,
+			write_error("unset: `", (*cmd_lst)->input,
 			"': not a valid identifier\n");
-			if (!((*cmd_lst)->output))
-				ft_error(cmd_lst);
 			return ;
 		}
 		++i;

@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 20:34:57 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:27:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int     ft_check_var(char *var)
+{
+    int i;
+
+    i = 0;
+    while (var[i] != '\0')
+    {
+        if (ft_isalnum(var[i++]) == 0)
+            return (0);
+    }
+    return (1);
+}
 
 char    *ft_create_var(char *str, int *pos)
 {
@@ -19,17 +32,24 @@ char    *ft_create_var(char *str, int *pos)
 
     var = NULL;
     i = 0;
-    while(str[i] != '=')
+    while(str[i] && str[i] != '=')
         i++;
     if(!(var = (char *)malloc(sizeof(char) * i + 1)))
         return (NULL);
     i = 0;
-    while(str[i] != '=')
+    while(str[i] && str[i] != '=')
     {
         var[i] = str[i];
         i++;
     }
-    var[i += 1] = '\0';
+    var[i] = '\0';
+    if (ft_check_var(var) == 0)
+    {
+        write_error("export: \'", str, "\': not a valid identifier\n");
+        return(NULL);
+    }
+    if (str[i] != '=')
+        return (NULL);
     *pos = i;
     return (var);
 }
@@ -98,19 +118,6 @@ void    ft_modify_envp(char *envp[], char *var, char *new, int pos)
         ft_resize_at_pos(envp, var, new, pos);
 }
 
-int     ft_check_var(char *var)
-{
-    int i;
-
-    i = 0;
-    while (var[i] != '\0')
-    {
-        if (ft_isalnum(var[i++]) == 0)
-            return (0);
-    }
-    return (1);
-}
-
 
 void    ft_export(t_stock **cmd_lst, char *envp[])
 {
@@ -119,12 +126,8 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
     char    *var;
     char    *new;
 
-    var = ft_create_var((*cmd_lst)->input, &pos);
-    if (ft_check_var(var) == 0)
-    {
-        (*cmd_lst)->output = output_error("export: \'", (*cmd_lst)->input, "\': not a valid identifier");
+    if (!(var = ft_create_var((*cmd_lst)->input, &pos)))
         return ;
-    }
     ret = find_var(envp, var);
     new = ft_strdup((*cmd_lst)->input + pos);
     if (ret == -1)

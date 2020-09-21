@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/09/18 15:18:28 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/09/21 14:52:10 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARS_PATH 	= srcs/parsing/
 SRCS		=	ft_error.c		main.c \
 				execute.c		manage_stock.c\
 				ft_realloc.c	manage_var.c \
-				launch.c
+				deal_redirecting.c
 
 CMD 		=	ft_cd.c			ft_env.c \
 				ft_export.c		ft_echo.c \

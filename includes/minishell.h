@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/18 15:18:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/21 18:06:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@
 typedef struct	s_stock
 {
 	char			*input;
-	char			*output;
 	int				cmd;
 	int				sep;
 	int				ret;
@@ -74,12 +73,12 @@ int		deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[]);
 int		deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar);
 int		deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *env[]);
 int		find_var(char *envp[], char *var);
-char    *output_error(char *cmd, char *arg, char *err);
+int		write_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
 char	*replace_var_by_value(char *var, char *envp[], char *value, int *start);
 int		set_sep(char *str, t_stock **cmd_lst);
 int		ft_issep(char c, char before);
-int		launch_cmd(t_stock **cmd_lst, char *envp[]);
+int		right_redirect(t_stock **cmd_lst);
 
 #endif

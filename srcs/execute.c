@@ -28,7 +28,7 @@ int		ft_try_path(char *envp[], char *args[])
 		add_p = ft_strjoin(path[i], "/");
 		new_p = ft_strjoin(add_p, args[0]);
 		free(add_p);
-		if (execve(new_p, args + 1, envp) == -1)
+		if (execve(new_p, args, envp) == -1)
 		{
 			free(new_p); // faudra free celui qui marche à la fin du coup
 			i++;
@@ -77,9 +77,19 @@ int    execute(t_stock **cmd_lst, char *envp[])
         cmd_fct[i](cmd_lst, envp);
 	else if ((*cmd_lst)->cmd == UNKNOW)
 	{
-		if ((ret = ft_launch_process((*cmd_lst)->input, envp)) == 0)
-			(*cmd_lst)->output = output_error("\0", (*cmd_lst)->input, ": command not found\n");
+		if (ft_issep((*cmd_lst)->input[0], 0) == 1)
+		{
+			write(1, "minishell: syntax error near unexpected token `", 47);
+			if ((*cmd_lst)->input[1] == (*cmd_lst)->input[0])
+				write(1, (*cmd_lst)->input, 2);
+			else
+				write(1, (*cmd_lst)->input, 1);
+			write(1, "'\n", 2);
+		}
+		else if ((ret = ft_launch_process((*cmd_lst)->input, envp)) == 0)
+			write_error("\0", (*cmd_lst)->input, ": command not found\n");
 	}
-	launch_cmd(cmd_lst, envp);
+	if (*cmd_lst)
+		return (execute(&(*cmd_lst)->next, envp));
 	return (0);
 }

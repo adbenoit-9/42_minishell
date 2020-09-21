@@ -21,11 +21,7 @@ int    ft_arg_env(t_stock **cmd_lst)
     if ((*cmd_lst)->input[0] != '\0')
     {
         ret = 1;
-        (*cmd_lst)->output = output_error("env: ", (*cmd_lst)->input, ": error (argument management for 'env' not required)\n");
-        // str final (passé à (*cmd_lst)->output) à FREE à la fin
-        // (donc pas dans cette fonction forcément mais ici il y a forcément un LEAK!
-
-        //(*cmd_lst)->ret = 1; ça pour le moment on sait pas trop pk l'utiliser
+        write_error("env: ", (*cmd_lst)->input, ": error (argument management for 'env' not required)\n");
     }
     return (ret);
 }
@@ -58,8 +54,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     }
     new = ft_strjoin(str, "\n");
     free(str);
-    (*cmd_lst)->output = new;
-    // new final (passé à (*cmd_lst)->output) à FREE à la fin
-    // (donc pas dans cette fonction forcément mais ici il y a forcément un LEAK!
+    write(1, new, ft_strlen(new));
+    free(new);
     return ;
 }
