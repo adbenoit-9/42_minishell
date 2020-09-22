@@ -6,20 +6,27 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/22 16:25:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/22 18:03:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_try_path(char *envp[], char *args[])
+int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 {
 	int		ret;
 	int		i;
 	char	**path;
 	char	*add_p;
 	char	*new_p;
+	int		fd;
 
+	if ((fd = ft_redirect(cmd_lst)) == -1)
+		exit(EXIT_SUCCESS);
+	if ((*cmd_lst)->sep == RIGHT)
+		dup2(fd, 1);
+	else if ((*cmd_lst)->sep == LEFT)
+		dup2(fd, 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -36,11 +43,12 @@ int		ft_try_path(char *envp[], char *args[])
 		else
 			return (1);
 	}
+	close(fd);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
-int		ft_launch_process(char *cmd, char *envp[])
+int		ft_launch_process(t_stock **cmd_lst, char *cmd, char *envp[])
 {
 	pid_t	pid;
 	int		ret;
@@ -51,7 +59,7 @@ int		ft_launch_process(char *cmd, char *envp[])
 	ret = 0;
 	args = ft_split(cmd, ' ');
 	if (pid == 0)
-		ret = ft_try_path(envp, args);
+		ret = ft_try_path(cmd_lst, envp, args);
 	else if (pid < 0)
 		return (ret);
 	else
@@ -78,7 +86,7 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 			write(1, (*cmd_lst)->input, 1);
 		write(1, "'\n", 2);
 	}
-	else if ((ret = ft_launch_process((*cmd_lst)->input, envp)) == 0)
+	else if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
 	{
 		i = 0;
 		while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '/')
