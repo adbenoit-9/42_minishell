@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 13:55:23 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/22 16:40:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			ft_stockadd_back(t_stock **alst, t_stock *new)
 	}
 }
 
-void	ft_stockclear(t_stock **lst, void (del)(t_stock**))
+void			ft_stockclear(t_stock **lst, void (del)(t_stock**))
 {
 	if (*lst != NULL && del != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 19:10:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/22 16:22:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		ft_echo_n(t_stock **cmd_lst, int *i)
 	}
 	return (n);
 }
+
 void	ft_echo(t_stock **cmd_lst, char *envp[])
 {
 	int	i;

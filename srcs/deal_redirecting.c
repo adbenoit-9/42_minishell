@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 18:47:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/22 15:33:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		right_redirect(t_stock **cmd_lst)
 {
 	int	fd;
 
-	fd = 1;
+	fd = -1;
 	if ((*cmd_lst)->sep == RIGHT)
 	{
 		if (!(*cmd_lst)->next)

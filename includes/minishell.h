@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 18:06:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/22 15:59:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[]);
 void    ft_export(t_stock **cmd_lst, char *envp[]);
 void    ft_unset(t_stock **cmd_lst, char *envp[]);
 void    ft_echo(t_stock **cmd_lst, char *envp[]);
+void	ft_unknow(t_stock **cmd_lst, char *envp[]);
 int		deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[]);
 int		deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar);
 int		deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *env[]);
