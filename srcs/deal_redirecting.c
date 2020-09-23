@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 15:30:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 17:47:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out)
 
 	fd[0] = 1;
 	fd[1] = 1;
-	if ((*cmd_lst)->sep != NONE)
+	if ((*cmd_lst)->sep != NONE && (*cmd_lst)->sep != COMA)
 	{
 		if (!(*cmd_lst)->next)
 		{
@@ -36,12 +36,12 @@ int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out)
 			else if (fd[0] == -1 || fd[1] == -1)
 				write_error("", (*cmd_lst)->next->input, ": No such file or directory\n");
 		}
+		if (fd[0] == -1 || fd[1] == -1)
+			return (-1);
+		if (fd_in)
+			*fd_in = fd[0];
+		if (fd_out)
+			*fd_out = fd[1];
 	}
-	if (fd[0] == -1 || fd[1] == -1)
-		return (-1);
-	if (fd_in)
-		*fd_in = fd[0];
-	if (fd_out)
-		*fd_out = fd[1];
 	return (0);
 }

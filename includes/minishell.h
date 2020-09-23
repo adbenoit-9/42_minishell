@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 15:02:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 17:39:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "../libft/libft_header/libft.h"
 
 typedef struct	s_stock

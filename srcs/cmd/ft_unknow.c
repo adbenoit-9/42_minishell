@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 15:08:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 17:51:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 	int		fd[2];
 
 	if (ft_redirect(cmd_lst, &fd[0], &fd[1]) == -1)
-		exit(EXIT_SUCCESS);
+		return (-1);
 	if ((*cmd_lst)->sep == RIGHT)
 		dup2(fd[0], 1);
 	else if ((*cmd_lst)->sep == LEFT)
@@ -30,7 +30,7 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
-	while (path[i] != '\0')
+	while (path[i])
 	{
 		add_p = ft_strjoin(path[i], "/");
 		new_p = ft_strjoin(add_p, args[0]);
@@ -43,9 +43,6 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		else
 			return (1);
 	}
-	close(fd[0]);
-	close(fd[1]);
-	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -76,6 +73,7 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 	int	ret;
 	int	i;
 
+	ret = 0;
 	if ((*cmd_lst)->input[0] == '<' || (*cmd_lst)->input[0] == '>')
 		write_error("", "", "syntax error near unexpected token `newline'\n");
 	else if (ft_issep((*cmd_lst)->input[0], 0) == 1)
@@ -85,7 +83,7 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 			write(1, (*cmd_lst)->input, 2);
 		else
 			write(1, (*cmd_lst)->input, 1);
-		write(1, "'\n", 2);
+		write(1, "'\n", 1);
 	}
 	else if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
 	{
@@ -97,5 +95,6 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 			": No such file or directory\n");
 		else
 			write_error("\0", (*cmd_lst)->input, ": command not found\n");
+		exit(EXIT_SUCCESS);
 	}
 }
