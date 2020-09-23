@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 16:01:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:04:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_echo_n(t_stock **cmd_lst, int *i)
 		++n;
 		while ((*cmd_lst)->input[*i] == 'n')
 			++(*i);
-		if (ft_isspace((*cmd_lst)->input[*i]) == 0)
+		if (ft_isspace((*cmd_lst)->input[*i]) == 0 && (*cmd_lst)->input[*i])
 			return (0);
 		++(*i);
 	}
