@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 13:51:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:07:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_unset(t_stock **cmd_lst, char *envp[])
 	int	j;
 
 	i = 0;
+	if (ft_redirect(cmd_lst, 0, 0) == -1)
+        return ;
 	while ((*cmd_lst)->input[i])
 	{
 		if (ft_isalnum((*cmd_lst)->input[i]) == 0)
