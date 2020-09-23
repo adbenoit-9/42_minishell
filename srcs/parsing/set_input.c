@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/18 13:51:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 19:18:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int		deal_space(char *str, char *input, int *j)
 	return (i);
 }
 
-void	set_input(char *str, t_stock **cmd_lst, char *envp[])
+int		set_input(char *str, t_stock **cmd_lst, char *envp[])
 {
 	int	i;
 	int j;
 
 	i = -1;
 	j = 0;
-	while (str[++i])
+	while (str[++i] && str[i] != '\n')
 	{
 		if (str[i] == ' ' || str[i] == '\t')
 			i += deal_space(str + i + 1, (*cmd_lst)->input, &j);
@@ -49,8 +49,14 @@ void	set_input(char *str, t_stock **cmd_lst, char *envp[])
 			i += deal_double_quote(str + i + 1, cmd_lst, &j, envp);
 		else if (str[i] == '$')
 			i += deal_dollar(str + i + 1, cmd_lst, &j, envp);
+		else if (ft_issep(str[i], 0))
+		{
+			i += set_sep(str + i, cmd_lst);
+			break ;
+		}
 		else
 			(*cmd_lst)->input[j++] = str[i];
 	}
 	(*cmd_lst)->input[j] = 0;
+	return (i);
 }

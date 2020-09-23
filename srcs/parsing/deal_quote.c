@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/17 14:09:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 18:35:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static int	special_char(char c, t_stock **cmd_lst, int *j, int len)
 {
 	int			i;
-	static char	list[8] = "abntrvf\\";
-	static char	become[8] = "\a\b\n\t\r\v\f\\";
+	static char	list[9] = "abntrvf\\\'";
+	static char	become[9] = "\a\b\n\t\r\v\f\\\'";
 
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		if (c == list[i])
 		{
@@ -41,10 +41,10 @@ static int	len_simple_quote(char *str, int dollar)
 	len = 0;
 	while (str[len] && str[len] != '\'')
 	{
+		
 		if (dollar == 1 && str[len] == '\\' && str[len + 1])
-			len += 2;
-		else
 			++len;
+		++len;
 	}
 	return (len);
 }
@@ -67,7 +67,7 @@ int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
 			++i;
 		}
 	}
-	if (str[i] == '\'')
+	if (str[len] == '\'')
 		return (len + 1);
 	(*cmd_lst)->err = 1;
 	return (len);

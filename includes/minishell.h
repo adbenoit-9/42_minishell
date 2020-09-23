@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 17:39:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 18:47:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef void     (*t_function)(t_stock **, char **);
 
 void	*ft_realloc(void *ptr, int newsize);
 char	**realloc_tab(char **ptr, int newsize);
-void 	set_input(char *str, t_stock **cmd_lst, char *envp[]);
+int 	set_input(char *str, t_stock **cmd_lst, char *envp[]);
 int 	parsing(char *str, t_stock **cmd_lst, char *envp[]);
 int		ft_error(t_stock **cmd_lst);
 int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[]);

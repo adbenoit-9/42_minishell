@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 15:55:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 19:20:24 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,13 @@ static void		add_unknow_cmd(char *input, char **new_input, char *cmd)
 	}
 }
 
-static size_t	get_input(char *str, char **input, t_stock **new)
+static size_t	input_len(char *str)
 {
 	size_t	len;
-	char	quote;
 
 	len = 0;
-	while (str[len] && ft_issep(str[len], str[len - 1]) == 0)
-	{
-		quote = 0;
-		if ((len == 0 || str[len - 1] != '\\') && (str[len] == '\"'
-		|| str[len] == '\''))
-		{
-			quote = str[len];
-			++len;
-		}
-		while (quote != 0 && str[len] && (str[len] != quote || (len != 0 &&
-		str[len - 1] == '\\' && str[len - 2] != '\\' && str[len] == '\"')))
-			++len;
-		if (str[len])
-			++len;
-	}
-	if (str[len - 1] == '\n')
-		--len;
-	(*new)->input = ft_strndup(str, len);
-	*input = ft_strdup((*new)->input);
-	len += set_sep(str + len, new);
+	while (str[len] && str[len] != '\n')
+		++len;
 	return (len);
 }
 
@@ -90,16 +71,17 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	unknow = NULL;
 	input = NULL;
 	unknow = get_unknow_cmd(unknow, cmd, str, &i);
-	len[0] = get_input(str + i, &input, &new);
-	if (new->input)
-		set_input(input, &new, envp);
+	len[0] = input_len(str + i);
+	if (!(new->input = malloc(len[0] + 1)))
+		ft_error(cmd_lst);
+	i += (size_t)set_input(str + i, &new, envp);
 	if (new->input && (len[1] = ft_strlen(new->input)) != len[0])
 		new->input = ft_realloc(new->input, len[1] + 1);
 	free(input);
 	add_unknow_cmd(input, &new->input, unknow);
 	ft_stockadd_back(cmd_lst, new);
-	if (str[len[0]])
-		return (parsing(str + i + len[0], cmd_lst, envp));
+	if (str[i])
+		return (parsing(str + i, cmd_lst, envp));
 	else
 		return (0);
 }
