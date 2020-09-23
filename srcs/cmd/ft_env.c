@@ -32,11 +32,14 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     char    *str;
     char    *new;
     int     index;
+    int     fd;
 
     str = NULL;
     new = NULL;
     index = 0;
     //(*cmd_lst)->ret = 0; ????????????????
+    if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
+        return ;
     if (ft_arg_env(cmd_lst) == 1)
         return ;
     while (envp[index])
@@ -54,7 +57,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     }
     new = ft_strjoin(str, "\n");
     free(str);
-    write(1, new, ft_strlen(new));
+    write(fd, new, ft_strlen(new));
     free(new);
     return ;
 }

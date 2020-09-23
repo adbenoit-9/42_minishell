@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 18:27:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 15:04:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
     char    *var;
     char    *new;
 
+    if (ft_redirect(cmd_lst, 0, 0) == -1)
+        return ;
     if (!(var = ft_create_var((*cmd_lst)->input, &pos)))
         return ;
     ret = find_var(envp, var);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/22 18:03:50 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 15:08:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 	char	**path;
 	char	*add_p;
 	char	*new_p;
-	int		fd;
+	int		fd[2];
 
-	if ((fd = ft_redirect(cmd_lst)) == -1)
+	if (ft_redirect(cmd_lst, &fd[0], &fd[1]) == -1)
 		exit(EXIT_SUCCESS);
 	if ((*cmd_lst)->sep == RIGHT)
-		dup2(fd, 1);
+		dup2(fd[0], 1);
 	else if ((*cmd_lst)->sep == LEFT)
-		dup2(fd, 0);
+		dup2(fd[1], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -43,7 +43,8 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		else
 			return (1);
 	}
-	close(fd);
+	close(fd[0]);
+	close(fd[1]);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

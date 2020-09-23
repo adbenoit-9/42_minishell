@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 19:04:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 14:39:45 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 	int	i;
 	int	err;
 
-	i = 0;
 	(void)envp;
+	i = 0;
 	write(1, "exit\n", 5);
 	(*cmd_lst)->ret = ft_atoi((*cmd_lst)->input);
 	while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '\n')
@@ -47,5 +47,8 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 		++i;
 	}
 	if (err != 2)
+	{
+		ft_stockclear(cmd_lst, clear_one);
 		exit(EXIT_SUCCESS);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/22 18:06:40 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/23 16:01:29 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int		ft_echo_n(t_stock **cmd_lst, int *i)
 	while (ft_strncmp((*cmd_lst)->input + *i, "-n ", 3) == 0)
 	{
 		++n;
-		i += 3;
+		*i += 3;
 	}
 	if (ft_strncmp((*cmd_lst)->input + *i, "-n", 2) == 0)
 	{
 		*i += 2;
 		++n;
 		while ((*cmd_lst)->input[*i] == 'n')
-			++i;
-		if ((*cmd_lst)->input[*i] != '\t' && (*cmd_lst)->input[*i] != ' ')
+			++(*i);
+		if (ft_isspace((*cmd_lst)->input[*i]) == 0)
 			return (0);
-		++i;
+		++(*i);
 	}
 	return (n);
 }
@@ -42,12 +42,8 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 
 	(void)envp;
 	i = 0;
-	fd = -1;
-	if ((*cmd_lst)->sep == NONE || (*cmd_lst)->sep == COMA)
-		fd = 1;
-	else if ((*cmd_lst)->sep == RIGHT)
-		fd = ft_redirect(cmd_lst);
-	if (fd == -1)
+	fd = 1;
+	if (ft_redirect(cmd_lst, &fd, 0) == -1)
 		return ;
 	if (ft_echo_n(cmd_lst, &i) > 0)
 		write(fd, (*cmd_lst)->input + i, ft_strlen((*cmd_lst)->input + i));
