@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 17:47:56 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/24 19:21:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out)
 		else
 		{
 			if ((*cmd_lst)->sep == RIGHT)
+			{
+				// printf("%s\n", (*cmd_lst)->next->input);
 				fd[0] = open((*cmd_lst)->next->input, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			}
 			if ((*cmd_lst)->sep == LEFT)
 				fd[1] = open((*cmd_lst)->next->input, O_RDONLY);
 			if ((fd[0] == -1 || fd[1] == -1) && (*cmd_lst)->next->input[0] == '/')
