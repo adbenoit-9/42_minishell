@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 13:40:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:06:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ int		set_sep(char *str, t_stock **cmd_lst);
 int		ft_issep(char c, char before);
 int		sep_error(t_stock **cmd_lst);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
+int		last_parsing(t_stock **cmd_lst);
 
 #endif

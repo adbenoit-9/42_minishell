@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 13:48:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:06:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 
 	ret = 0;
 	i = 0;
-	printf("%s, %d\n", (*cmd_lst)->input, (*cmd_lst)->sep);
-	if (sep_error(cmd_lst) == 1)
-		return ;
-	else if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
+	if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
 	{
 		while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '/')
 			++i;

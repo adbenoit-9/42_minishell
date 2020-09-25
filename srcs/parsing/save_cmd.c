@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 13:58:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 16:45:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 static char		*get_unknow_cmd(char *cmd, int k, char *str, size_t *i)
 {
 	int		len;
-	char	c;
 
 	len = 0;
-	c = 0;
 	if (k == UNKNOW)
 	{
-		while (str[len + *i] && ft_isspace(str[len + *i]) == 0 && ft_issep(str[len + *i], c) == 0)
-		{			
+		while (str[len + *i] && ft_isspace(str[len + *i]) == 0)	
 			++len;
-			c = str[len + *i - 1];
-		}
 		cmd = ft_strndup(str + *i, len);
 		(*i) += len;
 		while (ft_isspace(str[*i]) == 1 && str[*i] != '\n')
