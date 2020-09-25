@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/21 18:28:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 12:53:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	clear_one(t_stock **cmd_lst)
 {
 	free((*cmd_lst)->input);
+	free((*cmd_lst)->stdin);
 	(*cmd_lst)->input = NULL;
+	(*cmd_lst)->stdin = NULL;
 }
 
 int		ft_error(t_stock **cmd_lst)

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 18:47:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:40:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 typedef struct	s_stock
 {
 	char			*input;
+	char			*stdin;
 	int				cmd;
 	int				sep;
 	int				ret;
@@ -82,6 +83,7 @@ void	clear_one(t_stock **cmd_lst);
 char	*replace_var_by_value(char *var, char *envp[], char *value, int *start);
 int		set_sep(char *str, t_stock **cmd_lst);
 int		ft_issep(char c, char before);
+int		sep_error(t_stock **cmd_lst);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
 
 #endif

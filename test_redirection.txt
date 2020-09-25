@@ -1,0 +1,2 @@
+cat < Makefile > test1 > test2 > test2
+cat < no_file > test1 echo asdf

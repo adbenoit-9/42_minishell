@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/24 19:11:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/09/25 13:48:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		return (-1);
 	if ((*cmd_lst)->sep == RIGHT)
 		dup2(fd[0], 1);
-	else if ((*cmd_lst)->sep == LEFT)
+	if ((*cmd_lst)->sep == LEFT || (*cmd_lst)->stdin)
 		dup2(fd[1], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
@@ -77,20 +77,12 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 	int	i;
 
 	ret = 0;
-	if ((*cmd_lst)->input[0] == '<' || (*cmd_lst)->input[0] == '>')
-		write_error("", "", "syntax error near unexpected token `newline'\n");
-	else if (ft_issep((*cmd_lst)->input[0], 0) == 1)
-	{
-		write_error("", "syntax error near unexpected token `", "");
-		if ((*cmd_lst)->input[1] == (*cmd_lst)->input[0])
-			write(1, (*cmd_lst)->input, 2);
-		else
-			write(1, (*cmd_lst)->input, 1);
-		write(1, "'\n", 2);
-	}
+	i = 0;
+	printf("%s, %d\n", (*cmd_lst)->input, (*cmd_lst)->sep);
+	if (sep_error(cmd_lst) == 1)
+		return ;
 	else if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
 	{
-		i = 0;
 		while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '/')
 			++i;
 		if ((size_t)i < ft_strlen((*cmd_lst)->input))
