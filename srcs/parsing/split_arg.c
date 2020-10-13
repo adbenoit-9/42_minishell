@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 16:49:10 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 15:35:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 18:09:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				is_new_arg(char const *s, char c, unsigned int n, int quote)
+int				is_new_arg(char const *s, char c, size_t n, int quote)
 {
 	int ret;
 
@@ -23,28 +23,38 @@ int				is_new_arg(char const *s, char c, unsigned int n, int quote)
 		return (1);
 	return (0);
 }
-int				is_in_quote(char const *s, unsigned int i, int quote)
+int				is_in_quote(char const *s, size_t *i, int quote)
 {
-	if (s[i] == '\'' || s[i] == '\"')
+	int	bs;
+
+	bs = 0;
+	--(*i);
+	while (s[++(*i)] == '\\')
+		++bs;
+	if (s[*i] == '\'' || s[*i] == '\"')
 	{
-		if (quote != 0 && s[i - 1] == '\\')
+		if (quote == 0 && bs % 2 == 1)
 			return (quote);
-		else if (s[i] == '\'' && quote == 0)
+		else if (s[*i] == '\'' && i > 0 && s[*i - 1] == '$' && quote == 0)
+			return (3);
+		else if (s[*i] == '\'' && quote == 0)
 			return (1);
-		else if (s[i] == '\"' && quote == 0)
+		else if (s[*i] == '\"' && quote == 0)
 			return (2);
-		else if (quote == 1 && s[i] == '\'')
+		else if (quote == 1 && s[*i] == '\'')
 			return (0);
-		else if (quote == 2 && s[i] == '\"' && s[i - 1] != '\\')
+		else if (quote == 2 && s[*i] == '\"' && bs % 2 == 0)
+			return (0);
+		else if (quote == 3 && s[*i] == '\'' && bs % 2 == 0)
 			return (0);
 	}
 	return (quote);
 }
 
-unsigned int	ft_countrow(char const *s, char c, unsigned int n)
+size_t	ft_countrow(char const *s, char c, size_t n)
 {
-	unsigned int	count;
-	unsigned int	i;
+	size_t	count;
+	size_t	i;
 	int				quote;
 
 	count = 0;
@@ -54,7 +64,7 @@ unsigned int	ft_countrow(char const *s, char c, unsigned int n)
 		count++;
 	while (s[i] && i < n)
 	{
-		quote = is_in_quote(s, i , quote);
+		quote = is_in_quote(s, &i , quote);
 		if (is_new_arg(s, c, i, quote) == 1)
 			count++;
 		i++;
@@ -62,15 +72,18 @@ unsigned int	ft_countrow(char const *s, char c, unsigned int n)
 	return (count);
 }
 
-unsigned int	ft_size(char const *s, char c, unsigned int i, unsigned int n)
+size_t	ft_size(char const *s, char c, size_t i, size_t n)
 {
-	unsigned int	size;
-	int				quote;
+	size_t	size;
+	int		quote;
+	int		tmp;
 
 	size = 0;
 	while (s[i] && i < n)
 	{
-		quote = is_in_quote(s, i , quote);
+		tmp = i;
+		quote = is_in_quote(s, &i , quote);
+		size += (i - tmp);
 		if (is_new_arg(s, c, i, quote) == 1)
 			break ;
 		size++;
@@ -79,9 +92,9 @@ unsigned int	ft_size(char const *s, char c, unsigned int i, unsigned int n)
 	return (size);
 }
 
-void			*ft_free(char **tab, unsigned int k)
+void			*ft_free(char **tab, size_t k)
 {
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < k)
@@ -93,15 +106,15 @@ void			*ft_free(char **tab, unsigned int k)
 	return (NULL);
 }
 
-char			**split_arg(char const *s, char c, unsigned int n)
+char			**split_arg(char const *s, char c, size_t n)
 {
-	char			**tab;
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	k;
-	unsigned int	size[2];
+	char	**tab;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+	size_t	size[2];
 
-	if (s == NULL || n == 0)
+	if (s == NULL)
 		return (NULL);
 	i = 0;
 	k = -1;

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 15:43:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 18:48:53 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,35 +43,14 @@ static int	len_simple_quote(char *str, int dollar)
 	{
 		
 		if (dollar == 1 && str[len] == '\\' && str[len + 1])
+			len += 2;
+		else
 			++len;
-		++len;
 	}
+	if (str[len] != '\'')
+		return (-1);
 	return (len);
 }
-
-// int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
-// {
-// 	int i;
-// 	int len;
-
-// 	i = 0;
-// 	len = len_simple_quote(str, dollar);
-// 	while (i < len)
-// 	{
-// 		if (dollar == 1 && str[i] == '\\' && str[++i])
-// 			i += special_char(str[i], cmd_lst, j, len);
-// 		else
-// 		{
-// 			(*cmd_lst)->input[*j] = str[i];
-// 			++(*j);
-// 			++i;
-// 		}
-// 	}
-// 	if (str[len] == '\'')
-// 		return (len + 1);
-// 	(*cmd_lst)->err = 1;
-// 	return (len);
-// }
 
 int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 {
@@ -79,7 +58,8 @@ int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 	int len;
 
 	i = 1;
-	len = len_simple_quote(str + 1, dollar) + 1;
+	if ((len = len_simple_quote(str + 1, dollar) + 1) == 0)
+		return (-1);
 	while (i < len)
 	{
 		if (dollar == 1 && str[i] == '\\' && str[++i])
@@ -91,9 +71,7 @@ int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 			++i;
 		}
 	}
-	if (str[i] == '\'')
-		return (i + 1);
-	return (-1);
+	return (len + 1);
 }
 
 int			deal_double_quote(char *str, char **input, int *j, char *env[])
@@ -113,7 +91,6 @@ int			deal_double_quote(char *str, char **input, int *j, char *env[])
 		}
 		else if (str[i] != '\"')
 		{
-			// printf("input = |%c|; j = %d; str = %s\n", (*input)[*j], *j, str);
 			(*input)[*j] = str[i];
 			++(*j);
 		}

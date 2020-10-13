@@ -9,3 +9,7 @@ echo $var bonjour ; echo "" bonjour ; echo "12\"" ; echo bonjour \; ls
 echo ; echo simple ; echo -n simple ; echo simple text ; echo $HOME ; echo "$HOME" ; echo '$HOME' ; echo '\' ; echo "\\" ; echo "\n \n \n" ; echo "\n \\n \\\n" ; echo hi; echo hihi; echo hi";" hihi ; echo hi "   ;   " hihi
 
 echo one; echo two; echo three;
+
+echo erreur ;; echo nul
+
+echo -nnnn -n Test option n $'\n'

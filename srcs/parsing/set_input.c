@@ -6,60 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 15:44:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:09:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int		deal_space(char *str, char **arg, int *k)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i] == ' ' || str[i] == '\t')
-// 		i++;
-// 	if (str[i])
-// 	{
-// 		*arg[*k] = ' ';
-// 		++(*k);
-// 	}
-// 	return (i);
-// }
-
-// int		set_input(char *str, t_stock **cmd_lst, char *envp[])
-// {
-// 	int	i;
-// 	int j;
-
-// 	i = -1;
-// 	j = 0;
-// 	while (str[++i] && str[i] != '\n')
-// 	{
-// 		if (str[i] == ' ' || str[i] == '\t')
-// 			i += deal_space(str + i + 1, (*cmd_lst)->input, &j);
-// 		else if (str[i] == '\\')
-// 		{
-// 			(*cmd_lst)->input[j] = str[++i];
-// 			++j;
-// 		}
-// 		else if (str[i] == '\'')
-// 			i += deal_simple_quote(str + i + 1, cmd_lst, &j, 0);
-// 		else if (str[i] == '\"')
-// 			i += deal_double_quote(str + i + 1, cmd_lst, &j, envp);
-// 		else if (str[i] == '$')
-// 			i += deal_dollar(str + i + 1, cmd_lst, &j, envp);
-// 		else if (ft_issep(str[i], 0))
-// 		{
-// 			i += set_sep(str + i, cmd_lst);
-// 			break ;
-// 		}
-// 		else
-// 			(*cmd_lst)->input[j++] = str[i];
-// 	}
-// 	(*cmd_lst)->input[j] = 0;
-// 	return (i);
-// }
 
 int		set_input(char **input, t_stock **cmd_lst, char **envp)
 {
@@ -91,12 +42,22 @@ int		set_input(char **input, t_stock **cmd_lst, char **envp)
 				else
 					len = deal_double_quote(input[i] + j, &arg, &k, envp);
 				if (len == -1)
-					return (-1);	
+				{
+					write_error("", "", "missing a quote\n");
+					return (-1);
+				}
 				else
 					j += len;
 			}
 			else if (input[i][j] == '$')
-				j += deal_dollar(input[i] + j, &arg, &k, envp);
+			{
+				if ((len = deal_dollar(input[i] + j, &arg, &k, envp)) == -1)
+				{
+					write_error("", "", "missing a quote\n");
+					return (-1);
+				}
+				j += len;
+			}
 			else if (ft_issep(input[i][j], 0))
 			{
 				i += set_sep(input[i] + j, cmd_lst);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/12 18:29:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 18:41:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ int			deal_dollar(char *str, char **input, int *j, char *envp[])
 		++i;
 		*j += 2;
 	}
+	if (i == 0)
+		return (-1);
 	return (i);
 }

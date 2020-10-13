@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/12 17:10:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 16:33:24 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		ft_issep(char c, char before);
 int		sep_error(t_stock **cmd_lst);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
 int		last_parsing(t_stock **cmd_lst);
-char	**split_arg(char const *s, char c, unsigned int n);
-int		is_in_quote(char const *s, unsigned int i, int quote);
+char	**split_arg(char const *s, char c, size_t n);
+int		is_in_quote(char const *s, size_t *i, int quote);
 
 #endif
