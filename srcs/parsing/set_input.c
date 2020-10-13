@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 19:09:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:32:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,14 @@ int		set_input(char **input, t_stock **cmd_lst, char **envp)
 				else
 					len = deal_double_quote(input[i] + j, &arg, &k, envp);
 				if (len == -1)
-				{
-					write_error("", "", "missing a quote\n");
 					return (-1);
-				}
 				else
 					j += len;
 			}
 			else if (input[i][j] == '$')
 			{
 				if ((len = deal_dollar(input[i] + j, &arg, &k, envp)) == -1)
-				{
-					write_error("", "", "missing a quote\n");
 					return (-1);
-				}
 				j += len;
 			}
 			else if (ft_issep(input[i][j], 0))

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 16:10:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:48:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 		k = -1;
 		while ((*cmd_lst)->input[++k])
 		{
+			if (k != 0 && (*cmd_lst)->input[k][0])
+				write(1, " ", 1);
 			write(fd, (*cmd_lst)->input[k], ft_strlen((*cmd_lst)->input[k]));
-			write(1, " ", 1);
 		}
 		write(fd, "\n", 1);
 	}

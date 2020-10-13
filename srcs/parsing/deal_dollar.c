@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 18:41:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 19:29:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 	int		k;
 
 	i = 0;
-	while ((str[i] > 47 && str[i] < 58) || (str[i] > 64 &&
-	str[i] < 89) || (str[i] > 96 && str[i] < 123))
+	while (ft_isalnum(str[i]) == 1 || str[i] == '_')
 		++i;
 	if (!(var = malloc(i + 1)))
 		return (-1);
