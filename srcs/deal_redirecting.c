@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 16:22:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/10 18:31:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static int	ft_isredirect(t_stock **cmd_lst, int *fd_in, int *fd_out)
 {
 	if ((*cmd_lst)->sep == RIGHT)
 	{
-		*fd_in = open((*cmd_lst)->next->input, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+		*fd_in = open((*cmd_lst)->next->input[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		if ((*cmd_lst)->stdin)
 			*fd_out = open((*cmd_lst)->stdin, O_RDONLY);
 	}
 	else if ((*cmd_lst)->sep == LEFT)
-		*fd_out = open((*cmd_lst)->next->input, O_RDONLY);
+		*fd_out = open((*cmd_lst)->next->input[0], O_RDONLY);
 	else
 		return (0);
 	if (*fd_in != -1 && *fd_out != -1)

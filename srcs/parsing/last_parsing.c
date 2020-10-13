@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:24:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 17:01:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/10 18:31:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ int	last_parsing(t_stock **cmd_lst)
 			return (-2);
 		}
 		else if ((*cmd_lst)->sep == LEFT)
-			fd = open((*cmd_lst)->next->input, O_RDONLY);
+			fd = open((*cmd_lst)->next->input[0], O_RDONLY);
 		else if ((*cmd_lst)->sep == RIGHT)
-			fd = open((*cmd_lst)->next->input, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			fd = open((*cmd_lst)->next->input[0], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		if (fd == -1)
 		{
-			if ((*cmd_lst)->next->input[0] == '/')
-				write_error("", (*cmd_lst)->next->input, ": Permission denied\n");
+			if ((*cmd_lst)->next->input[0][0] == '/')
+				write_error("", (*cmd_lst)->next->input[0], ": Permission denied\n");
 			else
-				write_error("", (*cmd_lst)->next->input, ": No such file or directory\n");
+				write_error("", (*cmd_lst)->next->input[0], ": No such file or directory\n");
 			close(fd);
 			return (-2);
 		}

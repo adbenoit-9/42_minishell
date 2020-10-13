@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 19:19:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/12 18:29:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	deal_var(char *str, t_stock **cmd_lst, int *j, char *envp[])
+static int	deal_var(char *str, char **input, int *j, char *envp[])
 {
 	char	*var;
 	int		i;
@@ -23,11 +23,11 @@ static int	deal_var(char *str, t_stock **cmd_lst, int *j, char *envp[])
 	str[i] < 89) || (str[i] > 96 && str[i] < 123))
 		++i;
 	if (!(var = malloc(i + 1)))
-		return (ft_error(cmd_lst));
+		return (-1);
 	ft_strncpy(var, str, i);
 	var[i] = 0;
 	k = *j;
-	(*cmd_lst)->input = replace_var_by_value(var, envp, (*cmd_lst)->input, j);
+	(*input) = replace_var_by_value(var, envp, (*input), j);
 	if (k == *j)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
@@ -38,29 +38,29 @@ static int	deal_var(char *str, t_stock **cmd_lst, int *j, char *envp[])
 	return (i);
 }
 
-int			deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[])
+int			deal_dollar(char *str, char **input, int *j, char *envp[])
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (ft_isalnum(str[i]) == 1)
-		i += deal_var(str + i, cmd_lst, j, envp);
+		i += deal_var(str + i, input, j, envp);
 	else if (str[i] == '\'')
-		i += deal_simple_quote(str + i + 1, cmd_lst, j, 1) + 1;
+		i += deal_simple_quote(str + i, input, j, 1);
 	else if (str[i] == '\"')
-		i += deal_double_quote(str + i + 1, cmd_lst, j, envp) + 1;
+		i += deal_double_quote(str + i, input, j, envp);
 	else if (str[i] == '{')
 	{
-		i += deal_var(str + i + 1, cmd_lst, j, envp) + 1;
+		i += deal_var(str + i + 1, input, j, envp) + 1;
 		if (str[i] == '}')
 			++i;
 		else
-			(*cmd_lst)->err = 1;
+			return (-1);
 	}
 	else
 	{
-		(*cmd_lst)->input[*j] = str[i - 1];
-		(*cmd_lst)->input[*j + 1] = str[i];
+		(*input)[*j] = str[i - 1];
+		(*input)[*j + 1] = str[i];
 		++i;
 		*j += 2;
 	}

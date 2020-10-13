@@ -21,7 +21,7 @@ int    ft_arg_env(t_stock **cmd_lst)
     if ((*cmd_lst)->input[0] != '\0')
     {
         ret = 1;
-        write_error("env: ", (*cmd_lst)->input, ": error (argument management for 'env' not required)\n");
+        write_error("env: ", (*cmd_lst)->input[0], ": error (argument management for 'env' not required)\n");
     }
     return (ret);
 }

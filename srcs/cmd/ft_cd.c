@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 15:02:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/10 18:37:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    ft_cd(t_stock **cmd_lst, char *envp[])
     else
     {
         str = strerror(errno);
-        write_error("cd: ", (*cmd_lst)->input, ": ");
+        write_error("cd: ", (*cmd_lst)->input[0], ": ");
         write(1, str, ft_strlen(str));
         write(1, "\n" , 1);
     }

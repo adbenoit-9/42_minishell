@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 16:06:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/12 17:10:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 typedef struct	s_stock
 {
-	char			*input;
+	char			**input;
 	char			*stdin;
 	int				cmd;
 	int				sep;
@@ -58,7 +58,7 @@ typedef void     (*t_function)(t_stock **, char **);
 
 void	*ft_realloc(void *ptr, int newsize);
 char	**realloc_tab(char **ptr, int newsize);
-int 	set_input(char *str, t_stock **cmd_lst, char *envp[]);
+int		set_input(char **input, t_stock **cmd_lst, char **envp);
 int 	parsing(char *str, t_stock **cmd_lst, char *envp[]);
 int		ft_error(t_stock **cmd_lst);
 int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[]);
@@ -73,9 +73,9 @@ void    ft_export(t_stock **cmd_lst, char *envp[]);
 void    ft_unset(t_stock **cmd_lst, char *envp[]);
 void    ft_echo(t_stock **cmd_lst, char *envp[]);
 void	ft_unknow(t_stock **cmd_lst, char *envp[]);
-int		deal_dollar(char *str, t_stock **cmd_lst, int *j, char *envp[]);
-int		deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar);
-int		deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *env[]);
+int		deal_dollar(char *str, char **input, int *j, char *envp[]);
+int		deal_simple_quote(char *str, char **input, int *j, int dollar);
+int		deal_double_quote(char *str, char **input, int *j, char *env[]);
 int		find_var(char *envp[], char *var);
 int		write_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
@@ -86,5 +86,7 @@ int		ft_issep(char c, char before);
 int		sep_error(t_stock **cmd_lst);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
 int		last_parsing(t_stock **cmd_lst);
+char	**split_arg(char const *s, char c, unsigned int n);
+int		is_in_quote(char const *s, unsigned int i, int quote);
 
 #endif

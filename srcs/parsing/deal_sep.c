@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 16:57:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/12 16:36:45 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ int	ft_issep(char c, char before)
 
 int	sep_error(t_stock **cmd_lst)
 {
-	if ((*cmd_lst)->input[0] == '<' || (*cmd_lst)->input[0] == '>')
+	if ((*cmd_lst)->input[0][0] == '<' || (*cmd_lst)->input[0][0] == '>')
 	{
 		write_error("", "", "syntax error near unexpected token `newline'\n");
 		return (1);
 	}
-	else if (ft_issep((*cmd_lst)->input[0], 0) == 1)
+	else if (ft_issep((*cmd_lst)->input[0][0], 0) == 1)
 	{
 		write_error("", "syntax error near unexpected token `", "");
-		if ((*cmd_lst)->input[1] == (*cmd_lst)->input[0])
-			write(1, (*cmd_lst)->input, 2);
+		if ((*cmd_lst)->input[0][1] == (*cmd_lst)->input[0][0])
+			write(1, (*cmd_lst)->input[0], 2);
 		else
-			write(1, (*cmd_lst)->input, 1);
+			write(1, (*cmd_lst)->input[0], 1);
 		write(1, "'\n", 2);
 		return (1);
 	}

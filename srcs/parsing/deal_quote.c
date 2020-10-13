@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 18:35:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/13 15:43:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	special_char(char c, t_stock **cmd_lst, int *j, int len)
+static int	special_char(char c, char **input, int *j, int len)
 {
 	int			i;
 	static char	list[9] = "abntrvf\\\'";
@@ -23,7 +23,7 @@ static int	special_char(char c, t_stock **cmd_lst, int *j, int len)
 	{
 		if (c == list[i])
 		{
-			(*cmd_lst)->input[*j] = become[i];
+			(*input)[*j] = become[i];
 			++(*j);
 			return (1);
 		}
@@ -49,53 +49,76 @@ static int	len_simple_quote(char *str, int dollar)
 	return (len);
 }
 
-int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
+// int			deal_simple_quote(char *str, t_stock **cmd_lst, int *j, int dollar)
+// {
+// 	int i;
+// 	int len;
+
+// 	i = 0;
+// 	len = len_simple_quote(str, dollar);
+// 	while (i < len)
+// 	{
+// 		if (dollar == 1 && str[i] == '\\' && str[++i])
+// 			i += special_char(str[i], cmd_lst, j, len);
+// 		else
+// 		{
+// 			(*cmd_lst)->input[*j] = str[i];
+// 			++(*j);
+// 			++i;
+// 		}
+// 	}
+// 	if (str[len] == '\'')
+// 		return (len + 1);
+// 	(*cmd_lst)->err = 1;
+// 	return (len);
+// }
+
+int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 {
 	int i;
 	int len;
 
-	i = 0;
-	len = len_simple_quote(str, dollar);
+	i = 1;
+	len = len_simple_quote(str + 1, dollar) + 1;
 	while (i < len)
 	{
 		if (dollar == 1 && str[i] == '\\' && str[++i])
-			i += special_char(str[i], cmd_lst, j, len);
+			i += special_char(str[i], input, j, len);
 		else
 		{
-			(*cmd_lst)->input[*j] = str[i];
+			(*input)[*j] = str[i];
 			++(*j);
 			++i;
 		}
 	}
-	if (str[len] == '\'')
-		return (len + 1);
-	(*cmd_lst)->err = 1;
-	return (len);
+	if (str[i] == '\'')
+		return (i + 1);
+	return (-1);
 }
 
-int			deal_double_quote(char *str, t_stock **cmd_lst, int *j, char *env[])
+int			deal_double_quote(char *str, char **input, int *j, char *env[])
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	while (str[++i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-			i += deal_dollar(str + i + 1, cmd_lst, j, env);
+			i += deal_dollar(str + i + 1, input, j, env);
 		else if (str[i] == '\\' && (str[i + 1] == '\"' || str[i + 1] == '\\'))
 		{
 			++i;
-			(*cmd_lst)->input[*j] = str[i];
+			(*input)[*j] = str[i];
 			++(*j);
 		}
 		else if (str[i] != '\"')
 		{
-			(*cmd_lst)->input[*j] = str[i];
+			// printf("input = |%c|; j = %d; str = %s\n", (*input)[*j], *j, str);
+			(*input)[*j] = str[i];
 			++(*j);
 		}
 	}
 	if (str[i] == '\"')
 		return (i + 1);
-	(*cmd_lst)->err = 1;
-	return (i);
+	return (-1);
 }

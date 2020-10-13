@@ -1,2 +1,4 @@
 cat < Makefile > test1 > test2 > test2
 cat < no_file > test1; echo asdf
+rm ok > rm_it ok
+echo lol > chouette ok

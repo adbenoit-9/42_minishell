@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/25 16:06:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/11 17:18:05 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 	return (0);
 }
 
-int		ft_launch_process(t_stock **cmd_lst, char *cmd, char *envp[])
+int		ft_launch_process(t_stock **cmd_lst, char **args, char *envp[])
 {
 	pid_t	pid;
 	int		ret;
 	int		status;
-	char	**args;
+	// char	**args;
 
 	pid = fork();
 	ret = 0;
-	args = ft_split(cmd, ' ');
+	// args = ft_split(cmd, ' ');
 	if (pid == 0)
 	{
 		ret = ft_try_path(cmd_lst, envp, args);
@@ -80,12 +80,12 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 	i = 0;
 	if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
 	{
-		while ((*cmd_lst)->input[i] && (*cmd_lst)->input[i] != '/')
+		while ((*cmd_lst)->input[0][i] && (*cmd_lst)->input[0][i] != '/')
 			++i;
-		if ((size_t)i < ft_strlen((*cmd_lst)->input))
-			write_error("\0", (*cmd_lst)->input,
+		if ((size_t)i < ft_strlen((*cmd_lst)->input[0]))
+			write_error("\0", (*cmd_lst)->input[0],
 			": No such file or directory\n");
 		else
-			write_error("\0", (*cmd_lst)->input, ": command not found\n");
+			write_error("\0", (*cmd_lst)->input[0], ": command not found\n");
 	}
 }
