@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 19:29:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:39:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 		return (-1);
 	ft_strncpy(var, str, i);
 	var[i] = 0;
-	k = *j;
-	(*input) = replace_var_by_value(var, envp, (*input), j);
-	if (k == *j)
-	{
-		while (str[i] == ' ' || str[i] == '\t')
-			++i;
-	}
+	k = replace_var_by_value(var, envp, input, j);
 	free(var);
 	var = NULL;
+	if (k == VAR_NOT_FOUND && !str[i])
+		return (VAR_NOT_FOUND);
 	return (i);
 }
 
@@ -54,16 +50,9 @@ int			deal_dollar(char *str, char **input, int *j, char *envp[])
 		if (str[i] == '}')
 			++i;
 		else
-			return (-1);
+			return (QUOTE_NOT_FOUND);
 	}
-	else
-	{
-		(*input)[*j] = str[i - 1];
-		(*input)[*j + 1] = str[i];
-		++i;
-		*j += 2;
-	}
-	if (i == 0)
-		return (-1);
+	if (i <= 0)
+		return (i - 1);
 	return (i);
 }

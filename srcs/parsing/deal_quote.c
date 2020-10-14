@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 19:35:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:41:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ static int	len_simple_quote(char *str, int dollar)
 	len = 0;
 	while (str[len] && str[len] != '\'')
 	{
-		
 		if (dollar == 1 && str[len] == '\\' && str[len + 1])
 			len += 2;
 		else
 			++len;
 	}
 	if (str[len] != '\'')
-		return (-1);
+		return (QUOTE_NOT_FOUND);
 	return (len);
 }
 
@@ -97,5 +96,33 @@ int			deal_double_quote(char *str, char **input, int *j, char *env[])
 	}
 	if (str[i] == '\"')
 		return (i + 1);
-	return (-1);
+	return (QUOTE_NOT_FOUND);
+}
+
+int			is_in_quote(char const *s, size_t *i, int quote)
+{
+	int	bs;
+
+	bs = 0;
+	--(*i);
+	while (s[++(*i)] == '\\')
+		++bs;
+	if (s[*i] == '\'' || s[*i] == '\"')
+	{
+		if (quote == 0 && bs % 2 == 1)
+			return (quote);
+		else if (s[*i] == '\'' && i > 0 && s[*i - 1] == '$' && quote == 0)
+			return (3);
+		else if (s[*i] == '\'' && quote == 0)
+			return (1);
+		else if (s[*i] == '\"' && quote == 0)
+			return (2);
+		else if (quote == 1 && s[*i] == '\'')
+			return (0);
+		else if (quote == 2 && s[*i] == '\"' && bs % 2 == 0)
+			return (0);
+		else if (quote == 3 && s[*i] == '\'' && bs % 2 == 0)
+			return (0);
+	}
+	return (quote);
 }

@@ -6,42 +6,45 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 16:33:24 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/14 14:59:51 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#define ECHO 0
-#define CD 1
-#define PWD 2
-#define ENV 3
-#define EXPORT 4
-#define UNSET 5
-#define EXIT 6
-#define UNKNOW 7
-#define ERROR 9
-#define NUM_CMD 7
+# define ECHO 0
+# define CD 1
+# define PWD 2
+# define ENV 3
+# define EXPORT 4
+# define UNSET 5
+# define EXIT 6
+# define UNKNOW 7
+# define ERROR 9
+# define NUM_CMD 7
 
-#define NONE -1
-#define PIPE 0
-#define COMA 1
-#define RIGHT 2
-#define LEFT 3
-#define D_RIGHT 4
-#define D_LEFT 5
-#define AND 6
-#define OR 7
-#define NUM_SEP 8
+# define NONE -1
+# define PIPE 0
+# define COMA 1
+# define RIGHT 2
+# define LEFT 3
+# define D_RIGHT 4
+# define D_LEFT 5
+# define AND 6
+# define OR 7
+# define NUM_SEP 8
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/errno.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include "../libft/libft_header/libft.h"
+# define VAR_NOT_FOUND -2
+# define QUOTE_NOT_FOUND -1
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <sys/errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "../libft/libft_header/libft.h"
 
 typedef struct	s_stock
 {
@@ -80,7 +83,7 @@ int		find_var(char *envp[], char *var);
 int		write_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
-char	*replace_var_by_value(char *var, char *envp[], char *value, int *start);
+int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
 int		set_sep(char *str, t_stock **cmd_lst);
 int		ft_issep(char c, char before);
 int		sep_error(t_stock **cmd_lst);

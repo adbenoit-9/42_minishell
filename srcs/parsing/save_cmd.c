@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/13 19:20:04 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:37:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,36 +73,23 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
-	int k;
+	int		k;
 	t_stock	*new;
 
 	new = ft_stocknew(cmd);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\t')
-			str[i] = ' ';
-		++i;
-	}
-	i = 0;
 	k = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		tmp = i;
 		k = is_in_quote(str, &tmp, k);
-		if (k != 0)
-			i = tmp;
+		i = k != 0 ? tmp : i;
 		if (k == 0 && is_bs(str, &i) == 0 && ft_issep(str[i], 0) == 1)
 			break ;
-		++i;
 	}
 	if (!(new->input = split_arg(str, ' ', i)))
 		ft_error(cmd_lst);
-	if (ft_issep(str[i], 0) == 1)
-		++i;
-	k = -1;
-	// while (new->input[++k])
-	// 	printf("new[%d] = |%s|\n", k, new->input[k]);
+	i = ft_issep(str[i], 0) == 1 ? i + 1 : i;
 	set_input(new->input, &new, envp);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[i])
