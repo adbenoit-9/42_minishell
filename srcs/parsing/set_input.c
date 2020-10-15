@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 17:23:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/15 14:31:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			set_input(char **input, t_stock **cmd_lst, char **envp)
 		j = 0;
 		while (input[i][j])
 		{
+			ret = 0;
 			if (input[i][j] == '\\' && input[i][++j])
 				arg[k++] = input[i][j++];
 			else if (input[i][j] == '\'')
@@ -48,19 +49,8 @@ int			set_input(char **input, t_stock **cmd_lst, char **envp)
 				ret = deal_double_quote(input[i] + j, &arg, &k, envp);
 			else if (input[i][j] == '$')
 				ret = deal_dollar(input[i] + j, &arg, &k, envp);
-			else if (ft_issep(input[i][j], 0))
-			{
-				set_sep(input[i] + j, cmd_lst);
-				replace_input(&arg, &input[i], k);
-				input[i + 1] = NULL;
-				return (1);
-			}
 			else
-			{
-				arg[k] = input[i][j];
-				++k;
-				++j;
-			}
+				arg[k++] = input[i][j++];
 			if (ret == QUOTE_NOT_FOUND)
 				return (QUOTE_NOT_FOUND);
 			else if (ret == VAR_NOT_FOUND)
@@ -71,12 +61,9 @@ int			set_input(char **input, t_stock **cmd_lst, char **envp)
 			}
 			else
 				j += ret;
-			printf("ret = %d, j =%d\n", ret, j);
 		}
-		printf("-----\n");
 		replace_input(&arg, &input[i], k);
 		++i;
 	}
-	// input[i] = NULL;
 	return (0);
 }

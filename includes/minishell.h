@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 14:59:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/15 18:30:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define D_LEFT 5
 # define AND 6
 # define OR 7
-# define NUM_SEP 8
+# define NUM_SEP 5
 
 # define VAR_NOT_FOUND -2
 # define QUOTE_NOT_FOUND -1
@@ -49,7 +49,8 @@
 typedef struct	s_stock
 {
 	char			**input;
-	char			*stdin;
+	char			**stdin;
+	char			**stdout;
 	int				cmd;
 	int				sep;
 	int				ret;
@@ -86,9 +87,9 @@ void	clear_one(t_stock **cmd_lst);
 int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
 int		set_sep(char *str, t_stock **cmd_lst);
 int		ft_issep(char c, char before);
-int		sep_error(t_stock **cmd_lst);
+int		sep_error(int sep, int sep_before);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
-int		last_parsing(t_stock **cmd_lst);
+int		last_parsing(t_stock **cmd_lst, int *i);
 char	**split_arg(char const *s, char c, size_t n);
 int		is_in_quote(char const *s, size_t *i, int quote);
 

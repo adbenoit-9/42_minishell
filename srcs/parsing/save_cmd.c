@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 16:37:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/15 17:04:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	}
 	if (!(new->input = split_arg(str, ' ', i)))
 		ft_error(cmd_lst);
-	i = ft_issep(str[i], 0) == 1 ? i + 1 : i;
+	i += set_sep(str + i, &new);
 	set_input(new->input, &new, envp);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[i])

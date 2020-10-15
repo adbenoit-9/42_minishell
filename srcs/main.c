@@ -6,20 +6,33 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/11 19:46:23 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/15 18:31:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	stocknclear(t_stock **cmd_lst, int n)
+{
+	while (n > 0)
+	{
+		*cmd_lst = (*cmd_lst)->next;
+		--n;
+	}
+	if ((*cmd_lst)->next && ((*cmd_lst)->next->sep == LEFT || (*cmd_lst)->next->sep == RIGHT || (*cmd_lst)->next->sep == D_RIGHT))
+		stocknclear(&(*cmd_lst)->next, 0);
+	clear_one(cmd_lst);
+	// EUUUUH NON. On va plutot faire un tableau de stdin et stdout dans le debut du parsing, merci comme ca byre redirection !!!!!!
+}
 
 int main(int argc, char *argv[], char *envp[])
 {
 	char shell[] = {0xF0, 0x9F, 0x90, 0x9A, ':', ' '};
 	char *buffer;
 	t_stock	*cmd_lst;
-	// t_stock	*tmp;
+	t_stock	*tmp;
 	int	ret;
-	// int i;
+	int i;
 
 	(void)argc;
 	(void)argv;
@@ -42,14 +55,13 @@ int main(int argc, char *argv[], char *envp[])
 		// 	tmp = tmp->next;
 		// 	printf("---------------\n");
 		// }
-		// ret = last_parsing(&cmd_lst);
+		i = 0;
+		ret = last_parsing(&cmd_lst, &i);
+		tmp = cmd_lst;
 		if (ret == -2)
-		{
-			//enlever les cmd redirige qui a fait failed
-			//attention car si erreur apres faut pas le degager
-		}
-		// if (ret == 0)
-		execute(&cmd_lst, envp);
+			stocknclear(&cmd_lst, i);
+		if (ret == 0)
+			execute(&cmd_lst, envp);
 		ft_stockclear(&cmd_lst, clear_one);
 		free(buffer);
 		buffer = NULL;
