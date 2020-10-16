@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:24:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/15 18:20:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:05:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	last_parsing(t_stock **cmd_lst, int *i)
 	ret = 0;
 	if (!(*cmd_lst)->next)
 	{
-		sep_error(NONE, (*cmd_lst)->sep);
-		return (-1);
+		ret = sep_error(NONE, (*cmd_lst)->sep);
+		return (ret);
 	}
 	else if ((*cmd_lst)->next->cmd == UNKNOW && !(*cmd_lst)->next->input[0][0])
 	{
@@ -69,5 +69,6 @@ int	last_parsing(t_stock **cmd_lst, int *i)
 		++(*i);
 	if ((*cmd_lst)->next && ret == 0)
 		return (last_parsing(&(*cmd_lst)->next, i));
+	printf("ret = %d\n", ret);
 	return (ret);
 }

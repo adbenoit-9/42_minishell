@@ -6,27 +6,27 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/11 19:46:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:27:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		check_next_sep(t_stock **cmd_lst, char *envp[])
-{
-	if ((*cmd_lst)->next && ((*cmd_lst)->next->sep == RIGHT ||(*cmd_lst)->next->sep == LEFT) && (*cmd_lst)->next->next)
-	{
-		if ((*cmd_lst)->sep == LEFT)
-			(*cmd_lst)->stdin = ft_strdup((*cmd_lst)->next->input[0]);
-		(*cmd_lst)->sep = (*cmd_lst)->next->sep;
-		clear_one(&(*cmd_lst)->next);
-		(*cmd_lst)->next = (*cmd_lst)->next->next;
-		return (execute(cmd_lst, envp));
-	}
-	else if ((*cmd_lst)->next && (*cmd_lst)->next->next)
-		return (execute(&(*cmd_lst)->next->next, envp));
-	return (0);
-}
+// int		check_next_sep(t_stock **cmd_lst, char *envp[])
+// {
+// 	if ((*cmd_lst)->next && ((*cmd_lst)->next->sep == RIGHT ||(*cmd_lst)->next->sep == LEFT) && (*cmd_lst)->next->next)
+// 	{
+// 		if ((*cmd_lst)->sep == LEFT)
+// 			(*cmd_lst)->size_t = ft_strdup((*cmd_lst)->next->input[0]);
+// 		(*cmd_lst)->sep = (*cmd_lst)->next->sep;
+// 		clear_one(&(*cmd_lst)->next);
+// 		(*cmd_lst)->next = (*cmd_lst)->next->next;
+// 		return (execute(cmd_lst, envp));
+// 	}
+// 	else if ((*cmd_lst)->next && (*cmd_lst)->next->next)
+// 		return (execute(&(*cmd_lst)->next->next, envp));
+// 	return (0);
+// }
 
 // int	execute(t_stock **cmd_lst, char *envp[])
 // {

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/15 17:04:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:37:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,19 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		tmp = i;
 		k = is_in_quote(str, &tmp, k);
 		i = k != 0 ? tmp : i;
-		if (k == 0 && is_bs(str, &i) == 0 && ft_issep(str[i], 0) == 1)
+		if (k == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
 			break ;
 	}
 	if (!(new->input = split_arg(str, ' ', i)))
 		ft_error(cmd_lst);
 	i += set_sep(str + i, &new);
 	set_input(new->input, &new, envp);
+	// set_input(new->stdin, &new, envp);
+	// set_input(new->stdout, &new, envp);
+	tmp = -1;
+	printf("i = %zu\n", i);
+	while (new->stdin && new->stdin[++tmp])
+		printf("stdin[%zu] = %s\n", tmp, new->stdin[tmp]);
 	ft_stockadd_back(cmd_lst, new);
 	if (str[i])
 		return (parsing(str + i, cmd_lst, envp));

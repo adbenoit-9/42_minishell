@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/15 18:31:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:02:29 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ int main(int argc, char *argv[], char *envp[])
 		ret = last_parsing(&cmd_lst, &i);
 		tmp = cmd_lst;
 		if (ret == -2)
+		{
 			stocknclear(&cmd_lst, i);
+			ret = 0;
+		}
 		if (ret == 0)
 			execute(&cmd_lst, envp);
 		ft_stockclear(&cmd_lst, clear_one);

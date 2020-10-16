@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/15 17:03:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/16 14:04:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int	sep_error(int sep, int sep_before)
 	// 	write(1, char[sep], 1);
 	// }
 	write(1, "'\n", 2);
-	return (0);
+	return (-1);
 }
