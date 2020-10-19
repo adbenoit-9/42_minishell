@@ -6,11 +6,12 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/25 15:24:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 19:38:54 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 static int set_input(t_stock **cmd_lst)
 {
@@ -69,6 +70,5 @@ int	last_parsing(t_stock **cmd_lst, int *i)
 		++(*i);
 	if ((*cmd_lst)->next && ret == 0)
 		return (last_parsing(&(*cmd_lst)->next, i));
-	printf("ret = %d\n", ret);
 	return (ret);
 }

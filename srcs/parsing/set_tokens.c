@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:27:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 19:43:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int fill_file_name(char ***file, char *str)
 	}
 	if (!(*file = realloc_tab(*file, size + 1)))
 	{
-		ft_free(file, size);
+		ft_free(*file, size);
 		return (MALL_ERR);
 	}
 	if ((len = ft_strlen(str + i)) == 0)

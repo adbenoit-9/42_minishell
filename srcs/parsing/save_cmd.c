@@ -6,55 +6,20 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:18:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 19:41:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static char		*get_unknow_cmd(char *cmd, int k, char *str, size_t *i)
-// {
-// 	int		len;
-
-// 	len = 0;
-// 	if (k == UNKNOW)
-// 	{
-// 		while (str[len + *i] && ft_isspace(str[len + *i]) == 0)	
-// 			++len;
-// 		cmd = ft_strndup(str + *i, len);
-// 		(*i) += len;
-// 		while (ft_isspace(str[*i]) == 1)
-// 			++(*i);
-// 	}
-// 	return (cmd);
-// }
-
-// static void		add_unknow_cmd(char *tokens, char **new_tokens, char *cmd)
-// {
-// 	if (cmd)
-// 	{
-// 		tokens = ft_strdup(*new_tokens);
-// 		if (tokens && tokens[0])
-// 		{
-// 			cmd = ft_strjoin(cmd, " ");
-// 			*new_tokens = ft_strjoin(cmd, tokens);
-// 		}
-// 		else
-// 			*new_tokens = ft_strdup(cmd);
-// 		free(cmd);
-// 		free(tokens);
-// 	}
-// }
-
-// static size_t	tokens_len(char *str)
-// {
-// 	size_t	len;
-
-// 	len = 0;
-// 	while (str[len] && str[len] != '\n')
-// 		++len;
-// 	return (len);
-// }
+static int		parse_error(t_stock **new, t_stock **cmd_lst, char *str)
+{
+	if ((*new)->err == SEP_ERR)
+		free(*new);
+	(*cmd_lst)->err = 0;
+	(void)str;
+	return (0);
+}
 
 int				is_bs(char *str, size_t *i)
 {
@@ -98,7 +63,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		ft_stockadd_back(cmd_lst, new);
 	}
 	else
-		ft_deal_error(cmd_lst, &new, str + i);
+		parse_error(cmd_lst, &new, str + i);
 	if (str[i])
 		return (parsing(str + i, cmd_lst, envp));
 	else
