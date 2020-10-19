@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/16 14:02:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	stocknclear(t_stock **cmd_lst, int n)
 	if ((*cmd_lst)->next && ((*cmd_lst)->next->sep == LEFT || (*cmd_lst)->next->sep == RIGHT || (*cmd_lst)->next->sep == D_RIGHT))
 		stocknclear(&(*cmd_lst)->next, 0);
 	clear_one(cmd_lst);
-	// EUUUUH NON. On va plutot faire un tableau de stdin et stdout dans le debut du parsing, merci comme ca byre redirection !!!!!!
+	// EUUUUH NON. On va plutot faire un tableau de input et output dans le debut du parsing, merci comme ca byre redirection !!!!!!
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -50,8 +50,8 @@ int main(int argc, char *argv[], char *envp[])
 		// while (tmp)
 		// {
 		// 	i = -1;
-		// 	while (tmp->input && tmp->input[++i])
-		// 		printf("[%s]\n", tmp->input[i]);
+		// 	while (tmp->tokens && tmp->tokens[++i])
+		// 		printf("[%s]\n", tmp->tokens[i]);
 		// 	tmp = tmp->next;
 		// 	printf("---------------\n");
 		// }

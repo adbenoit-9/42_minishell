@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/11 17:15:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:42:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,12 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
 
     // if (ft_redirect(cmd_lst, 0, 0) == -1)
     //     return ;
-    // if (!(var = ft_create_var((*cmd_lst)->input[0], &pos)))
+    // if (!(var = ft_create_var((*cmd_lst)->tokens[0], &pos)))
     //     return ;
     // ret = find_var(envp, var);
-    // new = ft_strdup((*cmd_lst)->input + pos);
+    // new = ft_strdup((*cmd_lst)->tokens + pos);
     // if (ret == -1)
-    //     ft_add_to_envp(envp, (*cmd_lst)->input);
+    //     ft_add_to_envp(envp, (*cmd_lst)->tokens);
     // else
     //     ft_modify_envp(envp, var, new, ret);
     (void)envp;

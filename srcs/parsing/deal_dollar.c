@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 15:39:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:24:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	deal_var(char *str, char **input, int *j, char *envp[])
+static int	deal_var(char *str, char **tokens, int *j, char *envp[])
 {
 	char	*var;
 	int		i;
@@ -22,10 +22,10 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 	while (ft_isalnum(str[i]) == 1 || str[i] == '_')
 		++i;
 	if (!(var = malloc(i + 1)))
-		return (-1);
+		return (MALL_ERR);
 	ft_strncpy(var, str, i);
 	var[i] = 0;
-	k = replace_var_by_value(var, envp, input, j);
+	k = replace_var_by_value(var, envp, tokens, j);
 	free(var);
 	var = NULL;
 	if (k == VAR_NOT_FOUND && !str[i])
@@ -33,20 +33,24 @@ static int	deal_var(char *str, char **input, int *j, char *envp[])
 	return (i);
 }
 
-int			deal_dollar(char *str, char **input, int *j, char *envp[])
+int			deal_dollar(char *str, char **tokens, int *j, char *envp[])
 {
 	int	i;
+	int ret;
 
 	i = 1;
 	if (ft_isalnum(str[i]) == 1)
-		i += deal_var(str + i, input, j, envp);
+		i += deal_var(str + i, tokens, j, envp);
 	else if (str[i] == '\'')
-		i += deal_simple_quote(str + i, input, j, 1);
+		i += deal_simple_quote(str + i, tokens, j, 1);
 	else if (str[i] == '\"')
-		i += deal_double_quote(str + i, input, j, envp);
+		i += deal_double_quote(str + i, tokens, j, envp);
 	else if (str[i] == '{')
 	{
-		i += deal_var(str + i + 1, input, j, envp) + 1;
+		ret = deal_var(str + i + 1, tokens, j, envp) + 1;
+		if (ret < 0)
+			return (ret);
+		i += ret;
 		if (str[i] == '}')
 			++i;
 		else

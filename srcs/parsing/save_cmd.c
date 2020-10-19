@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/16 14:37:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:18:19 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,24 @@
 // 	return (cmd);
 // }
 
-// static void		add_unknow_cmd(char *input, char **new_input, char *cmd)
+// static void		add_unknow_cmd(char *tokens, char **new_tokens, char *cmd)
 // {
 // 	if (cmd)
 // 	{
-// 		input = ft_strdup(*new_input);
-// 		if (input && input[0])
+// 		tokens = ft_strdup(*new_tokens);
+// 		if (tokens && tokens[0])
 // 		{
 // 			cmd = ft_strjoin(cmd, " ");
-// 			*new_input = ft_strjoin(cmd, input);
+// 			*new_tokens = ft_strjoin(cmd, tokens);
 // 		}
 // 		else
-// 			*new_input = ft_strdup(cmd);
+// 			*new_tokens = ft_strdup(cmd);
 // 		free(cmd);
-// 		free(input);
+// 		free(tokens);
 // 	}
 // }
 
-// static size_t	input_len(char *str)
+// static size_t	tokens_len(char *str)
 // {
 // 	size_t	len;
 
@@ -87,17 +87,18 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		if (k == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
 			break ;
 	}
-	if (!(new->input = split_arg(str, ' ', i)))
+	if (!(new->tokens = split_token(str, ' ', i)))
 		ft_error(cmd_lst);
 	i += set_sep(str + i, &new);
-	set_input(new->input, &new, envp);
-	// set_input(new->stdin, &new, envp);
-	// set_input(new->stdout, &new, envp);
-	tmp = -1;
-	printf("i = %zu\n", i);
-	while (new->stdin && new->stdin[++tmp])
-		printf("stdin[%zu] = %s\n", tmp, new->stdin[tmp]);
-	ft_stockadd_back(cmd_lst, new);
+	new->err = set_token(new->tokens, &new, envp);
+	if (new->err == 0)
+	{
+		set_token(new->input, &new, envp);
+		set_token(new->output, &new, envp);
+		ft_stockadd_back(cmd_lst, new);
+	}
+	else
+		ft_deal_error(cmd_lst, &new, str + i);
 	if (str[i])
 		return (parsing(str + i, cmd_lst, envp));
 	else

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_arg.c                                        :+:      :+:    :+:   */
+/*   split_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 16:49:10 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 16:46:31 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/10/19 18:28:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,38 @@ static int		is_new_arg(char const *s, char c, size_t n, int quote)
 	int ret;
 
 	ret = 0;
-	if (s[n] == c && quote == 0)
+	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0)
 		ret = 1;
 	if (ret == 1 && (n == 0 || (s[n - 1] != '\\' && s[n - 1] != c)))
 		return (1);
 	return (0);
+}
+
+static int		is_redirec(char const *s, size_t *i, int quote, int r)
+{
+	int	bs;
+
+	bs = 0;
+	--(*i);
+	while (s[++(*i)] == '\\')
+		++bs;
+	if (quote == 1)
+		return (r);
+	if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
+	{
+		if (s[*i] == '>' && s[*i + 1] == '>')
+			++(*i);
+		++(*i);
+		while (s[*i] == ' ')
+			++(*i);
+		return (1);
+	}
+	else if (r == 1)
+	{
+		if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>' || s[*i] == ' ') && quote == 0)
+			return (0);
+	}
+	return (r);
 }
 
 static size_t	ft_countrow(char const *s, char c, size_t n)
@@ -29,16 +56,19 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 	size_t	count;
 	size_t	i;
 	int		quote;
+	int		r;
 
 	count = 0;
 	i = 0;
 	quote = 0;
+	r = 0;
 	if (s[0] && s[0] != c)
 		count++;
 	while (s[i] && i < n)
 	{
 		quote = is_in_quote(s, &i, quote);
-		if (is_new_arg(s, c, i, quote) == 1)
+		r = is_redirec(s, &i, quote, r);
+		if (r != 1 && is_new_arg(s, c, i, quote) == 1)
 			count++;
 		i++;
 	}
@@ -50,14 +80,18 @@ static size_t	ft_size(char const *s, char c, size_t i, size_t n)
 	size_t	size;
 	int		quote;
 	int		tmp;
+	int		r;
 
 	size = 0;
+	r = 0;
+	quote = 0;
 	while (s[i] && i < n)
 	{
 		tmp = i;
 		quote = is_in_quote(s, &i, quote);
+		r = is_redirec(s, &i, quote, r);
 		size += (i - tmp);
-		if (is_new_arg(s, c, i, quote) == 1)
+		if (r != 1 && is_new_arg(s, c, i, quote) == 1)
 			break ;
 		size++;
 		i++;
@@ -65,21 +99,7 @@ static size_t	ft_size(char const *s, char c, size_t i, size_t n)
 	return (size);
 }
 
-static void		*ft_free(char **tab, size_t k)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < k)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
-
-char			**split_arg(char const *s, char c, size_t n)
+char			**split_token(char const *s, char c, size_t n)
 {
 	char	**tab;
 	size_t	index[3];
@@ -107,3 +127,4 @@ char			**split_arg(char const *s, char c, size_t n)
 	tab[index[1]] = NULL;
 	return (tab);
 }
+ 

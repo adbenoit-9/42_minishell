@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 16:41:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:42:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	special_char(char c, char **input, int *j, int len)
+static int	special_char(char c, char **tokens, int *j, int len)
 {
 	int			i;
 	static char	list[9] = "abntrvf\\\'";
@@ -23,7 +23,7 @@ static int	special_char(char c, char **input, int *j, int len)
 	{
 		if (c == list[i])
 		{
-			(*input)[*j] = become[i];
+			(*tokens)[*j] = become[i];
 			++(*j);
 			return (1);
 		}
@@ -51,7 +51,7 @@ static int	len_simple_quote(char *str, int dollar)
 	return (len);
 }
 
-int			deal_simple_quote(char *str, char **input, int *j, int dollar)
+int			deal_simple_quote(char *str, char **tokens, int *j, int dollar)
 {
 	int i;
 	int len;
@@ -62,10 +62,10 @@ int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 	while (i < len)
 	{
 		if (dollar == 1 && str[i] == '\\' && str[++i])
-			i += special_char(str[i], input, j, len);
+			i += special_char(str[i], tokens, j, len);
 		else
 		{
-			(*input)[*j] = str[i];
+			(*tokens)[*j] = str[i];
 			++(*j);
 			++i;
 		}
@@ -73,7 +73,7 @@ int			deal_simple_quote(char *str, char **input, int *j, int dollar)
 	return (len + 1);
 }
 
-int			deal_double_quote(char *str, char **input, int *j, char *env[])
+int			deal_double_quote(char *str, char **tokens, int *j, char *env[])
 {
 	int i;
 
@@ -81,16 +81,16 @@ int			deal_double_quote(char *str, char **input, int *j, char *env[])
 	while (str[++i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-			i += deal_dollar(str + i, input, j, env) - 1;
+			i += deal_dollar(str + i, tokens, j, env) - 1;
 		else if (str[i] == '\\' && (str[i + 1] == '\"' || str[i + 1] == '\\'))
 		{
 			++i;
-			(*input)[*j] = str[i];
+			(*tokens)[*j] = str[i];
 			++(*j);
 		}
 		else if (str[i] != '\"')
 		{
-			(*input)[*j] = str[i];
+			(*tokens)[*j] = str[i];
 			++(*j);
 		}
 	}

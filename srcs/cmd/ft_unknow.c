@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/11 17:18:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:44:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		return (-1);
 	if ((*cmd_lst)->sep == RIGHT)
 		dup2(fd[0], 1);
-	if ((*cmd_lst)->sep == LEFT || (*cmd_lst)->stdin)
+	if ((*cmd_lst)->sep == LEFT || (*cmd_lst)->input)
 		dup2(fd[1], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
@@ -78,14 +78,14 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 
 	ret = 0;
 	i = 0;
-	if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->input, envp)) == 0)
+	if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->tokens, envp)) == 0)
 	{
-		while ((*cmd_lst)->input[0][i] && (*cmd_lst)->input[0][i] != '/')
+		while ((*cmd_lst)->tokens[0][i] && (*cmd_lst)->tokens[0][i] != '/')
 			++i;
-		if ((size_t)i < ft_strlen((*cmd_lst)->input[0]))
-			write_error("\0", (*cmd_lst)->input[0],
+		if ((size_t)i < ft_strlen((*cmd_lst)->tokens[0]))
+			write_error("\0", (*cmd_lst)->tokens[0],
 			": No such file or directory\n");
 		else
-			write_error("\0", (*cmd_lst)->input[0], ": command not found\n");
+			write_error("\0", (*cmd_lst)->tokens[0], ": command not found\n");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 16:41:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/15 21:03:04 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:28:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ char	**realloc_tab(char **ptr, int newsize)
 	int		i;
 
 	i = 0;
-	if (!(newptr = malloc(sizeof(char *) * newsize)))
+	if (!(newptr = (char **)malloc(sizeof(char *) * (newsize + 1))))
 		return (NULL);
-	while (i < newsize - 2)
+	while (ptr && ptr[i])
 	{
 		if (!(newptr[i] = (char *)ft_realloc(ptr[i], ft_strlen(ptr[i]) + 1)))
 			return (NULL);
-		i++;
+		++i;
 	}
-	newptr[i + 1] = 0;
+	newptr[i++] = 0;
+	newptr[i] = 0;
 	if (ptr != 0)
 		free(ptr);
 	ptr = NULL;
@@ -66,4 +67,18 @@ double	**realloc_doub(double **ptr, int newsize)
 		free(ptr);
 	ptr = NULL;
 	return (newptr);
+}
+
+void	*ft_free(char **tab, size_t k)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < k)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
 }

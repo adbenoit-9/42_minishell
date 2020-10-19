@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 19:56:29 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/22 17:34:01 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libftprintf.h"
 
 /*
-** Imprime sur stdout la chaîne de caractères
+** Imprime sur output la chaîne de caractères
 ** passée en premier argument en suivant les indications
 ** de formatage si elles existent.
 ** =========
