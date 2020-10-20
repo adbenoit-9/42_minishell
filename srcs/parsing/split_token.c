@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:28:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 19:19:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 	r = 0;
 	if (s[0] && s[0] != c)
 		count++;
-	while (s[i] && i < n)
+	while (i < n && s[i])
 	{
 		quote = is_in_quote(s, &i, quote);
 		r = is_redirec(s, &i, quote, r);
@@ -85,7 +85,7 @@ static size_t	ft_size(char const *s, char c, size_t i, size_t n)
 	size = 0;
 	r = 0;
 	quote = 0;
-	while (s[i] && i < n)
+	while (i < n && s[i])
 	{
 		tmp = i;
 		quote = is_in_quote(s, &i, quote);
