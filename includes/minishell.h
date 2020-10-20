@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:28:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:59:10 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@
 # define OR 7
 # define NUM_SEP 5
 
+# define FILE_ERR -5
 # define MALL_ERR -4
 # define SEP_ERR -3
-# define VAR_NOT_FOUND -2
-# define QUOTE_NOT_FOUND -1
+# define QUOTE_NOT_FOUND -2
+# define VAR_NOT_FOUND -1
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -51,8 +52,8 @@
 typedef struct	s_stock
 {
 	char			**tokens;
-	char			**input;
-	char			**output;
+	char			*input;
+	char			*output;
 	int				cmd;
 	int				sep;
 	int				ret;
@@ -88,13 +89,14 @@ int		write_error(char *cmd, char *arg, char *err);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
 int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
-int		set_sep(char *str, t_stock **cmd_lst);
+int		set_sep(char *str, int *s);
 int		ft_issep(char c, char before);
 int		sep_error(int sep, int sep_before);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
-int		last_parsing(t_stock **cmd_lst, int *i);
+int		parse_error(t_stock **new, t_stock **cmd_lst);
 char	**split_token(char const *s, char c, size_t n);
 int		is_in_quote(char const *s, size_t *i, int quote);
 int		is_bs(char *str, size_t *i);
+int		parse_token(char **token, t_stock **cmd_lst, char **envp);
 
 #endif

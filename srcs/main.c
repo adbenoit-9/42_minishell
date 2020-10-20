@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:01:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int main(int argc, char *argv[], char *envp[])
 	char shell[] = {0xF0, 0x9F, 0x90, 0x9A, ':', ' '};
 	char *buffer;
 	t_stock	*cmd_lst;
-	t_stock	*tmp;
 	int	ret;
-	int i;
 
 	(void)argc;
 	(void)argv;
@@ -45,27 +43,11 @@ int main(int argc, char *argv[], char *envp[])
 		buffer = NULL;
 		ret = get_next_line(0, &buffer);
 		cmd_lst = NULL;
-		parsing(buffer, &cmd_lst, envp);
-		// tmp = cmd_lst;
-		// while (tmp)
-		// {
-		// 	i = -1;
-		// 	while (tmp->tokens && tmp->tokens[++i])
-		// 		printf("[%s]\n", tmp->tokens[i]);
-		// 	tmp = tmp->next;
-		// 	printf("---------------\n");
-		// }
-		i = 0;
-		ret = last_parsing(&cmd_lst, &i);
-		tmp = cmd_lst;
-		if (ret == -2)
+		if (parsing(buffer, &cmd_lst, envp) == 0)
 		{
-			stocknclear(&cmd_lst, i);
-			ret = 0;
-		}
-		if (ret == 0)
 			execute(&cmd_lst, envp);
-		ft_stockclear(&cmd_lst, clear_one);
+			ft_stockclear(&cmd_lst, clear_one);
+		}
 		free(buffer);
 		buffer = NULL;
 	}

@@ -6,22 +6,59 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/14 15:56:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:02:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	replace_tab_by_space(char **str)
+int		parse_error(t_stock **new, t_stock **cmd_lst)
 {
-	int i;
+	int err;
+
+	err = (*new)->err;
+	if (err >= -1)
+		return (0);
+	ft_stockclear(new, clear_one);
+	if (err == MALL_ERR)
+		write_error("", strerror(errno), "\n");
+	else if (err == QUOTE_NOT_FOUND)
+		write_error("quote missing", "", "\n");
+	else
+		return (0);
+	ft_stockclear(cmd_lst, clear_one);
+	return (err);
+}
+
+int		parse_str(char **str)
+{
+	size_t	i;
+	int		quote;
+	int 	s1;
+	int		s2;
 
 	i = -1;
+	quote = 0;
 	while ((*str)[++i])
 	{
-		if ((*str)[i] == '\t')
+		if ((*str)[i] == '\\')
+			++i;
+		quote = is_in_quote(*str, &i, quote);
+		if (quote == 0 && (*str)[i] == '\t')
 			(*str)[i] = ' ';
+		if (quote == 0 && ft_issep((*str)[i], 0) == 1)
+		{
+			i += set_sep(*str, &s1);
+			if (ft_issep((*str)[i], 0) == 1)
+			{
+				i += set_sep(*str, &s2);
+				if (sep_error(s2, s1) == -1)
+					return (-1);
+			}
+		}
+		
 	}
+	return (0);
 }
 
 int		parsing(char *str, t_stock **cmd_lst, char *envp[])
@@ -32,7 +69,8 @@ int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 	static char	*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 
-	replace_tab_by_space(&str);
+	if (parse_str(&str) == -1)
+		return (-1);
 	j = 0;
 	while (str[j] == ' ')
 		++j;

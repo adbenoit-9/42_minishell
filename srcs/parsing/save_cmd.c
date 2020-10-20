@@ -6,20 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 19:41:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:59:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int		parse_error(t_stock **new, t_stock **cmd_lst, char *str)
-{
-	if ((*new)->err == SEP_ERR)
-		free(*new);
-	(*cmd_lst)->err = 0;
-	(void)str;
-	return (0);
-}
 
 int				is_bs(char *str, size_t *i)
 {
@@ -39,6 +30,7 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	size_t	i;
 	size_t	tmp;
 	int		k;
+	int 	ret;
 	t_stock	*new;
 
 	new = ft_stocknew(cmd);
@@ -54,18 +46,11 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	}
 	if (!(new->tokens = split_token(str, ' ', i)))
 		ft_error(cmd_lst);
-	i += set_sep(str + i, &new);
+	i += set_sep(str + i, &(new->sep));
 	new->err = set_token(new->tokens, &new, envp);
-	if (new->err == 0)
-	{
-		set_token(new->input, &new, envp);
-		set_token(new->output, &new, envp);
+	if ((ret = parse_error(&new, cmd_lst)) == 0)
 		ft_stockadd_back(cmd_lst, new);
-	}
-	else
-		parse_error(cmd_lst, &new, str + i);
-	if (str[i])
-		return (parsing(str + i, cmd_lst, envp));
-	else
-		return (0);
+	if (ret == 0 && str[i])
+			return (parsing(str + i, cmd_lst, envp));
+	return (0);
 }

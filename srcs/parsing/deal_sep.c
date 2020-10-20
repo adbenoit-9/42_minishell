@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/16 14:04:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:03:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_sep(char *str, t_stock **cmd_lst)
+int	set_sep(char *str, int *s)
 {
 	static char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>"};
 	int			i;
@@ -23,14 +23,14 @@ int	set_sep(char *str, t_stock **cmd_lst)
 	end = ft_strlen(str) < 2 ? 4 : NUM_SEP;
 	while (i < end)
 	{
-		size = i < 4 ? 1 : 2;
+		size = i < 4 ? 1 : 2; 
 		if (ft_strncmp(sep[i], str, size) == 0)
-			(*cmd_lst)->sep = i;
+			*s = i;
 		i++;
 	}
-	if ((*cmd_lst)->sep == -1)
+	if (*s == -1)
 		return (0);
-	if ((*cmd_lst)->sep == 4)
+	if (*s == 4)
 		return (2);
 	return (1);
 }
