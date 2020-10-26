@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/20 16:59:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/21 18:01:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct	s_stock
 	struct s_stock	*next;
 }				t_stock;
 
+// extern t_stock	g_stock;
+
 typedef void     (*t_function)(t_stock **, char **);
 
 void	*ft_realloc(void *ptr, int newsize);
@@ -98,5 +100,6 @@ char	**split_token(char const *s, char c, size_t n);
 int		is_in_quote(char const *s, size_t *i, int quote);
 int		is_bs(char *str, size_t *i);
 int		parse_token(char **token, t_stock **cmd_lst, char **envp);
+int		parse_str(char **str);
 
 #endif

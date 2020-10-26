@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/20 16:02:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:21:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 		i = parse_file(&(*cmd_lst)->output, str, cmd_lst, envp);
 		errno = 0;
 		fd = open((*cmd_lst)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-		if (fd == -1)
+		if (fd == -1 && (*cmd_lst)->output)
 		{
 			write_error((*cmd_lst)->output, ": ", strerror(errno));
 			write(1, "\n", 1);

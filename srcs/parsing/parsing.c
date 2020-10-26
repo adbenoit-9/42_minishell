@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/20 19:24:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:08:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,31 @@ int		parse_str(char **str)
 
 	i = 0;
 	quote = 0;
+	s1 = -1;
 	while ((*str)[i])
 	{
+		s2 = -1;
 		if ((*str)[i] == '\\')
 			++i;
 		quote = is_in_quote(*str, &i, quote);
 		if (quote == 0 && (*str)[i] == '\t')
 			(*str)[i] = ' ';
-		if ((*str)[i] && quote == 0 && ft_issep((*str)[i], 0) == 1)
+		else if ((*str)[i] && quote == 0 && ft_issep((*str)[i], 0) == 1)
 		{
-			i += set_sep(*str, &s1);
-			while ((*str)[i] == ' ')
-				++i;
+			if (s1 == -1)
+				i += set_sep(*str + i, &s1);
+			if ((*str)[i] && s1 != -1)
+				i += set_sep(*str + i, &s2);
 			if (!(*str)[i] && s1 > 1)
 				return (sep_error(-1, s1));
-			if ((*str)[i] && ft_issep((*str)[i], 0) == 1)
-			{
-				i += set_sep(*str, &s2);
-				if (sep_error(s2, s1) == -1)
+			else if (sep_error(s2, s1) == -1)
 					return (-1);
-			}
 			else if (i == 1 && (s1 == COMA || s1 == PIPE))
 				return (sep_error(-1, s1));
 		}
 		else
-			++i;
+			s1 = -1;
+		++i;
 	}
 	return (0);
 }
@@ -73,15 +73,9 @@ int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 	int			i;
 	int			j;
 	size_t		size;
-	int			ret;
 	static char	*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 
-	if ((ret = parse_str(&str)) == -1)
-		return (-1);
-	if (ret == 1)
-		return (-1);
-	// printf("ret = %d\n", ret);
 	j = 0;
 	while (str[j] == ' ')
 		++j;
