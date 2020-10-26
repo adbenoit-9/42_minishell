@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/10/19 13:46:06 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/10/26 16:15:35 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ CMD 		=	ft_cd.c			ft_env.c \
 
 PARS 		=	parsing.c		deal_quote.c \
 				deal_dollar.c	save_cmd.c \
-				set_tokens.c		deal_sep.c \
-				last_parsing.c	split_token.c
+				set_tokens.c	deal_sep.c \
+				split_token.c
 
 CC			=	gcc
 

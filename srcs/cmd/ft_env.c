@@ -38,8 +38,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     new = NULL;
     index = 0;
     //(*cmd_lst)->ret = 0; ????????????????
-    if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
-        return ;
+    ft_redirect(cmd_lst, 0, &fd);
     if (ft_arg_env(cmd_lst) == 1)
         return ;
     while (envp[index])

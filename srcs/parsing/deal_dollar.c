@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:24:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:33:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int			deal_dollar(char *str, char **tokens, int *j, char *envp[])
 	int ret;
 
 	i = 1;
-	if (ft_isalnum(str[i]) == 1)
+	if (!str[i])
+		(*tokens)[(*j)++] = '$';
+	else if (ft_isalnum(str[i]) == 1)
 		i += deal_var(str + i, tokens, j, envp);
 	else if (str[i] == '\'')
 		i += deal_simple_quote(str + i, tokens, j, 1);

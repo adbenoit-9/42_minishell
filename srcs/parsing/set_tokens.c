@@ -6,23 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/21 17:21:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:51:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	replace_token(char **word, char **tokens, int k)
-{
-	(*word)[k] = 0;
-	free(*tokens);
-	*tokens = NULL;
-	if (!(*tokens = ft_strdup(*word)))
-		return (MALL_ERR);
-	free(*word);
-	*word = NULL;
-	return (0);
-}
 
 static int 	parse_file(char **file, char *str, t_stock **cmd_lst, char **envp)
 {
@@ -44,7 +32,7 @@ static int 	parse_file(char **file, char *str, t_stock **cmd_lst, char **envp)
 	while (str[++i])
 		(*file)[++j] = str[i];
 	(*file)[j + 1] = 0;
-	parse_token(file, cmd_lst, envp);
+	parse_token(*file, file, cmd_lst, envp);
 	return (i);
 }
 
@@ -86,44 +74,46 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 	return (i);
 }
 
-int			parse_token(char **token, t_stock **cmd_lst, char **envp)
+int			parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp)
 {
 	int		j;
 	int		k;
 	int		ret;
-	char	*word;
 
 	k = 0;
-	if (!(word = malloc(ft_strlen((*token)) + 1)))
+	if (!(*new_token = malloc(ft_strlen(token) + 1)))
 		return (MALL_ERR);
 	j = 0;
-	while ((*token)[j])
+	while (token[j])
 	{
 		ret = 0;
-		if ((*token)[j] == '\\' && (*token)[++j])
-			word[k++] = (*token)[j++];
-		else if ((*token)[j] == '\'')
-			ret = deal_simple_quote((*token) + j, &word, &k, 0);
-		else if ((*token)[j] == '\"')
-			ret = deal_double_quote((*token) + j, &word, &k, envp);
-		else if ((*token)[j] == '$')
-			ret = deal_dollar((*token) + j, &word, &k,  envp);
-		else if ((*token)[j] == '>' || (*token)[j] == '<')
-			ret = set_file_name(cmd_lst, (*token) + j, envp);
+		if (token[j] == '\\' && token[++j])
+			(*new_token)[k++] = token[j++];
+		else if (token[j] == '\'')
+			ret = deal_simple_quote(token + j, new_token, &k, 0);
+		else if (token[j] == '\"')
+			ret = deal_double_quote(token + j, new_token, &k, envp);
+		else if (token[j] == '$')
+			ret = deal_dollar(token + j, new_token, &k,  envp);
+		else if (token[j] == '>' || token[j] == '<')
+			ret = set_file_name(cmd_lst, token + j, envp);
 		else
-			word[k++] = (*token)[j++];
+			(*new_token)[k++] = token[j++];
 		if (ret < -1)
+		{
+			(*new_token)[k] = 0;
 			return (ret);
+		}
 		else if (ret == VAR_NOT_FOUND)
 		{
-			(*cmd_lst)->err = VAR_NOT_FOUND;
-			word[k] = 0;
-			break ;
+			free(*new_token);
+			(*new_token) = 0;
+			return (VAR_NOT_FOUND);
 		}
 		else
 			j += ret;
 	}
-	replace_token(&word, token, k);
+	(*new_token)[k] = 0;
 	return (0);
 }
 
@@ -131,15 +121,34 @@ int			set_token(char **tokens, t_stock **cmd_lst, char **envp)
 {
 	int	i;
 	int	ret;
+	int k;
 
 	i = 0;
+	k = 0;
 	if (!tokens)
 		return (0);
 	while (tokens[i])
 	{
-		if ((ret = parse_token(&(tokens[i]), cmd_lst, envp)) != 0)
+		if ((ret = parse_token(tokens[i], &(*cmd_lst)->tokens[k], cmd_lst, envp)) < -1)
+		{
+			while (tokens[i])
+			{
+				free (tokens[i]);
+				tokens[i] = NULL;
+				++i;
+			}
+			free(tokens);
+			(*cmd_lst)->tokens[++k] = NULL;
 			return (ret);
+		}
+		if (ret != -1)
+			++k;
+		free(tokens[i]);
+		tokens[i] = NULL;
 		++i;
 	}
+	free(tokens);
+	tokens = NULL;
+	(*cmd_lst)->tokens[k] = NULL;
 	return (0);
 }

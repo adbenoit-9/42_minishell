@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 14:36:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 16:04:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		parse_error(t_stock **new, t_stock **cmd_lst);
 char	**split_token(char const *s, char c, size_t n);
 int		is_in_quote(char const *s, size_t *i, int quote);
 int		is_bs(char *str, size_t *i);
-int		parse_token(char **token, t_stock **cmd_lst, char **envp);
+int		parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp);
 int		parse_str(char **str);
 
 #endif

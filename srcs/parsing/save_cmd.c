@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/20 19:20:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 16:08:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,23 @@ int				is_bs(char *str, size_t *i)
 	return (1);
 }
 
+size_t			ft_size_tab(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+		++i;
+	return (i);
+}
+
 int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
 	int		k;
 	int 	ret;
+	char	**tokens;
 	t_stock	*new;
 
 	new = ft_stocknew(cmd);
@@ -44,10 +55,12 @@ int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 		if (k == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
 			break ;
 	}
-	if (!(new->tokens = split_token(str, ' ', i)))
-		ft_error(cmd_lst);
+	if (!(tokens = split_token(str, ' ', i)))
+		return (MALL_ERR);
+	if (!(new->tokens = malloc((sizeof(char *) * (ft_size_tab(tokens) + 1)))))
+		return (MALL_ERR);
 	i += set_sep(str + i, &(new->sep));
-	new->err = set_token(new->tokens, &new, envp);
+	new->err = set_token(tokens, &new, envp);
 	if ((ret = parse_error(&new, cmd_lst)) == 0)
 		ft_stockadd_back(cmd_lst, new);
 	if (ret == 0 && str[i])

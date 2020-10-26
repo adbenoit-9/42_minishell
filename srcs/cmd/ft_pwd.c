@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/23 16:54:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:44:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void    ft_pwd(t_stock **cmd_lst, char *envp[])
     char    *str;
     int     fd;
 
-    if (ft_redirect(cmd_lst, &fd, 0) == -1)
-        return ;
+    ft_redirect(cmd_lst, 0, &fd);
     size = 0;
     buf = NULL;
     (void)envp;

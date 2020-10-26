@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:42:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:40:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 	(void)envp;
 	i = 0;
 	fd = 1;
-	if (!(*cmd_lst)->tokens || ft_redirect(cmd_lst, &fd, 0) == -1)
+	if (!(*cmd_lst)->tokens)
 		return ;
+	ft_redirect(cmd_lst, 0, &fd);
 	n = ft_echo_n(cmd_lst, &i);
 	k = i - 1;
 	while ((*cmd_lst)->tokens[++k])
 	{
-		if (k != i && (*cmd_lst)->tokens[k][0] && (*cmd_lst)->err != VAR_NOT_FOUND)
-			write(1, " ", 1);
-		write(fd, (*cmd_lst)->tokens[k], ft_strlen((*cmd_lst)->tokens[k]));
+		if (k != i)
+			write(fd, " ", 1);
+		if ((*cmd_lst)->tokens[k][0] != VAR_NOT_FOUND)
+			write(fd, (*cmd_lst)->tokens[k], ft_strlen((*cmd_lst)->tokens[k]));
 	}
 	if (n == 0)
 		write(fd, "\n", 1);
