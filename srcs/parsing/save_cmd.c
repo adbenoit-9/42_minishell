@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 16:08:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 19:20:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				is_bs(char *str, size_t *i)
+int		is_bs(char *str, size_t *i)
 {
 	size_t	n;
 
@@ -25,7 +25,7 @@ int				is_bs(char *str, size_t *i)
 	return (1);
 }
 
-size_t			ft_size_tab(char **tab)
+size_t	ft_size_tab(char **tab)
 {
 	size_t	i;
 
@@ -35,7 +35,7 @@ size_t			ft_size_tab(char **tab)
 	return (i);
 }
 
-int				save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
+int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
