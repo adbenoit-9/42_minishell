@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 15:09:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:09:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		parse_error(t_stock **new, t_stock **cmd_lst)
 		return (0);
 	ft_stockclear(new, clear_one);
 	if (err == MALL_ERR)
-		write_error("", strerror(errno), "\n");
+		write_error("", strerror(errno), "\n", 1);
 	else if (err == QUOTE_NOT_FOUND)
-		write_error("", "syntax error : quote expected\n", "");
+		write_error("", "syntax error : quote expected\n", "", 258);
 	else
 		return (0);
 	ft_stockclear(cmd_lst, clear_one);

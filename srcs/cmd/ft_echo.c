@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 17:40:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:37:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 		write(fd, "\n", 1);
 	if (fd != 1)
 		close(fd);
-	(*cmd_lst)->ret = 0;
+	erret = 0;
 }

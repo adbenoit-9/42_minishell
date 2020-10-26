@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 17:48:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 21:32:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		free(add_p);
 		if (execve(new_p, args, envp) == -1)
 		{
-			free(new_p); //il faut free le bon
+			free(new_p);
 			i++;
 		}
 		else
+		{
+			// free path
+			free(new_p);
 			return (1);
+		}
 	}
+	// free path
 	return (0);
 }
 
@@ -51,23 +56,18 @@ int		ft_launch_process(t_stock **cmd_lst, char **args, char *envp[])
 	pid_t	pid;
 	int		ret;
 	int		status;
-	// char	**args;
 
 	pid = fork();
 	ret = 0;
-	// args = ft_split(cmd, ' ');
 	if (pid == 0)
 	{
 		ret = ft_try_path(cmd_lst, envp, args);
-		exit(0);
+		exit(ret);
 	}
 	else if (pid < 0)
 		return (ret);
 	else
-	{
-		ret = 1;
 		wait(&status);
-	}
 	return (ret);
 }
 
@@ -78,14 +78,21 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 
 	ret = 0;
 	i = 0;
+	errno = 0;
 	if ((ret = ft_launch_process(cmd_lst, (*cmd_lst)->tokens, envp)) == 0)
 	{
 		while ((*cmd_lst)->tokens[0][i] && (*cmd_lst)->tokens[0][i] != '/')
 			++i;
 		if ((size_t)i < ft_strlen((*cmd_lst)->tokens[0]))
 			write_error("\0", (*cmd_lst)->tokens[0],
-			": No such file or directory\n");
+			": No such file or directory\n", 1);
 		else
-			write_error("\0", (*cmd_lst)->tokens[0], ": command not found\n");
+			write_error("\0", (*cmd_lst)->tokens[0], ": command not found\n", 127);
+		return ;
 	}
+	if (errno != 0)
+		erret = 1;
+	else
+		erret = 0;
+	erret = 0;
 }

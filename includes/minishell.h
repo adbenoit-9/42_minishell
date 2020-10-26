@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 16:04:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:08:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # include <sys/wait.h>
 # include "../libft/libft_header/libft.h"
 
+int erret;
+
 typedef struct	s_stock
 {
 	char			**tokens;
@@ -87,7 +89,7 @@ int		deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int		deal_simple_quote(char *str, char **tokens, int *j, int dollar);
 int		deal_double_quote(char *str, char **tokens, int *j, char *env[]);
 int		find_var(char *envp[], char *var);
-int		write_error(char *cmd, char *arg, char *err);
+int		write_error(char *cmd, char *arg, char *err, int error);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd_lst);
 int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
@@ -101,5 +103,6 @@ int		is_in_quote(char const *s, size_t *i, int quote);
 int		is_bs(char *str, size_t *i);
 int		parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp);
 int		parse_str(char **str);
+int		deal_erret(char **new_token, int *k, int size);
 
 #endif

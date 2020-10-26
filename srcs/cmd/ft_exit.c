@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 15:22:04 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:12:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	print_error(t_stock **cmd_lst, int i)
 	&& (*cmd_lst)->ret == 0 && (*cmd_lst)->tokens[0][0] != '0')
 	{
 		write_error("exit: ", (*cmd_lst)->tokens[0],
-		": numeric argument required\n");
+		": numeric argument required\n", 1);
 		return (1);
 	}
 	return (0);
@@ -32,6 +32,7 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 	(void)envp;
 	i = 0;
 	write(1, "exit\n", 5);
+	erret = 0;
 	if ((*cmd_lst)->tokens[0])
 	{
 		(*cmd_lst)->ret = ft_atoi((*cmd_lst)->tokens[0]);
@@ -43,7 +44,7 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 		}
 		if (err == 0 && (*cmd_lst)->tokens[1])
 		{
-			write_error("exit: ", "", "too many arguments\n");
+			write_error("exit: ", "", "too many arguments\n", 1);
 			return ;
 		}
 	}

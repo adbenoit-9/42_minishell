@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:00:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int		ft_error(t_stock **cmd_lst)
 	return (0);
 }
 
-int		write_error(char *cmd, char *arg, char *err)
+int		write_error(char *cmd, char *arg, char *err, int error)
 {
+	erret = error;
 	write(1, "minishell: ", 11);
 	write(1, cmd, ft_strlen(cmd));
 	write(1, arg, ft_strlen(arg));

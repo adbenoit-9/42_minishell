@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 17:33:50 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:09:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,27 @@ static int	deal_var(char *str, char **tokens, int *j, char *envp[])
 	if (k == VAR_NOT_FOUND && !str[i])
 		return (VAR_NOT_FOUND);
 	return (i);
+}
+
+int			deal_erret(char **new_token, int *k, int size)
+{
+	char	*nb;
+	size_t	len;
+
+	nb = ft_itoa(erret);
+	if ((len = ft_strlen(nb)) > 2)
+	{
+		if (!(*new_token = ft_realloc(*new_token, size + len)))
+			return (MALL_ERR);
+	}
+	len = -1;
+	while (nb[++len])
+	{
+		(*new_token)[*k] = nb[len];
+		++(*k);
+	}
+	free(nb);
+	return (2);
 }
 
 int			deal_dollar(char *str, char **tokens, int *j, char *envp[])

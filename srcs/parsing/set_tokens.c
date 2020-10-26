@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 19:22:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 20:08:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 		fd = open((*cmd_lst)->input, O_RDONLY);
 		if (i > 0 && fd == -1)
 		{
-			write_error((*cmd_lst)->input, ": ", strerror(errno));
+			write_error((*cmd_lst)->input, ": ", strerror(errno), 1);
 			write(1, "\n", 1);
 			close(fd);
 			return (FILE_ERR);
@@ -64,7 +64,7 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 		fd = open((*cmd_lst)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		if (fd == -1 && (*cmd_lst)->output)
 		{
-			write_error((*cmd_lst)->output, ": ", strerror(errno));
+			write_error((*cmd_lst)->output, ": ", strerror(errno), 1);
 			write(1, "\n", 1);
 			close(fd);
 			return (FILE_ERR);
@@ -93,11 +93,13 @@ int			parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp)
 			ret = deal_simple_quote(token + j, new_token, &k, 0);
 		else if (token[j] == '\"')
 			ret = deal_double_quote(token + j, new_token, &k, envp);
+		else if (token[j] == '$' && token[j + 1] == '?')
+			ret = deal_erret(new_token, &k, ft_strlen(token));
 		else if (token[j] == '$')
 			ret = deal_dollar(token + j, new_token, &k,  envp);
 		else if (token[j] == '>' || token[j] == '<')
 		{
-			ret = set_file_name(cmd_lst, token + j, envp);
+			set_file_name(cmd_lst, token + j, envp);
 			return (-1);
 		}
 		else
