@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/21 15:08:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 15:09:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		parse_error(t_stock **new, t_stock **cmd_lst)
 	if (err == MALL_ERR)
 		write_error("", strerror(errno), "\n");
 	else if (err == QUOTE_NOT_FOUND)
-		write_error("quote missing", "", "\n");
+		write_error("", "syntax error : quote expected\n", "");
 	else
 		return (0);
 	ft_stockclear(cmd_lst, clear_one);
@@ -36,34 +36,41 @@ int		parse_str(char **str)
 	int		quote;
 	int 	s1;
 	int		s2;
+	int		k;
 
 	i = 0;
 	quote = 0;
 	s1 = -1;
+	k = 0;
 	while ((*str)[i])
 	{
 		s2 = -1;
-		if ((*str)[i] == '\\')
+		if ((*str)[i] == '\\' && (*str)[++i])
+		{
+			k = 1;
 			++i;
+		}
 		quote = is_in_quote(*str, &i, quote);
-		if (quote == 0 && (*str)[i] == '\t')
-			(*str)[i] = ' ';
-		else if ((*str)[i] && quote == 0 && ft_issep((*str)[i], 0) == 1)
+		if ((*str)[i] && quote == 0 && ft_issep((*str)[i], 0) == 1)
 		{
 			if (s1 == -1)
 				i += set_sep(*str + i, &s1);
-			if ((*str)[i] && s1 != -1)
+			else if (s1 != -1)
 				i += set_sep(*str + i, &s2);
-			if (!(*str)[i] && s1 > 1)
-				return (sep_error(-1, s1));
-			else if (sep_error(s2, s1) == -1)
-					return (-1);
-			else if (i == 1 && (s1 == COMA || s1 == PIPE))
-				return (sep_error(-1, s1));
+			if (!(*str)[i] && s1 != COMA)
+				s2 = s1;
+			if (sep_error(s1, s2, k) == -1)
+				return (-1);
 		}
-		else
+		else if ((*str)[i])
+		{
+			if (quote == 0 && (*str)[i] == '\t')
+				(*str)[i] = ' ';
+			if ((*str)[i] != ' ')
+				k = 1;
 			s1 = -1;
-		++i;
+			++i;
+		}
 	}
 	return (0);
 }

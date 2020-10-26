@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/21 17:20:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:58:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,12 @@ int	ft_issep(char c, char before)
 	return (1);
 }
 
-int	sep_error(int sep, int sep_before)
+int	sep_error(int s1, int s2, int i)
 {
-	static char	*sep_lst[5] = {"|", ";", ">", "<", ">>"};
-
-	if (sep_before > 1 && sep == NONE)
+	if (s1 != NONE && (s2 != NONE || i == 0))
 	{
-		write_error("", "", "syntax error near unexpected token `newline'\n");
-		return (1);
+		write_error("", "syntax error\n", "");
+		return (-1);
 	}
-	if (sep == sep_before && sep != NONE)
-	{
-		write_error("", "syntax error near unexpected token `", "");
-		write(1, sep_lst[sep], 1);
-		write(1, sep_lst[sep], 1);
-	}
-	else if (sep_before > -1 && sep_before < 2 && sep_before != NONE)
-	{
-		write_error("", "syntax error near unexpected token `", "");
-		write(1, sep_lst[sep_before], 1);
-	}
-	else if (sep_before > 1 && sep < 2 && sep > -1)
-	{
-		write_error("", "syntax error near unexpected token `", "");
-		write(1, sep_lst[sep], 1);
-	}
-	else
-		return (0);
-	// else if ()
-	// {
-	// 	write_error("", "syntax error near unexpected token `", "");
-	// 	write(1, char[sep], 1);
-	// }
-	write(1, "'\n", 2);
-	return (-1);
+	return (0);
 }

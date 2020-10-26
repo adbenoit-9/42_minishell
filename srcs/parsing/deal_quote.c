@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:42:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/26 15:14:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	len_simple_quote(char *str, int dollar)
 			++len;
 	}
 	if (str[len] != '\'')
-		return (QUOTE_NOT_FOUND);
+		return (QUOTE_NOT_FOUND - 1);
 	return (len);
 }
 
@@ -57,8 +57,8 @@ int			deal_simple_quote(char *str, char **tokens, int *j, int dollar)
 	int len;
 
 	i = 1;
-	if ((len = len_simple_quote(str + 1, dollar) + 1) == 0)
-		return (-1);
+	if ((len = len_simple_quote(str + 1, dollar) + 1) == QUOTE_NOT_FOUND)
+		return (QUOTE_NOT_FOUND);
 	while (i < len)
 	{
 		if (dollar == 1 && str[i] == '\\' && str[++i])
