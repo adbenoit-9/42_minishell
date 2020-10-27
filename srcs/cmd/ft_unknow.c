@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 14:14:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:46:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_launch_process(t_stock **cmd_lst, char **args, char *envp[])
 		return (ret);
 	else
 	{
-		// ret = 1;
+		ret = 1;
 		wait(&status);
 	}
 	return (ret);
@@ -97,5 +97,4 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 		erret = 1;
 	else
 		erret = 0;
-	erret = 0;
 }

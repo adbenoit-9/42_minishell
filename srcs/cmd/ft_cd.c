@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 20:11:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 16:24:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void    ft_cd(t_stock **cmd_lst, char *envp[])
 {
     int     ret;
     char    *str;
+    char    *path;
 
     errno = 0;
     ret = chdir((const char *)(*cmd_lst)->tokens);

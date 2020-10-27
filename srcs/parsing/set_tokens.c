@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 13:46:24 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:39:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 		}
 		close(fd);
 	}
-	return (i);
+	return (-1);
 }
 
 int			parse_token(char *token, char **new, t_stock **cmd_lst, char **envp)
@@ -98,10 +98,7 @@ int			parse_token(char *token, char **new, t_stock **cmd_lst, char **envp)
 		else if (token[j] == '$')
 			ret = deal_dollar(token + j, new, &k, envp);
 		else if (token[j] == '>' || token[j] == '<')
-		{
-			set_file_name(cmd_lst, token + j, envp);
-			return (-1);
-		}
+			return (set_file_name(cmd_lst, token + j, envp));
 		else
 			(*new)[k++] = token[j++];
 		if (ret < -1)
