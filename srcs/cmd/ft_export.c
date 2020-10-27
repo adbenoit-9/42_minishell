@@ -12,130 +12,195 @@
 
 #include "minishell.h"
 
-// int     ft_check_var(char *var)
-// {
-//     int i;
+int     ft_check_var(char *var)
+{
+    int i;
 
-//     i = 0;
-//     while (var[i] != '\0')
-//     {
-//         if (ft_isalnum(var[i++]) == 0)
-//             return (0);
-//     }
-//     return (1);
-// }
+    i = 0;
+    while (var[i] != '\0')
+    {
+        if (ft_isalnum(var[i++]) == 0)
+            return (0);
+    }
+    return (1);
+}
 
-// char    *ft_create_var(char *str, int *pos)
-// {
-//     char    *var;
-//     int     i;
+char    *ft_create_var(char *str, int *pos)
+{
+    char    *var;
+    int     i;
 
-//     var = NULL;
-//     i = 0;
-//     while(str[i] && str[i] != '=')
-//         i++;
-//     if(!(var = (char *)malloc(sizeof(char) * i + 1)))
-//         return (NULL);
-//     i = 0;
-//     while(str[i] && str[i] != '=')
-//     {
-//         var[i] = str[i];
-//         i++;
-//     }
-//     var[i] = '\0';
-//     if (ft_check_var(var) == 0)
-//     {
-//         write_error("export: \'", str, "\': not a valid identifier\n");
-//         return(NULL);
-//     }
-//     if (str[i] != '=')
-//         return (NULL);
-//     *pos = i;
-//     return (var);
-// }
+    var = NULL;
+    i = 0;
+    while(str[i] && str[i] != '=')
+        i++;
+    if(!(var = (char *)malloc(sizeof(char) * i + 1)))
+        return (NULL);
+    i = 0;
+    while(str[i] && str[i] != '=')
+    {
+        var[i] = str[i];
+        i++;
+    }
+    var[i] = '\0';
+    if (ft_check_var(var) == 0)
+    {
+        write_error("export: \'", str, "\': not a valid identifier\n");
+        return(NULL);
+    }
+    if (str[i] != '=' && str[i] != '\0')
+        return (NULL);
+    *pos = i;
+    return (var);
+}
 
-// void    ft_add_to_envp(char *envp[], char *str)
-// {
-//     int i;
-//     int j;
+void    ft_add_to_envp(char *envp[], char *str)
+{
+    int     i;
+    int     j;
+    int     bool;
+    int     size;
 
-//     i = 0;
-//     j = 0;
-//     while(envp[i] != 0)
-//         i++;
-//     if (!(envp[i] = (char *)malloc(sizeof(char) * ft_strlen(str) + 1)))
-//         return ;
-//     while (str[j] != 0)
-//     {
-//         envp[i][j] = str[j];
-//         j++;
-//     }
-//     envp[i][j] = 0;
-//     envp[i + 1] = 0;
-// } // lignes ajoutées à free quand on quitte le pgm :
-// //peut être avoir quelque part la taille initiale de envp ???
+    i = 0;
+    j = 0;
+    bool = 0;
+    size = ft_strlen(str) + 1;
+    while (envp[i] != 0)
+        i++;
+    while (str[j] != 0)
+    {
+        if (str[j] == '=')
+            bool += 1;
+        j++;
+    }
+    if (bool == 0)
+        size += 3;
+    if (!(envp[i] = (char *)malloc(sizeof(char) * size)))
+        return ;
+    j = 0;
+    while (str[j] != 0)
+    {
+        envp[i][j] = str[j];
+        j++;
+    }
+    if (bool == 0)
+    {
+       envp[i][j] = '=';
+       envp[i][j + 1] = '\'';
+       envp[i][j + 2] = '\'';
+       j += 3;
+    }
+    envp[i][j] = 0;
+    envp[i + 1] = 0;
+    return ;
+}
+//lignes ajoutées à free quand on quitte le pgm :
+//eut être avoir quelque part la taille initiale de envp ???
 
-// void    ft_resize_at_pos(char *envp[], char *var, char *new, int pos)
-// {
-//     int size;
-//     int i;
-//     int j;
+void    ft_resize_at_pos(char *envp[], char *var, char *new, int pos)
+{
+    int size;
+    int i;
+    int j;
 
-//     size = ft_strlen(var) + ft_strlen(new) + 1;
-//     envp[pos] = ft_realloc(envp[pos], size); // a free
-//     i = 0;
-//     j = 0;
-//     while (var[i] != '\0')
-//         envp[pos][j++] = var[i++];
-//     envp[pos][j++] = '=';
-//     i = 0;
-//     while (new[i] != '\0')
-//         envp[pos][j++] = new[i++];
-//     envp[pos][j++] = '\0';
-// }
+    size = ft_strlen(var) + ft_strlen(new) + 1;
+    envp[pos] = ft_realloc(envp[pos], size); //a free
+    i = 0;
+    j = 0;
+    while (var[i] != '\0')
+        envp[pos][j++] = var[i++];
+    envp[pos][j++] = '=';
+    i = 0;
+    while (new[i] != '\0')
+        envp[pos][j++] = new[i++];
+    envp[pos][j++] = '\0';
+    return ;
+}
 
 
-// void    ft_modify_envp(char *envp[], char *var, char *new, int pos)
-// {
-//     int i;
-//     int j;
-//     int k;
-//     int l;
+void    ft_modify_envp(char *envp[], char *var, char *new, int pos)
+{   
+    int i;
+    int j;
+    int k;
+    int l;
 
-//     i = ft_strlen(var) + 1;
-//     j = ft_strlen(new);
-//     k = 0;
-//     l = i;
-//     while (envp[pos][l] != '\0')
-//         l++;
-//     if (l - i == j)
-//     {
-//         while (j >= i)
-//             envp[pos][i++] = new[k++];
-//         envp[pos][i] = '\0';
-//     }
-//     else
-//         ft_resize_at_pos(envp, var, new, pos);
-// }
+    i = ft_strlen(var) + 1;
+    j = ft_strlen(new);
+    k = 0;
+    l = i;
+    if (new[0] == '\0' || new == NULL)
+        return ;
+    while (envp[pos][l] != '\0')
+        l++;
+    if (l - i == j)
+    {
+        while (j >= i)
+            envp[pos][i++] = new[k++];
+        envp[pos][i] = '\0';
+    }
+    else
+        return (ft_resize_at_pos(envp, var, new, pos));
+}
 
+void    ft_exp(t_stock **cmd_lst, char *envp[])
+{
+    char    *str;
+    char    *new;
+    int     index;
+    int     fd;
+
+    str = NULL;
+    new = NULL;
+    index = 0;
+    //(*cmd_lst)->ret = 0; ????????????????
+    if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
+        return ;
+    if (ft_arg_env(cmd_lst) == 1)
+        return ;
+    while (envp[index])
+    {
+        if (str == NULL)
+        {
+            str = ft_strdup(envp[index]);
+            index++;
+        }
+        new = ft_strjoin(str, "\n");
+        free(str);
+        str = ft_strjoin(new, envp[index]);
+        free(new);
+        index++;
+    }
+    new = ft_strjoin(str, "\n");
+    free(str);
+    write(fd, new, ft_strlen(new));
+    free(new);
+    return ;
+}
 
 void    ft_export(t_stock **cmd_lst, char *envp[])
 {
-    // int     pos;
-    // int     ret;
-    // char    *var;
-    // char    *new;
+    int     pos;
+    int     ret;
+    char    *var;
+    char    *new;
 
-    // if (ft_redirect(cmd_lst, 0, 0) == -1)
-    //     return ;
-    // if (!(var = ft_create_var((*cmd_lst)->tokens[0], &pos)))
-    //     return ;
-    // ret = find_var(envp, var);
-    // new = ft_strdup((*cmd_lst)->tokens + pos);
-    // if (ret == -1)
-    //     ft_add_to_envp(envp, (*cmd_lst)->tokens);
-    // else
-    //     ft_modify_envp(envp, var, new, ret);
+    if (ft_redirect(cmd_lst, 0, 0) == -1)
+        return ;
+    if ((*cmd_lst)->tokens[0] == NULL)
+    {
+        ft_sort_env(envp);
+        return (ft_exp(cmd_lst, envp));// non car faut trier
+    }
+    if (!(var = ft_create_var((*cmd_lst)->tokens[0], &pos)))
+        return ;
+    ret = find_var(envp, var);
+    new = ft_strdup((*cmd_lst)->tokens[0] + pos);
+    if (ret == -1)
+       ft_add_to_envp(envp, (*cmd_lst)->tokens[0]);
+    else
+       ft_modify_envp(envp, var, new, ret);
     (void)envp;
     (*cmd_lst)->ret = 0;
+    return ;
 }

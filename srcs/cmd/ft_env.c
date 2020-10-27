@@ -18,14 +18,64 @@ int    ft_arg_env(t_stock **cmd_lst)
     int     ret;
 
     ret = 0;
-    if ((*cmd_lst)->tokens[0] != '\0')
+    if ((*cmd_lst)->tokens[0] != NULL)
     {
         ret = 1;
-        write_error("env: ", (*cmd_lst)->tokens[0], ": error (argument management for 'env' not required)\n", 127);
+        write_error("env: ", (*cmd_lst)->tokens[0], ": error (argument management for 'env' not required)\n");
     }
     return (ret);
 }
 
+int     ft_place(char *s1, char *s2)
+{  
+    int i;
+    
+    i = 0;
+    while (s1[i] != '\0' && s2[i] != '\0')
+    {
+        if (s1[i] < s2[i])
+            return (1);
+        else if (s1[i] > s2[i])
+            return (2);
+        else
+            i++;
+    }
+    if (s1[i] == '\0' && s2[i] != '\0')
+        return (1);
+    if (s1[i] != '\0' && s2[i] == '\0')
+        return (2);
+    return (0);
+}
+
+void    ft_sort_env(char *envp[])
+{
+    char    *swap;
+    int     size;
+    int     i;
+    int     j;
+
+    swap = NULL;
+    size = 0;
+    while (envp[size] != 0)
+        size++;
+    i = 0;
+    while (i < size - 1)
+    {
+        j = 0;
+        while (j < size - i - 1)
+        {
+            if (ft_place(envp[j], envp[j + 1]) == 2)
+            {
+                swap = envp[j];
+                envp[j] = envp[j + 1];
+                envp[j + 1] = swap;
+            }
+            j++;
+        }
+        i++;
+    }
+    return ;
+}
 
 void    ft_env(t_stock **cmd_lst, char *envp[])
 {
@@ -38,21 +88,30 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     new = NULL;
     index = 0;
     //(*cmd_lst)->ret = 0; ????????????????
-    ft_redirect(cmd_lst, 0, &fd);
+    if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
+        return ;
     if (ft_arg_env(cmd_lst) == 1)
-        erret = 0;
+        return ;
     while (envp[index])
     {
-        if (str == NULL)
+        int i = 0;
+        while (envp[index][i])
+            i++;
+        if (envp[index][i - 1] == '\'' && envp[index][i - 2] == '\'' && envp[index][i - 3] == '=')
+            index++;
+        else
         {
-            str = ft_strdup(envp[index]);
+            if (str == NULL)
+            {
+                str = ft_strdup(envp[index]);
+                index++;
+            }
+            new = ft_strjoin(str, "\n");
+            free(str);
+            str = ft_strjoin(new, envp[index]);
+            free(new);
             index++;
         }
-        new = ft_strjoin(str, "\n");
-        free(str);
-        str = ft_strjoin(new, envp[index]);
-        free(new);
-        index++;
     }
     new = ft_strjoin(str, "\n");
     free(str);
