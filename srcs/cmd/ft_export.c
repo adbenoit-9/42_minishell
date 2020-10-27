@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:42:23 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:13:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char    *ft_create_var(char *str, int *pos)
     var[i] = '\0';
     if (ft_check_var(var) == 0)
     {
-        write_error("export: \'", str, "\': not a valid identifier\n");
+        write_error("export: \'", str, "\': not a valid identifier\n", 1);
+        erret = 1;
         return(NULL);
     }
     if (str[i] != '=' && str[i] != '\0')
@@ -92,6 +93,14 @@ void    ft_add_to_envp(char *envp[], char *str)
     }
     envp[i][j] = 0;
     envp[i + 1] = 0;
+    /*i = 0;
+    while (envp[i])
+    {
+        envp[i] = ft_strdup(envp[i]);
+        write(1, envp[i], ft_strlen(envp[i]));
+        write(1, "\n", 1);
+        i++;
+    }*/
     return ;
 }
 //lignes ajoutées à free quand on quitte le pgm :
@@ -104,7 +113,7 @@ void    ft_resize_at_pos(char *envp[], char *var, char *new, int pos)
     int j;
 
     size = ft_strlen(var) + ft_strlen(new) + 1;
-    envp[pos] = ft_realloc(envp[pos], size); //a free
+    envp[pos] = ft_realloc(envp[pos], size + 1); //a free
     i = 0;
     j = 0;
     while (var[i] != '\0')
@@ -113,7 +122,7 @@ void    ft_resize_at_pos(char *envp[], char *var, char *new, int pos)
     i = 0;
     while (new[i] != '\0')
         envp[pos][j++] = new[i++];
-    envp[pos][j++] = '\0';
+    envp[pos][j] = '\0';
     return ;
 }
 
@@ -132,7 +141,7 @@ void    ft_modify_envp(char *envp[], char *var, char *new, int pos)
     if (new[0] == '\0' || new == NULL)
         return ;
     while (envp[pos][l] != '\0')
-        l++;
+        ++l;
     if (l - i == j)
     {
         while (j >= i)
@@ -160,6 +169,12 @@ void    ft_exp(t_stock **cmd_lst, char *envp[])
         return ;
     while (envp[index])
     {
+        write(1, envp[index], ft_strlen(envp[index]));
+        write(1, "\n", 1);
+        index++;
+    }
+    /*while (envp[index])
+    {
         if (str == NULL)
         {
             str = ft_strdup(envp[index]);
@@ -174,7 +189,7 @@ void    ft_exp(t_stock **cmd_lst, char *envp[])
     new = ft_strjoin(str, "\n");
     free(str);
     write(fd, new, ft_strlen(new));
-    free(new);
+    free(new);*/
     return ;
 }
 
@@ -184,23 +199,28 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
     int     ret;
     char    *var;
     char    *new;
+    char    **bis;
 
     if (ft_redirect(cmd_lst, 0, 0) == -1)
         return ;
     if ((*cmd_lst)->tokens[0] == NULL)
     {
-        ft_sort_env(envp);
-        return (ft_exp(cmd_lst, envp));// non car faut trier
+        bis = ft_copy_tab(envp);
+        ft_sort_env(bis);
+        ft_exp(cmd_lst, bis);
+        // free(bis);
+        return ;
     }
     if (!(var = ft_create_var((*cmd_lst)->tokens[0], &pos)))
         return ;
     ret = find_var(envp, var);
-    new = ft_strdup((*cmd_lst)->tokens[0] + pos);
+    new = ft_strdup((*cmd_lst)->tokens[0] + pos + 1);
     if (ret == -1)
-       ft_add_to_envp(envp, (*cmd_lst)->tokens[0]);
+        ft_add_to_envp(envp, (*cmd_lst)->tokens[0]);
     else
        ft_modify_envp(envp, var, new, ret);
     (void)envp;
     (*cmd_lst)->ret = 0;
+    erret = 0;
     return ;
 }

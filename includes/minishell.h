@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 20:08:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 13:53:38 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,8 @@ int		is_bs(char *str, size_t *i);
 int		parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp);
 int		parse_str(char **str);
 int		deal_erret(char **new_token, int *k, int size);
+char	**ft_copy_tab(char *envp[]);
+void	ft_sort_env(char *envp[]);
+int		ft_arg_env(t_stock **cmd_lst);
 
 #endif

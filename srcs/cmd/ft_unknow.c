@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 13:17:48 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/27 14:14:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int		ft_launch_process(t_stock **cmd_lst, char **args, char *envp[])
 	else if (pid < 0)
 		return (ret);
 	else
+	{
+		// ret = 1;
 		wait(&status);
+	}
 	return (ret);
 }
 

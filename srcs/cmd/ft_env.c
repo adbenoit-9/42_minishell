@@ -21,7 +21,7 @@ int    ft_arg_env(t_stock **cmd_lst)
     if ((*cmd_lst)->tokens[0] != NULL)
     {
         ret = 1;
-        write_error("env: ", (*cmd_lst)->tokens[0], ": error (argument management for 'env' not required)\n");
+        write_error("env: ", (*cmd_lst)->tokens[0], ": error (argument management for 'env' not required)\n", 1);
     }
     return (ret);
 }
@@ -47,6 +47,30 @@ int     ft_place(char *s1, char *s2)
     return (0);
 }
 
+char    **ft_copy_tab(char *envp[])
+{
+    char    **bis;
+    int     size;
+    int     i;
+
+    bis = NULL;
+    size = 0;
+    i = 0;
+    while (envp[size])
+        size++;
+    if(!(bis = malloc(sizeof(char *) * (size + 1))))
+        return (NULL);
+    while (i < size)
+    {
+        bis[i] = ft_strdup(envp[i]);
+        //write(1, bis[i], ft_strlen(bis[i]));
+        //write(1, "\n", 1);
+        i++;
+    }
+    bis[i] = NULL;
+    return (bis);
+}
+
 void    ft_sort_env(char *envp[])
 {
     char    *swap;
@@ -58,6 +82,7 @@ void    ft_sort_env(char *envp[])
     size = 0;
     while (envp[size] != 0)
         size++;
+        
     i = 0;
     while (i < size - 1)
     {
@@ -96,7 +121,7 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     {
         int i = 0;
         while (envp[index][i])
-            i++;
+            ++i;
         if (envp[index][i - 1] == '\'' && envp[index][i - 2] == '\'' && envp[index][i - 3] == '=')
             index++;
         else
