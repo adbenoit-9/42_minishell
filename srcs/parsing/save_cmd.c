@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 13:39:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:58:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	size_t	tmp;
 	int		ret;
 	char	**tokens;
-	t_stock	*new;
 
-	new = ft_stocknew(cmd);
+	*cmd_lst = ft_stocknew(cmd);
 	ret = 0;
 	i = -1;
 	while (str[++i])
@@ -56,13 +55,11 @@ int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[])
 	}
 	if (!(tokens = split_token(str, ' ', i)))
 		return (MALL_ERR);
-	if (!(new->tokens = malloc((sizeof(char *) * (ft_size_tab(tokens) + 1)))))
+	if (!((*cmd_lst)->tokens = malloc((sizeof(char *) * (ft_size_tab(tokens) + 1)))))
 		return (MALL_ERR);
-	i += set_sep(str + i, &(new->sep));
-	new->err = set_token(tokens, &new, envp);
-	if ((ret = parse_error(&new, cmd_lst)) == 0)
-		ft_stockadd_back(cmd_lst, new);
-	if (ret == 0 && str[i])
-		return (parsing(str + i, cmd_lst, envp));
-	return (0);
+	i += set_sep(str + i, &((*cmd_lst)->sep));
+	(*cmd_lst)->err = set_token(tokens, cmd_lst, envp);
+	if ((ret = parse_error(cmd_lst, cmd_lst)) == 0)
+		return (i);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 17:41:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:20:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,16 @@ size_t  path_len(char *token)
     return (len);
 }
 
-void	modify_pwd(char *envp[], char *var)
+void	modify_pwd(char *str, char *envp[], char *var)
 {
 	int		i;
 	int		j;
 	int		k;
 	size_t	size;
-	char	*str;
-	char	*buf;
 
 	size = 0;
-	buf = NULL;
-	str = getcwd(buf, size);
+    if (!str)
+	    str = getcwd(NULL, size);
     i = find_var(envp, var);
     j = 0;
     while (envp[i][j] && envp[i][j] != '=')
@@ -56,6 +54,7 @@ void	modify_pwd(char *envp[], char *var)
     while (str[++k])
         envp[i][++j] = str[k];
     envp[i][j + 1] = 0;
+    free(str);
 }
 
 void    ft_cd(t_stock **cmd_lst, char *envp[])
@@ -84,15 +83,17 @@ void    ft_cd(t_stock **cmd_lst, char *envp[])
         ++i;
     }
     path[j] = 0;
-    modify_pwd(envp, "OLDPWD");
+    str = getcwd(NULL, 0);
     ret = chdir((const char *)path);
     if (ret == 0)
 	{
-		modify_pwd(envp, "PWD");
+        modify_pwd(str, envp, "OLDPWD");
+		modify_pwd(NULL, envp, "PWD");
         erret = 0;
 	}
     else
     {
+        free(str);
         str = strerror(errno);
         write_error("cd: ", (*cmd_lst)->tokens[0], ": ", 1);
         write(1, str, ft_strlen(str));

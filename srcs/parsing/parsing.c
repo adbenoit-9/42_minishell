@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 20:09:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/29 17:01:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 	int			i;
 	int			j;
 	size_t		size;
+	int			ret;
 	static char	*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 
 	j = 0;
+	ft_stockclear(cmd_lst, clear_one);
 	while (str[j] == ' ')
 		++j;
 	i = 0;
@@ -93,10 +95,13 @@ int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 		if (ft_strncmp(cmd_str[i], str + j, size) == 0 &&
 		(ft_issep(str[j + size], 0) == 1 || ft_isspace(str[j + size]) == 1
 		|| str[j + size] == 0))
-			return (save_cmd(str + j + size, cmd_lst, i, envp));
+			ret = save_cmd(str + j + size, cmd_lst, i, envp);
 		i++;
 	}
 	if (str[j] && i == UNKNOW)
-		return (save_cmd(str + j, cmd_lst, i, envp));
+		ret = save_cmd(str + j, cmd_lst, i, envp);
+	execute(cmd_lst, envp);
+	if(ret > 0 && str[ret])
+		return (parsing(str + ret, cmd_lst, envp));
 	return (0);
 }

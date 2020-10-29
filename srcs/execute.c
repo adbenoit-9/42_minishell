@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:42:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:59:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ int	execute(t_stock **cmd_lst, char *envp[])
 		while (*cmd_lst && i < NUM_CMD && (*cmd_lst)->cmd != i)
 			++i;
 		cmd_fct[i](cmd_lst, envp);
-		if ((*cmd_lst)->next)
-			return (execute(&(*cmd_lst)->next, envp));
+		// if ((*cmd_lst)->next)
+		// 	return (execute(&(*cmd_lst)->next, envp));
+		// if (ret > 0 && str[0])
+		// 	return (parsing(str, cmd_lst, envp));
 	}
 	return (0);
 }
