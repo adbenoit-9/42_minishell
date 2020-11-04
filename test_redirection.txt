@@ -1,5 +1,10 @@
-cat < Makefile > test1 > test2 > test2
-cat < no_file > test1; echo asdf
-rm ok > rm_it ok
-echo lol > chouette ok
+cat < Makefile > test1 > test2 > test2                          |ok
+cat > write_something                                           |ko
+cat < no_file > test.txt; echo continue                         |ok
+
+touch input ; echo "blabla" > input ; cat > output < input      |~ok
+rm out\ put 'in'put > '' ; rm out\put 'in'put                   |ko
+
+rm no_file > rm_it ko_again                                     |ok
+echo first_part > test.txt second_part                          |ok
 

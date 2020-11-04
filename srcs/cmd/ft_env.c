@@ -18,10 +18,10 @@ int    ft_arg_env(t_stock **cmd_lst)
     int     ret;
 
     ret = 0;
-    if ((*cmd_lst)->tokens[0] != NULL && (*cmd_lst)->tokens[0][0])
+    if ((*cmd_lst)->tokens[1] != NULL)
     {
         ret = 1;
-        write_error("env: ", (*cmd_lst)->tokens[0], ": error (argument management for 'env' not required)\n", 1);
+        write_error("env: ", (*cmd_lst)->tokens[1], ": error (argument management for 'env' not required)\n", 1);
     }
     return (ret);
 }

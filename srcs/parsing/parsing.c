@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/29 17:01:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 19:38:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		parse_error(t_stock **new, t_stock **cmd_lst)
 		write_error("", strerror(errno), "\n", 1);
 	else if (err == QUOTE_NOT_FOUND)
 		write_error("", "syntax error : quote expected\n", "", 258);
+	else if (err == ALONE_BS)
+		write_error("", "syntax error : char expected\n", "", 258);
 	else
 		return (0);
 	ft_stockclear(cmd_lst, clear_one);
@@ -89,19 +91,23 @@ int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 	while (str[j] == ' ')
 		++j;
 	i = 0;
-	while (str[j] && i < NUM_CMD)
+	ret = save_cmd(str + j, cmd_lst, envp);
+	while (ret >= 0 && str[j] && i < NUM_CMD)
 	{
 		size = ft_strlen(cmd_str[i]);
 		if (ft_strncmp(cmd_str[i], str + j, size) == 0 &&
 		(ft_issep(str[j + size], 0) == 1 || ft_isspace(str[j + size]) == 1
 		|| str[j + size] == 0))
-			ret = save_cmd(str + j + size, cmd_lst, i, envp);
+		{
+			(*cmd_lst)->cmd = i;
+			break ;
+		}
 		i++;
 	}
-	if (str[j] && i == UNKNOW)
-		ret = save_cmd(str + j, cmd_lst, i, envp);
+	if (*cmd_lst && (*cmd_lst)->sep == PIPE)
+		ret = save_cmd(str + j + ret, &(*cmd_lst)->next, envp);
 	execute(cmd_lst, envp);
-	if(ret > 0 && str[ret])
-		return (parsing(str + ret, cmd_lst, envp));
+	if(ret > 0 && str[ret + j])
+		return (parsing(str + ret + j, cmd_lst, envp));
 	return (0);
 }

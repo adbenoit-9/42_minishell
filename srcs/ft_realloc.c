@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 16:41:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 18:28:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/03 15:02:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ double	**realloc_doub(double **ptr, int newsize)
 	return (newptr);
 }
 
-void	*ft_free(char **tab, size_t k)
+void	*ft_free(char **tab)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < k)
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;

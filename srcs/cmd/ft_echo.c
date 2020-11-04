@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 20:37:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:10:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_echo_n(t_stock **cmd_lst, int *i)
 	int j;
 
 	n = 0;
-	if (!(*cmd_lst)->tokens[0])
+	if (!(*cmd_lst)->tokens[1])
 		return (0);
 	while (ft_strncmp((*cmd_lst)->tokens[*i], "-n", 2) == 0)
 	{
@@ -41,7 +41,7 @@ void	ft_echo(t_stock **cmd_lst, char *envp[])
 	int n;
 
 	(void)envp;
-	i = 0;
+	i = 1;
 	fd = 1;
 	if (!(*cmd_lst)->tokens)
 		return ;

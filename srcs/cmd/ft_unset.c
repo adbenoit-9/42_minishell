@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 16:20:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 18:53:53 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_unset(t_stock **cmd_lst, char *envp[])
 
 	if (ft_redirect(cmd_lst, 0, 0) == -1)
         return ;
-	k = -1;
+	k = 0;
 	while ((*cmd_lst)->tokens[++k])
 	{
 		i = 0;
@@ -30,18 +30,19 @@ void	ft_unset(t_stock **cmd_lst, char *envp[])
 			{
 				write_error("unset: `", (*cmd_lst)->tokens[k],
 			"': not a valid identifier\n", 1);
-				return ;
+				break ;
 			}
 			++i;
 		}
-		if ((i = find_var(envp, (*cmd_lst)->tokens[k])) == -1)
-			return ;
-		j = i;
-		while (envp[++j])
+		if ((i = find_var(envp, (*cmd_lst)->tokens[k])) != -1)
 		{
-			ft_strcpy(envp[i], envp[j]);
-			++i;
+			j = i;
+			while (envp[++j])
+			{
+				ft_strcpy(envp[i], envp[j]);
+				++i;
+			}
+			envp[i] = 0;
 		}
-		envp[i] = 0;
 	}
 }

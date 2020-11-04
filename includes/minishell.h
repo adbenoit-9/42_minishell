@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/29 17:01:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 19:32:29 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define OR 7
 # define NUM_SEP 5
 
+# define ALONE_BS -6
 # define FILE_ERR -5
 # define MALL_ERR -4
 # define SEP_ERR -3
@@ -69,11 +70,11 @@ typedef void     (*t_function)(t_stock **, char **);
 
 void	*ft_realloc(void *ptr, int newsize);
 char	**realloc_tab(char **ptr, int newsize);
-void	*ft_free(char **tab, size_t k);
+void	*ft_free(char **tab);
 int		set_token(char **tokens, t_stock **cmd_lst, char **envp);
 int 	parsing(char *str, t_stock **cmd_lst, char *envp[]);
 int		ft_error(t_stock **cmd_lst);
-int		save_cmd(char *str, t_stock **cmd_lst, int cmd, char *envp[]);
+int		save_cmd(char *str, t_stock **cmd_lst, char *envp[]);
 t_stock	*ft_stocknew(int cmd);
 void	ft_stockadd_back(t_stock **alst, t_stock *new);
 int	    execute(t_stock **cmd, char *envp[]);

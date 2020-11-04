@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/26 15:14:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 19:27:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			is_in_quote(char const *s, size_t *i, int quote)
 	{
 		if (quote == 0 && bs % 2 == 1)
 			return (quote);
-		else if (s[*i] == '\'' && i > 0 && s[*i - 1] == '$' && quote == 0)
+		else if (s[*i] == '\'' && *i > 0 && s[*i - 1] == '$' && quote == 0)
 			return (3);
 		else if (s[*i] == '\'' && quote == 0)
 			return (1);

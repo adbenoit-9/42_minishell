@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/29 13:45:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:09:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
 
     if (ft_redirect(cmd_lst, 0, 0) == -1)
         return ;
-    if ((*cmd_lst)->tokens[0] == NULL || !(*cmd_lst)->tokens[0][0])
+    if ((*cmd_lst)->tokens[1] == NULL || !(*cmd_lst)->tokens[1][0])
     {
         bis = ft_copy_tab(envp);
         ft_sort_env(bis);
@@ -211,12 +211,12 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
         // free(bis);
         return ;
     }
-    if (!(var = ft_create_var((*cmd_lst)->tokens[0], &pos)))
+    if (!(var = ft_create_var((*cmd_lst)->tokens[1], &pos)))
         return ;
     ret = find_var(envp, var);
-    new = ft_strdup((*cmd_lst)->tokens[0] + pos + 1);
+    new = ft_strdup((*cmd_lst)->tokens[1] + pos + 1);
     if (ret == -1)
-        ft_add_to_envp(envp, (*cmd_lst)->tokens[0]);
+        ft_add_to_envp(envp, (*cmd_lst)->tokens[1]);
     else
        ft_modify_envp(envp, var, new, ret);
     (void)envp;

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/29 16:20:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:08:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,19 @@ void    ft_cd(t_stock **cmd_lst, char *envp[])
     int     j;
 
     errno = 0;
-    if (!(path = malloc(path_len((*cmd_lst)->tokens[0]) + 1)))
+    if (!(path = malloc(path_len((*cmd_lst)->tokens[1]) + 1)))
     {
         write_error("", strerror(errno), "\n", 1);
         return ;
     }
     i = 0;
     j = 0;
-    while ((*cmd_lst)->tokens[0] && (*cmd_lst)->tokens[0][i])
+    while ((*cmd_lst)->tokens[1] && (*cmd_lst)->tokens[1][i])
     {
-        path[j] = (*cmd_lst)->tokens[0][i];
+        path[j] = (*cmd_lst)->tokens[1][i];
         ++j;
         ret = i;
-        while((*cmd_lst)->tokens[0][ret] == '/' && (*cmd_lst)->tokens[0][i + 1] == '/')
+        while((*cmd_lst)->tokens[1][ret] == '/' && (*cmd_lst)->tokens[1][i + 1] == '/')
             ++i;
         ++i;
     }
@@ -95,7 +95,7 @@ void    ft_cd(t_stock **cmd_lst, char *envp[])
     {
         free(str);
         str = strerror(errno);
-        write_error("cd: ", (*cmd_lst)->tokens[0], ": ", 1);
+        write_error("cd: ", (*cmd_lst)->tokens[1], ": ", 1);
         write(1, str, ft_strlen(str));
         write(1, "\n" , 1);
     }

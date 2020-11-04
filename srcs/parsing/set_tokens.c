@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 14:39:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:19:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,7 @@ int			set_token(char **tokens, t_stock **cmd_lst, char **envp)
 		if ((ret = parse_token(tokens[i], &(*cmd_lst)->tokens[k],
 		cmd_lst, envp)) < -1)
 		{
-			while (tokens[i])
-			{
-				free(tokens[i]);
-				tokens[i] = NULL;
-				++i;
-			}
-			free(tokens);
+			ft_free(tokens);
 			(*cmd_lst)->tokens[++k] = NULL;
 			return (ret);
 		}
