@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 13:37:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 23:24:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	ft_issep(char c, char before)
 	return (1);
 }
 
-int	sep_error(int s1, int s2, int i)
+int	sep_error(int s1, int s2)
 {
-	if (s1 != NONE && (s2 != NONE || i == 0))
+	if (s1 != NONE && s2 != NONE)
 	{
 		write_error("", "syntax error\n", "", 258);
 		return (-1);

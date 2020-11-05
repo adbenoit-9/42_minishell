@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 13:07:47 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 16:14:54 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 		if (err == 0 && (*cmd_lst)->tokens[2])
 		{
 			write_error("exit: ", "", "too many arguments\n", 1);
+			(*cmd_lst)->err = EXIT_ERROR;
 			return ;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/03 16:19:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:44:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ static int	parse_file(char **file, char *str, t_stock **cmd_lst, char **envp)
 		++i;
 	if (*file)
 		free(*file);
-	if ((len = ft_strlen(str + i)) == 0)
-		return (SEP_ERR);
+	len = ft_strlen(str + i);
 	if (!(*file = malloc(len + 1)))
 		return (MALL_ERR);
 	j = -1;
 	--i;
-	while (str[++i])
+	while (str && str[++i])
 		(*file)[++j] = str[i];
 	(*file)[j + 1] = 0;
 	parse_token(*file, file, cmd_lst, envp);
@@ -108,8 +107,8 @@ int			parse_token(char *token, char **new, t_stock **cmd_lst, char **envp)
 		}
 		else if (ret == VAR_NOT_FOUND)
 		{
-			free(*new);
-			(*new) = 0;
+			// free(*new);
+			// (*new) = 0;
 			return (VAR_NOT_FOUND);
 		}
 		else

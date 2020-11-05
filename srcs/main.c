@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/29 16:38:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 23:37:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	stocknclear(t_stock **cmd_lst, int n)
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char *buffer;
+	char	*buffer;
 	t_stock	*cmd_lst;
-	int	ret;
+	int		ret;
+	size_t	i;
 
 	(void)argc;
 	(void)argv;
@@ -42,7 +43,10 @@ int main(int argc, char *argv[], char *envp[])
 		buffer = NULL;
 		ret = get_next_line(0, &buffer);
 		cmd_lst = NULL;
-		if (parse_str(&buffer) == 0)
+		i = 0;
+		while (buffer[i] == ' ')
+			++i;
+		if (parse_str(buffer + i) == 0)
 		{
 			parsing(buffer, &cmd_lst, envp);
 			// execute(&cmd_lst, envp);

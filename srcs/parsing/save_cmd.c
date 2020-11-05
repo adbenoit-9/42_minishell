@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 19:40:24 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 23:42:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		save_cmd(char *str, t_stock **cmd_lst, char *envp[])
 	i += set_sep(str + i, &((*cmd_lst)->sep));
 	if ((*cmd_lst)->err == 0)
 		(*cmd_lst)->err = set_token(tokens, cmd_lst, envp);
-	if ((ret = parse_error(cmd_lst, cmd_lst)) == 0)
+	if ((ret = parse_error(cmd_lst)) == 0)
 		return (i);
 	return (ret);
 }

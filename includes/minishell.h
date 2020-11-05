@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 19:32:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/05 23:42:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define OR 7
 # define NUM_SEP 5
 
+# define EXIT_ERROR -7
 # define ALONE_BS -6
 # define FILE_ERR -5
 # define MALL_ERR -4
@@ -96,14 +97,14 @@ void	clear_one(t_stock **cmd_lst);
 int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
 int		set_sep(char *str, int *s);
 int		ft_issep(char c, char before);
-int		sep_error(int s1, int s2, int i);
+int		sep_error(int s1, int s2);
 int		ft_redirect(t_stock **cmd_lst, int *fd_in, int *fd_out);
-int		parse_error(t_stock **new, t_stock **cmd_lst);
+int		parse_error(t_stock **cmd_lst);
 char	**split_token(char const *s, char c, size_t n);
 int		is_in_quote(char const *s, size_t *i, int quote);
 int		is_bs(char *str, size_t *i);
 int		parse_token(char *token, char **new_token, t_stock **cmd_lst, char **envp);
-int		parse_str(char **str);
+int		parse_str(char *str);
 int		deal_erret(char **new_token, int *k, int size);
 char	**ft_copy_tab(char *envp[]);
 void	ft_sort_env(char *envp[]);

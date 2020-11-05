@@ -7,3 +7,6 @@ echo only one backslash \															|ok
 export valid_var=ok ; export unvalid-var=ko ; unset valid_var ; unset unvalid=ko	|ko
 exit 0 1 ;;																			|ok
 export valid unvalid. unvalid2$ ; unset valid unvalid. unvalid2$					|ok
+
+echo error > ; echo KO																|ko
+echo error >; echo KO																|ok
