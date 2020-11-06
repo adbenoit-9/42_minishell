@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 18:58:20 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/11/06 17:18:21 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/11/06 17:18:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_pwd(t_stock **cmd, char *envp[])
+size_t	ft_tabsize(char **tab)
 {
-    size_t  size;
-    char    *buf;
-    char    *str;
-    int     fd;
+	size_t	i;
 
-    fd = 1;
-    ft_redirect(cmd, 0, &fd);
-    size = 0;
-    buf = NULL;
-    str = getcwd(buf, size);
-    write(fd, str, ft_strlen(str));
-    write(fd, "\n", 1);
-    erret = 0;
-    (void)envp;
-    return ;
+	i = 0;
+	while (tab[i])
+		++i;
+	return (i);
 }

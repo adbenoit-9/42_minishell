@@ -6,22 +6,21 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 14:20:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:30:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_stock			*ft_stocknew(int cmd)
+t_stock			*ft_stocknew(int sep)
 {
 	t_stock	*list;
 
 	if (!(list = (t_stock *)malloc(sizeof(t_stock))))
 		return (NULL);
-	list->cmd = cmd;
 	list->r_type = 0;
 	list->err = 0;
-	list->sep = NONE;
+	list->sep = sep;
 	list->tokens = NULL;
 	list->input = NULL;
 	list->output = NULL;

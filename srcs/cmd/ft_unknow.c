@@ -6,28 +6,29 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 14:14:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:58:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // besoin d'un retour ?
-int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
+int		ft_try_path(t_stock **cmd, char *envp[], char *args[])
 {
 	int		ret;
 	int		i;
 	char	**path;
 	char	*add_p;
 	char	*new_p;
-	int		fd[2]; // utile ??
+	int		fd[2];
 
-	if (ft_redirect(cmd_lst, &fd[0], &fd[1]) == -1) // utile ??
-		return (-1);
-	/*if ((*cmd_lst)->output)
+	fd[0] = 1;
+	fd[1] = 1;
+	ft_redirect(cmd, &fd[0], &fd[1]);
+	if ((*cmd)->output)
 		dup2(fd[1], 1);
-	if ((*cmd_lst)->input)
-		dup2(fd[0], 0);*/
+	if ((*cmd)->input)
+		dup2(fd[0], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -45,7 +46,6 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 		free(add_p);
 		if (execve(new_p, args, envp) == -1)
 		{
-			printf("is there a problem ?\n");
 			ret = -1;
 			free(new_p);
 			i++;
@@ -61,7 +61,7 @@ int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[])
 	return(ret);
 }
 
-void	ft_unknow(t_stock **cmd_lst, char *envp[])
+void	ft_unknow(t_stock **cmd, char *envp[])
 {
 	int	ret;
 	int	i;
@@ -70,18 +70,16 @@ void	ft_unknow(t_stock **cmd_lst, char *envp[])
 	i = 0;
 	errno = 0;
 	(void)envp;
-	printf("UNKNOW COMMAND\n");
-	ft_loop_pipe(cmd_lst, envp);
-	printf("LOOP OK ???\n\n");
+	ft_loop_pipe(cmd, envp);
 	if (ret == -1)
 	{
-		while ((*cmd_lst)->tokens[0][i] && (*cmd_lst)->tokens[0][i] != '/')
+		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')
 			++i;
-		if ((size_t)i < ft_strlen((*cmd_lst)->tokens[0]))
-			write_error("\0", (*cmd_lst)->tokens[0],
+		if ((size_t)i < ft_strlen((*cmd)->tokens[0]))
+			write_error("\0", (*cmd)->tokens[0],
 			": No such file or directory\n", 1);
 		else
-			write_error("\0", (*cmd_lst)->tokens[0], ": command not found\n", 127);
+			write_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
 		exit(EXIT_FAILURE);
 	}
 	if (errno != 0)

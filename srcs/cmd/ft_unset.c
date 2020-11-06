@@ -6,35 +6,35 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 18:53:53 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:58:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(t_stock **cmd_lst, char *envp[])
+void	ft_unset(t_stock **cmd, char *envp[])
 {
 	int	i;
 	int	j;
 	int	k;
 
-	if (ft_redirect(cmd_lst, 0, 0) == -1)
+	if (ft_redirect(cmd, 0, 0) == -1)
         return ;
 	k = 0;
-	while ((*cmd_lst)->tokens[++k])
+	while ((*cmd)->tokens[++k])
 	{
 		i = 0;
-		while ((*cmd_lst)->tokens[k][i])
+		while ((*cmd)->tokens[k][i])
 		{
-			if (ft_isalnum((*cmd_lst)->tokens[k][i]) == 0)
+			if (ft_isalnum((*cmd)->tokens[k][i]) == 0)
 			{
-				write_error("unset: `", (*cmd_lst)->tokens[k],
+				write_error("unset: `", (*cmd)->tokens[k],
 			"': not a valid identifier\n", 1);
 				break ;
 			}
 			++i;
 		}
-		if ((i = find_var(envp, (*cmd_lst)->tokens[k])) != -1)
+		if ((i = find_var(envp, (*cmd)->tokens[k])) != -1)
 		{
 			j = i;
 			while (envp[++j])

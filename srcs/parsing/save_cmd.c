@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 23:42:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 19:00:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_bs(char *str, size_t *i)
+int			is_bs(char *str, size_t *i)
 {
 	size_t	n;
 
@@ -25,44 +25,44 @@ int		is_bs(char *str, size_t *i)
 	return (1);
 }
 
-size_t	ft_size_tab(char **tab)
+static int	is_error(t_stock **cmd)
 {
-	size_t	i;
+	int err;
 
-	i = 0;
-	while (tab[i])
-		++i;
-	return (i);
+	err = (*cmd)->err;
+	if (err >= -1)
+		return (0);
+	if (err == MALL_ERR)
+		write_error("", strerror(errno), "\n", 1);
+	else if (err == QUOTE_NOT_FOUND)
+		write_error("", "syntax error : quote expected\n", "", 258);
+	else
+		return (0);
+	return (err);
 }
 
-int		save_cmd(char *str, t_stock **cmd_lst, char *envp[])
+int			save_cmd(char *str, t_stock **cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
 	int		ret;
 	char	**tokens;
 
-	*cmd_lst = ft_stocknew(UNKNOW);
 	ret = 0;
 	i = -1;
-	while ((*cmd_lst)->err == 0 && str[++i])
+	while (str[++i])
 	{
 		tmp = i;
 		ret = is_in_quote(str, &tmp, ret);
 		i = ret != 0 ? tmp : i;
 		if (ret == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
 			break ;
-		if (!str[i])
-			(*cmd_lst)->err = ALONE_BS;
 	}
 	if (!(tokens = split_token(str, ' ', i)))
 		return (MALL_ERR);
-	if (!((*cmd_lst)->tokens = malloc((sizeof(char *) * (ft_size_tab(tokens) + 1)))))
-		return (MALL_ERR);
-	i += set_sep(str + i, &((*cmd_lst)->sep));
-	if ((*cmd_lst)->err == 0)
-		(*cmd_lst)->err = set_token(tokens, cmd_lst, envp);
-	if ((ret = parse_error(cmd_lst)) == 0)
+	*cmd = ft_stocknew(set_sep(str + i, &i));
+	(*cmd)->err = set_token(tokens, cmd, envp);
+	if ((ret = is_error(cmd)) == 0)
 		return (i);
 	return (ret);
 }

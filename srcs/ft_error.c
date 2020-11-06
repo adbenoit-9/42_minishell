@@ -6,27 +6,27 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/29 16:47:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 19:01:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_one(t_stock **cmd_lst)
+void	clear_one(t_stock **cmd)
 {
-	free((*cmd_lst)->tokens);
-	free((*cmd_lst)->input);
-	free((*cmd_lst)->output);
-	(*cmd_lst)->tokens = NULL;
-	(*cmd_lst)->input = NULL;
-	(*cmd_lst)->output = NULL;
+	free((*cmd)->tokens);
+	free((*cmd)->input);
+	free((*cmd)->output);
+	(*cmd)->tokens = NULL;
+	(*cmd)->input = NULL;
+	(*cmd)->output = NULL;
 }
 
-int		ft_error(t_stock **cmd_lst)
+int		ft_error(t_stock **cmd)
 {
 	char	*err;
 
-	ft_stockclear(cmd_lst, clear_one);
+	ft_stockclear(cmd, clear_one);
 	err = ft_strjoin("minishell: ", strerror(errno));
 	write(1, err, ft_strlen(err));
 	return (0);

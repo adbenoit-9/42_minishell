@@ -32,9 +32,7 @@ void    ft_loop_pipe(t_stock **cmd_lst, char *envp[])
             if ((*cmd_lst)->next)
                 dup2(p[1], 1);
             close(p[0]);
-            printf("here ??\n");
             ft_try_path(cmd_lst, envp, (*cmd_lst)->tokens);
-            printf("WTF\n");
             //ft_launch_process(cmd_lst, (*cmd_lst)->tokens, envp);
             exit(EXIT_FAILURE);
         }

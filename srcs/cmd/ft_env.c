@@ -13,15 +13,17 @@
 
 #include "minishell.h"
 
-int    ft_arg_env(t_stock **cmd_lst)
+int    ft_arg_env(t_stock **cmd)
 {
     int     ret;
 
     ret = 0;
-    if ((*cmd_lst)->tokens[1] != NULL)
+    if ((*cmd)->tokens[1] != NULL)
     {
         ret = 1;
-        write_error("env: ", (*cmd_lst)->tokens[1], ": error (argument management for 'env' not required)\n", 1);
+        write(1, "env: ", 5);
+        write(1, (*cmd)->tokens[1], ft_strlen((*cmd)->tokens[1]));
+        write(1, ": error (argument management for 'env' not required)\n", 54);
     }
     return (ret);
 }
@@ -102,7 +104,7 @@ void    ft_sort_env(char *envp[])
     return ;
 }
 
-void    ft_env(t_stock **cmd_lst, char *envp[])
+void    ft_env(t_stock **cmd, char *envp[])
 {
     char    *str;
     char    *new;
@@ -112,9 +114,9 @@ void    ft_env(t_stock **cmd_lst, char *envp[])
     str = NULL;
     new = NULL;
     index = 0;
-    if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
+    if ((fd = ft_redirect(cmd, &fd, 0)) == -1)
         return ;
-    if (ft_arg_env(cmd_lst) == 1)
+    if (ft_arg_env(cmd) == 1)
         return ;
     while (envp[index])
     {

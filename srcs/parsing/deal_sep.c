@@ -6,38 +6,33 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 23:24:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 16:46:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_sep(char *str, int *s)
+int	set_sep(char *str, size_t *i)
 {
 	static char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>"};
-	int			i;
+	int			s;
 	int			size;
 	int			end;
 
-	i = 0;
-	if (!str || !str[i])
-	{
-		*s = -1;
-		return (0);
-	}
+	s = 0;
+	if (!str || !str[0])
+		return (-1);
 	end = ft_strlen(str) < 2 ? 4 : NUM_SEP;
-	while (i < end)
+	while (s < end)
 	{
-		size = i < 4 ? 1 : 2;
-		if (ft_strncmp(sep[i], str, size) == 0)
-			*s = i;
-		++i;
+		size = s < 4 ? 1 : 2;
+		if (ft_strncmp(sep[s], str, size) == 0)
+			break ;
+		++s;
 	}
-	if (*s == -1)
-		return (0);
-	if (*s == 4)
-		return (2);
-	return (1);
+	if (s > -1)
+		*i += size;
+	return (s);
 }
 
 int	ft_issep(char c, char before)
