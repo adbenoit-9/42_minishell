@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 19:07:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 20:29:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,27 @@ int		parse_str(char *str)
 	return (0);
 }
 
-int		parsing(char *str, t_stock **cmd, char *envp[])
+int		parsing(char *str, char *envp[])
 {
 	int	ret;
 	int	i;
 	t_stock *tmp;
 
-	ft_stockclear(cmd, clear_one);
-	ret = save_cmd(str, cmd, envp);
+	ft_stockclear(&g_cmd, clear_one);
+	ret = save_cmd(str, &g_cmd, envp);
 	i = 0;
-	tmp = *cmd;
-	while (ret > 0 && tmp->sep == PIPE)
+	tmp = g_cmd;
+	while (ret >= 0 && tmp->sep == PIPE)
 	{
 		i += ret;
-		ret = save_cmd(str + ret, &tmp->next,envp);
+		ret = save_cmd(str + i, &tmp->next,envp);
 		tmp = tmp->next;
 	}
-	if ((*cmd)->err == 0)
-		execute(cmd, envp);
-	if((*cmd)->err != EXIT_ERROR && ret > 0 && str[ret])
-		return (parsing(str + ret, cmd, envp));
+	if (ret >= 0)
+		i += ret;
+	if (g_cmd->err == 0)
+		execute(&g_cmd, envp);
+	if(g_cmd->err != EXIT_ERROR && ret >= 0 && str[ret])
+		return (parsing(str + i, envp));
 	return (0);
 }

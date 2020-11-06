@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 19:00:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 19:24:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int			is_bs(char *str, size_t *i)
 	return (1);
 }
 
-static int	is_error(t_stock **cmd)
+static int	is_error(t_stock **g_cmd)
 {
 	int err;
 
-	err = (*cmd)->err;
+	err = (*g_cmd)->err;
 	if (err >= -1)
 		return (0);
 	if (err == MALL_ERR)
@@ -41,7 +41,7 @@ static int	is_error(t_stock **cmd)
 	return (err);
 }
 
-int			save_cmd(char *str, t_stock **cmd, char *envp[])
+int			save_cmd(char *str, t_stock **g_cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
@@ -60,9 +60,9 @@ int			save_cmd(char *str, t_stock **cmd, char *envp[])
 	}
 	if (!(tokens = split_token(str, ' ', i)))
 		return (MALL_ERR);
-	*cmd = ft_stocknew(set_sep(str + i, &i));
-	(*cmd)->err = set_token(tokens, cmd, envp);
-	if ((ret = is_error(cmd)) == 0)
+	*g_cmd = ft_stocknew(set_sep(str + i, &i));
+	(*g_cmd)->err = set_token(tokens, g_cmd, envp);
+	if ((ret = is_error(g_cmd)) == 0)
 		return (i);
 	return (ret);
 }

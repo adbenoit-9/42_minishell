@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 19:01:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 20:34:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	parse_file(char **file, char *str, t_stock **cmd, char **envp)
+static int	parse_file(char **file, char *str, t_stock **g_cmd, char **envp)
 {
 	size_t	i;
 	int		j;
@@ -31,11 +31,11 @@ static int	parse_file(char **file, char *str, t_stock **cmd, char **envp)
 	while (str && str[++i])
 		(*file)[++j] = str[i];
 	(*file)[j + 1] = 0;
-	parse_token(*file, file, cmd, envp);
+	parse_token(*file, file, g_cmd, envp);
 	return (i);
 }
 
-int			set_file_name(t_stock **cmd, char *str, char **envp)
+int			set_file_name(t_stock **g_cmd, char *str, char **envp)
 {
 	int i;
 	int fd;
@@ -46,12 +46,12 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 	fd = 0;
 	if (str[i] == '<' && str[++i])
 	{
-		ret = parse_file(&(*cmd)->input, str + i, cmd, envp);
+		ret = parse_file(&(*g_cmd)->input, str + i, g_cmd, envp);
 		if (errno == 0)
-			fd = open((*cmd)->input, O_RDONLY);
+			fd = open((*g_cmd)->input, O_RDONLY);
 		if (errno != 0)
 		{
-			write_error((*cmd)->input, ": ", strerror(errno), 1);
+			write_error((*g_cmd)->input, ": ", strerror(errno), 1);
 			write(1, "\n", 1);
 			close(fd);
 			return (FILE_ERR);
@@ -62,22 +62,22 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 	{
 		if (str[i] == '>')
 			++i;
-		parse_file(&(*cmd)->output, str + i, cmd, envp);
+		parse_file(&(*g_cmd)->output, str + i, g_cmd, envp);
 		if (errno == 0 && i == 1)
 		{
-			(*cmd)->r_type = RIGHT;
-			fd = open((*cmd)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+			(*g_cmd)->r_type = RIGHT;
+			fd = open((*g_cmd)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
 			S_IRGRP | S_IWGRP | S_IWUSR);
 		}
 		else if (errno == 0)
 		{
-			(*cmd)->r_type = D_RIGHT;
-			fd = open((*cmd)->output, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR |
+			(*g_cmd)->r_type = D_RIGHT;
+			fd = open((*g_cmd)->output, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR |
 			S_IRGRP | S_IWGRP | S_IWUSR);
 		}
 		if (errno != 0)
 		{
-			write_error((*cmd)->output, ": ", strerror(errno), 1);
+			write_error((*g_cmd)->output, ": ", strerror(errno), 1);
 			write(1, "\n", 1);
 			close(fd);
 			return (FILE_ERR);
@@ -87,7 +87,7 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 	return (-1);
 }
 
-int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
+int			parse_token(char *token, char **new, t_stock **g_cmd, char **envp)
 {
 	int		j;
 	int		k;
@@ -107,11 +107,11 @@ int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
 		else if (token[j] == '\"')
 			ret = deal_double_quote(token + j, new, &k, envp);
 		else if (token[j] == '$' && token[j + 1] == '?')
-			ret = deal_erret(new, &k, ft_strlen(token));
+			ret = deal_status(new, &k, ft_strlen(token));
 		else if (token[j] == '$')
 			ret = deal_dollar(token + j, new, &k, envp);
 		else if (token[j] == '>' || token[j] == '<')
-			return (set_file_name(cmd, token + j, envp));
+			return (set_file_name(g_cmd, token + j, envp));
 		else
 			(*new)[k++] = token[j++];
 		if (ret < 0)
@@ -122,14 +122,14 @@ int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
 	return (ret);
 }
 
-int			set_token(char **tokens, t_stock **cmd, char **envp)
+int			set_token(char **tokens, t_stock **g_cmd, char **envp)
 {
 	int	i;
 	int	ret;
 	int	k;
 
 	k = 0;
-	if (!((*cmd)->tokens = malloc((sizeof(char *) * (ft_tabsize(tokens) + 1)))))
+	if (!((*g_cmd)->tokens = malloc((sizeof(char *) * (ft_tabsize(tokens) + 1)))))
 	{
 		ft_free(tokens);
 		return (MALL_ERR);
@@ -137,17 +137,17 @@ int			set_token(char **tokens, t_stock **cmd, char **envp)
 	i = -1;
 	while (tokens[++i])
 	{
-		if ((ret = parse_token(tokens[i], &(*cmd)->tokens[k],
-		cmd, envp)) < -1)
+		if ((ret = parse_token(tokens[i], &(*g_cmd)->tokens[k],
+		g_cmd, envp)) < -1)
 		{
 			ft_free(tokens);
-			(*cmd)->tokens[++k] = NULL;
+			(*g_cmd)->tokens[++k] = NULL;
 			return (ret);
 		}
 		if (ret != -1)
 			++k;
 	}
 	ft_free(tokens);
-	(*cmd)->tokens[k] = NULL;
+	(*g_cmd)->tokens[k] = NULL;
 	return (0);
 }

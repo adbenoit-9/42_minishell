@@ -7,7 +7,7 @@
 ** ===> (**cmd) = 
 */
 
-void    ft_loop_pipe(t_stock **cmd_lst, char *envp[]) 
+void    ft_loop_pipe(t_stock **g_cmd, char *envp[]) 
 {
     int   p[2];
     pid_t pid; 
@@ -17,9 +17,9 @@ void    ft_loop_pipe(t_stock **cmd_lst, char *envp[])
     fd_in = 0;
     bool = 0;
 
-    while (*cmd_lst) 
-    // && ((*cmd_lst)->sep == PIPE && (*cmd_lst)->next->tokens[0] != NULL))
-      //      || (bool = 1 && (*cmd_lst)->tokens[0] != NULL && (*cmd_lst)->sep != PIPE))
+    while (*g_cmd) 
+    // && ((*g_cmd)->sep == PIPE && (*g_cmd)->next->tokens[0] != NULL))
+      //      || (bool = 1 && (*g_cmd)->tokens[0] != NULL && (*g_cmd)->sep != PIPE))
     {
         pipe(p);
         if ((pid = fork()) == -1)
@@ -29,11 +29,11 @@ void    ft_loop_pipe(t_stock **cmd_lst, char *envp[])
         else if (pid == 0)
         {
             dup2(fd_in, 0); //change the input according to the old one 
-            if ((*cmd_lst)->next)
+            if ((*g_cmd)->next)
                 dup2(p[1], 1);
             close(p[0]);
-            ft_try_path(cmd_lst, envp, (*cmd_lst)->tokens);
-            //ft_launch_process(cmd_lst, (*cmd_lst)->tokens, envp);
+            ft_try_path(g_cmd, envp, (*g_cmd)->tokens);
+            //ft_launch_process(g_cmd, (*g_cmd)->tokens, envp);
             exit(EXIT_FAILURE);
         }
         else
@@ -41,8 +41,8 @@ void    ft_loop_pipe(t_stock **cmd_lst, char *envp[])
             wait(NULL);
             close(p[1]);
             fd_in = p[0]; //save the input for the next command
-            if ((*cmd_lst)->next != NULL)
-                (*cmd_lst) = (*cmd_lst)->next;
+            if ((*g_cmd)->next != NULL)
+                (*g_cmd) = (*g_cmd)->next;
             else
                 break;
         }
