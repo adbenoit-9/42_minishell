@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:23:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:33:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int			is_bs(char *str, size_t *i)
 	return (1);
 }
 
-static int	is_error()
+static int	is_error(t_stock *cmd)
 {
-	if (g_cmd->err >= -1)
+	if (cmd->err >= -1)
 		return (0);
-	if (g_cmd->err == MALL_ERR)
+	if (cmd->err == MALL_ERR)
 		write_error("", strerror(errno), "\n", 1);
-	else if (g_cmd->err == QUOTE_NOT_FOUND)
+	else if (cmd->err == QUOTE_NOT_FOUND)
 		write_error("", "syntax error : quote expected\n", "", 258);
 	else
 		return (0);
-	return (g_cmd->err);
+	return (cmd->err);
 }
 
 int			save_cmd(char *str, t_stock **cmd, char *envp[])
