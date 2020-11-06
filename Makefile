@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/10/26 16:15:35 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/11/06 15:31:47 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,19 @@ CMD_PATH 	= srcs/cmd/
 
 PARS_PATH 	= srcs/parsing/
 
-SRCS		=	ft_error.c		main.c \
-				execute.c		manage_stock.c\
-				ft_realloc.c	manage_var.c \
-				deal_redirecting.c
+SRCS		=	ft_error.c			main.c \
+				execute.c			manage_stock.c\
+				ft_realloc.c		manage_var.c \
+				deal_redirecting.c	test.c
 
-CMD 		=	ft_cd.c			ft_env.c \
-				ft_export.c		ft_echo.c \
-				ft_exit.c		ft_pwd.c \
-				ft_unset.c		ft_unknow.c
+CMD 		=	ft_cd.c				ft_env.c \
+				ft_export.c			ft_echo.c \
+				ft_exit.c			ft_pwd.c \
+				ft_unset.c			ft_unknow.c
 
-PARS 		=	parsing.c		deal_quote.c \
-				deal_dollar.c	save_cmd.c \
-				set_tokens.c	deal_sep.c \
+PARS 		=	parsing.c			deal_quote.c \
+				deal_dollar.c		save_cmd.c \
+				set_tokens.c		deal_sep.c \
 				split_token.c
 
 CC			=	gcc

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 23:44:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:58:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,36 +77,15 @@ int		parse_str(char *str)
 
 int		parsing(char *str, t_stock **cmd_lst, char *envp[])
 {
-	int			i;
-	int			j;
-	size_t		size;
 	int			ret;
-	static char	*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
-								"export", "unset", "exit"};
 
-	j = 0;
 	ft_stockclear(cmd_lst, clear_one);
-	while (str[j] == ' ')
-		++j;
-	i = 0;
-	ret = save_cmd(str + j, cmd_lst, envp);
-	while (ret >= 0 && str[j] && i < NUM_CMD)
-	{
-		size = ft_strlen(cmd_str[i]);
-		if (ft_strncmp(cmd_str[i], str + j, size) == 0 &&
-		(ft_issep(str[j + size], 0) == 1 || ft_isspace(str[j + size]) == 1
-		|| str[j + size] == 0))
-		{
-			(*cmd_lst)->cmd = i;
-			break ;
-		}
-		i++;
-	}
-	if (*cmd_lst && (*cmd_lst)->sep == PIPE)
-		ret = save_cmd(str + j + ret, &(*cmd_lst)->next, envp);
+	ret = save_cmd(str, cmd_lst, envp);
+	if (ret > 0 && (*cmd_lst)->sep == PIPE)
+		ret += save_cmd(str + ret, &(*cmd_lst)->next, envp);
 	if ((*cmd_lst)->err == 0)
 		execute(cmd_lst, envp);
-	if((*cmd_lst)->err != EXIT_ERROR && ret > 0 && str[ret + j])
-		return (parsing(str + ret + j, cmd_lst, envp));
+	if((*cmd_lst)->err != EXIT_ERROR && ret > 0 && str[ret])
+		return (parsing(str + ret, cmd_lst, envp));
 	return (0);
 }

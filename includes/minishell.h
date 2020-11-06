@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_ade.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 14:20:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:21:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,8 @@ int		deal_erret(char **new_token, int *k, int size);
 char	**ft_copy_tab(char *envp[]);
 void	ft_sort_env(char *envp[]);
 int		ft_arg_env(t_stock **cmd_lst);
+void    ft_loop_pipe(t_stock **cmd, char *envp[]);
+int		ft_launch_process(t_stock **cmd_lst, char **args, char *envp[]);
+int		ft_try_path(t_stock **cmd_lst, char *envp[], char *args[]);
 
 #endif
