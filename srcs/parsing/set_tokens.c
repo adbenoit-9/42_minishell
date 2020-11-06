@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 17:44:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:15:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	parse_file(char **file, char *str, t_stock **cmd_lst, char **envp)
 	int		j;
 	int		len;
 
-	i = 1;
+	i = 0;
 	while (str[i] == ' ')
 		++i;
 	if (*file)
@@ -39,14 +39,17 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 {
 	int i;
 	int fd;
+	int ret;
 
 	i = 0;
+	errno = 0;
+	fd = 0;
 	if (str[i] == '<' && str[++i])
 	{
-		i = parse_file(&(*cmd_lst)->input, str, cmd_lst, envp);
-		errno = 0;
-		fd = open((*cmd_lst)->input, O_RDONLY);
-		if (i > 0 && fd == -1)
+		ret = parse_file(&(*cmd_lst)->input, str + i, cmd_lst, envp);
+		if (errno == 0)
+			fd = open((*cmd_lst)->input, O_RDONLY);
+		if (errno != 0)
 		{
 			write_error((*cmd_lst)->input, ": ", strerror(errno), 1);
 			write(1, "\n", 1);
@@ -55,13 +58,24 @@ int			set_file_name(t_stock **cmd_lst, char *str, char **envp)
 		}
 		close(fd);
 	}
-	else if (str[i])
+	else if (str[i] && str[++i])
 	{
-		i = parse_file(&(*cmd_lst)->output, str, cmd_lst, envp);
-		errno = 0;
-		fd = open((*cmd_lst)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
-		S_IRGRP | S_IWGRP | S_IWUSR);
-		if (fd == -1 && (*cmd_lst)->output)
+		if (str[i] == '>')
+			++i;
+		parse_file(&(*cmd_lst)->output, str + i, cmd_lst, envp);
+		if (errno == 0 && i == 1)
+		{
+			(*cmd_lst)->r_type = RIGHT;
+			fd = open((*cmd_lst)->output, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR |
+			S_IRGRP | S_IWGRP | S_IWUSR);
+		}
+		else if (errno == 0)
+		{
+			(*cmd_lst)->r_type = D_RIGHT;
+			fd = open((*cmd_lst)->output, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR |
+			S_IRGRP | S_IWGRP | S_IWUSR);
+		}
+		if (errno != 0)
 		{
 			write_error((*cmd_lst)->output, ": ", strerror(errno), 1);
 			write(1, "\n", 1);

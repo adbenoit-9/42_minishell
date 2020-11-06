@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 23:42:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:20:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_stock
 	char			*output;
 	int				cmd;
 	int				sep;
-	int				ret;
+	int				r_type;
 	int				err;
 	struct s_stock	*next;
 }				t_stock;

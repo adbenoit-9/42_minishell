@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/27 17:28:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:19:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void    ft_pwd(t_stock **cmd_lst, char *envp[])
     ft_redirect(cmd_lst, 0, &fd);
     size = 0;
     buf = NULL;
-    (*cmd_lst)->ret = 0;
     str = getcwd(buf, size);
     write(fd, str, ft_strlen(str));
     write(fd, "\n", 1);

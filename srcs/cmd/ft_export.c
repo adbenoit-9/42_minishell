@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 13:09:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:19:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ void    ft_exp(t_stock **cmd_lst, char *envp[])
     str = NULL;
     new = NULL;
     index = 0;
-    //(*cmd_lst)->ret = 0; ????????????????
     if ((fd = ft_redirect(cmd_lst, &fd, 0)) == -1)
         return ;
     if (ft_arg_env(cmd_lst) == 1)
@@ -220,7 +219,6 @@ void    ft_export(t_stock **cmd_lst, char *envp[])
     else
        ft_modify_envp(envp, var, new, ret);
     (void)envp;
-    (*cmd_lst)->ret = 0;
     erret = 0;
     return ;
 }

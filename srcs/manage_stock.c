@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:20:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_stock			*ft_stocknew(int cmd)
 	if (!(list = (t_stock *)malloc(sizeof(t_stock))))
 		return (NULL);
 	list->cmd = cmd;
-	list->ret = 0;
+	list->r_type = 0;
 	list->err = 0;
 	list->sep = NONE;
 	list->tokens = NULL;

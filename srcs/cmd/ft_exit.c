@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/05 16:14:54 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/06 14:19:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	print_error(t_stock **cmd_lst, int i)
 {
 	if (ft_isdigit((*cmd_lst)->tokens[1][i]) == 0 && (*cmd_lst)->tokens[1][0] != '-'
-	&& (*cmd_lst)->ret == 0 && (*cmd_lst)->tokens[1][0] != '0')
+	&& erret == 0 && (*cmd_lst)->tokens[1][0] != '0')
 	{
 		write_error("exit: ", (*cmd_lst)->tokens[1],
 		": numeric argument required\n", 1);
@@ -35,7 +35,7 @@ void		ft_exit(t_stock **cmd_lst, char *envp[])
 	erret = 0;
 	if ((*cmd_lst)->tokens[1])
 	{
-		(*cmd_lst)->ret = ft_atoi((*cmd_lst)->tokens[1]);
+		erret = ft_atoi((*cmd_lst)->tokens[1]);
 		while ((*cmd_lst)->tokens[1][i])
 		{
 			if ((err = print_error(cmd_lst, i)) > 0)
