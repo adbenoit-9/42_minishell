@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:33:48 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:35:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			save_cmd(char *str, t_stock **cmd, char *envp[])
 		return (MALL_ERR);
 	*cmd = ft_stocknew(set_sep(str + i, &i));
 	(*cmd)->err = set_token(tokens, cmd, envp);
-	if ((ret = is_error()) == 0)
+	if ((ret = is_error(*cmd)) == 0)
 		return (i);
 	return (ret);
 }
