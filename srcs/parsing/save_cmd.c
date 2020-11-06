@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 19:24:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:23:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,20 @@ int			is_bs(char *str, size_t *i)
 	return (1);
 }
 
-static int	is_error(t_stock **g_cmd)
+static int	is_error()
 {
-	int err;
-
-	err = (*g_cmd)->err;
-	if (err >= -1)
+	if (g_cmd->err >= -1)
 		return (0);
-	if (err == MALL_ERR)
+	if (g_cmd->err == MALL_ERR)
 		write_error("", strerror(errno), "\n", 1);
-	else if (err == QUOTE_NOT_FOUND)
+	else if (g_cmd->err == QUOTE_NOT_FOUND)
 		write_error("", "syntax error : quote expected\n", "", 258);
 	else
 		return (0);
-	return (err);
+	return (g_cmd->err);
 }
 
-int			save_cmd(char *str, t_stock **g_cmd, char *envp[])
+int			save_cmd(char *str, t_stock **cmd, char *envp[])
 {
 	size_t	i;
 	size_t	tmp;
@@ -60,9 +57,9 @@ int			save_cmd(char *str, t_stock **g_cmd, char *envp[])
 	}
 	if (!(tokens = split_token(str, ' ', i)))
 		return (MALL_ERR);
-	*g_cmd = ft_stocknew(set_sep(str + i, &i));
-	(*g_cmd)->err = set_token(tokens, g_cmd, envp);
-	if ((ret = is_error(g_cmd)) == 0)
+	*cmd = ft_stocknew(set_sep(str + i, &i));
+	(*cmd)->err = set_token(tokens, cmd, envp);
+	if ((ret = is_error()) == 0)
 		return (i);
 	return (ret);
 }

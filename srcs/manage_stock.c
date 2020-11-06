@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:18:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 18:30:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:25:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void			ft_stockadd_back(t_stock **alst, t_stock *new)
 		else
 			ft_stocklast(*alst)->next = new;
 	}
+}
+
+void	clear_one(t_stock **lst)
+{
+	ft_free((*lst)->tokens);
+	free((*lst)->input);
+	free((*lst)->output);
+	(*lst)->tokens = NULL;
+	(*lst)->input = NULL;
+	(*lst)->output = NULL;
+	free(*lst);
 }
 
 void			ft_stockclear(t_stock **lst, void (del)(t_stock**))

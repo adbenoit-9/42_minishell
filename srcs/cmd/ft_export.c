@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 20:33:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:23:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void    ft_modify_envp(char *envp[], char *var, char *new, int pos)
         return (ft_resize_at_pos(envp, var, new, pos));
 }
 
-void    ft_exp(t_stock **g_cmd, char *envp[])
+void    ft_exp(t_stock **cmd, char *envp[])
 {
     char    *str;
     char    *new;
@@ -162,9 +162,9 @@ void    ft_exp(t_stock **g_cmd, char *envp[])
     str = NULL;
     new = NULL;
     index = 0;
-    if ((fd = ft_redirect(g_cmd, &fd, 0)) == -1)
+    if ((fd = ft_redirect(cmd, &fd, 0)) == -1)
         return ;
-    if (ft_arg_env(g_cmd) == 1)
+    if (ft_arg_env(cmd) == 1)
         return ;
     while (envp[index])
     {
@@ -192,7 +192,7 @@ void    ft_exp(t_stock **g_cmd, char *envp[])
     return ;
 }
 
-void    ft_export(t_stock **g_cmd, char *envp[])
+void    ft_export(t_stock **cmd, char *envp[])
 {
     int     pos;
     int     ret;
@@ -200,22 +200,22 @@ void    ft_export(t_stock **g_cmd, char *envp[])
     char    *new;
     char    **bis;
 
-    if (ft_redirect(g_cmd, 0, 0) == -1)
+    if (ft_redirect(cmd, 0, 0) == -1)
         return ;
-    if ((*g_cmd)->tokens[1] == NULL || !(*g_cmd)->tokens[1][0])
+    if ((*cmd)->tokens[1] == NULL || !(*cmd)->tokens[1][0])
     {
         bis = ft_copy_tab(envp);
         ft_sort_env(bis);
-        ft_exp(g_cmd, bis);
+        ft_exp(cmd, bis);
         // free(bis);
         return ;
     }
-    if (!(var = ft_create_var((*g_cmd)->tokens[1], &pos)))
+    if (!(var = ft_create_var((*cmd)->tokens[1], &pos)))
         return ;
     ret = find_var(envp, var);
-    new = ft_strdup((*g_cmd)->tokens[1] + pos + 1);
+    new = ft_strdup((*cmd)->tokens[1] + pos + 1);
     if (ret == -1)
-        ft_add_to_envp(envp, (*g_cmd)->tokens[1]);
+        ft_add_to_envp(envp, (*cmd)->tokens[1]);
     else
        ft_modify_envp(envp, var, new, ret);
     (void)envp;

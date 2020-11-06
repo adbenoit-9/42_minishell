@@ -6,14 +6,14 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/06 20:33:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 00:23:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // besoin d'un retour ?
-int		ft_try_path(t_stock **g_cmd, char *envp[], char *args[])
+int		ft_try_path(t_stock **cmd, char *envp[], char *args[])
 {
 	int		ret;
 	int		i;
@@ -24,10 +24,10 @@ int		ft_try_path(t_stock **g_cmd, char *envp[], char *args[])
 
 	fd[0] = 1;
 	fd[1] = 1;
-	ft_redirect(g_cmd, &fd[0], &fd[1]);
-	if ((*g_cmd)->output)
+	ft_redirect(cmd, &fd[0], &fd[1]);
+	if ((*cmd)->output)
 		dup2(fd[1], 1);
-	if ((*g_cmd)->input)
+	if ((*cmd)->input)
 		dup2(fd[0], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
@@ -61,7 +61,7 @@ int		ft_try_path(t_stock **g_cmd, char *envp[], char *args[])
 	return(ret);
 }
 
-void	ft_unknow(t_stock **g_cmd, char *envp[])
+void	ft_unknow(t_stock **cmd, char *envp[])
 {
 	int	ret;
 	int	i;
@@ -70,16 +70,16 @@ void	ft_unknow(t_stock **g_cmd, char *envp[])
 	i = 0;
 	errno = 0;
 	(void)envp;
-	ft_loop_pipe(g_cmd, envp);
+	ft_loop_pipe(cmd, envp);
 	if (ret == -1)
 	{
-		while ((*g_cmd)->tokens[0][i] && (*g_cmd)->tokens[0][i] != '/')
+		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')
 			++i;
-		if ((size_t)i < ft_strlen((*g_cmd)->tokens[0]))
-			write_error("\0", (*g_cmd)->tokens[0],
+		if ((size_t)i < ft_strlen((*cmd)->tokens[0]))
+			write_error("\0", (*cmd)->tokens[0],
 			": No such file or directory\n", 1);
 		else
-			write_error("\0", (*g_cmd)->tokens[0], ": command not found\n", 127);
+			write_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
 		exit(EXIT_FAILURE);
 	}
 	if (errno != 0)
