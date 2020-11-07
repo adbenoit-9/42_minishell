@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:23:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 12:14:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char    *ft_create_var(char *str, int *pos)
     var[i] = '\0';
     if (ft_check_var(var) == 0)
     {
-        write_error("export: \'", str, "\': not a valid identifier\n", 1);
+        print_error("export: \'", str, "\': not a valid identifier\n", 1);
         g_status = 1;
         return(NULL);
     }
@@ -219,6 +219,5 @@ void    ft_export(t_stock **cmd, char *envp[])
     else
        ft_modify_envp(envp, var, new, ret);
     (void)envp;
-    g_status = 0;
     return ;
 }

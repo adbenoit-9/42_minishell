@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/06 20:33:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 14:39:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int main(int argc, char *argv[], char *envp[])
 			ft_stockclear(&g_cmd, clear_one);
 		}
 		free(str);
-		str = NULL;
 	}
 	return (0);
 }

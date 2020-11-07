@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:20:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 14:15:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int		deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int		deal_simple_quote(char *str, char **tokens, int *j, int dollar);
 int		deal_double_quote(char *str, char **tokens, int *j, char *env[]);
 int		find_var(char *envp[], char *var);
-int		write_error(char *g_cmd, char *arg, char *err, int error);
+int		print_error(char *g_cmd, char *arg, char *err, int error);
+int		print_errno(char *cmd, char *str, int ret);
 void	ft_stockclear(t_stock **lst, void (del)(t_stock**));
 void	clear_one(t_stock **cmd);
 int		replace_var_by_value(char *var, char *envp[], char **value, int *start);
@@ -109,5 +110,6 @@ void    ft_loop_pipe(t_stock **cmd, char *envp[]);
 int		ft_launch_process(t_stock **cmd, char **args, char *envp[]);
 int		ft_try_path(t_stock **cmd, char *envp[], char *args[]);
 size_t	ft_tabsize(char **tab);
+int		set_file_name(t_stock **cmd, char *str, char **envp);
 
 #endif

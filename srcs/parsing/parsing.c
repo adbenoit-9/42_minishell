@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:16:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 14:23:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_bs(char *str, int *sep)
 {
 	if (!str[0])
 	{
-		write_error("", "syntax error : char expected after `\\'\n", "", 258);
+		print_error(NULL, NULL, "syntax error : char expected after `\\'\n", 258);
 		return (-1);
 	}
 	*sep = NONE;
@@ -34,6 +34,8 @@ static int	check_sep(char *str, int *s1, int k)
 		*s1 = set_sep(str + i, &i);
 	else if (*s1 != NONE && str[i])
 		s2 = set_sep(str + i, &i);
+	while (str[i] == ' ')
+		++i;
 	if ((!str[i] && *s1 != COMA) || k == 0)
 		s2 = *s1;
 	if (sep_error(*s1, s2) == -1)
@@ -91,7 +93,7 @@ int		parsing(char *str, char *envp[])
 		i += ret;
 	if (g_cmd->err == 0)
 		execute(g_cmd, envp);
-	if(g_cmd->err != EXIT_ERROR && ret >= 0 && str[ret])
+	if(g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
 	return (0);
 }

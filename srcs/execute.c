@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:24:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 12:12:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	execute(t_stock *cmd, char *envp[])
 								"export", "unset", "exit"};
 
 	i = 0;
+	g_status = 0;
+	errno = 0;
 	if (cmd)
 	{
 		if (!cmd->tokens[0])
