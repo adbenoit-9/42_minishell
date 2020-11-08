@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:26:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 00:04:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int			save_cmd(char *str, t_stock **cmd, char *envp[])
 
 	ret = 0;
 	i = -1;
-	// printf("str = |%s|\n", str);
 	while (str[++i])
 	{
 		tmp = i;

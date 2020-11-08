@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/04 13:13:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/07 23:12:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int		is_redirec(char const *s, size_t *i, int quote, int r)
 		++(*i);
 		while (s[*i] == ' ')
 			++(*i);
+		--(*i);
 		return (1);
 	}
 	else if (r == 1)

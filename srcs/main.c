@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/07 14:39:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 00:34:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main(int argc, char *argv[], char *envp[])
 		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
 		write(1, "\xF0\x9F\x90\x9A: ", 6);
 		str = NULL;
+		errno = 0;
 		ret = get_next_line(0, &str);
 		g_cmd = NULL;
 		i = 0;
@@ -37,6 +38,7 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			parsing(str, envp);
 			ft_stockclear(&g_cmd, clear_one);
+			free(g_cmd);
 		}
 		free(str);
 	}

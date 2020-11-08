@@ -3,7 +3,7 @@ cat > write_something                                           |ok
 cat < no_file > test.txt; echo continue                         |ok
 
 touch input ; echo "blabla" > input ; cat > output < input      |ok
-rm out\ put 'in'put > '' ; rm out\put 'in'put                   |ko
+rm out\ put 'in'put > '' ; rm out\put 'in'put                   |ok
 
 rm no_file > rm_it ko_again                                     |ok
 echo first_part > test.txt second_part                          |ok

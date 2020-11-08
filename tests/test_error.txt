@@ -12,6 +12,6 @@ echo error > ; echo KO																|ok
 echo error >; echo KO																|ok
 
 echo ko > is_$HOME                                                                  |ok
-echo ko >    ''     > LOSER                                                         |ko
+echo ko >    ''     > LOSER                                                         |ok
 echo ko > $VAR_NOT_FOUND                                                            |ok
 echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >       $VAR_NOT_FOUND |ok
