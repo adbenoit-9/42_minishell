@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 17:51:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 15:20:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	ft_echo_n(t_stock *cmd, int *i)
 	int j;
 
 	n = 0;
-	if (!cmd->tokens[1])
+	if (!cmd->tokens[0])
 		return (0);
-	while (ft_strncmp(cmd->tokens[*i], "-n", 2) == 0)
+	while (cmd->tokens[*i] && ft_strncmp(cmd->tokens[*i], "-n", 2) == 0)
 	{
 		j = 2;
 		while (cmd->tokens[*i][j] == 'n')

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:01:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 21:21:14 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,20 @@
 
 int	set_sep(char *str, size_t *i)
 {
-	static char	*sep[NUM_SEP] = {"|", ";", ">", "<", ">>"};
+	static char	sep[NUM_SEP] = "|;><";
 	int			s;
-	int			size;
-	int			end;
 
 	s = 0;
 	if (!str || !str[0])
 		return (-1);
-	end = ft_strlen(str) < 2 ? 4 : NUM_SEP;
-	while (s < end)
-	{
-		size = s < 4 ? 1 : 2;
-		if (ft_strncmp(sep[s], str, size) == 0)
-			break ;
+	while (s < NUM_SEP && str[0] != sep[s])
 		++s;
+	++(*i);
+	if (s == RIGHT && str[1] == '>')
+	{
+		++s;
+		++(*i);
 	}
-	if (s > -1)
-		*i += size;
 	return (s);
 }
 

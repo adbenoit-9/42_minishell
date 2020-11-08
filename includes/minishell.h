@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:15:40 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 23:12:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int		ft_launch_process(t_stock **cmd, char **args, char *envp[]);
 int		ft_try_path(t_stock **cmd, char *envp[], char *args[]);
 size_t	ft_tabsize(char **tab);
 int		set_file_name(t_stock **cmd, char *str, char **envp);
+int 	ft_check_var(char *var);
 
 #endif

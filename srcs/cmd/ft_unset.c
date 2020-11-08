@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 00:59:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 23:17:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_unset(t_stock **cmd, char *envp[])
 {
-	int	i;
+	int	pos;
 	int	j;
 	int	k;
 
@@ -23,27 +23,20 @@ void	ft_unset(t_stock **cmd, char *envp[])
 	k = 0;
 	while ((*cmd)->tokens[++k])
 	{
-		i = 0;
-		while ((*cmd)->tokens[k][i])
+		if (ft_check_var((*cmd)->tokens[k]) == 0)
 		{
-			if (ft_isalnum((*cmd)->tokens[k][i]) == 0 &&
-			(*cmd)->tokens[k][i] != '_')
-			{
-				print_error("unset: `", (*cmd)->tokens[k],
+			print_error("unset: `", (*cmd)->tokens[k],
 			"': not a valid identifier\n", 1);
-				break ;
-			}
-			++i;
 		}
-		if ((i = find_var(envp, (*cmd)->tokens[k])) != -1)
+		if ((pos = find_var(envp, (*cmd)->tokens[k])) != -1)
 		{
-			j = i;
+			j = pos;
 			while (envp[++j])
 			{
-				ft_strcpy(envp[i], envp[j]);
-				++i;
+				ft_strcpy(envp[pos], envp[j]);
+				++pos;
 			}
-			envp[i] = 0;
+			envp[pos] = 0;
 		}
 	}
 }

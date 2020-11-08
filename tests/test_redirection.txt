@@ -1,10 +1,16 @@
-cat < Makefile > test1 > test2 > test2                          |ok
-cat > write_something                                           |ok
-cat < no_file > test.txt; echo continue                         |ok
+cat < Makefile > test1 > test2 > test2                              |ok
+cat > write_something                                               |ok
+cat < no_file > test.txt; echo continue                             |ok
 
-touch input ; echo "blabla" > input ; cat > output < input      |ok
-rm out\ put 'in'put > '' ; rm out\put 'in'put                   |ok
+touch input ; echo "blabla" > input ; cat > output < input          |ok
+rm out\ put 'in'put > '' ; rm out\put 'in'put                       |ok
 
-rm no_file > rm_it ko_again                                     |ok
-echo first_part > test.txt second_part                          |ok
+rm no_file > rm_it ko_again                                         |ok
+echo first_part > test.txt second_part                              |ok
+echo adding stuff >> working.txt                                    |ok
+echo > valid$output                                                 |ok
 
+echo -n test > test1 > test2 >> test3 ; echo " ok" > test1 >> test3 |ok
+cat >> test3 < test3                                                |ok
+echo test >> test3 > test3                                          |ok
+rm working.txt > test3 test1 test2 test3 valid test.txt             |ok

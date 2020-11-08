@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 01:22:59 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 23:09:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int 	ft_check_var(char *var)
 {
 	int i;
 
-	i = -1;
-	while (var[++i] != '\0')
+	if(var[0] && ft_isalpha(var[0]) == 0 && var[0] != '_')
+		return (0);
+	i = 0;
+	while (var[++i])
 	{
 		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
 			return (0);

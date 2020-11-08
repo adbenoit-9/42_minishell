@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 13:45:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/08 15:12:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	deal_var(char *str, char **tokens, int *j, char *envp[])
 	k = replace_var_by_value(var, envp, tokens, j);
 	free(var);
 	var = NULL;
-	if (k == VAR_NOT_FOUND && !str[i])
+	if (k == VAR_NOT_FOUND && *j == 0)
 		return (VAR_NOT_FOUND);
 	return (i);
 }
@@ -60,13 +60,11 @@ int			deal_dollar(char *str, char **tokens, int *j, char *envp[])
 	int ret;
 
 	i = 1;
-	if (!str[i])
-		(*tokens)[(*j)++] = '$';
-	else if (ft_isalnum(str[i]) == 1)
+	if (ft_isalnum(str[i]) == 1 || str[i] == '_')
 		i += deal_var(str + i, tokens, j, envp);
 	else if (str[i] == '\'')
 		i += deal_simple_quote(str + i, tokens, j, 1);
-	else if (str[i] == '\"')
+	else if (str[i] == '\"' && str[i + 1])
 		i += deal_double_quote(str + i, tokens, j, envp);
 	else if (str[i] == '{')
 	{
@@ -78,6 +76,8 @@ int			deal_dollar(char *str, char **tokens, int *j, char *envp[])
 			return (QUOTE_NOT_FOUND);
 		++i;
 	}
+	else
+		(*tokens)[(*j)++] = '$';
 	if (i <= 0)
 		return (i - 1);
 	return (i);
