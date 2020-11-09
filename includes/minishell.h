@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 23:12:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:09:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	s_stock
 
 extern t_stock	*g_cmd;
 
-typedef void     (*t_function)(t_stock **, char **);
+typedef void     (*t_function)(t_stock **, char **, int *);
 
 void	*ft_realloc(void *ptr, int newsize);
 char	**realloc_tab(char **ptr, int newsize);
@@ -76,14 +76,14 @@ int		save_cmd(char *str, t_stock **cmd, char *envp[]);
 t_stock	*ft_stocknew(int sep);
 void	ft_stockadd_back(t_stock **alst, t_stock *new);
 int	    execute(t_stock *cmd, char *envp[]);
-void    ft_exit(t_stock **cmd, char *envp[]);
-void    ft_pwd(t_stock **cmd, char *envp[]);
-void    ft_cd(t_stock **cmd, char *envp[]);
-void    ft_env(t_stock **cmd, char *envp[]);
-void    ft_export(t_stock **cmd, char *envp[]);
-void    ft_unset(t_stock **cmd, char *envp[]);
-void    ft_echo(t_stock **cmd, char *envp[]);
-void	ft_unknow(t_stock **cmd, char *envp[]);
+void    ft_exit(t_stock **cmd, char *envp[], int *fd);
+void    ft_pwd(t_stock **cmd, char *envp[], int *fd);
+void    ft_cd(t_stock **cmd, char *envp[], int *fd);
+void    ft_env(t_stock **cmd, char *envp[], int *fd);
+void    ft_export(t_stock **cmd, char *envp[], int *fd);
+void    ft_unset(t_stock **cmd, char *envp[], int *fd);
+void    ft_echo(t_stock **cmd, char *envp[], int *fd);
+void	ft_unknow(t_stock **cmd, char *envp[], int *fd);
 int		deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int		deal_simple_quote(char *str, char **tokens, int *j, int dollar);
 int		deal_double_quote(char *str, char **tokens, int *j, char *env[]);
@@ -106,9 +106,9 @@ int		deal_status(char **new_token, int *k, int size);
 char	**ft_copy_tab(char *envp[]);
 void	ft_sort_env(char *envp[]);
 int		ft_arg_env(t_stock **cmd);
-void    ft_loop_pipe(t_stock **cmd, char *envp[]);
+void    ft_loop_pipe(t_stock **cmd, char *envp[], int *fd);
 int		ft_launch_process(t_stock **cmd, char **args, char *envp[]);
-int		ft_try_path(t_stock **cmd, char *envp[], char *args[]);
+int		ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd);
 size_t	ft_tabsize(char **tab);
 int		set_file_name(t_stock **cmd, char *str, char **envp);
 int 	ft_check_var(char *var);

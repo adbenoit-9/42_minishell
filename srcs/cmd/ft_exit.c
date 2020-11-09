@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:01:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:54:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ static int	exit_error(int i, t_stock *cmd)
 	return (0);
 }
 
-void		ft_exit(t_stock **cmd, char *envp[])
+void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 {
 	int	i;
 	int	err;
 
 	(void)envp;
 	i = 0;
+	(void)fd;
 	write(1, "exit\n", 5);
 	if ((*cmd)->tokens[1])
 	{
@@ -49,5 +50,5 @@ void		ft_exit(t_stock **cmd, char *envp[])
 		}
 	}
 	ft_stockclear(cmd, clear_one);
-	exit(EXIT_SUCCESS);
+	exit(g_status);
 }

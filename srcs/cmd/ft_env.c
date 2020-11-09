@@ -104,18 +104,15 @@ void    ft_sort_env(char *envp[])
     return ;
 }
 
-void    ft_env(t_stock **cmd, char *envp[])
+void    ft_env(t_stock **cmd, char *envp[], int *fd)
 {
     char    *str;
     char    *new;
     int     index;
-    int     fd;
 
     str = NULL;
     new = NULL;
     index = 0;
-    if ((fd = ft_redirect(cmd, &fd, 0)) == -1)
-        return ;
     if (ft_arg_env(cmd) == 1)
         return ;
     while (envp[index])
@@ -141,7 +138,7 @@ void    ft_env(t_stock **cmd, char *envp[])
     }
     new = ft_strjoin(str, "\n");
     free(str);
-    write(fd, new, ft_strlen(new));
+    write(fd[1], new, ft_strlen(new));
     free(new);
     return ;
 }

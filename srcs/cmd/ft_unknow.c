@@ -6,25 +6,21 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 12:17:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:09:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // besoin d'un retour ?
-int		ft_try_path(t_stock **cmd, char *envp[], char *args[])
+int		ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
 {
 	int		ret;
 	int		i;
 	char	**path;
 	char	*add_p;
 	char	*new_p;
-	int		fd[2];
 
-	fd[0] = 1;
-	fd[1] = 1;
-	ft_redirect(cmd, &fd[0], &fd[1]);
 	if ((*cmd)->output)
 		dup2(fd[1], 1);
 	if ((*cmd)->input)
@@ -61,7 +57,7 @@ int		ft_try_path(t_stock **cmd, char *envp[], char *args[])
 	return(ret);
 }
 
-void	ft_unknow(t_stock **cmd, char *envp[])
+void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 {
 	int	ret;
 	int	i;
@@ -69,7 +65,7 @@ void	ft_unknow(t_stock **cmd, char *envp[])
 	ret = 0;
 	i = 0;
 	(void)envp;
-	ft_loop_pipe(cmd, envp);
+	ft_loop_pipe(cmd, envp, fd);
 	if (ret == -1)
 	{
 		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')

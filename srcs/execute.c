@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 12:12:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:58:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ int	execute(t_stock *cmd, char *envp[])
 									ft_export, ft_unset, ft_exit, ft_unknow};
 	static char			*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
+	int					fd[2];
 
 	i = 0;
 	g_status = 0;
 	errno = 0;
+	fd[0] = 1;
+	fd[1] = 1;
+	ft_redirect(&cmd, &fd[1], &fd[1]);
 	if (cmd)
 	{
 		if (!cmd->tokens[0])
@@ -33,7 +37,11 @@ int	execute(t_stock *cmd, char *envp[])
 				break;
 			++i;
 		}
-		cmd_fct[i](&cmd, envp);
+		cmd_fct[i](&cmd, envp, fd);
 	}
+	if (fd[0] != 1)
+		close(fd[0]);
+	if (fd[1] != 1)
+		close(fd[1]);
 	return (0);
 }

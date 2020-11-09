@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 23:09:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:56:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,24 +154,21 @@ void	ft_modify_envp(char *envp[], char *var, char *new, int pos)
 		return (ft_resize_at_pos(envp, var, new, pos));
 }
 
-void	ft_exp(t_stock **cmd, char *envp[])
+void	ft_exp(t_stock **cmd, char *envp[], int *fd)
 {
 	char	*str;
 	char	*new;
 	int	 index;
-	int	 fd;
 
 	str = NULL;
 	new = NULL;
 	index = 0;
-	fd = 1;
-	ft_redirect(cmd, 0, &fd);
 	if (ft_arg_env(cmd) == 1)
 		return ;
 	while (envp[index])
 	{
-		write(fd, envp[index], ft_strlen(envp[index]));
-		write(fd, "\n", 1);
+		write(fd[1], envp[index], ft_strlen(envp[index]));
+		write(fd[1], "\n", 1);
 		index++;
 	}
 	/*while (envp[index])
@@ -194,7 +191,7 @@ void	ft_exp(t_stock **cmd, char *envp[])
 	return ;
 }
 
-void	ft_export(t_stock **cmd, char *envp[])
+void	ft_export(t_stock **cmd, char *envp[], int *fd)
 {
 	int		pos;
 	int		ret;
@@ -207,7 +204,7 @@ void	ft_export(t_stock **cmd, char *envp[])
 	{
 		bis = ft_copy_tab(envp);
 		ft_sort_env(bis);
-		ft_exp(cmd, bis);
+		ft_exp(cmd, bis, fd);
 		ft_free(bis);
 		return ;
 	}

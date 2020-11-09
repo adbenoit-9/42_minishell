@@ -1,4 +1,4 @@
-ls | grep test                                              |ko (pas la bonne version)
+ls | grep test | wc                                         |ok
 
 echo | cd .. | pwd                                          |ko
 echo DOET HET NIET > test1 | cat test1                      |ko

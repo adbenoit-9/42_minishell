@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:01:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:55:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	modify_pwd(char *str, char *envp[], char *var)
     free(str);
 }
 
-void    ft_cd(t_stock **cmd, char *envp[])
+void    ft_cd(t_stock **cmd, char *envp[], int *fd)
 {
     int     ret;
     char    *str;
@@ -65,6 +65,7 @@ void    ft_cd(t_stock **cmd, char *envp[])
     int     i;
     int     j;
 
+    (void)fd;
     if (!(path = malloc(path_len((*cmd)->tokens[1]) + 1)))
     {
         print_error(NULL, strerror(errno), "\n", 1);
