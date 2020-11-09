@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/09 12:48:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 13:39:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,12 @@ t_mshell	g_mshell;
 
 void	signal_handler(int signo)
 {
-	printf("signo ===> %d\n\n", signo);
-	printf("in function\n");
 	if (signo == SIGINT)
 	{
-		printf("SIGINT\n");
 		write(2, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
  		write(2, "\xF0\x9F\x90\x9A: ", 6);
 		signal(SIGINT, signal_handler);
 	}
-	else if (signo == SIGQUIT)
-	{
-		printf("MAIS WTF\n\n");
-	}
-	printf("NO SIGINT\n");
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -41,9 +33,6 @@ int main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	g_status = 0;
-	printf("signo ===> %d\n\n", SIGINT);
-	printf("signo ===> %d\n\n", SIGQUIT);
 	while (1)
 	{
 		signal(SIGQUIT, signal_handler);
@@ -56,7 +45,7 @@ int main(int argc, char *argv[], char *envp[])
 		i = 0;
 		while (str[i] == ' ')
 			++i;
-		if (parse_str(str + i) == 0)
+		if (str[i] && parse_str(str + i) == 0)
 		{
 			parsing(str, envp);
 			ft_stockclear(&g_cmd, clear_one);

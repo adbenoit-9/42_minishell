@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 00:34:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 17:11:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	parse_file(char **file, char *str, t_stock **cmd, char **envp)
 		return (ret);
 	if (ret == -1)
 	{
-        while (str[i] == ' ')
-            ++i;
+		while (str[i] == ' ')
+			++i;
 		if ((ret = parse_token(str + i + 1, file, cmd, envp)) < -1)
 			return (ret);
 		print_error("$", *file, ": ", 1);
@@ -69,8 +69,7 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 	{
 		if ((ret = parse_file(&(*cmd)->input, str + i, cmd, envp)) < 0)
 			return (ret);
-		if (errno == 0)
-			fd = open((*cmd)->input, O_RDONLY);
+		fd = (errno == 0) ? open((*cmd)->input, O_RDONLY) : 0;
 		if (errno != 0)
 			return (print_errno(NULL, (*cmd)->input, FILE_ERR));
 	}

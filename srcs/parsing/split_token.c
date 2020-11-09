@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 23:12:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 17:01:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		is_new_arg(char const *s, char c, size_t n, int quote)
 	int ret;
 
 	ret = 0;
-	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0)
+	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0 && s[n + 1])
 		ret = 1;
 	if (ret == 1 && (n == 0 || (s[n - 1] != '\\' && s[n - 1] != c)))
 		return (1);
@@ -46,7 +46,8 @@ static int		is_redirec(char const *s, size_t *i, int quote, int r)
 	}
 	else if (r == 1)
 	{
-		if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>' || s[*i] == ' ') && quote == 0)
+		if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>' || s[*i] == ' ')
+		&& quote == 0)
 			return (0);
 	}
 	return (r);
@@ -126,10 +127,5 @@ char			**split_token(char const *s, char c, size_t n)
 		tab[index[1]][index[2]] = 0;
 	}
 	tab[index[1]] = NULL;
-	index[1] = 0;
-	while(tab[index[1]] && tab[index[1]][0])
-		++index[1];
-	tab[index[1]] = NULL;
 	return (tab);
 }
- 

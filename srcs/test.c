@@ -2,7 +2,6 @@
 
 void	proc_signal_handler(int signo)
 {
-    printf("YOLO\n");
 	if (signo == SIGQUIT)
 	{
 		ft_putstr("\n");

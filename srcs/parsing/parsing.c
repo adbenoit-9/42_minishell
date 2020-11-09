@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 14:23:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 17:00:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static int	check_bs(char *str, int *sep)
 {
-	if (!str[0])
+	if (!str[1])
 	{
-		print_error(NULL, NULL, "syntax error : char expected after `\\'\n", 258);
+		print_error(NULL, NULL,
+		"syntax error :char expected after `\\'\n", 258);
 		return (-1);
 	}
 	*sep = NONE;
@@ -48,7 +49,7 @@ int			parse_str(char *str)
 	size_t	i;
 	int		ret;
 	int		quote;
-	int 	s1;
+	int		s1;
 	int		tmp;
 
 	i = 0;
@@ -56,13 +57,11 @@ int			parse_str(char *str)
 	s1 = -1;
 	while (str[i])
 	{
-		ret = 1;
 		tmp = i;
 		quote = is_in_quote(str, &i, quote);
 		i = quote == 0 ? tmp : i;
-		if (str[i] == '\\')
-			ret = check_bs(str + i, &s1);
-		else if (quote == 0 && ft_issep(str[i], 0) == 1)
+		ret = (str[i] == '\\') ? check_bs(str + i, &s1) : 1;
+		if (ret == 1 && quote == 0 && ft_issep(str[i], 0) == 1)
 			ret = check_sep(str + i, &s1, i);
 		else if (str[i] != ' ')
 			s1 = NONE;
@@ -73,10 +72,10 @@ int			parse_str(char *str)
 	return (0);
 }
 
-int		parsing(char *str, char *envp[])
+int			parsing(char *str, char *envp[])
 {
-	int	ret;
-	int	i;
+	int		ret;
+	int		i;
 	t_stock *tmp;
 
 	ft_stockclear(&g_cmd, clear_one);
@@ -86,14 +85,14 @@ int		parsing(char *str, char *envp[])
 	while (ret >= 0 && tmp->sep == PIPE)
 	{
 		i += ret;
-		ret = save_cmd(str + i, &tmp->next,envp);
+		ret = save_cmd(str + i, &tmp->next, envp);
 		tmp = tmp->next;
 	}
 	if (ret >= 0)
 		i += ret;
 	if (g_cmd->err == 0)
 		execute(g_cmd, envp);
-	if(g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
+	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
 	return (0);
 }
