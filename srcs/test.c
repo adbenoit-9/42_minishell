@@ -1,5 +1,15 @@
 #include "minishell.h"
 
+void	proc_signal_handler(int signo)
+{
+    printf("YOLO\n");
+	if (signo == SIGQUIT)
+	{
+		ft_putstr("\n");
+        kill(0, signo);
+		signal(SIGINT, proc_signal_handler);
+	}
+}
 /*
 ** ===> cmd = adresse d'un tableau, de tableaux de strings
 ** ===> (*cmd) = tableau de tableaux de string (ou premier élément du tableau
@@ -21,7 +31,9 @@ void    ft_loop_pipe(t_stock **cmd, char *envp[], int *fd)
       //      || (bool = 1 && (*cmd)->tokens[0] != NULL && (*cmd)->sep != PIPE))
     {
         pipe(p);
-        if ((pid = fork()) == -1)
+        pid = fork();
+        //signal(SIGQUIT, proc_signal_handler);
+        if (pid == -1)
         {
             exit(EXIT_FAILURE);
         }

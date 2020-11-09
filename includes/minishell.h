@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 12:09:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:28:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,32 @@
 # include <sys/errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "../libft/libft_header/libft.h"
 
 int g_status;
+
+typedef struct		s_mshell
+{
+	char		**env;
+	char		**vars;
+	t_list		*ls;
+
+	int			linestate;
+	int			dquote;
+
+	pid_t		pid;
+	int			exitcode;
+	int			sigswitch;
+
+	int			oldfdout;
+	int			oldfdin;
+
+	int			*pipes;
+	int			*pidtab;
+}					t_mshell;
+
+t_mshell			g_mshell;
 
 typedef struct	s_stock
 {
@@ -112,5 +135,7 @@ int		ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd);
 size_t	ft_tabsize(char **tab);
 int		set_file_name(t_stock **cmd, char *str, char **envp);
 int 	ft_check_var(char *var);
+void	signal_handler(int signo);
+void	proc_signal_handler(int signo);
 
 #endif
