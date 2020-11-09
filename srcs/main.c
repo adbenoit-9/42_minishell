@@ -6,13 +6,14 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/09 12:26:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:45:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_stock	*g_cmd;
+t_stock		*g_cmd;
+t_mshell	g_mshell;
 
 void	signal_handler(int signo)
 {

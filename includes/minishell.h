@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:35:32 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 12:28:16 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 12:37:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ typedef struct		s_mshell
 	int			*pidtab;
 }					t_mshell;
 
-t_mshell			g_mshell;
-
 typedef struct	s_stock
 {
 	char			**tokens;
@@ -87,6 +85,7 @@ typedef struct	s_stock
 }				t_stock;
 
 extern t_stock	*g_cmd;
+extern t_mshell	g_mshell;
 
 typedef void     (*t_function)(t_stock **, char **, int *);
 
