@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 19:56:29 by mabriand          #+#    #+#             */
-/*   Updated: 2020/10/19 13:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:08:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** passée en premier argument en suivant les indications
 ** de formatage si elles existent.
 ** =========
-** #1 : la chaîne de caractère constante, 
+** #1 : la chaîne de caractère constante,
 **		qui contient (ou non) une (des) indication(s) de formatage.
 ** #(...) : le(s) élément(s) dans l'ordre à formater.
 ** =========

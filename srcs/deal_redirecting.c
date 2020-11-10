@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/07 00:20:56 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 00:38:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		ft_redirect(t_stock **cmd, int *fd_in, int *fd_out)
 		}
 		else
 		{
-			*fd_out = open((*cmd)->output, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR |
-			S_IRGRP | S_IWGRP | S_IWUSR);
+			*fd_out = open((*cmd)->output, O_WRONLY | O_APPEND | O_CREAT,
+			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 		}
 	}
 	if ((*cmd)->input && fd_in)

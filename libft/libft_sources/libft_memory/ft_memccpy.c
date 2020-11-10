@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:43:20 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:52:00 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:11:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** #3 : le caractère à chercher.
 ** #4 : le nombre maximal d'octets à copier.
 ** =========
-** Retourne un pointeur sur le caractère  
+** Retourne un pointeur sur le caractère
 ** immédiatement après c dans dst, NULL si c n'a pas été trouvé
 ** dans les n premiers caractères de src.
 */

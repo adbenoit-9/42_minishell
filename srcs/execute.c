@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 11:58:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 00:41:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,16 @@ int	execute(t_stock *cmd, char *envp[])
 								"export", "unset", "exit"};
 	int					fd[2];
 
-	i = 0;
 	g_status = 0;
 	errno = 0;
 	fd[0] = 1;
 	fd[1] = 1;
 	ft_redirect(&cmd, &fd[1], &fd[1]);
-	if (cmd)
+	if (cmd && cmd->tokens[0])
 	{
-		if (!cmd->tokens[0])
-			return (0);
-		while (i < NUM_CMD)
-		{
-			if (ft_strcmp(cmd_str[i], cmd->tokens[0]) == 0)
-				break;
+		i = 0;
+		while (i < NUM_CMD && ft_strcmp(cmd_str[i], cmd->tokens[0]) == 0)
 			++i;
-		}
 		cmd_fct[i](&cmd, envp, fd);
 	}
 	if (fd[0] != 1)

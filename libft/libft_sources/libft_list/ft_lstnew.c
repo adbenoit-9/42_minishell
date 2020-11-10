@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:17:15 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:57 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:05:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** l’aide de la valeur du paramètre content.
 ** La variable next est initialisée à NULL.
 ** =======
-** #1 : un pointeur sur la donnée contenue dans le maillon. 
+** #1 : un pointeur sur la donnée contenue dans le maillon.
 ** =======
 ** Retourne un nouvel élément de type t_list.
 */

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/09 13:39:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 00:43:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	signal_handler(int signo)
 	if (signo == SIGINT)
 	{
 		write(2, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
- 		write(2, "\xF0\x9F\x90\x9A: ", 6);
+		write(2, "\xF0\x9F\x90\x9A: ", 6);
 		signal(SIGINT, signal_handler);
 	}
 }
 
-int main(int argc, char *argv[], char *envp[])
+int		main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	int		ret;

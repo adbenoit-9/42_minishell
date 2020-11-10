@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:23:26 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:55 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:05:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
-
 
 /*
 ** Itère sur la liste lst et applique la fonction f au

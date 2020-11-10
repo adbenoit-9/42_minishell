@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:09:19 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 13:05:21 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:10:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** Alloue (avec malloc(3)) et retourne une chaine de caractères
-** issue de la chaine ’s’. Cette nouvelle chaine commence à l’index 
+** issue de la chaine ’s’. Cette nouvelle chaine commence à l’index
 ** start et a pour taille maximale len.
 ** =======
 ** #1 : la chîne de laquelle extraire la nouvelle chaîne.

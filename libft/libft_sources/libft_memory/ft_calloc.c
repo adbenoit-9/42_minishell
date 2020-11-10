@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:49:15 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:52:18 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:06:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 ** #1 : nombre d'éléments dans le tableau.
 ** #2 : taille en octets d'un élément.
 ** =======
-** Retourne un pointeur sur l méoire allouée, 
-** NULL si count ou size vaut 0. 
+** Retourne un pointeur sur l méoire allouée,
+** NULL si count ou size vaut 0.
 */
 
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*mem;
-	
+
 	mem = malloc(size * count);
 	if (mem == NULL)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:08:53 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/21 17:36:07 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:07:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Imprime les parties de la chaîne de caractères principale de ft_printf()
 ** qui ne nécessitent pas de conversion.
 ** =========
-** #1 : la chaîne de caractères, premier argument de ft_printf(). 
+** #1 : la chaîne de caractères, premier argument de ft_printf().
 ** #2 : un pointeur sur la position actuelle dans str.
 ** =========
 ** Retourne le nombre de caractère imprimés.

@@ -6,19 +6,19 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 17:00:55 by mabriand          #+#    #+#             */
-/*   Updated: 2020/09/04 00:44:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:10:24 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
 
 /*
-** Compare les n (au plus) premiers caractères 
+** Compare les n (au plus) premiers caractères
 ** de deux chaînes s1 et s2.
 ** =========
 ** #1 : une chaîne de caractères s1.
 ** #2 : une chaîne de caractères s2.
-** #3 : le nombre maximal de caractères à comparer. 
+** #3 : le nombre maximal de caractères à comparer.
 ** =========
 ** Retourne un entier négatif, nul, ou positif,
 ** si s1 est respectivement inférieure, égale ou supérieure à s2.

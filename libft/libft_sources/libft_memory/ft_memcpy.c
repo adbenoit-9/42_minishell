@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:39:11 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:52:05 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:11:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
 
 /*
-** Copie n octets depuis la zone mémoire src 
+** Copie n octets depuis la zone mémoire src
 ** vers la zone mémoire dst.
 ** Les deux zones ne doivent pas se chevaucher.
 ** (Si c'est le cas, utilisez plutôt memmove(3)).

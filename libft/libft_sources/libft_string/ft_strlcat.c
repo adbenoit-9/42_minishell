@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 16:50:40 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:59:13 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:10:10 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /*
 ** Concatène la chaîne de caractères src à la fin de dst,
 ** en veillant à ce que le nombre de cartères de dst après
-** concaténation ne dépasse pas dstsize. 
+** concaténation ne dépasse pas dstsize.
 ** =========
 ** #1 : une chaîne de caractères de destination.
 ** #2 : une chaîne de caractères source.
-** #3 : le nombre maximal de caractères de dst à ajouter. 
+** #3 : le nombre maximal de caractères de dst à ajouter.
 ** =========
 ** Retourne le nombre total de caractères de la chaîne dst
 ** avant concaténation auquel on ajoute celui de src.

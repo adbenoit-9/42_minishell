@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 13:46:12 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 13:08:10 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:12:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** =========
 ** #1 : une chaîne de caractères à examiner.
 ** #2 : une chaîne de caractères à chercher.
-** #3 : le nombre maximal de caractères à parser. 
+** #3 : le nombre maximal de caractères à parser.
 ** =========
 ** Retourne un pointeur sur le premier caractère de la première
 ** occurence de needle dans haystack, haystack si needle est une chaîne vide,

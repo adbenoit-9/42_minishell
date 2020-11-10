@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_int_add_precision.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 10:53:53 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/23 14:31:40 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:07:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Alloue (avec malloc(3)) et retourne une chaine de
 ** caractères représentant un nombre après son formatage de précision.
 ** =======
-** #1 : la chaîne de caractère représentant le nombre à formater. 
+** #1 : la chaîne de caractère représentant le nombre à formater.
 ** #2 : le champ précision du format.
 ** =======
 ** Retourne la chaine de caractères nbr

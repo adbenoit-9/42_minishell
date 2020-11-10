@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:41:11 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:54 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:11:19 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Parcours la liste jusqu'au dernier élément.
 ** =======
-** #1 : le début de la liste. 
+** #1 : le début de la liste.
 ** =======
 ** Retourne le dernier élément de la liste.
 */

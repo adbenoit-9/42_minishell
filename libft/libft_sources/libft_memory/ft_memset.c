@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:35:05 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:52:21 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:07:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
-
 
 /*
 ** Remplit les n premiers octets de la zone mémoire
@@ -19,7 +18,7 @@
 ** =========
 ** #1 : la zone mémoire pointée.
 ** #2 : l'octet donné pour le remplissage.
-** #3 : le nombre d'octets à remplir. 
+** #3 : le nombre d'octets à remplir.
 ** =========
 ** Retourne un pointeur vers la zone mémoire s.
 */

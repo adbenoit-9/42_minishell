@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 14:21:46 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/23 14:39:10 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:04:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
 
 /*
-** Calcule la longueur d'un entier n, 
+** Calcule la longueur d'un entier n,
 ** de type int.
 ** =========
 ** #1 : un entier n.

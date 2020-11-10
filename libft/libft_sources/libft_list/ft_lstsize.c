@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:42:32 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:58 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:05:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Compte le nombre d'éléments de la liste.
 ** =======
-** #1 : le début de la liste. 
+** #1 : le début de la liste.
 ** =======
 ** Retourne la taille de la liste.
 */

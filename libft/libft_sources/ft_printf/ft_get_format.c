@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_format.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 15:16:47 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/22 15:21:22 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:07:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** =========
 ** Retourne le format, contenant désormais le flag :
 ** 0 si aucun flag, 1 si le flag est '0', 2 si le flag est '-'
-** (le flag '0' est ignoré quand le flag '-' est présent).  
+** (le flag '0' est ignoré quand le flag '-' est présent).
 */
 
 t_format	ft_f(const char *str, size_t *ptr_pos, t_format form)
@@ -52,7 +52,7 @@ t_format	ft_f(const char *str, size_t *ptr_pos, t_format form)
 
 /*
 ** Récupère l'indication de formatage width,
-** modifie le flag dans le cas où width < 0 
+** modifie le flag dans le cas où width < 0
 ** (le '-' est alors considéré comme un flag).
 ** =========
 ** #1 : la chaîne de caractères à formater.

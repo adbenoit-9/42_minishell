@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:48:30 by mabriand          #+#    #+#             */
-/*   Updated: 2019/12/06 12:54:00 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:06:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft_header/libft.h"
 
 /*
-** Copie n octets depuis la zone mémoire src 
+** Copie n octets depuis la zone mémoire src
 ** vers la zone mémoire dst.
 ** Les deux zones peuvent se chevaucher.
 ** =========

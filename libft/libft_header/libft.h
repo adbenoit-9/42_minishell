@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:43:44 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/18 20:41:27 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:00:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void*), void	(*del)(void*));
 
-
 /*
 ** Memory
 */
@@ -92,7 +91,6 @@ size_t			ft_intlen(int n);
 size_t			ft_uintlen(unsigned int n);
 size_t			ft_hexintlen(unsigned int n);
 size_t			ft_long_hexintlen(unsigned long int n);
-
 
 /*
 ** Output

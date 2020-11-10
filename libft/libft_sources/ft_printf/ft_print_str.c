@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 16:13:14 by mabriand          #+#    #+#             */
-/*   Updated: 2020/01/23 14:32:33 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:08:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*ft_to_add(int flag, int nbr_space)
 
 /*
 ** Crée la chaîne finale formattée
-** en fonction du champ flag du format. 
+** en fonction du champ flag du format.
 ** =========
 ** #1 : le champ flag du format.
 ** #2 : la chaîne de caractères extraite de l'originale.

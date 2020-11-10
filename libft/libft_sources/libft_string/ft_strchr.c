@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 13:21:37 by mabriand          #+#    #+#             */
-/*   Updated: 2019/11/28 11:51:38 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 01:11:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** #1 : la chaîne de caractère à parser.
 ** #2 : le caractère à chercher.
 ** =========
-** Retourne un pointeur sur le caractère correspondant, 
+** Retourne un pointeur sur le caractère correspondant,
 ** NULL si il n'a pas été trouvé.
 */
 
