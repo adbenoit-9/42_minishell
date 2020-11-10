@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/10 01:03:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/10 18:30:10 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void			clear_one(t_stock **cmd);
 int				replace_var_by_value(char *var, char *envp[], char **value,
 				int *start);
 size_t			ft_tabsize(char **tab);
+char    		**ft_tabdup(char *tab[]);
+void			ft_puttab_fd(char **tab, int fd);
 int				ft_check_var(char *var);
 
 /*
@@ -146,9 +148,7 @@ void			ft_echo(t_stock **cmd, char *envp[], int *fd);
 void			ft_unknow(t_stock **cmd, char *envp[], int *fd);
 
 int				ft_redirect(t_stock **cmd, int *fd_in, int *fd_out);
-char			**ft_copy_tab(char *envp[]);
 void			ft_sort_env(char *envp[]);
-int				ft_arg_env(t_stock **cmd);
 void			ft_loop_pipe(t_stock **cmd, char *envp[], int *fd);
 int				ft_launch_process(t_stock **cmd, char **args, char *envp[]);
 int				ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd);

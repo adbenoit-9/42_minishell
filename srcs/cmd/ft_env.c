@@ -1,144 +1,99 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/09/10 17:45:22 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/10 17:11:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int    ft_arg_env(t_stock **cmd)
+static int	ft_arg_env(t_stock **cmd)
 {
-    int     ret;
+	int	ret;
 
-    ret = 0;
-    if ((*cmd)->tokens[1] != NULL)
-    {
-        ret = 1;
-        write(1, "env: ", 5);
-        write(1, (*cmd)->tokens[1], ft_strlen((*cmd)->tokens[1]));
-        write(1, ": error (argument management for 'env' not required)\n", 54);
-    }
-    return (ret);
+	ret = 0;
+	if ((*cmd)->tokens[1] != NULL)
+	{
+		ret = 1;
+		write(1, "env: ", 5);
+		write(1, (*cmd)->tokens[1], ft_strlen((*cmd)->tokens[1]));
+		write(1, ": error (argument management for 'env' not required)\n", 54);
+	}
+	return (ret);
 }
 
-int     ft_place(char *s1, char *s2)
-{  
-    int i;
-    
-    i = 0;
-    while (s1[i] != '\0' && s2[i] != '\0')
-    {
-        if (s1[i] < s2[i])
-            return (1);
-        else if (s1[i] > s2[i])
-            return (2);
-        else
-            i++;
-    }
-    if (s1[i] == '\0' && s2[i] != '\0')
-        return (1);
-    if (s1[i] != '\0' && s2[i] == '\0')
-        return (2);
-    return (0);
+static int	ft_place(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] < s2[i])
+			return (1);
+		else if (s1[i] > s2[i])
+			return (2);
+		else
+			i++;
+	}
+	if (s1[i] == '\0' && s2[i] != '\0')
+		return (1);
+	if (s1[i] != '\0' && s2[i] == '\0')
+		return (2);
+	return (0);
 }
 
-char    **ft_copy_tab(char *envp[])
+void		ft_sort_env(char *envp[])
 {
-    char    **bis;
-    int     size;
-    int     i;
+	char	*swap;
+	int		size;
+	int		i;
+	int		j;
 
-    bis = NULL;
-    size = 0;
-    i = 0;
-    while (envp[size])
-        size++;
-    if(!(bis = malloc(sizeof(char *) * (size + 1))))
-        return (NULL);
-    while (i < size)
-    {
-        bis[i] = ft_strdup(envp[i]);
-        //write(1, bis[i], ft_strlen(bis[i]));
-        //write(1, "\n", 1);
-        i++;
-    }
-    bis[i] = NULL;
-    return (bis);
+	swap = NULL;
+	size = ft_tabsize(envp);
+	i = -1;
+	while (++i < size - 1)
+	{
+		j = -1;
+		while (++j < size - i - 1)
+		{
+			if (ft_place(envp[j], envp[j + 1]) == 2)
+			{
+				swap = envp[j];
+				envp[j] = envp[j + 1];
+				envp[j + 1] = swap;
+			}
+		}
+	}
+	return ;
 }
 
-void    ft_sort_env(char *envp[])
+void		ft_env(t_stock **cmd, char *envp[], int *fd)
 {
-    char    *swap;
-    int     size;
-    int     i;
-    int     j;
+	int		index;
+	int		i;
 
-    swap = NULL;
-    size = 0;
-    while (envp[size] != 0)
-        size++;
-        
-    i = 0;
-    while (i < size - 1)
-    {
-        j = 0;
-        while (j < size - i - 1)
-        {
-            if (ft_place(envp[j], envp[j + 1]) == 2)
-            {
-                swap = envp[j];
-                envp[j] = envp[j + 1];
-                envp[j + 1] = swap;
-            }
-            j++;
-        }
-        i++;
-    }
-    return ;
-}
-
-void    ft_env(t_stock **cmd, char *envp[], int *fd)
-{
-    char    *str;
-    char    *new;
-    int     index;
-
-    str = NULL;
-    new = NULL;
-    index = 0;
-    if (ft_arg_env(cmd) == 1)
-        return ;
-    while (envp[index])
-    {
-        int i = 0;
-        while (envp[index][i])
-            ++i;
-        if (envp[index][i - 1] == '\'' && envp[index][i - 2] == '\'' && envp[index][i - 3] == '=')
-            index++;
-        else
-        {
-            if (str == NULL)
-            {
-                str = ft_strdup(envp[index]);
-                index++;
-            }
-            new = ft_strjoin(str, "\n");
-            free(str);
-            str = ft_strjoin(new, envp[index]);
-            free(new);
-            index++;
-        }
-    }
-    new = ft_strjoin(str, "\n");
-    free(str);
-    write(fd[1], new, ft_strlen(new));
-    free(new);
-    return ;
+	if (ft_arg_env(cmd) == 1)
+		return ;
+	index = 0;
+	while (envp[index])
+	{
+		i = 0;
+		while (envp[index][i])
+			++i;
+		if (envp[index][i - 1] != '\'' || envp[index][i - 2] != '\'' ||
+		envp[index][i - 3] != '=')
+		{
+			write(fd[1], envp[index], ft_strlen(envp[index]));
+			write(fd[1], "\n", 1);
+		}
+		++index;
+	}
+	return ;
 }
