@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/12 16:06:52 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/11/12 16:12:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ t_shell	g_shell;
 
 void    init_mshell(void)
 {
-    g_shell.pid = 0;
-    g_shell.bool = 0;
+	g_shell.pid = 0;
+	g_shell.bool = 0;
 }
 
-void    ft_sigint_handler(int signo)
+void	ft_sigint_handler(int signo)
 {
-    if (g_shell.pid == 0)
-    {
-        write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
-        write(1, "\xF0\x9F\x90\x9A: ", 6);
-        g_shell.pid = 1;
-    }
-    else
-    {
-        kill(0, signo);
-        g_shell.pid = 0;
-    }
+	if (g_shell.pid == 0)
+	{
+		write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
+		write(1, "\xF0\x9F\x90\x9A: ", 6);
+		g_shell.pid = 1;
+	}
+	else
+	{
+		kill(0, signo);
+		g_shell.pid = 0;
+	}
 }
 
 int		main(int argc, char *argv[], char *envp[])
