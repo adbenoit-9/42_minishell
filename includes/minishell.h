@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/10 18:30:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:44:05 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			clear_one(t_stock **cmd);
 int				replace_var_by_value(char *var, char *envp[], char **value,
 				int *start);
 size_t			ft_tabsize(char **tab);
-char    		**ft_tabdup(char *tab[]);
+char			**ft_tabdup(char *tab[]);
 void			ft_puttab_fd(char **tab, int fd);
 int				ft_check_var(char *var);
 

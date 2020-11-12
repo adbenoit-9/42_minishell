@@ -6,14 +6,17 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 12:09:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:40:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// besoin d'un retour ?
-int		ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
+/*
+** besoin d'un retour ?
+*/
+
+static int	ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
 {
 	int		ret;
 	int		i;
@@ -21,43 +24,27 @@ int		ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
 	char	*add_p;
 	char	*new_p;
 
-	if ((*cmd)->output)
-		dup2(fd[1], 1);
-	if ((*cmd)->input)
-		dup2(fd[0], 0);
+	dup2(fd[1], 1);
+	dup2(fd[0], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
 	ret = 0;
-
-	int j = 0;
-	while (args[j] && args[j][0])
-		j++;
-	args[j] = NULL;
-	//
 	while (path[i])
 	{
 		add_p = ft_strjoin(path[i], "/");
 		new_p = ft_strjoin(add_p, args[0]);
 		free(add_p);
 		if (execve(new_p, args, envp) == -1)
-		{
 			ret = -1;
-			free(new_p);
-			i++;
-		}
-		else
-		{
-			// free path
-			free(new_p);
-			//return(1);
-		}
+		++i;
+		free(new_p);
 	}
-	// free path
-	return(ret);
+	ft_free(path);
+	return (ret);
 }
 
-void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
+void		ft_unknow(t_stock **cmd, char *envp[], int *fd)
 {
 	int	ret;
 	int	i;

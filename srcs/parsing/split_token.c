@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 17:01:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 15:13:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		is_new_arg(char const *s, char c, size_t n, int quote)
 	int ret;
 
 	ret = 0;
-	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0 && s[n + 1])
+	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0)
 		ret = 1;
 	if (ret == 1 && (n == 0 || (s[n - 1] != '\\' && s[n - 1] != c)))
 		return (1);
@@ -65,15 +65,17 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 	quote = 0;
 	r = 0;
 	if (s[0] && s[0] != c)
-		count++;
+		++count;
 	while (i < n && s[i])
 	{
 		quote = is_in_quote(s, &i, quote);
 		r = is_redirec(s, &i, quote, r);
 		if (r != 1 && is_new_arg(s, c, i, quote) == 1)
 			count++;
-		i++;
+		++i;
 	}
+	if (i > 0 && s[i - 1] == c)
+		--count;
 	return (count);
 }
 
