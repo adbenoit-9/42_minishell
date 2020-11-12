@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 15:40:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 16:09:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** besoin d'un retour ?
 */
 
-static int	ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
+int		ft_try_path(char *envp[], char *args[], int *fd)
 {
 	int		ret;
 	int		i;
@@ -44,7 +44,7 @@ static int	ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
-void		ft_unknow(t_stock **cmd, char *envp[], int *fd)
+void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 {
 	int	ret;
 	int	i;

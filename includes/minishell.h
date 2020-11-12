@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 15:44:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 16:11:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,12 @@
 
 int g_status;
 
-typedef struct	s_mshell
+typedef struct	s_shell
 {
-	char		**env;
-	char		**vars;
-	t_list		*ls;
-
-	int			linestate;
-	int			dquote;
-
 	pid_t		pid;
-	int			exitcode;
-	int			sigswitch;
-
-	int			oldfdout;
-	int			oldfdin;
-
-	int			*pipes;
-	int			*pidtab;
-}				t_mshell;
+	int			bool;
+	int			wtf;
+}				t_shell;
 
 typedef struct	s_stock
 {
@@ -85,7 +72,7 @@ typedef struct	s_stock
 }				t_stock;
 
 extern t_stock	*g_cmd;
-extern t_mshell	g_mshell;
+extern t_shell	g_shell;
 
 typedef void	(*t_function)(t_stock **, char **, int *);
 
@@ -147,12 +134,16 @@ void			ft_unset(t_stock **cmd, char *envp[], int *fd);
 void			ft_echo(t_stock **cmd, char *envp[], int *fd);
 void			ft_unknow(t_stock **cmd, char *envp[], int *fd);
 
-int				ft_redirect(t_stock **cmd, int *fd_in, int *fd_out);
 void			ft_sort_env(char *envp[]);
+int				ft_try_path(char *envp[], char *args[], int *fd);
+int				ft_redirect(t_stock **cmd, int *fd_in, int *fd_out);
 void			ft_loop_pipe(t_stock **cmd, char *envp[], int *fd);
 int				ft_launch_process(t_stock **cmd, char **args, char *envp[]);
-int				ft_try_path(t_stock **cmd, char *envp[], char *args[], int *fd);
-void			signal_handler(int signo);
-void			proc_signal_handler(int signo);
+
+void			proc_sigint_handler(int signo);
+void			proc_sigquit_handler(int signo);
+void			ft_sigint_handler(int signo);
+void			t_sigquit_handler(int signo);
+void			init_mshell(void);
 
 #endif
