@@ -59,11 +59,12 @@ void    ft_loop_pipe(t_stock **cmd, char *envp[])
                 dup2(p[1], 1);
             close(p[0]);
             execute(*cmd, envp, fd);
-            // ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
             exit(EXIT_SUCCESS);
         }
         else
         {
+            if (ft_strcmp((*cmd)->tokens[0], "exit") == 0)
+                exit(g_status);
             wait(&status);
             close(p[1]);
             fd[0] = p[0]; //save the input for the next command

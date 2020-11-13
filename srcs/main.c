@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 16:12:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/13 17:06:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ int		main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	init_mshell();
-	while (1)
+	ret = 1;
+	while (ret > 0)
 	{
 		signal(SIGINT, ft_sigint_handler);
 		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
 		write(1, "\xF0\x9F\x90\x9A: ", 6);
 		str = NULL;
 		ret = get_next_line(0, &str);
+		if (ret == 0)
+            g_shell.bool = 0;
 		g_cmd = NULL;
 		i = 0;
 		while (str[i] == ' ')
@@ -63,5 +66,6 @@ int		main(int argc, char *argv[], char *envp[])
 		}
 		free(str);
 	}
+	write(1, "exit\n", 5);
 	return (0);
 }
