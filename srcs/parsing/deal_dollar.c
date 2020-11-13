@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 15:12:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 16:17:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ int			deal_status(char **new_token, int *k, int size)
 		if (!(*new_token = ft_realloc(*new_token, size + len)))
 			return (MALL_ERR);
 	}
-	len = -1;
-	while (nb[++len])
-	{
-		(*new_token)[*k] = nb[len];
-		++(*k);
-	}
+	ft_strcpy(*new_token + *k, nb);
+	(*k) += len;
 	free(nb);
 	return (2);
 }

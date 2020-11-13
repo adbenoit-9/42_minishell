@@ -15,4 +15,5 @@ echo -nnnn -n Test option n $'\n'; echo $
 echo 123$USER----$ ; echo "hallo$"							|ok
 echo abc$USERdef ; echo "hoi$USERmaran" ; echo $var test	|ok
 echo "'\$USER'"	; echo "\$USER"	; echo "123\$456"			|ok
-echo $_1234 ; echo $lol.ok ; echo $/.ok						|ok
+echo $_1234 ; echo $lol.ok ; echo $/.ok						|ko
+export ok;  echo $ok.ko                                     |ko

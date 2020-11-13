@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 16:06:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/12 16:40:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 		}
 	}
 	ft_stockclear(cmd, clear_one);
+	// system("leaks minishell");
 	exit(g_status);
 }

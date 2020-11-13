@@ -3,3 +3,5 @@ ls | grep test | wc                                         |ok
 echo | cd .. | pwd                                          |ko
 echo DOET HET NIET > test1 | cat test1                      |ko
 echo hallo >x1 >x2 >x3 | echo hoi                           |ko
+
+echo DOET HET NIET > test1 | cat test1 | grep NIET | wc
