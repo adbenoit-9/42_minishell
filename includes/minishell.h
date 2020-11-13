@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 16:11:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/13 16:34:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int				parsing(char *str, char *envp[]);
 int				save_cmd(char *str, t_stock **cmd, char *envp[]);
 t_stock			*ft_stocknew(int sep);
 void			ft_stockadd_back(t_stock **alst, t_stock *new);
-int				execute(t_stock *cmd, char *envp[]);
 void			ft_exit(t_stock **cmd, char *envp[], int *fd);
 int				deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
@@ -135,10 +134,11 @@ void			ft_echo(t_stock **cmd, char *envp[], int *fd);
 void			ft_unknow(t_stock **cmd, char *envp[], int *fd);
 
 void			ft_sort_env(char *envp[]);
-int				ft_try_path(char *envp[], char *args[], int *fd);
+int				ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd);
 int				ft_redirect(t_stock **cmd, int *fd_in, int *fd_out);
-void			ft_loop_pipe(t_stock **cmd, char *envp[], int *fd);
+void			ft_loop_pipe(t_stock **cmd, char *envp[]);
 int				ft_launch_process(t_stock **cmd, char **args, char *envp[]);
+int				execute(t_stock *cmd, char *envp[], int *fd);
 
 void			proc_sigint_handler(int signo);
 void			proc_sigquit_handler(int signo);

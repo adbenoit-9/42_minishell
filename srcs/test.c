@@ -27,13 +27,16 @@ void    proc_sigint_handler(int signo)
 ** ===> (**cmd) = 
 */
 
-void    ft_loop_pipe(t_stock **cmd, char *envp[], int *fd) 
+void    ft_loop_pipe(t_stock **cmd, char *envp[]) 
 {
     int   p[2];
     pid_t pid; 
     int   bool;
     int   status;
-    
+    int   fd[2];
+
+    fd[0] = 1;
+	fd[1] = 1;
     bool = 0;
     status = 0;
     while (*cmd) 
@@ -55,7 +58,8 @@ void    ft_loop_pipe(t_stock **cmd, char *envp[], int *fd)
             if ((*cmd)->next)
                 dup2(p[1], 1);
             close(p[0]);
-            ft_try_path(envp, (*cmd)->tokens, fd);
+            execute(*cmd, envp, fd);
+            // ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
             exit(EXIT_SUCCESS);
         }
         else

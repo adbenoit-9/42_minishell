@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 16:09:27 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/13 16:30:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** besoin d'un retour ?
 */
 
-int		ft_try_path(char *envp[], char *args[], int *fd)
+int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
 {
 	int		ret;
 	int		i;
@@ -24,8 +24,10 @@ int		ft_try_path(char *envp[], char *args[], int *fd)
 	char	*add_p;
 	char	*new_p;
 
-	dup2(fd[1], 1);
-	dup2(fd[0], 0);
+	if (cmd->output)
+		dup2(fd[1], 1);
+	if (cmd->input)
+		dup2(fd[0], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -52,7 +54,8 @@ void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 	ret = 0;
 	i = 0;
 	(void)envp;
-	ft_loop_pipe(cmd, envp, fd);
+	ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
+	// ft_loop_pipe(cmd, envp, fd);
 	if (ret == -1)
 	{
 		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')
