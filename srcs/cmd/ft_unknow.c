@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 16:30:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:47:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 	i = 0;
 	(void)envp;
 	ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
-	// ft_loop_pipe(cmd, envp, fd);
 	if (ret == -1)
 	{
 		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')

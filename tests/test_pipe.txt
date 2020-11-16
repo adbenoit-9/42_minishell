@@ -1,7 +1,10 @@
 ls | grep test | wc                                         |ok
 
-echo | cd .. | pwd                                          |ko
-echo DOET HET NIET > test1 | cat test1                      |ko
-echo hallo >x1 >x2 >x3 | echo hoi                           |ko
+echo | cd .. | pwd                                          |ok
+echo DOET HET NIET > test1 | cat test1                      |ok
+echo hallo >x1 >x2 >x3 | echo hoi                           |ok
 
-echo DOET HET NIET > test1 | cat test1 | grep NIET | wc
+echo DOET HET NIET > test1 | cat test1 | grep NIET | wc     |ok
+exit 0 0 | echo good ; echo work                            |ko
+$var_not_found | echo ok                                    |ok
+env pipe | echo ok                                          |ko

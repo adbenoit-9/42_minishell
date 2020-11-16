@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 17:28:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/13 18:09:51 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,9 @@ void			ft_unknow(t_stock **cmd, char *envp[], int *fd);
 void			ft_sort_env(char *envp[]);
 int				ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd);
 int				ft_redirect(t_stock **cmd, int *fd_in, int *fd_out);
-void			ft_loop_pipe(t_stock **cmd, char *envp[]);
+void			ft_loop_pipe(t_stock *cmd, char *envp[]);
 int				ft_launch_process(t_stock **cmd, char **args, char *envp[]);
-int				execute(t_stock *cmd, char *envp[], int *fd);
+int				execute(t_stock *cmd, char *envp[], int *fd, int pid);
 
 void			proc_sigint_handler(int signo);
 void			proc_sigquit_handler(int signo);
