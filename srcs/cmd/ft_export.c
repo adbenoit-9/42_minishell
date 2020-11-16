@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 15:26:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/16 21:57:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static int	ft_add_to_envp(char *envp[], char *str)
 	while (str[++j] != 0)
 	{
 		if (str[j] == '=' && str[j + 1])
-			bool += 1;
+			bool = 1;
 	}
 	if (bool == 0)
-		size = (str[j - 1] != '=') ? size + 2 : size + 3;
+		size = (str[j - 1] != '=') ? size + 3 : size + 2;
 	if (!(envp[i] = (char *)malloc(sizeof(char) * size)))
 		return (-1);
 	ft_strcpy(envp[i], str);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/10 16:35:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/16 21:06:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int		without_arg(t_stock **cmd, char **envp)
 		print_error("cd : ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
-	if (!((*cmd)->tokens = realloc_tab((*cmd)->tokens, 3)))
+	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 2)))
 		return (print_errno(NULL, strerror(errno), MALL_ERR));
 	(*cmd)->tokens[1] = ft_strdup(envp[pos] + 5);
 	return (0);

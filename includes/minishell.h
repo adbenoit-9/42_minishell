@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 18:09:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/16 20:45:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef void	(*t_function)(t_stock **, char **, int *);
 */
 
 void			*ft_realloc(void *ptr, int newsize);
-char			**realloc_tab(char **ptr, int newsize);
+char			**ft_realloc_tab(char **ptr, int newsize);
 void			*ft_free(char **tab);
 int				find_var(char *envp[], char *var);
 int				print_error(char *g_cmd, char *arg, char *err, int error);

@@ -1,21 +1,21 @@
 # WARNING SEGFAULT
-echo only one simple quote '														        |ok
-echo only one double quote "														        |ok
-echo only one backslash \															        |ok
+echo only one simple quote '																	|ok
+echo only one double quote "																	|ok
+echo only one backslash \																		|ok
 
-12 ; env arg ; cd path/not/found/ ; cd error ; exit 0 1 ; cd error 					        |ko
-echo $? ; export valid_var=ok ; export unvalid-var=ko ; unset valid_var ; unset unvalid=ko	|ok
-export ok$HOME                                                                              |ok
-unset po1 1op 2 po2; echo $? $po1 $po2                                                      |ok
-exit 0 1 ;;																			        |ok
-export valid unvalid. unvalid2$ ; unset valid unvalid. unvalid2$					        |ok
+12 ; env arg ; cd path/not/found/ ; cd error ; exit 0 1 ; cd error  							|ko
+echo $? ; export valid_var=ok ; export unvalid-var=ko ; unset valid_var ; unset unvalid=ko		|ok
+echo $? ; export ok$HOME																		|ok
+echo $? ; unset po1 1op 2 po2; echo $? $po1 $po2												|ok
+echo $? ; exit 0 1 ;;																			|ok
+echo $? ; export valid unvalid. unvalid2$ ; unset valid unvalid. unvalid2$						|ok
 
-echo error > ; echo KO																        |ok
-echo error >; echo KO																        |ok
+echo $? ; echo error > ; echo KO																|ok
+echo $? ; echo error >; echo KO																	|ok
 
-echo ko > is_$HOME                                                                          |ok
-echo ko >    ''     > LOSER                                                                 |ko
-echo ko > $VAR_NOT_FOUND                                                                    |ok
-echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >       $VAR_NOT_FOUND         |ok
+echo $? ; echo ko > is_$HOME																	|ok
+echo $? ; echo ko >	''	 > LOSER																|ko
+echo $? ; echo ko > $VAR_NOT_FOUND																|ok
+echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >	   $VAR_NOT_FOUND	|ok
 
-./test; echo $?                                                                             |ko
+echo $? ; ./test; echo $?																		|ko

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 16:17:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/16 22:04:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	deal_var(char *str, char **tokens, int *j, char *envp[])
 	k = replace_var_by_value(var, envp, tokens, j);
 	free(var);
 	var = NULL;
-	if (k == VAR_NOT_FOUND && *j == 0)
+	if (k == VAR_NOT_FOUND && *j == 0 && !str[i])
 		return (VAR_NOT_FOUND);
 	return (i);
 }
