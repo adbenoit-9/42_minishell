@@ -44,10 +44,11 @@ int		main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	init_mshell();
 	ret = 1;
+	//signal(SIGINT, ft_sigint_handler);
 	while (ret > 0)
 	{
+		init_mshell();
 		signal(SIGINT, ft_sigint_handler);
 		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
 		write(1, "\xF0\x9F\x90\x9A: ", 6);
@@ -67,5 +68,5 @@ int		main(int argc, char *argv[], char *envp[])
 		free(str);
 	}
 	write(1, "exit\n", 5);
-	return (0);
+	exit (EXIT_SUCCESS);//
 }
