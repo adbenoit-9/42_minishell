@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 22:11:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 22:17:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_arg_env(t_stock **cmd)
 		ret = 1;
 		write(2, "env: ", 5);
 		write(2, (*cmd)->tokens[1], ft_strlen((*cmd)->tokens[1]));
-		write(2, ": error (argument management for 'env' not required)\n", 54);
+		write(2, ": No argument required\n", 24);
 	}
 	return (ret);
 }

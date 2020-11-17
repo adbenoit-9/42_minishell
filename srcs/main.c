@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 17:06:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 18:25:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ int		main(int argc, char *argv[], char *envp[])
 	int		ret;
 	size_t	i;
 
-	(void)argc;
-	(void)argv;
+	if (argc > 1)
+	{
+		print_error(": ", argv[1], ": No argument requiered\n", 127);
+		exit(g_status);
+	}
 	ret = 1;
-	//signal(SIGINT, ft_sigint_handler);
 	while (ret > 0)
 	{
 		init_mshell();
@@ -68,5 +70,5 @@ int		main(int argc, char *argv[], char *envp[])
 		free(str);
 	}
 	write(1, "exit\n", 5);
-	exit (EXIT_SUCCESS);//
+	exit(EXIT_SUCCESS);
 }

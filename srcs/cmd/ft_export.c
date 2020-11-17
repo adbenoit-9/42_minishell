@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 21:57:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 17:05:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	ft_none_arg(char *token, char *envp[], int *fd)
 		return ;
 	}
 	print_error("export: ", "not valid in this context:", token, 1);
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 }
 
 void		ft_export(t_stock **cmd, char *envp[], int *fd)

@@ -3,7 +3,7 @@ echo \;;echo ";;" ; echo ';;' ; echo > \; ; rm ';' ; echo \\\\\;     ;          
 echo >      ;                                                                       |ok
 echo \';;                                                                           |ok
 echo \\;;                                                                           |ok
-\';                                                                                 |ko
+\';                                                                                 |ok
 
 >			=> 'newline'
 >			=> 'newline'
