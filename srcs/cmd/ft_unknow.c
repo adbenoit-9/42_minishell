@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 22:35:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 23:55:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 	int	ret;
 	int	i;
 
-	i = 0;
+	i = -1;
 	(void)envp;
+	while ((*cmd)->tokens[0][++i])
+	{
+		if ((*cmd)->tokens[0][i] == '/')
+		{
+			print_error("\0", (*cmd)->tokens[0],
+			": No such file or directory\n", 127);
+			return ;
+		}
+	}
 	ret = ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
 	if (ret == -1)
 	{
-		while ((*cmd)->tokens[0][i] && (*cmd)->tokens[0][i] != '/')
-			++i;
-		if ((size_t)i < ft_strlen((*cmd)->tokens[0]))
-			print_error("\0", (*cmd)->tokens[0],
-			": No such file or directory\n", 1);
-		else
-			print_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
+		print_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
 		exit(EXIT_FAILURE);
 	}
 }
