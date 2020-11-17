@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 22:45:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 16:35:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int			parse_str(char *str)
 	s1 = -1;
 	while (str[i])
 	{
-		if (str[i] == '\t')
-			str[i] = ' ';
+		str[i] = (str[i] == '\t') ? ' ' : str[i];
 		tmp = i;
 		quote = is_in_quote(str, &i, quote);
 		i = quote == 0 ? tmp : i;
