@@ -3,7 +3,7 @@ echo only one simple quote '																	|ok
 echo only one double quote "																	|ok
 echo only one backslash \																		|ok
 
-12 ; env arg ; cd path/not/found/ ; cd error ; exit 0 1 ; cd error  							|ko
+12 ; env arg ; cd path/not/found/ ; cd error ; exit 0 1 ; cd error  							|ko (cmd not found)
 echo $? ; export valid_var=ok ; export unvalid-var=ko ; unset valid_var ; unset unvalid=ko		|ok
 echo $? ; export ok$HOME																		|ok
 echo $? ; unset po1 1op 2 po2; echo $? $po1 $po2												|ok
@@ -14,8 +14,8 @@ echo $? ; echo error > ; echo KO																|ok
 echo $? ; echo error >; echo KO																	|ok
 
 echo $? ; echo ko > is_$HOME																	|ok
-echo $? ; echo ko >	''	 > LOSER																|ko
+echo $? ; echo ko >	''	 > LOSER																|ko (error order)
 echo $? ; echo ko > $VAR_NOT_FOUND																|ok
 echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >	   $VAR_NOT_FOUND	|ok
 
-echo $? ; ./test; echo $?																		|ko
+echo $? ; ./test; echo $?																		|ko (cmd not found)
