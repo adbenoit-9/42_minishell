@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 18:25:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/24 16:23:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    init_mshell(void)
 	g_shell.bool = 0;
 }
 
-void	ft_sigint_handler(int signo)
+void	ft_sig_handler(int signo)
 {
 	if (g_shell.pid == 0)
 	{
@@ -51,7 +51,8 @@ int		main(int argc, char *argv[], char *envp[])
 	while (ret > 0)
 	{
 		init_mshell();
-		signal(SIGINT, ft_sigint_handler);
+		signal(SIGINT, ft_sig_handler);
+		signal(SIGQUIT, ft_sig_handler);
 		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
 		write(1, "\xF0\x9F\x90\x9A: ", 6);
 		str = NULL;

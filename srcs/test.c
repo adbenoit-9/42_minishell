@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    proc_sigint_handler(int signo)
+void    proc_sig_handler(int signo)
 {
     if (g_shell.pid == 0 && g_shell.bool == 1)
     {
@@ -55,7 +55,8 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         }
         pipe(p);
         pid = fork();
-        signal(SIGINT, proc_sigint_handler);
+        signal(SIGINT, proc_sig_handler);
+        signal(SIGQUIT, proc_sig_handler);
         g_shell.pid = 0;
         if (pid == -1)
         {

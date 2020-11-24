@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 20:45:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/24 16:23:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,8 @@ void			ft_loop_pipe(t_stock *cmd, char *envp[]);
 int				ft_launch_process(t_stock **cmd, char **args, char *envp[]);
 int				execute(t_stock *cmd, char *envp[], int *fd, int pid);
 
-void			proc_sigint_handler(int signo);
-void			proc_sigquit_handler(int signo);
-void			ft_sigint_handler(int signo);
-void			t_sigquit_handler(int signo);
+void			proc_sig_handler(int signo);
+void			ft_sig_handler(int signo);
 void			init_mshell(void);
 
 #endif
