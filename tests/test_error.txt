@@ -18,4 +18,4 @@ echo $? ; echo ko >	''	 > LOSER																|ko (error order)
 echo $? ; echo ko > $VAR_NOT_FOUND																|ok
 echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >	   $VAR_NOT_FOUND	|ok
 
-echo $? ; ./echo ko; echo $?																	|ko	(./cmd)
+echo $? ; ./echo ko; echo $?																	|ok
