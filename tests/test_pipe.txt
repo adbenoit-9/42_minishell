@@ -1,4 +1,5 @@
 ls | grep test | wc                                         |ok
+cat | ls                                                    |ko
 
 echo | cd .. | pwd                                          |ok
 echo DOET HET NIET > test1 | cat test1                      |ok
