@@ -49,7 +49,7 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "make") == 0)
             g_shell.bool = 1;
         if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "exit") == 0)
-        {    
+        {
             g_shell.bool = 0;
             g_shell.pid = 1;
         }

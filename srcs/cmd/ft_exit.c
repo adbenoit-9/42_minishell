@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 17:12:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/25 21:29:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	exit_error(int i, t_stock *cmd)
 {
 	if (ft_isdigit(cmd->tokens[1][i]) == 0 && cmd->tokens[1][0] != '-'
-	&& g_status == 0 && cmd->tokens[1][0] != '0')
+	&& cmd->tokens[1][0] != '0')
 	{
 		print_error("exit: ", cmd->tokens[1],
 		": numeric argument required\n", 1);
