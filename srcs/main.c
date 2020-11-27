@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/27 15:57:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/27 16:14:57 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void    init_mshell(void)
 {
 	g_shell.pid = 0;
 	g_shell.bool = 0;
+	// g_shell.sig = 0;
 }
 
 void	ft_sig_handler(int signo)

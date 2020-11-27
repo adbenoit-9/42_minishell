@@ -11,15 +11,9 @@ void    proc_sig_handler(int signo)
     {
         (void)signo;
         kill(0, signo);
-        if (g_shell.status == 0)
-		{
-			write(1, "\n", 1);
-			g_status = 130;
-		}
-		else
-			g_status = 255;
-        g_shell.pid = 1; // WTF
-    }  
+        g_shell.sig = 1;
+        g_shell.pid = 1;
+    }
 }
 
 /*void    proc_sigquit_handler(int signo)
@@ -61,6 +55,7 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         }
         pipe(p);
         pid = fork();
+        g_shell.sig = 0;
         signal(SIGINT, proc_sig_handler);
         signal(SIGQUIT, proc_sig_handler);
         g_shell.pid = 0;
@@ -85,7 +80,16 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         {
             execute(cmd, envp, fd, 1);
             waitpid(pid, &status, 0);
-            g_shell.status = WIFSIGNALED(status);
+            if (g_shell.sig == 1)
+		    {
+                if (WIFSIGNALED(status) == 1)
+                {
+                    write(1, "\n", 1);
+			        g_status = 130;
+                }
+                else
+			        g_status = 255; 
+		    }
             close(p[1]);
             fd[0] = p[0]; //save the input for the next command
             if (cmd->next != NULL)
