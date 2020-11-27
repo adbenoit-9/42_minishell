@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/24 16:23:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:51:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_shell
 {
 	pid_t		pid;
 	int			bool;
-	int			wtf;
+	int			status;
 }				t_shell;
 
 typedef struct	s_stock

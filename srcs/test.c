@@ -10,8 +10,14 @@ void    proc_sig_handler(int signo)
     else if (g_shell.pid == 0 && g_shell.bool == 0)
     {
         (void)signo;
-        write(1, "\n", 1);
         kill(0, signo);
+        if (g_shell.status == 0)
+		{
+			write(1, "\n", 1);
+			g_status = 130;
+		}
+		else
+			g_status = 255;
         g_shell.pid = 1; // WTF
     }  
 }
@@ -42,9 +48,9 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
 
     fd[0] = 1;
 	fd[1] = 1;
-    status = 0;
     while (cmd) 
     {
+        status = 0;
         //signal(SIGINT, proc_sigint_handler);
         if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "make") == 0)
             g_shell.bool = 1;
@@ -78,7 +84,8 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         else
         {
             execute(cmd, envp, fd, 1);
-            wait(&status);
+            waitpid(pid, &status, 0);
+            g_shell.status = WIFSIGNALED(status);
             close(p[1]);
             fd[0] = p[0]; //save the input for the next command
             if (cmd->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/25 21:26:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:47:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	execute(t_stock *cmd, char *envp[], int *fd, int pid)
 	static char			*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 
-	g_status = 0;
 	errno = 0;
 	if (cmd && cmd->tokens[0])
 	{
@@ -30,6 +29,7 @@ int	execute(t_stock *cmd, char *envp[], int *fd, int pid)
 		if ((i < UNKNOW && ((pid == 0 && cmd->sep == PIPE) ||
 		(pid == 1 && cmd->sep != PIPE))) || (i == UNKNOW && pid == 0))
 		{
+			g_status = 0;
 			ft_redirect(&cmd, &fd[0], &fd[1]);
 			cmd_fct[i](&cmd, envp, fd);
 		}
