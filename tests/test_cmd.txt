@@ -6,3 +6,4 @@ echo pwd = $PWD; echo oldpwd = $OLDPWD ; cd .. ; echo --------;echo pwd = $PWD ;
 echo -n -n -n $potato$orange; unset																						|ok
 export ""; export test= ; export > export.txt                                                                           |ok
 export test="ok'\\'\\" ; export                                                                                         |ko (+simple quote with \)
+exit 9887

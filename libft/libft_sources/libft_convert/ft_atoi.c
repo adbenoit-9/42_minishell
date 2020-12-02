@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 21:43:04 by mabriand          #+#    #+#             */
-/*   Updated: 2019/12/04 14:11:24 by mabriand         ###   ########.fr       */
+/*   Updated: 2020/11/27 18:26:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,24 @@
 int	ft_atoi(const char *str)
 {
 	int i;
-	int minus;
-	int nbr;
+	int num;
+	int neg;
 
 	i = 0;
-	minus = 1;
-	nbr = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	neg = 1;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
+	if (str[i] == '-')
+		neg = -1;
 	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] == '-')
-			minus = -1;
+		num = num * 10 + (str[i] - 48);
 		i++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nbr = (nbr * 10) + str[i] - 48;
-		i++;
-	}
-	return (nbr * minus);
+	num = num * neg;
+	return (num);
 }

@@ -90,6 +90,10 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
                 else
 			        g_status = 255; 
 		    }
+            else if (status % 255 != 0)
+                g_status = status % 255;
+            else if (status != 0)
+                g_status = 255;
             close(p[1]);
             fd[0] = p[0];
             if (cmd->next != NULL)
