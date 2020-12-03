@@ -89,24 +89,24 @@
 [94m----- STDERR -----(B[m
 0a1,19
 > =================================================================
-> ==32723==ERROR: AddressSanitizer: requested allocation size 0xfffffffffffffffe (0x800 after adjustments for alignment, red zones etc.) exceeds maximum supported size of 0x10000000000 (thread T0)
->     #0 0x108f2be5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
->     #1 0x100beb51b in ft_realloc ft_realloc.c:22
->     #2 0x100bebe27 in replace_var_by_value manage_var.c:46
->     #3 0x100bf83f1 in deal_var deal_dollar.c:28
->     #4 0x100bf7dbd in deal_dollar deal_dollar.c:60
->     #5 0x100bf9d67 in parse_char set_tokens.c:26
->     #6 0x100bf9903 in parse_token set_tokens.c:59
->     #7 0x100bfa1af in set_token set_tokens.c:81
->     #8 0x100bf8cde in save_cmd save_cmd.c:61
->     #9 0x100bf5b7f in parsing parsing.c:83
->     #10 0x100bf5edb in parsing parsing.c:97
->     #11 0x100bea1f4 in main main.c:81
+> ==40336==ERROR: AddressSanitizer: requested allocation size 0xfffffffffffffffe (0x800 after adjustments for alignment, red zones etc.) exceeds maximum supported size of 0x10000000000 (thread T0)
+>     #0 0x10cbfbe5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
+>     #1 0x1048bb51b in ft_realloc ft_realloc.c:22
+>     #2 0x1048bbe27 in replace_var_by_value manage_var.c:46
+>     #3 0x1048c83f1 in deal_var deal_dollar.c:28
+>     #4 0x1048c7dbd in deal_dollar deal_dollar.c:60
+>     #5 0x1048c9d67 in parse_char set_tokens.c:26
+>     #6 0x1048c9903 in parse_token set_tokens.c:59
+>     #7 0x1048ca1af in set_token set_tokens.c:81
+>     #8 0x1048c8cde in save_cmd save_cmd.c:61
+>     #9 0x1048c5b7f in parsing parsing.c:83
+>     #10 0x1048c5edb in parsing parsing.c:97
+>     #11 0x1048ba1e4 in main main.c:83
 >     #12 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==32723==HINT: if you don't care about these errors you may set allocator_may_return_null=1
+> ==40336==HINT: if you don't care about these errors you may set allocator_may_return_null=1
 > SUMMARY: AddressSanitizer: allocation-size-too-big (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d) in wrap_malloc+0x9d
-> ==32723==ABORTING
+> ==40336==ABORTING
 
 
 [33mcd ; pwd(B[m
@@ -118,27 +118,27 @@
 [94m----- STDERR -----(B[m
 0a1,58
 > =================================================================
-> ==32804==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000001a0 at pc 0x000104b6b7e3 bp 0x00030d8460b0 sp 0x00030d8460a8
+> ==40417==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000001a0 at pc 0x00010052b7e3 bp 0x000304f46090 sp 0x000304f46088
 > WRITE of size 8 at 0x6020000001a0 thread T0
->     #0 0x104b6b7e2 in ft_realloc_tab ft_realloc.c:48
->     #1 0x104b6e791 in without_arg ft_cd.c:68
->     #2 0x104b6e3de in ft_cd ft_cd.c:105
->     #3 0x104b6a9e9 in execute execute.c:34
->     #4 0x104b6d5f2 in ft_loop_pipe test.c:81
->     #5 0x104b75dbb in parsing parsing.c:95
->     #6 0x104b6a1f4 in main main.c:81
+>     #0 0x10052b7e2 in ft_realloc_tab ft_realloc.c:48
+>     #1 0x10052e791 in without_arg ft_cd.c:68
+>     #2 0x10052e3de in ft_cd ft_cd.c:105
+>     #3 0x10052a9e9 in execute execute.c:34
+>     #4 0x10052d5f2 in ft_loop_pipe test.c:81
+>     #5 0x100535dbb in parsing parsing.c:95
+>     #6 0x10052a1e4 in main main.c:83
 >     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > 0x6020000001a0 is located 0 bytes to the right of 16-byte region [0x602000000190,0x6020000001a0)
 > allocated by thread T0 here:
->     #0 0x10ceabe5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
->     #1 0x104b6b5b5 in ft_realloc_tab ft_realloc.c:39
->     #2 0x104b6e791 in without_arg ft_cd.c:68
->     #3 0x104b6e3de in ft_cd ft_cd.c:105
->     #4 0x104b6a9e9 in execute execute.c:34
->     #5 0x104b6d5f2 in ft_loop_pipe test.c:81
->     #6 0x104b75dbb in parsing parsing.c:95
->     #7 0x104b6a1f4 in main main.c:81
+>     #0 0x10886be5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
+>     #1 0x10052b5b5 in ft_realloc_tab ft_realloc.c:39
+>     #2 0x10052e791 in without_arg ft_cd.c:68
+>     #3 0x10052e3de in ft_cd ft_cd.c:105
+>     #4 0x10052a9e9 in execute execute.c:34
+>     #5 0x10052d5f2 in ft_loop_pipe test.c:81
+>     #6 0x100535dbb in parsing parsing.c:95
+>     #7 0x10052a1e4 in main main.c:83
 >     #8 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > SUMMARY: AddressSanitizer: heap-buffer-overflow ft_realloc.c:48 in ft_realloc_tab
@@ -174,7 +174,7 @@
 >   Left alloca redzone:     ca
 >   Right alloca redzone:    cb
 >   Shadow gap:              cc
-> ==32804==ABORTING
+> ==40417==ABORTING
 
 
 [33munset HOME ; cd ; pwd(B[m
@@ -197,25 +197,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==32831==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010467fe2a bp 0x00030d1661c0 sp 0x00030d1660d0 T0)
-> ==32831==The signal is caused by a READ memory access.
-> ==32831==Hint: address points to the zero page.
->     #0 0x10467fe2a in modify_pwd ft_cd.c:46
->     #1 0x10467f553 in ft_cd ft_cd.c:114
->     #2 0x10467b9e9 in execute execute.c:34
->     #3 0x10467e5f2 in ft_loop_pipe test.c:81
->     #4 0x104686dbb in parsing parsing.c:95
->     #5 0x10467b1f4 in main main.c:81
+> ==40444==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000104856e2a bp 0x00030d33c1a0 sp 0x00030d33c0b0 T0)
+> ==40444==The signal is caused by a READ memory access.
+> ==40444==Hint: address points to the zero page.
+>     #0 0x104856e2a in modify_pwd ft_cd.c:46
+>     #1 0x104856553 in ft_cd ft_cd.c:114
+>     #2 0x1048529e9 in execute execute.c:34
+>     #3 0x1048555f2 in ft_loop_pipe test.c:81
+>     #4 0x10485ddbb in parsing parsing.c:95
+>     #5 0x1048521e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==32831==Register values:
-> rax = 0x0000000000000000  rbx = 0x000000030d1662c0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x000000030d166e00  rsi = 0x0000100000000000  rbp = 0x000000030d1661c0  rsp = 0x000000030d1660d0  
+> ==40444==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030d33c2a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030d33ce00  rsi = 0x0000100000000000  rbp = 0x000000030d33c1a0  rsp = 0x000000030d33c0b0  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==32831==ABORTING
+> ==40444==ABORTING
 
 
 [33mcd ..; pwd(B[m
@@ -228,25 +228,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==32845==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000100e4ee2a bp 0x0003061be1c0 sp 0x0003061be0d0 T0)
-> ==32845==The signal is caused by a READ memory access.
-> ==32845==Hint: address points to the zero page.
->     #0 0x100e4ee2a in modify_pwd ft_cd.c:46
->     #1 0x100e4e553 in ft_cd ft_cd.c:114
->     #2 0x100e4a9e9 in execute execute.c:34
->     #3 0x100e4d5f2 in ft_loop_pipe test.c:81
->     #4 0x100e55dbb in parsing parsing.c:95
->     #5 0x100e4a1f4 in main main.c:81
+> ==40458==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010248ee2a bp 0x000308a8f1a0 sp 0x000308a8f0b0 T0)
+> ==40458==The signal is caused by a READ memory access.
+> ==40458==Hint: address points to the zero page.
+>     #0 0x10248ee2a in modify_pwd ft_cd.c:46
+>     #1 0x10248e553 in ft_cd ft_cd.c:114
+>     #2 0x10248a9e9 in execute execute.c:34
+>     #3 0x10248d5f2 in ft_loop_pipe test.c:81
+>     #4 0x102495dbb in parsing parsing.c:95
+>     #5 0x10248a1e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==32845==Register values:
-> rax = 0x0000000000000000  rbx = 0x00000003061be2c0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x00000003061bee00  rsi = 0x0000100000000000  rbp = 0x00000003061be1c0  rsp = 0x00000003061be0d0  
+> ==40458==Register values:
+> rax = 0x0000000000000000  rbx = 0x0000000308a8f2a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x0000000308a8fe00  rsi = 0x0000100000000000  rbp = 0x0000000308a8f1a0  rsp = 0x0000000308a8f0b0  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==32845==ABORTING
+> ==40458==ABORTING
 
 
 [33mcd (B[m
@@ -255,27 +255,27 @@
 (B[m[94m----- STDERR -----(B[m
 0a1,58
 > =================================================================
-> ==32859==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000001a0 at pc 0x00010012e7e3 bp 0x0003044250b0 sp 0x0003044250a8
+> ==40472==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000001a0 at pc 0x000100a397e3 bp 0x00030562c090 sp 0x00030562c088
 > WRITE of size 8 at 0x6020000001a0 thread T0
->     #0 0x10012e7e2 in ft_realloc_tab ft_realloc.c:48
->     #1 0x100131791 in without_arg ft_cd.c:68
->     #2 0x1001313de in ft_cd ft_cd.c:105
->     #3 0x10012d9e9 in execute execute.c:34
->     #4 0x1001305f2 in ft_loop_pipe test.c:81
->     #5 0x100138dbb in parsing parsing.c:95
->     #6 0x10012d1f4 in main main.c:81
+>     #0 0x100a397e2 in ft_realloc_tab ft_realloc.c:48
+>     #1 0x100a3c791 in without_arg ft_cd.c:68
+>     #2 0x100a3c3de in ft_cd ft_cd.c:105
+>     #3 0x100a389e9 in execute execute.c:34
+>     #4 0x100a3b5f2 in ft_loop_pipe test.c:81
+>     #5 0x100a43dbb in parsing parsing.c:95
+>     #6 0x100a381e4 in main main.c:83
 >     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > 0x6020000001a0 is located 0 bytes to the right of 16-byte region [0x602000000190,0x6020000001a0)
 > allocated by thread T0 here:
->     #0 0x10846ee5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
->     #1 0x10012e5b5 in ft_realloc_tab ft_realloc.c:39
->     #2 0x100131791 in without_arg ft_cd.c:68
->     #3 0x1001313de in ft_cd ft_cd.c:105
->     #4 0x10012d9e9 in execute execute.c:34
->     #5 0x1001305f2 in ft_loop_pipe test.c:81
->     #6 0x100138dbb in parsing parsing.c:95
->     #7 0x10012d1f4 in main main.c:81
+>     #0 0x108d79e5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
+>     #1 0x100a395b5 in ft_realloc_tab ft_realloc.c:39
+>     #2 0x100a3c791 in without_arg ft_cd.c:68
+>     #3 0x100a3c3de in ft_cd ft_cd.c:105
+>     #4 0x100a389e9 in execute execute.c:34
+>     #5 0x100a3b5f2 in ft_loop_pipe test.c:81
+>     #6 0x100a43dbb in parsing parsing.c:95
+>     #7 0x100a381e4 in main main.c:83
 >     #8 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > SUMMARY: AddressSanitizer: heap-buffer-overflow ft_realloc.c:48 in ft_realloc_tab
@@ -311,7 +311,7 @@
 >   Left alloca redzone:     ca
 >   Right alloca redzone:    cb
 >   Shadow gap:              cc
-> ==32859==ABORTING
+> ==40472==ABORTING
 
 
 [33m/; pwd(B[m
@@ -334,25 +334,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==32885==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010456ae2a bp 0x00030cef21c0 sp 0x00030cef20d0 T0)
-> ==32885==The signal is caused by a READ memory access.
-> ==32885==Hint: address points to the zero page.
->     #0 0x10456ae2a in modify_pwd ft_cd.c:46
->     #1 0x10456a553 in ft_cd ft_cd.c:114
->     #2 0x1045669e9 in execute execute.c:34
->     #3 0x1045695f2 in ft_loop_pipe test.c:81
->     #4 0x104571dbb in parsing parsing.c:95
->     #5 0x1045661f4 in main main.c:81
+> ==40498==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000102fcde2a bp 0x00030a0d01a0 sp 0x00030a0d00b0 T0)
+> ==40498==The signal is caused by a READ memory access.
+> ==40498==Hint: address points to the zero page.
+>     #0 0x102fcde2a in modify_pwd ft_cd.c:46
+>     #1 0x102fcd553 in ft_cd ft_cd.c:114
+>     #2 0x102fc99e9 in execute execute.c:34
+>     #3 0x102fcc5f2 in ft_loop_pipe test.c:81
+>     #4 0x102fd4dbb in parsing parsing.c:95
+>     #5 0x102fc91e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==32885==Register values:
-> rax = 0x0000000000000000  rbx = 0x000000030cef22c0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x000000030cef2e00  rsi = 0x0000100000000000  rbp = 0x000000030cef21c0  rsp = 0x000000030cef20d0  
+> ==40498==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030a0d02a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030a0d0e00  rsi = 0x0000100000000000  rbp = 0x000000030a0d01a0  rsp = 0x000000030a0d00b0  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==32885==ABORTING
+> ==40498==ABORTING
 
 
 [33mcd ../../../../../../.. ; pwd(B[m
@@ -365,25 +365,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==32899==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000104fa8e2a bp 0x00030e40e1a0 sp 0x00030e40e0b0 T0)
-> ==32899==The signal is caused by a READ memory access.
-> ==32899==Hint: address points to the zero page.
->     #0 0x104fa8e2a in modify_pwd ft_cd.c:46
->     #1 0x104fa8553 in ft_cd ft_cd.c:114
->     #2 0x104fa49e9 in execute execute.c:34
->     #3 0x104fa75f2 in ft_loop_pipe test.c:81
->     #4 0x104fafdbb in parsing parsing.c:95
->     #5 0x104fa41f4 in main main.c:81
+> ==40512==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0001005e6e2a bp 0x000304de6180 sp 0x000304de6090 T0)
+> ==40512==The signal is caused by a READ memory access.
+> ==40512==Hint: address points to the zero page.
+>     #0 0x1005e6e2a in modify_pwd ft_cd.c:46
+>     #1 0x1005e6553 in ft_cd ft_cd.c:114
+>     #2 0x1005e29e9 in execute execute.c:34
+>     #3 0x1005e55f2 in ft_loop_pipe test.c:81
+>     #4 0x1005eddbb in parsing parsing.c:95
+>     #5 0x1005e21e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==32899==Register values:
-> rax = 0x0000000000000000  rbx = 0x000000030e40e2a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x000000030e40ee00  rsi = 0x0000100000000000  rbp = 0x000000030e40e1a0  rsp = 0x000000030e40e0b0  
+> ==40512==Register values:
+> rax = 0x0000000000000000  rbx = 0x0000000304de6280  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x0000000304de6e00  rsi = 0x0000100000000000  rbp = 0x0000000304de6180  rsp = 0x0000000304de6090  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==32899==ABORTING
+> ==40512==ABORTING
 
 
 [33mexit $HOME"coucou"COMO" "TE" "ENCUENTRAS |rev(B[m
@@ -456,25 +456,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==33070==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0001003f5e2a bp 0x00030494f1c0 sp 0x00030494f0d0 T0)
-> ==33070==The signal is caused by a READ memory access.
-> ==33070==Hint: address points to the zero page.
->     #0 0x1003f5e2a in modify_pwd ft_cd.c:46
->     #1 0x1003f5553 in ft_cd ft_cd.c:114
->     #2 0x1003f19e9 in execute execute.c:34
->     #3 0x1003f45f2 in ft_loop_pipe test.c:81
->     #4 0x1003fcdbb in parsing parsing.c:95
->     #5 0x1003f11f4 in main main.c:81
+> ==40683==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010205ee2a bp 0x0003082341a0 sp 0x0003082340b0 T0)
+> ==40683==The signal is caused by a READ memory access.
+> ==40683==Hint: address points to the zero page.
+>     #0 0x10205ee2a in modify_pwd ft_cd.c:46
+>     #1 0x10205e553 in ft_cd ft_cd.c:114
+>     #2 0x10205a9e9 in execute execute.c:34
+>     #3 0x10205d5f2 in ft_loop_pipe test.c:81
+>     #4 0x102065dbb in parsing parsing.c:95
+>     #5 0x10205a1e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==33070==Register values:
-> rax = 0x0000000000000000  rbx = 0x000000030494f2c0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x000000030494fe00  rsi = 0x0000100000000000  rbp = 0x000000030494f1c0  rsp = 0x000000030494f0d0  
+> ==40683==Register values:
+> rax = 0x0000000000000000  rbx = 0x00000003082342a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x0000000308234e00  rsi = 0x0000100000000000  rbp = 0x00000003082341a0  rsp = 0x00000003082340b0  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==33070==ABORTING
+> ==40683==ABORTING
 
 
 [33mcd dir/encoreuneautredir ; ../../lscp(B[m
@@ -484,25 +484,25 @@
 0a1,21
 > AddressSanitizer:DEADLYSIGNAL
 > =================================================================
-> ==33085==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000102044e2a bp 0x0003083761a0 sp 0x0003083760b0 T0)
-> ==33085==The signal is caused by a READ memory access.
-> ==33085==Hint: address points to the zero page.
->     #0 0x102044e2a in modify_pwd ft_cd.c:46
->     #1 0x102044553 in ft_cd ft_cd.c:114
->     #2 0x1020409e9 in execute execute.c:34
->     #3 0x1020435f2 in ft_loop_pipe test.c:81
->     #4 0x10204bdbb in parsing parsing.c:95
->     #5 0x1020401f4 in main main.c:81
+> ==40698==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000102b66e2a bp 0x0003098be180 sp 0x0003098be090 T0)
+> ==40698==The signal is caused by a READ memory access.
+> ==40698==Hint: address points to the zero page.
+>     #0 0x102b66e2a in modify_pwd ft_cd.c:46
+>     #1 0x102b66553 in ft_cd ft_cd.c:114
+>     #2 0x102b629e9 in execute execute.c:34
+>     #3 0x102b655f2 in ft_loop_pipe test.c:81
+>     #4 0x102b6ddbb in parsing parsing.c:95
+>     #5 0x102b621e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
-> ==33085==Register values:
-> rax = 0x0000000000000000  rbx = 0x00000003083762a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
-> rdi = 0x0000000308376e00  rsi = 0x0000100000000000  rbp = 0x00000003083761a0  rsp = 0x00000003083760b0  
+> ==40698==Register values:
+> rax = 0x0000000000000000  rbx = 0x00000003098be280  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x00000003098bee00  rsi = 0x0000100000000000  rbp = 0x00000003098be180  rsp = 0x00000003098be090  
 >  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
 > r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
 > AddressSanitizer can not provide additional info.
 > SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
-> ==33085==ABORTING
+> ==40698==ABORTING
 
 
 [33m/(B[m
@@ -574,31 +574,31 @@
 [94m----- STDERR -----(B[m
 0a1,62
 > =================================================================
-> ==33241==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x607000000069 at pc 0x000100185faa bp 0x0003045a7f10 sp 0x0003045a7f08
+> ==40854==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x607000000069 at pc 0x000100bd2faa bp 0x000305c3fef0 sp 0x000305c3fee8
 > WRITE of size 1 at 0x607000000069 thread T0
->     #0 0x100185fa9 in deal_double_quote deal_quote.c:94
->     #1 0x100188bf4 in parse_char set_tokens.c:22
->     #2 0x100188903 in parse_token set_tokens.c:59
->     #3 0x1001891af in set_token set_tokens.c:81
->     #4 0x100187cde in save_cmd save_cmd.c:61
->     #5 0x100184b7f in parsing parsing.c:83
->     #6 0x1001791f4 in main main.c:81
+>     #0 0x100bd2fa9 in deal_double_quote deal_quote.c:94
+>     #1 0x100bd5bf4 in parse_char set_tokens.c:22
+>     #2 0x100bd5903 in parse_token set_tokens.c:59
+>     #3 0x100bd61af in set_token set_tokens.c:81
+>     #4 0x100bd4cde in save_cmd save_cmd.c:61
+>     #5 0x100bd1b7f in parsing parsing.c:83
+>     #6 0x100bc61e4 in main main.c:83
 >     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > 0x607000000069 is located 0 bytes to the right of 73-byte region [0x607000000020,0x607000000069)
 > allocated by thread T0 here:
->     #0 0x1084bae5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
->     #1 0x10017a51b in ft_realloc ft_realloc.c:22
->     #2 0x10017ae27 in replace_var_by_value manage_var.c:46
->     #3 0x1001873f1 in deal_var deal_dollar.c:28
->     #4 0x100186dbd in deal_dollar deal_dollar.c:60
->     #5 0x1001859c9 in deal_double_quote deal_quote.c:84
->     #6 0x100188bf4 in parse_char set_tokens.c:22
->     #7 0x100188903 in parse_token set_tokens.c:59
->     #8 0x1001891af in set_token set_tokens.c:81
->     #9 0x100187cde in save_cmd save_cmd.c:61
->     #10 0x100184b7f in parsing parsing.c:83
->     #11 0x1001791f4 in main main.c:81
+>     #0 0x108f07e5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
+>     #1 0x100bc751b in ft_realloc ft_realloc.c:22
+>     #2 0x100bc7e27 in replace_var_by_value manage_var.c:46
+>     #3 0x100bd43f1 in deal_var deal_dollar.c:28
+>     #4 0x100bd3dbd in deal_dollar deal_dollar.c:60
+>     #5 0x100bd29c9 in deal_double_quote deal_quote.c:84
+>     #6 0x100bd5bf4 in parse_char set_tokens.c:22
+>     #7 0x100bd5903 in parse_token set_tokens.c:59
+>     #8 0x100bd61af in set_token set_tokens.c:81
+>     #9 0x100bd4cde in save_cmd save_cmd.c:61
+>     #10 0x100bd1b7f in parsing parsing.c:83
+>     #11 0x100bc61e4 in main main.c:83
 >     #12 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
 > 
 > SUMMARY: AddressSanitizer: heap-buffer-overflow deal_quote.c:94 in deal_double_quote
@@ -634,7 +634,7 @@
 >   Left alloca redzone:     ca
 >   Right alloca redzone:    cb
 >   Shadow gap:              cc
-> ==33241==ABORTING
+> ==40854==ABORTING
 
 
 [33mecho "'$'"(B[m
