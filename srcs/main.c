@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/29 18:43:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 11:16:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		main(int argc, char *argv[], char *envp[])
 				str = ft_strjoin(str, argv[i]);
 				str = ft_strjoin(str, " ");
 			}
+			if (!str)
+				return (0);
 		}
 		if (ret == 0)
             g_shell.bool = 0;
