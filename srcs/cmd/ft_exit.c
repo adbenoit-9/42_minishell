@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/29 18:14:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:43:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	exit_error(int i, t_stock *cmd, unsigned long long int *nb)
 	return (0);
 }
 
-void		ft_exit(t_stock **cmd, char *envp[], int *fd)
+void		ft_exit(t_stock **cmd, char *envp[])
 {
 	int	i;
 	int	err;
@@ -42,9 +42,8 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 
 	(void)envp;
 	i = 0;
-	(void)fd;
 	nb = 0;
-	write(1, "exit\n", 5);
+	write(2, "exit\n", 5);
 	if ((*cmd)->tokens[1])
 	{
 		g_status = ft_atoi((*cmd)->tokens[1]);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 22:17:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:42:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		ft_sort_env(char *envp[])
 	return ;
 }
 
-void		ft_env(t_stock **cmd, char *envp[], int *fd)
+void		ft_env(t_stock **cmd, char *envp[])
 {
 	int		index;
 	int		i;
@@ -90,8 +90,8 @@ void		ft_env(t_stock **cmd, char *envp[], int *fd)
 		if (envp[index][i - 1] != '\'' || envp[index][i - 2] != '\'' ||
 		envp[index][i - 3] != '=')
 		{
-			write(fd[1], envp[index], ft_strlen(envp[index]));
-			write(fd[1], "\n", 1);
+			write(1, envp[index], ft_strlen(envp[index]));
+			write(1, "\n", 1);
 		}
 		++index;
 	}

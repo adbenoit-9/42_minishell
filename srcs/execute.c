@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/27 15:47:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:22:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute(t_stock *cmd, char *envp[], int *fd, int pid)
+int	execute(t_stock *cmd, char *envp[], int pid)
 {
 	int					i;
 	static t_function	cmd_fct[NUM_CMD + 1] = {ft_echo, ft_cd, ft_pwd, ft_env,
@@ -21,6 +21,7 @@ int	execute(t_stock *cmd, char *envp[], int *fd, int pid)
 								"export", "unset", "exit"};
 
 	errno = 0;
+	ft_redirect(&cmd);
 	if (cmd && cmd->tokens[0])
 	{
 		i = 0;
@@ -30,13 +31,13 @@ int	execute(t_stock *cmd, char *envp[], int *fd, int pid)
 		(pid == 1 && cmd->sep != PIPE))) || (i == UNKNOW && pid == 0))
 		{
 			g_status = 0;
-			ft_redirect(&cmd, &fd[0], &fd[1]);
-			cmd_fct[i](&cmd, envp, fd);
+			// ft_redirect(&cmd);
+			cmd_fct[i](&cmd, envp);
 		}
 	}
-	if (fd[0] != 1)
-		close(fd[0]);
-	if (fd[1] != 1)
-		close(fd[1]);
+	// if (fd[0] != 1)
+	// 	close(fd[0]);
+	// if (fd[1] != 1)
+	// 	close(fd[1]);
 	return (0);
 }

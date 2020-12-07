@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 11:59:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:42:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	ft_echo_n(t_stock *cmd, int *i)
 	return (n);
 }
 
-void		ft_echo(t_stock **cmd, char *envp[], int *fd)
+void		ft_echo(t_stock **cmd, char *envp[])
 {
 	int	i;
 	int k;
@@ -48,10 +48,10 @@ void		ft_echo(t_stock **cmd, char *envp[], int *fd)
 	while ((*cmd)->tokens[++k])
 	{
 		if (k != i)
-			write(fd[1], " ", 1);
-		write(fd[1], (*cmd)->tokens[k], ft_strlen((*cmd)->tokens[k]));
+			write(1, " ", 1);
+		write(1, (*cmd)->tokens[k], ft_strlen((*cmd)->tokens[k]));
 	}
 	if (n == 0)
-		write(fd[1], "\n", 1);
+		write(1, "\n", 1);
 	return ;
 }

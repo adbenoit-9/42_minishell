@@ -1,0 +1,691 @@
+[33mecho erreur ;; echo nul(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: syntax error near unexpected token `;;'
+< minishell: -c: `echo erreur ;; echo nul'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; exit 0 1 ;;(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: syntax error near unexpected token `;;'
+< minishell: -c: `echo $? ; exit 0 1 ;;'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; echo error > ; echo KO(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: syntax error near unexpected token `;'
+< minishell: -c: `echo $? ; echo error > ; echo KO'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; echo error >; echo KO(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: syntax error near unexpected token `;'
+< minishell: -c: `echo $? ; echo error >; echo KO'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; echo ko > $VAR_NOT_FOUND(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDOUT -----(B[m
+1a2
+> ambiguous redirect
+[94m----- STDERR -----(B[m
+1c1
+< minishell: $VAR_NOT_FOUND: ambiguous redirect
+---
+> minishell: $VAR_NOT_FOUND: 
+\ No newline at end of file
+
+
+[33mecho $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: syntax error near unexpected token `;'
+< minishell: -c: `echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; ./echo ko; echo $?(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDOUT -----(B[m
+2c2
+< 127
+---
+> 0
+
+
+[33mexport zz zzz= zzzz=asd ; echo $zz$zzz$zzzz; export | grep zz(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDOUT -----(B[m
+2,4c2,4
+< declare -x zz
+< declare -x zzz=""
+< declare -x zzzz="asd"
+---
+> zz=''
+> zzz=''
+> zzzz=asd
+
+
+[33mcd ; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< /Users/Adeline
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48226==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0001044a2dba bp 0x00030ce011a0 sp 0x00030ce010b0 T0)
+> ==48226==The signal is caused by a READ memory access.
+> ==48226==Hint: address points to the zero page.
+>     #0 0x1044a2dba in modify_pwd ft_cd.c:46
+>     #1 0x1044a24e3 in ft_cd ft_cd.c:114
+>     #2 0x10449e8b9 in execute execute.c:34
+>     #3 0x1044a1582 in ft_loop_pipe test.c:81
+>     #4 0x1044a9dbb in parsing parsing.c:95
+>     #5 0x10449e0b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48226==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030ce012a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030ce01e00  rsi = 0x0000100000000000  rbp = 0x000000030ce011a0  rsp = 0x000000030ce010b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48226==ABORTING
+
+
+[33munset HOME ; cd ; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: cd: HOME not set
+---
+> minishell: cd : HOME not set
+
+
+[33mcd .; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< /Users/Adeline/42/Minishell
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48253==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000102a8ddba bp 0x0003096c51a0 sp 0x0003096c50b0 T0)
+> ==48253==The signal is caused by a READ memory access.
+> ==48253==Hint: address points to the zero page.
+>     #0 0x102a8ddba in modify_pwd ft_cd.c:46
+>     #1 0x102a8d4e3 in ft_cd ft_cd.c:114
+>     #2 0x102a898b9 in execute execute.c:34
+>     #3 0x102a8c582 in ft_loop_pipe test.c:81
+>     #4 0x102a94dbb in parsing parsing.c:95
+>     #5 0x102a890b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48253==Register values:
+> rax = 0x0000000000000000  rbx = 0x00000003096c52a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x00000003096c5e00  rsi = 0x0000100000000000  rbp = 0x00000003096c51a0  rsp = 0x00000003096c50b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48253==ABORTING
+
+
+[33mcd ..; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< /Users/Adeline/42
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48267==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000104fe9dba bp 0x00030e4301a0 sp 0x00030e4300b0 T0)
+> ==48267==The signal is caused by a READ memory access.
+> ==48267==Hint: address points to the zero page.
+>     #0 0x104fe9dba in modify_pwd ft_cd.c:46
+>     #1 0x104fe94e3 in ft_cd ft_cd.c:114
+>     #2 0x104fe58b9 in execute execute.c:34
+>     #3 0x104fe8582 in ft_loop_pipe test.c:81
+>     #4 0x104ff0dbb in parsing parsing.c:95
+>     #5 0x104fe50b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48267==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030e4302a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030e430e00  rsi = 0x0000100000000000  rbp = 0x000000030e4301a0  rsp = 0x000000030e4300b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48267==ABORTING
+
+
+[33mcd (B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48281==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000100997dba bp 0x0003055311a0 sp 0x0003055310b0 T0)
+> ==48281==The signal is caused by a READ memory access.
+> ==48281==Hint: address points to the zero page.
+>     #0 0x100997dba in modify_pwd ft_cd.c:46
+>     #1 0x1009974e3 in ft_cd ft_cd.c:114
+>     #2 0x1009938b9 in execute execute.c:34
+>     #3 0x100996582 in ft_loop_pipe test.c:81
+>     #4 0x10099edbb in parsing parsing.c:95
+>     #5 0x1009930b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48281==Register values:
+> rax = 0x0000000000000000  rbx = 0x00000003055312a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x0000000305531e00  rsi = 0x0000100000000000  rbp = 0x00000003055311a0  rsp = 0x00000003055310b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48281==ABORTING
+
+
+[33m/; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /: is a directory
+---
+> minishell: /: No such file or directory
+
+
+[33mcd ../../ ; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< /Users/Adeline
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48307==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000104636dba bp 0x00030cff21a0 sp 0x00030cff20b0 T0)
+> ==48307==The signal is caused by a READ memory access.
+> ==48307==Hint: address points to the zero page.
+>     #0 0x104636dba in modify_pwd ft_cd.c:46
+>     #1 0x1046364e3 in ft_cd ft_cd.c:114
+>     #2 0x1046328b9 in execute execute.c:34
+>     #3 0x104635582 in ft_loop_pipe test.c:81
+>     #4 0x10463ddbb in parsing parsing.c:95
+>     #5 0x1046320b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48307==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030cff22a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030cff2e00  rsi = 0x0000100000000000  rbp = 0x000000030cff21a0  rsp = 0x000000030cff20b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48307==ABORTING
+
+
+[33mcd ../../../../../../.. ; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< /
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48321==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010406cdba bp 0x00030c52e1a0 sp 0x00030c52e0b0 T0)
+> ==48321==The signal is caused by a READ memory access.
+> ==48321==Hint: address points to the zero page.
+>     #0 0x10406cdba in modify_pwd ft_cd.c:46
+>     #1 0x10406c4e3 in ft_cd ft_cd.c:114
+>     #2 0x1040688b9 in execute execute.c:34
+>     #3 0x10406b582 in ft_loop_pipe test.c:81
+>     #4 0x104073dbb in parsing parsing.c:95
+>     #5 0x1040680b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48321==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030c52e2a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030c52ee00  rsi = 0x0000100000000000  rbp = 0x000000030c52e1a0  rsp = 0x000000030c52e0b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48321==ABORTING
+
+
+[33mexit $HOME"coucou"COMO" "TE" "ENCUENTRAS |rev(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDOUT -----(B[m
+0a1
+> tixe
+
+
+[33m/bin/ls(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDOUT -----(B[m
+1,21d0
+< Makefile
+< diff.txt
+< dir
+< dirwithoutpermissions
+< err1
+< err2
+< includes
+< index.txt
+< libft
+< lscp
+< minishell
+< minishell.txt
+< obj
+< out1
+< out2
+< srcs
+< test1
+< tests
+< x1
+< x2
+< x3
+[94m----- STDERR -----(B[m
+0a1
+> minishell: /bin/ls: No such file or directory
+
+
+[33m./lscp(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDOUT -----(B[m
+1,21d0
+< Makefile
+< diff.txt
+< dir
+< dirwithoutpermissions
+< err1
+< err2
+< includes
+< index.txt
+< libft
+< lscp
+< minishell
+< minishell.txt
+< obj
+< out1
+< out2
+< srcs
+< test1
+< tests
+< x1
+< x2
+< x3
+[94m----- STDERR -----(B[m
+0a1
+> minishell: ./lscp: No such file or directory
+
+
+[33mcd dir ; ../lscp(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< encoreuneautredir
+[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48491==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0001025fddba bp 0x000308fcf1a0 sp 0x000308fcf0b0 T0)
+> ==48491==The signal is caused by a READ memory access.
+> ==48491==Hint: address points to the zero page.
+>     #0 0x1025fddba in modify_pwd ft_cd.c:46
+>     #1 0x1025fd4e3 in ft_cd ft_cd.c:114
+>     #2 0x1025f98b9 in execute execute.c:34
+>     #3 0x1025fc582 in ft_loop_pipe test.c:81
+>     #4 0x102604dbb in parsing parsing.c:95
+>     #5 0x1025f90b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48491==Register values:
+> rax = 0x0000000000000000  rbx = 0x0000000308fcf2a0  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x0000000308fcfe00  rsi = 0x0000100000000000  rbp = 0x0000000308fcf1a0  rsp = 0x0000000308fcf0b0  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48491==ABORTING
+
+
+[33mcd dir/encoreuneautredir ; ../../lscp(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDERR -----(B[m
+0a1,21
+> AddressSanitizer:DEADLYSIGNAL
+> =================================================================
+> ==48506==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x000102f8adba bp 0x00030a0c8180 sp 0x00030a0c8090 T0)
+> ==48506==The signal is caused by a READ memory access.
+> ==48506==Hint: address points to the zero page.
+>     #0 0x102f8adba in modify_pwd ft_cd.c:46
+>     #1 0x102f8a4e3 in ft_cd ft_cd.c:114
+>     #2 0x102f868b9 in execute execute.c:34
+>     #3 0x102f89582 in ft_loop_pipe test.c:81
+>     #4 0x102f91dbb in parsing parsing.c:95
+>     #5 0x102f860b4 in main main.c:83
+>     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> ==48506==Register values:
+> rax = 0x0000000000000000  rbx = 0x000000030a0c8280  rcx = 0x0000000000000000  rdx = 0x0000100000000000  
+> rdi = 0x000000030a0c8e00  rsi = 0x0000100000000000  rbp = 0x000000030a0c8180  rsp = 0x000000030a0c8090  
+>  r8 = 0x0000000000000000   r9 = 0x0000000000000000  r10 = 0xffffffffffffffff  r11 = 0x00000fffffffffff  
+> r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+> AddressSanitizer can not provide additional info.
+> SUMMARY: AddressSanitizer: SEGV ft_cd.c:46 in modify_pwd
+> ==48506==ABORTING
+
+
+[33m/(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /: is a directory
+---
+> minishell: /: No such file or directory
+
+
+[33m./(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./: is a directory
+---
+> minishell: ./: No such file or directory
+
+
+[33m/.(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /.: is a directory
+---
+> minishell: /.: No such file or directory
+
+
+[33m./meneither(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 0)
+(B[m
+
+[33m./dir(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./dir: is a directory
+---
+> minishell: ./dir: No such file or directory
+
+
+[33mtouch ucantexecme.e ; chmod 000 ucantexecme.e ; ./ucantexecme.e(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./ucantexecme.e: Permission denied
+---
+> minishell: ./ucantexecme.e: No such file or directory
+
+
+[33mecho " '$PWD' \"$PWD\" '$PWD' "(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 134)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+<  '/Users/Adeline/42/Minishell' "/Users/Adeline/42/Minishell" '/Users/Adeline/42/Minishell' 
+[94m----- STDERR -----(B[m
+0a1,62
+> =================================================================
+> ==48663==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6060000003bd at pc 0x000100d55faa bp 0x000305cc5f10 sp 0x000305cc5f08
+> WRITE of size 1 at 0x6060000003bd thread T0
+>     #0 0x100d55fa9 in deal_double_quote deal_quote.c:94
+>     #1 0x100d58bf4 in parse_char set_tokens.c:22
+>     #2 0x100d58903 in parse_token set_tokens.c:59
+>     #3 0x100d591af in set_token set_tokens.c:81
+>     #4 0x100d57cde in save_cmd save_cmd.c:61
+>     #5 0x100d54b7f in parsing parsing.c:83
+>     #6 0x100d490b4 in main main.c:83
+>     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> 0x6060000003bd is located 0 bytes to the right of 61-byte region [0x606000000380,0x6060000003bd)
+> allocated by thread T0 here:
+>     #0 0x10908ae5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
+>     #1 0x100d4a3eb in ft_realloc ft_realloc.c:22
+>     #2 0x100d4adb7 in replace_var_by_value manage_var.c:46
+>     #3 0x100d573f1 in deal_var deal_dollar.c:28
+>     #4 0x100d56dbd in deal_dollar deal_dollar.c:60
+>     #5 0x100d559c9 in deal_double_quote deal_quote.c:84
+>     #6 0x100d58bf4 in parse_char set_tokens.c:22
+>     #7 0x100d58903 in parse_token set_tokens.c:59
+>     #8 0x100d591af in set_token set_tokens.c:81
+>     #9 0x100d57cde in save_cmd save_cmd.c:61
+>     #10 0x100d54b7f in parsing parsing.c:83
+>     #11 0x100d490b4 in main main.c:83
+>     #12 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
+> 
+> SUMMARY: AddressSanitizer: heap-buffer-overflow deal_quote.c:94 in deal_double_quote
+> Shadow bytes around the buggy address:
+>   0x1c0c00000020: 00 00 00 00 fa fa fa fa 00 00 00 00 00 00 02 fa
+>   0x1c0c00000030: fa fa fa fa 00 00 00 00 00 00 00 00 fa fa fa fa
+>   0x1c0c00000040: 00 00 00 00 00 00 04 fa fa fa fa fa 00 00 00 00
+>   0x1c0c00000050: 00 00 06 fa fa fa fa fa 00 00 00 00 00 00 00 00
+>   0x1c0c00000060: fa fa fa fa fd fd fd fd fd fd fd fa fa fa fa fa
+> =>0x1c0c00000070: 00 00 00 00 00 00 00[05]fa fa fa fa fa fa fa fa
+>   0x1c0c00000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+>   0x1c0c00000090: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+>   0x1c0c000000a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+>   0x1c0c000000b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+>   0x1c0c000000c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+> Shadow byte legend (one shadow byte represents 8 application bytes):
+>   Addressable:           00
+>   Partially addressable: 01 02 03 04 05 06 07 
+>   Heap left redzone:       fa
+>   Freed heap region:       fd
+>   Stack left redzone:      f1
+>   Stack mid redzone:       f2
+>   Stack right redzone:     f3
+>   Stack after return:      f5
+>   Stack use after scope:   f8
+>   Global redzone:          f9
+>   Global init order:       f6
+>   Poisoned by user:        f7
+>   Container overflow:      fc
+>   Array cookie:            ac
+>   Intra object redzone:    bb
+>   ASan internal:           fe
+>   Left alloca redzone:     ca
+>   Right alloca redzone:    cb
+>   Shadow gap:              cc
+> ==48663==ABORTING
+
+
+[33mecho "'$'"(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< '$'
+[94m----- STDERR -----(B[m
+0a1
+> minishell: syntax error : quote expected
+
+
+[33m\"asdasdasd\"$asdasd$HOME(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 0)
+(B[m
+
+[33m> a ; ls(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDOUT -----(B[m
+1,23d0
+< Makefile
+< a
+< diff.txt
+< dir
+< dirwithoutpermissions
+< err1
+< err2
+< includes
+< index.txt
+< libft
+< lscp
+< minishell
+< minishell.txt
+< obj
+< out1
+< out2
+< srcs
+< test1
+< tests
+< ucantexecme.e
+< x1
+< x2
+< x3
+[94m----- STDERR -----(B[m
+0a1
+> minishell: syntax error
+
+
+[33m> a echo cucu cantaba la rana; cat a(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< cucu cantaba la rana
+[94m----- STDERR -----(B[m
+0a1
+> minishell: syntax error
+
+
+[33m>> a; ls(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDOUT -----(B[m
+1,23d0
+< Makefile
+< a
+< diff.txt
+< dir
+< dirwithoutpermissions
+< err1
+< err2
+< includes
+< index.txt
+< libft
+< lscp
+< minishell
+< minishell.txt
+< obj
+< out1
+< out2
+< srcs
+< test1
+< tests
+< ucantexecme.e
+< x1
+< x2
+< x3
+[94m----- STDERR -----(B[m
+0a1
+> minishell: syntax error
+
+
+[33m>> a echo cucu cantaba la rana; cat a(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDOUT -----(B[m
+1d0
+< cucu cantaba la rana
+[94m----- STDERR -----(B[m
+0a1
+> minishell: syntax error
+
+
+[33m/(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /: is a directory
+---
+> minishell: /: No such file or directory
+
+
+[33m./(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./: is a directory
+---
+> minishell: ./: No such file or directory
+
+
+[33m/.(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /.: is a directory
+---
+> minishell: /.: No such file or directory
+
+
+[33m\"asdasdasd\"$asdasd$HOME(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 0)
+(B[m
+

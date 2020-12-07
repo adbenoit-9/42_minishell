@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 23:57:24 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:45:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** besoin d'un retour ?
 */
 
-int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
+int		ft_try_path(t_stock *cmd, char *envp[], char *args[])
 {
 	int		ret;
 	int		i;
@@ -24,15 +24,15 @@ int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
 	char	*add_p;
 	char	*new_p;
 
-	if (cmd->output)
-		dup2(fd[1], 1);
-	if (cmd->input)
-		dup2(fd[0], 0);
+	// if (cmd->output)
+	// 	dup2(fd[1], 1);
+	// if (cmd->input)
+	// 	dup2(fd[0], 0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
-	ret = 0;
-	while (path[i])
+	ret = execve(cmd->tokens[0], args, envp);
+	while (path[i] && ret == -1)
 	{
 		add_p = ft_strjoin(path[i], "/");
 		new_p = ft_strjoin(add_p, args[0]);
@@ -46,25 +46,31 @@ int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
-void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
+void	ft_unknow(t_stock **cmd, char *envp[])
 {
 	int	ret;
 	int	i;
 
 	i = -1;
-	while ((*cmd)->tokens[0][++i])
-	{
-		if ((*cmd)->tokens[0][i] == '/')
-		{
-			print_error("\0", (*cmd)->tokens[0],
-			": No such file or directory\n", 127);
-			return ;
-		}
-	}
-	ret = ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
+	ret = ft_try_path(*cmd, envp, (*cmd)->tokens);
 	if (ret == -1)
 	{
+		while ((*cmd)->tokens[0][++i])
+		{
+			if ((*cmd)->tokens[0][i] == '/')
+			{
+				if (chdir((const char *)(*cmd)->tokens[0]) != 0)
+				{
+					print_error("\0", (*cmd)->tokens[0],
+					": No such file or directory\n", 127);
+					return ;
+				}
+				print_error("\0", (*cmd)->tokens[0],
+				": is a directory\n", 126);
+				return ;
+			}
+		}
 		print_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
-		exit(EXIT_FAILURE);
+		exit(g_status);
 	}
 }

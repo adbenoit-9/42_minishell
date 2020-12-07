@@ -38,10 +38,8 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
     int   p[2];
     pid_t pid; 
     int   status;
-    int   fd[2];
+    int   fd_in;
 
-    fd[0] = 1;
-	fd[1] = 1;
     while (cmd) 
     {
         status = 0;
@@ -60,25 +58,25 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
         signal(SIGQUIT, proc_sig_handler);
         g_shell.pid = 0;
         if (pid == -1)
-        {
             exit(EXIT_FAILURE);
-        }
         else if (pid == 0)
         {
             g_shell.pid = 1;
             g_shell.bool = 0;
-            dup2(fd[0], 0); //change the input according to the old one 
+            dup2(fd_in, STDIN_FILENO); //change the input according to the old one 
             if (cmd->next)
-                dup2(p[1], 1);
+                dup2(p[1], STDOUT_FILENO);
             close(p[0]);
-            execute(cmd, envp, fd, 0);
+            close(p[1]);
+            close(fd_in);
+            execute(cmd, envp, 0);
             //signal(SIGINT, proc_sigint_handler);
            // break ;
-            exit(EXIT_SUCCESS);
+           exit(EXIT_FAILURE);
         }
         else
         {
-            execute(cmd, envp, fd, 1);
+            execute(cmd, envp, 1);
             waitpid(pid, &status, 0);
             if (g_shell.sig == 1)
 		    {
@@ -94,8 +92,10 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
                 g_status = status % 255;
             else if (status != 0)
                 g_status = 255;
+            close(fd_in);
+            fd_in = dup(p[0]);
+            close(p[0]);
             close(p[1]);
-            fd[0] = p[0];
             if (cmd->next != NULL)
                 cmd = cmd->next;
             else
