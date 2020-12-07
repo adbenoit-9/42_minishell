@@ -68,7 +68,7 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
                 dup2(p[1], STDOUT_FILENO);
             close(p[0]);
             close(p[1]);
-            close(fd_in);
+            // close(fd_in);
             execute(cmd, envp, 0);
             //signal(SIGINT, proc_sigint_handler);
            // break ;
@@ -92,7 +92,7 @@ void    ft_loop_pipe(t_stock *cmd, char *envp[])
                 g_status = status % 255;
             else if (status != 0)
                 g_status = 255;
-            close(fd_in);
+            // close(fd_in);
             fd_in = dup(p[0]);
             close(p[0]);
             close(p[1]);
