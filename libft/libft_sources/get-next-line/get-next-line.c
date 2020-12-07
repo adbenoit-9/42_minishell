@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get-next-line.c                                    :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 17:24:02 by mabriand          #+#    #+#             */
-/*   Updated: 2020/12/03 16:38:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:47:14 by mabriand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ int		get_next_line(int fd, char **line)
 	{
 		ret_search = ft_search_line(buffer);
 		if (ft_get_line(line, buffer, ret_search, ret_read) == 1)
+		{
+			//free(*line);
 			return (1);
+		}
 	}
 	if (ret_read == 0)
 		return (0);

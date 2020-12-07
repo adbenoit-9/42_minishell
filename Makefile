@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/03 12:42:58 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/07 15:07:39 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS		=	ft_error.c			main.c \
 				execute.c			manage_stock.c\
 				ft_realloc.c		manage_var.c \
 				deal_redirecting.c	test.c \
-				ft_utils.c
+				ft_utils.c			signal.c
 
 CMD 		=	ft_cd.c				ft_env.c \
 				ft_export.c			ft_echo.c \
