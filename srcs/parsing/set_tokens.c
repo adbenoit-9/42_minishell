@@ -86,6 +86,8 @@ int			set_token(char **tokens, t_stock **cmd, char **envp)
 			return (ret);
 		}
 		k = (ret != -1) ? k + 1 : k;
+		if (ret == -1)
+			free((*cmd)->tokens[k]);
 	}
 	ft_free(tokens);
 	(*cmd)->tokens[k] = NULL;

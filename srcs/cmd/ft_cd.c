@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/03 15:42:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/16 21:06:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ static int		without_arg(t_stock **cmd, char **envp)
 
 	if ((pos = find_var(envp, "HOME")) == -1)
 	{
-		print_error("cd: ", "HOME not set\n", NULL, 1);
+		print_error("cd : ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
-	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 3)))
+	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 2)))
 		return (print_errno(NULL, strerror(errno), MALL_ERR));
 	(*cmd)->tokens[1] = ft_strdup(envp[pos] + 5);
 	return (0);
@@ -96,11 +96,12 @@ static char		*correct_path(char *arg)
 	return (path);
 }
 
-void			ft_cd(t_stock **cmd, char *envp[])
+void			ft_cd(t_stock **cmd, char *envp[], int *fd)
 {
 	char	*str;
 	char	*path;
 
+	(void)fd;
 	if (!(*cmd)->tokens[1] && without_arg(cmd, envp) < 0)
 		return ;
 	if (!(path = correct_path((*cmd)->tokens[1])))

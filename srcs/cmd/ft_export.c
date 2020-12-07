@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/03 15:44:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/17 17:05:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	ft_modify_envp(char *envp[], char *var, char *new, int pos)
 	}
 }
 
-static void	ft_none_arg(char *token, char *envp[])
+static void	ft_none_arg(char *token, char *envp[], int *fd)
 {
 	char	**copy;
 
@@ -100,7 +100,7 @@ static void	ft_none_arg(char *token, char *envp[])
 	{
 		copy = ft_tabdup(envp);
 		ft_sort_env(copy);
-		ft_puttab_fd(copy, 1);
+		ft_puttab_fd(copy, fd[1]);
 		ft_free(copy);
 		return ;
 	}
@@ -108,7 +108,7 @@ static void	ft_none_arg(char *token, char *envp[])
 	write(2, "\n", 1);
 }
 
-void		ft_export(t_stock **cmd, char *envp[])
+void		ft_export(t_stock **cmd, char *envp[], int *fd)
 {
 	int		pos;
 	int		i;
@@ -116,7 +116,7 @@ void		ft_export(t_stock **cmd, char *envp[])
 	char	*new;
 
 	if ((*cmd)->tokens[1] == NULL || !(*cmd)->tokens[1][0])
-		return (ft_none_arg((*cmd)->tokens[1], envp));
+		return (ft_none_arg((*cmd)->tokens[1], envp, fd));
 	i = 0;
 	while ((*cmd)->tokens[++i])
 	{

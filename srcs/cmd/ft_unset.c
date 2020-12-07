@@ -6,19 +6,20 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/03 15:45:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/11/09 11:55:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(t_stock **cmd, char *envp[])
+void	ft_unset(t_stock **cmd, char *envp[], int *fd)
 {
 	int	pos;
 	int	j;
 	int	k;
 
 	k = 0;
+	(void)fd;
 	while ((*cmd)->tokens[++k])
 	{
 		if (ft_check_var((*cmd)->tokens[k]) == 0)
