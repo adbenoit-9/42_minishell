@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/27 16:23:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:46:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int				set_sep(char *str, size_t *i);
 int				ft_issep(char c, char before);
 int				sep_error(int s1, int s2);
 char			**split_token(char const *s, char c, size_t n);
-int				is_in_quote(char const *s, size_t *i, int quote);
+size_t			is_in_quote(char const *s, size_t i, int *quote);
 int				is_bs(char *str, size_t *i);
 int				parse_token(char *token, char **new_token, t_stock **cmd,
 				char **envp);

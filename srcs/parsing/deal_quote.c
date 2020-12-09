@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 17:12:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:56:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,30 +100,34 @@ int			deal_double_quote(char *str, char **tokens, int *j, char *env[])
 	return (QUOTE_NOT_FOUND);
 }
 
-int			is_in_quote(char const *s, size_t *i, int quote)
+size_t		is_in_quote(char const *s, size_t i, int *quote)
 {
 	int	bs;
+	int tmp;
 
 	bs = 0;
-	--(*i);
-	while (s[++(*i)] == '\\')
+	tmp = i;
+	--i;
+	while (s[++i] == '\\')
 		++bs;
-	if (s[*i] == '\'' || s[*i] == '\"')
+	if (s[i] == '\'' || s[i] == '\"')
 	{
-		if (quote == 0 && bs % 2 == 1)
-			return (quote);
-		else if (s[*i] == '\'' && *i > 0 && s[*i - 1] == '$' && quote == 0)
-			return (3);
-		else if (s[*i] == '\'' && quote == 0)
-			return (1);
-		else if (s[*i] == '\"' && quote == 0)
-			return (2);
-		else if (quote == 1 && s[*i] == '\'')
-			return (0);
-		else if (quote == 2 && s[*i] == '\"' && bs % 2 == 0)
-			return (0);
-		else if (quote == 3 && s[*i] == '\'' && bs % 2 == 0)
-			return (0);
+		if (*quote == 0 && bs % 2 == 1)
+			return (tmp);
+		else if (s[i] == '\'' && i > 0 && s[i - 1] == '$' && *quote == 0)
+			*quote = 3;
+		else if (s[i] == '\'' && *quote == 0)
+			*quote = 1;
+		else if (s[i] == '\"' && *quote == 0)
+			*quote = 2;
+		else if (*quote == 1 && s[i] == '\'')
+			*quote = 0;
+		else if (*quote == 2 && s[i] == '\"' && bs % 2 == 0)
+			*quote = 0;
+		else if (*quote == 3 && s[i] == '\'' && bs % 2 == 0)
+			*quote = 0;
 	}
-	return (quote);
+	if (quote == 0)
+		return (tmp);
+	return (i);
 }

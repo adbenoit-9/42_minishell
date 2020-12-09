@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 17:49:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:44:45 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 static int		is_new_arg(char const *s, char c, size_t n, int quote)
 {
 	int ret;
+	int	bs;
+	int i;
 
+	bs = 0;
+	i = n;
+	while (s[--i] == '\\')
+		++bs;
 	ret = 0;
 	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0)
 		ret = 1;
-	if (ret == 1 && (n == 0 || (s[n - 1] != '\\' && s[n - 1] != c)))
+	if (ret == 1 && bs % 2 == 0)
 		return (1);
 	return (0);
 }
@@ -68,9 +74,10 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 		++count;
 	while (i < n && s[i])
 	{
-		quote = is_in_quote(s, &i, quote);
+		i = is_in_quote(s, i, &quote);
 		r = is_redirec(s, &i, quote, r);
-		if (r != 1 && is_new_arg(s, c, i, quote) == 1)
+		// printf("%c\ti = %zu\tr = %d\n", s[i], i, r);
+		if ((r != 1 && is_new_arg(s, c, i, quote) == 1) || r == 1)
 			count++;
 		++i;
 	}
@@ -89,13 +96,18 @@ static size_t	ft_size(char const *s, char c, size_t i, size_t n)
 	size = 0;
 	r = 0;
 	quote = 0;
+	if (s[i] == '>' || s[i] == '<')
+	{
+		++size;
+		++i;
+	}
 	while (i < n && s[i])
 	{
 		tmp = i;
-		quote = is_in_quote(s, &i, quote);
+		i = is_in_quote(s, i, &quote);
 		r = is_redirec(s, &i, quote, r);
 		size += (i - tmp);
-		if (r != 1 && is_new_arg(s, c, i, quote) == 1)
+		if ((r != 1 && is_new_arg(s, c, i, quote) == 1) || r == 1)
 			break ;
 		size++;
 		i++;

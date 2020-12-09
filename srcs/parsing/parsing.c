@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 16:35:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/09 16:05:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int			parse_str(char *str)
 	int		ret;
 	int		quote;
 	int		s1;
-	size_t	tmp;
 
 	i = 0;
 	quote = 0;
@@ -58,9 +57,7 @@ int			parse_str(char *str)
 	while (str[i])
 	{
 		str[i] = (str[i] == '\t') ? ' ' : str[i];
-		tmp = i;
-		quote = is_in_quote(str, &i, quote);
-		i = quote == 0 ? tmp : i;
+		i = is_in_quote(str, i, &quote);
 		ret = (str[i] == '\\') ? check_bs(str + i, &s1) : 1;
 		if (ret == 1 && quote == 0 && ft_issep(str[i], 0) == 1)
 			ret = check_sep(str + i, &s1, i);
@@ -79,7 +76,7 @@ int			parsing(char *str, char *envp[])
 	int		i;
 	t_stock *tmp;
 
-	ft_stockclear(&g_cmd, clear_one);
+	ft_stockclear(&g_cmd, clear_one); //a tester sans
 	ret = save_cmd(str, &g_cmd, envp);
 	i = 0;
 	tmp = g_cmd;
@@ -95,8 +92,7 @@ int			parsing(char *str, char *envp[])
 		ft_loop_pipe(g_cmd, envp);
 	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
-	if (!str[i])
-		free(str);
+	free(str);
 	ft_stockclear(&g_cmd, clear_one);
 	return (0);
 }
