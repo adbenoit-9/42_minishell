@@ -31,7 +31,8 @@ SRCS		=	ft_error.c			main.c \
 CMD 		=	ft_cd.c				ft_env.c \
 				ft_export.c			ft_echo.c \
 				ft_exit.c			ft_pwd.c \
-				ft_unset.c			ft_unknow.c
+				ft_unset.c			ft_unknow.c \
+				cd_utils.c
 
 PARS 		=	parsing.c			deal_quote.c \
 				deal_dollar.c		save_cmd.c \
