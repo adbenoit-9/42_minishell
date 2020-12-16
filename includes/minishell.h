@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/14 17:44:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 01:47:45 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
 int				deal_double_quote(char *str, char **tokens, int *j,
 				char *env[]);
 int				set_sep(char *str, size_t *i);
-int				ft_issep(char c, char before);
+int				ft_issep(char c);
 int				sep_error(int s1, int s2);
 char			**split_token(char const *s, char c, size_t n);
-size_t          is_in_quote(char const *s, size_t i, int *quote);
+size_t          ft_is_in_quote(char const *s, size_t i, int *quote);
 int				is_bs(char *str, size_t *i);
 int				parse_token(char *token, char **new_token, t_stock **cmd,
 				char **envp);

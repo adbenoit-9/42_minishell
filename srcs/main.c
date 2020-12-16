@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/14 17:52:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/14 18:06:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int		start(int argc, char **argv, int *ret, char **str)
 	signal(SIGQUIT, ft_sig_handler);
 	if (argc == 1 || (argc > 1 && ft_strcmp(argv[1], "-c") != 0))
 	{
-		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
-		write(1, "\xF0\x9F\x90\x9A: ", 6);
+		// write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
+		// write(1, "\xF0\x9F\x90\x9A: ", 6);
 		*str = NULL;
 		*ret = get_next_line(0, str);
 	}
@@ -91,7 +91,7 @@ int		main(int argc, char *argv[], char *envp[])
 		term(str, envp, argc, argv);
 	}
 	free(str); //rajout pour leaks
-	write(1, "exit\n", 5);
+	// write(1, "exit\n", 5);
 	ft_stockclear(&g_cmd, clear_one);
 	exit(EXIT_SUCCESS);
 }

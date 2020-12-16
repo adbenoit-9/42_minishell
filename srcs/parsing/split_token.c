@@ -6,31 +6,35 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/08 16:44:45 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 02:03:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		is_new_arg(char const *s, char c, size_t n, int quote)
+static int		ft_is_new_arg(char const *s, char c, size_t n, int quote)
 {
-	int ret;
 	int	bs;
 	int i;
+	int	ret;
 
 	bs = 0;
 	i = n;
+	ret = 0;
 	while (s[--i] == '\\')
 		++bs;
-	ret = 0;
-	if ((s[n] == c || s[n] == '<' || s[n] == '>') && quote == 0)
+	if (bs % 2 != 0 || quote != 0)
+		return (0);
+	if (s[n] == c)
 		ret = 1;
-	if (ret == 1 && bs % 2 == 0)
-		return (1);
-	return (0);
+	while (s[n] == c)
+		++n;
+	if (s[n] == '>' || s[n] == '<')
+		ret = 0;
+	return (ret);
 }
 
-static int		is_redirec(char const *s, size_t *i, int quote, int r)
+static	int ft_is_redirect(char const *s, int quote, size_t *i, int r)
 {
 	int	bs;
 
@@ -38,25 +42,9 @@ static int		is_redirec(char const *s, size_t *i, int quote, int r)
 	--(*i);
 	while (s[++(*i)] == '\\')
 		++bs;
-	if (quote == 1)
-		return (r);
-	if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
-	{
-		if (s[*i] == '>' && s[*i + 1] == '>')
-			++(*i);
-		++(*i);
-		while (s[*i] == ' ')
-			++(*i);
-		--(*i);
+	if (quote == 0 && bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
 		return (1);
-	}
-	else if (r == 1)
-	{
-		if (bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>' || s[*i] == ' ')
-		&& quote == 0)
-			return (0);
-	}
-	return (r);
+	return (0);
 }
 
 static size_t	ft_countrow(char const *s, char c, size_t n)
@@ -74,10 +62,11 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 		++count;
 	while (i < n && s[i])
 	{
-		i = is_in_quote(s, i, &quote);
-		r = is_redirec(s, &i, quote, r);
-		// printf("%c\ti = %zu\tr = %d\n", s[i], i, r);
-		if ((r != 1 && is_new_arg(s, c, i, quote) == 1) || r == 1)
+		while (r == 1 && (s[i] == c || s[i] == '>'))
+			++i;
+		ft_is_in_quote(s, i, &quote);
+		r = ft_is_redirect(s, quote, &i, r);
+		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
 			count++;
 		++i;
 	}
@@ -99,18 +88,24 @@ static size_t	ft_size(char const *s, char c, size_t i, size_t n)
 	if (s[i] == '>' || s[i] == '<')
 	{
 		++size;
-		++i;
+		if (s[i + 1] == '>')
+		{
+			++i;
+			++size;
+		}
+		while (s[++i] == c)
+			++size;
 	}
 	while (i < n && s[i])
 	{
 		tmp = i;
-		i = is_in_quote(s, i, &quote);
-		r = is_redirec(s, &i, quote, r);
+		ft_is_in_quote(s, i, &quote);
+		r = ft_is_redirect(s, quote, &i, r);
 		size += (i - tmp);
-		if ((r != 1 && is_new_arg(s, c, i, quote) == 1) || r == 1)
+		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
 			break ;
-		size++;
-		i++;
+		++size;
+		++i;
 	}
 	return (size);
 }
@@ -130,7 +125,7 @@ char			**split_token(char const *s, char c, size_t n)
 		return (0);
 	while (++index[1] < size[0])
 	{
-		while (s[index[0]] == c && s[index[0]])
+		while (s[index[0]] == c)
 			index[0]++;
 		size[1] = ft_size(s, c, index[0], n);
 		if (!(tab[index[1]] = malloc(size[1] + 1)))

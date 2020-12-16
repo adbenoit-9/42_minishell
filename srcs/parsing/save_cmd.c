@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/09 15:34:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 00:23:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			save_cmd(char *str, t_stock **cmd, char *envp[])
 	i = -1;
 	while (str[++i])
 	{
-		i = is_in_quote(str, i, &ret);
+		i = ft_is_in_quote(str, i, &ret);
 		if (ret == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
 			break ;
 	}

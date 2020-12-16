@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/08 21:21:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 01:48:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ int	set_sep(char *str, size_t *i)
 	return (s);
 }
 
-int	ft_issep(char c, char before)
+int	ft_issep(char c)
 {
 	if (c != '>' && c != '<' && c != ';' && c != '|')
-		return (0);
-	if (before == '\\')
 		return (0);
 	return (1);
 }

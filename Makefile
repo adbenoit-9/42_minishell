@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/11/17 17:17:56 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/14 18:11:32 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ OBJS_NAME	+=	$(PARS:.c=.o)
 
 OBJS		=	$(addprefix $(OBJ_PATH),$(OBJS_NAME))
 
-all: $(LIB) $(NAME) run
+all: $(LIB) $(NAME)
 
 $(LIB) :
 	@make -C $(LIB_DIR)

@@ -19,3 +19,4 @@ echo $? ; echo ko > $VAR_NOT_FOUND																|ok
 echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >	   $VAR_NOT_FOUND	|ok
 
 echo $? ; ./echo ko; echo $?																	|ok
+rm ok\>                                                                                         |ko

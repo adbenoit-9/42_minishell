@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/29 18:14:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/14 18:07:05 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 	i = 0;
 	(void)fd;
 	nb = 0;
-	write(1, "exit\n", 5);
+	// write(1, "exit\n", 5);
 	if ((*cmd)->tokens[1])
 	{
 		g_status = ft_atoi((*cmd)->tokens[1]);
