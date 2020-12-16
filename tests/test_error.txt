@@ -17,6 +17,6 @@ echo $? ; echo ko > is_$HOME																	|ok
 echo $? ; echo ko >	''	 > LOSER																|ko (error order)
 echo $? ; echo ko > $VAR_NOT_FOUND																|ok
 echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > '$VAR_NOT_FOUND';echo ko >	   $VAR_NOT_FOUND	|ok
-
 echo $? ; ./echo ko; echo $?																	|ok
-rm ok\>                                                                                         |ko
+rm ok\>                                                                                         |ok
+pwd ; cd ../... ; pwd                                                                           |ok

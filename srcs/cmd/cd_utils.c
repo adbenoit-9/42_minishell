@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 21:06:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 20:52:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,19 @@ size_t	path_len(char *token)
 	return (len);
 }
 
-int		modify_pwd(char *str, char *envp[], char *var)
-{
-	int		i;
-	int		j;
-	int		k;
-	size_t	size;
-
-	size = 0;
-	if (!str)
-		str = getcwd(NULL, size);
-	i = find_var(envp, var);
-	j = 0;
-	while (envp[i][j] && envp[i][j] != '=')
-		++j;
-	size += ft_strlen(var) + 1;
-	if (ft_strlen(envp[i]) < size && !(envp[i] = realloc(envp[i], size + 1)))
-		return (print_errno("cd", NULL, MALL_ERR));
-	k = -1;
-	while (str && str[++k])
-		envp[i][++j] = str[k];
-	envp[i][j + 1] = 0;
-	return (0);
-}
-
 int		without_arg(t_stock **cmd, char **envp)
 {
 	int	pos;
 
 	if ((pos = find_var(envp, "HOME")) == -1)
 	{
-		print_error("cd : ", "HOME not set\n", NULL, 1);
+		error_msg("cd : ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
-	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 2)))
-		return (print_errno(NULL, strerror(errno), MALL_ERR));
+	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 3)))
+		return (errno_msg(NULL, NULL, MALL_ERR));
 	(*cmd)->tokens[1] = ft_strdup(envp[pos] + 5);
+	(*cmd)->tokens[2] = NULL;
 	return (0);
 }
 
@@ -81,7 +58,7 @@ char	*correct_path(char *arg)
 		return (arg);
 	if (!(path = malloc(path_len(arg) + 1)))
 	{
-		print_errno(NULL, strerror(errno), MALL_ERR);
+		errno_msg(NULL, NULL, MALL_ERR);
 		return (NULL);
 	}
 	i = -1;
@@ -102,18 +79,10 @@ int		check_tmp(char *str)
 	int	i;
 	int	count;
 
-	i = 0;
+	i = -1;
 	count = 0;
-	if (str[i] == '/')
-	{
-		count++;
-		i++;
-		while (str[i] == '/')
-		{
-			i++;
-			count++;
-		}
-	}
+	while (str[++i] == '/')
+		++count;
 	if (str[i] != 't' || str[i + 1] != 'm' || str[i + 2] != 'p')
 		return (0);
 	if (count == 2)

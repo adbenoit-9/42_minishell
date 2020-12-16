@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/09 15:55:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
 
 	k = 0;
 	if (!(*new = malloc(ft_strlen(token) + 1)))
-		return (print_errno(NULL, NULL, MALL_ERR));
+		return (errno_msg(NULL, NULL, MALL_ERR));
 	j = 0;
 	ret = 0;
 	while (ret >= 0 && token[j])
@@ -73,7 +73,7 @@ int			set_token(char **tokens, t_stock **cmd, char **envp)
 	if (!((*cmd)->tokens = malloc((sizeof(char *) * (ft_tabsize(tokens) + 1)))))
 	{
 		ft_free(tokens);
-		return (print_errno(NULL, NULL, MALL_ERR));
+		return (errno_msg(NULL, NULL, MALL_ERR));
 	}
 	i = -1;
 	while (tokens[++i])

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 17:05:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 21:06:51 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_create_var(char *str, int *pos)
 		i++;
 	if (!(var = (char *)malloc(sizeof(char) * i + 1)))
 	{
-		print_errno("export", NULL, MALL_ERR);
+		errno_msg("export", NULL, MALL_ERR);
 		return (NULL);
 	}
 	i = -1;
@@ -32,7 +32,7 @@ static char	*ft_create_var(char *str, int *pos)
 	var[i] = '\0';
 	if (ft_check_var(var) == 0)
 	{
-		print_error("export: `", str, "\': not a valid identifier\n", 1);
+		error_msg("export: `", str, "\': not a valid identifier\n", 1);
 		return (NULL);
 	}
 	if (str[i] != '=' && str[i] != '\0')
@@ -41,7 +41,7 @@ static char	*ft_create_var(char *str, int *pos)
 	return (var);
 }
 
-static int	ft_add_to_envp(char *envp[], char *str)
+int	ft_add_to_envp(char *envp[], char *str)
 {
 	int	i;
 	int	j;
@@ -69,27 +69,12 @@ static int	ft_add_to_envp(char *envp[], char *str)
 	return (0);
 }
 
-static void	ft_modify_envp(char *envp[], char *var, char *new, int pos)
+void	ft_modify_envp(char *envp[], char *var, char *new, int pos)
 {
-	int i;
-	int j;
-	int size;
-
 	if (new[0] == '\0' || new == NULL)
 		return ;
-	i = ft_strlen(var) + 1;
-	j = ft_strlen(new);
-	size = i + strlen(envp[pos] + i);
-	if (size - i == j)
-		ft_strcpy(envp[pos] + i, new);
-	else
-	{
-		size = i + j;
-		if (!(envp[pos] = ft_realloc(envp[pos], size + 1)))
-			print_errno("export", NULL, MALL_ERR);
-		else
-			ft_strcpy(envp[pos] + i, new);
-	}
+	// printf("envp[%d] = %s\n", pos, envp[pos]);
+	ft_strcpy(envp[pos] + ft_strlen(var) + 1, new);
 }
 
 static void	ft_none_arg(char *token, char *envp[], int *fd)
@@ -104,7 +89,7 @@ static void	ft_none_arg(char *token, char *envp[], int *fd)
 		ft_free(copy);
 		return ;
 	}
-	print_error("export: ", "not valid in this context:", token, 1);
+	error_msg("export: ", "not valid in this context:", token, 1);
 	write(2, "\n", 1);
 }
 
@@ -126,7 +111,7 @@ void		ft_export(t_stock **cmd, char *envp[], int *fd)
 			if ((pos = find_var(envp, var)) == -1)
 			{
 				if ((ft_add_to_envp(envp, (*cmd)->tokens[i])) == -1)
-					print_errno("env", NULL, MALL_ERR);
+					errno_msg("env", NULL, MALL_ERR);
 			}
 			else
 				ft_modify_envp(envp, var, new, pos);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 01:22:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	parse_file(char **file, char *str, t_stock **cmd, char **envp)
 			++i;
 		if ((ret = parse_token(str + i + 1, file, cmd, envp)) < -1)
 			return (ret);
-		print_error("$", *file, ": ", 1);
+		error_msg("$", *file, ": ", 1);
 		write(2, "ambiguous redirect\n", 19);
 		free(*file);
 		*file = NULL;
@@ -71,7 +71,7 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 			return (ret);
 		fd = (errno == 0) ? open((*cmd)->input, O_RDONLY) : 0;
 		if (errno != 0)
-			return (print_errno(NULL, (*cmd)->input, FILE_ERR));
+			return (errno_msg(NULL, (*cmd)->input, FILE_ERR));
 	}
 	else if (str[i] == '>' && str[++i])
 	{
@@ -79,7 +79,7 @@ int			set_file_name(t_stock **cmd, char *str, char **envp)
 		if ((ret = parse_file(&(*cmd)->output, str + i, cmd, envp)) < 0)
 			return (ret);
 		if ((fd = open_output(*cmd, i)) < 0)
-			return (print_errno(NULL, (*cmd)->output, FILE_ERR));
+			return (errno_msg(NULL, (*cmd)->output, FILE_ERR));
 	}
 	if (fd != 0)
 		close(fd);

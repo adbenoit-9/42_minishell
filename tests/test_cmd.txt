@@ -6,4 +6,12 @@ echo pwd = $PWD; echo oldpwd = $OLDPWD ; cd .. ; echo --------;echo pwd = $PWD ;
 echo -n -n -n $potato$orange; unset																						|ok
 export ""; export test= ; export > export.txt                                                                           |ok
 export test="ok'\\'\\" ; export                                                                                         |ko (+simple quote with \)
+export testvar10= ; env | grep -a testvar10                                                                             |ko
 exit 9887
+export SHLVL=8 && run_test 'env' 'grep -a SHLVL' (tester)
+pwd ; echo pwd=$PWD ; echo OLDPWD ; unset PWD ; echo pwd=$PWD ; echo old=$OLDPWD ; cd .. ; echo old=$OLDPWD ; pwd ; echo old=$OLDPWD ; cd .. ; pwd ; echo old=$OLDPWD   |segfault
+echo ok ;>test                                                                                                          |ok
+echo \"\\\|\"\\                                                                                                         |ok
+export PATH=$PWD/add_path:$PATH ; export | grep PATH ; ls                                                               |ok
+unset PATH ; ls ; cd /bin ; ls                                                                                          |ok
+cd                                                                                                                      |ok

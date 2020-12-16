@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 01:52:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_bs(char *str, int *sep)
 {
 	if (!str[1])
 	{
-		print_error(NULL, NULL,
+		error_msg(NULL, NULL,
 		"syntax error :char expected after `\\'\n", 258);
 		return (-1);
 	}
@@ -39,7 +39,7 @@ static int	check_sep(char *str, int *s1, int k)
 		++i;
 	if ((!str[i] && *s1 != COMA) || k == 0)
 		s2 = *s1;
-	if (sep_error(*s1, s2) == -1)
+	if (sep_error(*s1, s2, str + i) == -1)
 		return (-1);
 	return ((int)i);
 }

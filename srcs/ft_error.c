@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/13 22:12:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_error(char *cmd, char *arg, char *err, int error)
+int	error_msg(char *cmd, char *arg, char *err, int error)
 {
 	g_status = error;
 	write(2, "minishell: ", 11);
@@ -25,7 +25,7 @@ int	print_error(char *cmd, char *arg, char *err, int error)
 	return (0);
 }
 
-int	print_errno(char *cmd, char *str, int ret)
+int	errno_msg(char *cmd, char *str, int ret)
 {
 	char	*str_errno;
 

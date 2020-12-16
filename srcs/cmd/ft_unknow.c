@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 23:57:24 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
 		dup2(fd[1], 1);
 	if (cmd->input)
 		dup2(fd[0], 0);
+	if (execve(args[0], args, envp) != -1)
+		return (0);
 	ret = find_var(envp, "PATH");
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -51,19 +53,21 @@ void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 	int	i;
 
 	i = -1;
-	while ((*cmd)->tokens[0][++i])
+	if (!((*cmd)->tokens[0][0]))
+		return ;
+	ret = ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
+	while (ret == -1 && (*cmd)->tokens[0][++i])
 	{
 		if ((*cmd)->tokens[0][i] == '/')
 		{
-			print_error("\0", (*cmd)->tokens[0],
+			error_msg("\0", (*cmd)->tokens[0],
 			": No such file or directory\n", 127);
 			return ;
 		}
 	}
-	ret = ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
 	if (ret == -1)
 	{
-		print_error("\0", (*cmd)->tokens[0], ": command not found\n", 127);
+		error_msg("\0", (*cmd)->tokens[0], ": command not found\n", 127);
 		exit(EXIT_FAILURE);
 	}
 }

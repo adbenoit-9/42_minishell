@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/14 18:07:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 20:30:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	exit_error(int i, t_stock *cmd, unsigned long long int *nb)
 	x = 9223372036854775807;
 	if (ft_isdigit(cmd->tokens[1][i]) == 0)
 	{
-		print_error("exit: ", cmd->tokens[1],
+		error_msg("exit: ", cmd->tokens[1],
 		": numeric argument required\n", 255);
 		return (1);
 	}
@@ -27,7 +27,7 @@ static int	exit_error(int i, t_stock *cmd, unsigned long long int *nb)
 	if ((cmd->tokens[1][0] == '-' && *nb > x + 1) ||
 	(cmd->tokens[1][0] != '-' && *nb > x))
 	{
-		print_error("exit: ", cmd->tokens[1],
+		error_msg("exit: ", cmd->tokens[1],
 		": numeric argument required\n", 255);
 		return (1);
 	}
@@ -44,7 +44,7 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 	i = 0;
 	(void)fd;
 	nb = 0;
-	// write(1, "exit\n", 5);
+	write(1, "exit\n", 5);
 	if ((*cmd)->tokens[1])
 	{
 		g_status = ft_atoi((*cmd)->tokens[1]);
@@ -59,7 +59,7 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 		}
 		if (err == 0 && (*cmd)->tokens[2])
 		{
-			print_error("exit: ", NULL, "too many arguments\n", 1);
+			error_msg("exit: ", NULL, "too many arguments\n", 1);
 			(*cmd)->err = EXIT_ERROR;
 			return ;
 		}

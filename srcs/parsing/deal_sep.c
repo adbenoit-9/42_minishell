@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 01:48:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,18 @@ int	ft_issep(char c)
 	return (1);
 }
 
-int	sep_error(int s1, int s2)
+int	sep_error(int s1, int s2, char *str)
 {
-	if (s1 != NONE && s2 != NONE)
+	int ret;
+
+	ret = 0;
+;	if (!str[0] && ((s1 == COMA && s2 != NONE) || (s1 != COMA && s1 != NONE)))
+		ret = -1;
+	else if (s1 == COMA && (s2 == RIGHT || s2 == LEFT || s2 == D_RIGHT))
+		return (0);
+	if (ret == -1 || (s1 != NONE && s2 != NONE))
 	{
-		print_error(NULL, NULL, "syntax error\n", 258);
+		error_msg(NULL, NULL, "syntax error\n", 258);
 		return (-1);
 	}
 	return (0);
