@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/14 18:11:32 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/21 00:15:19 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,24 @@ HEADER		=	$(INC)minishell.h
 
 SRCS_PATH	=	srcs/
 
-CMD_PATH 	= srcs/cmd/
+UTIL_PATH 	= srcs/util/
+
+BUILTIN_PATH= srcs/builtin/
 
 PARS_PATH 	= srcs/parsing/
 
-SRCS		=	ft_error.c			main.c \
-				execute.c			manage_stock.c\
-				ft_realloc.c		manage_var.c \
-				deal_redirecting.c	test.c \
-				ft_utils.c			signal.c
+SRCS		=	main.c				run_cmd.c \
+				redirect.c			fork_handle.c \
+				signal.c			exec_cmd.c
 
-CMD 		=	ft_cd.c				ft_env.c \
+UTIL		=	ft_error.c			deal_lst.c\
+				ft_realloc.c		deal_var.c \
+				ft_utils.c
+
+BUILTIN 	=	ft_cd.c				ft_env.c \
 				ft_export.c			ft_echo.c \
 				ft_exit.c			ft_pwd.c \
-				ft_unset.c			ft_unknow.c \
-				cd_utils.c
+				ft_unset.c
 
 PARS 		=	parsing.c			deal_quote.c \
 				deal_dollar.c		save_cmd.c \
@@ -50,7 +53,8 @@ LIB			=	$(LIB_DIR)/libft.a
 OBJ_PATH	=	obj/
 
 OBJS_NAME	=	$(SRCS:.c=.o)
-OBJS_NAME	+=	$(CMD:.c=.o)
+OBJS_NAME	+=	$(UTIL:.c=.o)
+OBJS_NAME	+=	$(BUILTIN:.c=.o)
 OBJS_NAME	+=	$(PARS:.c=.o)
 
 OBJS		=	$(addprefix $(OBJ_PATH),$(OBJS_NAME))
@@ -67,12 +71,17 @@ $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) 
 	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
 
+$(OBJ_PATH)%.o:	$(UTIL_PATH)%.c $(HEADER)
+	@printf "\033[34;1m|\033[0;m"
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
+
 $(OBJ_PATH)%.o:	$(SRCS_PATH)%.c $(HEADER)
 	@printf "\033[34;1m|\033[0;m"
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
-$(OBJ_PATH)%.o:	$(CMD_PATH)%.c $(HEADER)
+$(OBJ_PATH)%.o:	$(BUILTIN_PATH)%.c $(HEADER)
 	@printf "\033[34;1m|\033[0;m"
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@

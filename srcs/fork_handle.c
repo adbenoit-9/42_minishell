@@ -4,7 +4,7 @@
 **
 */
 
-void    ft_son(t_stock *cmd, int *fd, int *p, char *envp[])
+void    ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 {
     g_shell.pid = 1;
     g_shell.bool = 0;
@@ -12,7 +12,7 @@ void    ft_son(t_stock *cmd, int *fd, int *p, char *envp[])
     if (cmd->next)
         dup2(p[1], 1);
     close(p[0]);
-    execute(cmd, envp, fd, 0);
+    run_cmd(cmd, envp, fd, 0);
     exit(EXIT_SUCCESS);
 }
 
@@ -20,9 +20,9 @@ void    ft_son(t_stock *cmd, int *fd, int *p, char *envp[])
 **
 */
 
-void    ft_parent(t_stock *cmd, int *fd, int *p, char *envp[], int status)
+void    ft_parent(t_cmd *cmd, int *fd, int *p, char *envp[], int status)
 {
-    execute(cmd, envp, fd, 1);
+    run_cmd(cmd, envp, fd, 1);
     if (g_shell.sig == 1)
 	{
         if (WIFSIGNALED(status) == 1)
@@ -45,7 +45,7 @@ void    ft_parent(t_stock *cmd, int *fd, int *p, char *envp[], int status)
 **
 */
 
-void    ft_mana_sig(t_stock *cmd)
+void    ft_mana_sig(t_cmd *cmd)
 {
     if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "make") == 0)
          g_shell.bool = 1;
@@ -65,7 +65,7 @@ void    ft_mana_sig(t_stock *cmd)
 */
 
 
-void    ft_loop_pipe(t_stock *cmd, char *envp[]) 
+void    ft_loop_handle(t_cmd *cmd, char *envp[]) 
 {
     int     p[2];
     int     fd[2];

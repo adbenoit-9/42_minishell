@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 21:06:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*ft_create_var(char *str, int *pos)
 	return (var);
 }
 
-int	ft_add_to_envp(char *envp[], char *str)
+int			ft_add_to_envp(char *envp[], char *str)
 {
 	int	i;
 	int	j;
@@ -50,6 +50,7 @@ int	ft_add_to_envp(char *envp[], char *str)
 
 	bool = 0;
 	size = ft_strlen(str) + 1;
+	size = size > 4098 ? size : 4098;
 	i = ft_tabsize(envp);
 	j = -1;
 	while (str[++j] != 0)
@@ -57,10 +58,8 @@ int	ft_add_to_envp(char *envp[], char *str)
 		if (str[j] == '=' && str[j + 1])
 			bool = 1;
 	}
-	if (bool == 0)
-		size = (str[j - 1] != '=') ? size + 3 : size + 2;
 	if (!(envp[i] = (char *)malloc(sizeof(char) * size)))
-		return (-1);
+		return (errno_msg(NULL, NULL, MALL_ERR));
 	ft_strcpy(envp[i], str);
 	j = (str[j - 1] == '=') ? j - 1 : j;
 	if (bool == 0)
@@ -69,11 +68,10 @@ int	ft_add_to_envp(char *envp[], char *str)
 	return (0);
 }
 
-void	ft_modify_envp(char *envp[], char *var, char *new, int pos)
+void		ft_modify_envp(char *envp[], char *var, char *new, int pos)
 {
 	if (new[0] == '\0' || new == NULL)
 		return ;
-	// printf("envp[%d] = %s\n", pos, envp[pos]);
 	ft_strcpy(envp[pos] + ft_strlen(var) + 1, new);
 }
 
@@ -93,7 +91,7 @@ static void	ft_none_arg(char *token, char *envp[], int *fd)
 	write(2, "\n", 1);
 }
 
-void		ft_export(t_stock **cmd, char *envp[], int *fd)
+void		ft_export(t_cmd **cmd, char *envp[], int *fd)
 {
 	int		pos;
 	int		i;

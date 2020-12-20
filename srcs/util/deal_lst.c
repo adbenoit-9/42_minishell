@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_stock.c                                     :+:      :+:    :+:   */
+/*   manage_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-t_stock			*ft_stocknew(int sep)
+t_cmd			*ft_cmdnew(int sep)
 {
-	t_stock	*list;
+	t_cmd	*list;
 
-	if (!(list = (t_stock *)malloc(sizeof(t_stock))))
+	if (!(list = (t_cmd *)malloc(sizeof(t_cmd))))
 		return (NULL);
 	list->r_type = 0;
 	list->err = 0;
@@ -28,7 +28,7 @@ t_stock			*ft_stocknew(int sep)
 	return (list);
 }
 
-static t_stock	*ft_stocklast(t_stock *lst)
+static t_cmd	*ft_cmdlast(t_cmd *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -37,18 +37,18 @@ static t_stock	*ft_stocklast(t_stock *lst)
 	return (lst);
 }
 
-void			ft_stockadd_back(t_stock **alst, t_stock *new)
+void			ft_cmdadd_back(t_cmd **alst, t_cmd *new)
 {
 	if (alst)
 	{
 		if (*alst == NULL)
 			*alst = new;
 		else
-			ft_stocklast(*alst)->next = new;
+			ft_cmdlast(*alst)->next = new;
 	}
 }
 
-void			clear_one(t_stock **lst)
+void			clear_one(t_cmd **lst)
 {
 	ft_free((*lst)->tokens);
 	free((*lst)->input);
@@ -59,11 +59,11 @@ void			clear_one(t_stock **lst)
 	free(*lst);
 }
 
-void			ft_stockclear(t_stock **lst, void (del)(t_stock**))
+void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**))
 {
 	if (*lst != NULL && del != NULL)
 	{
-		ft_stockclear(&(*lst)->next, del);
+		ft_cmdclear(&(*lst)->next, del);
 		del(lst);
 		*lst = NULL;
 	}

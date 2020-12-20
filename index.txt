@@ -14,7 +14,7 @@ git checkout nom_branche_ou_est_le_fichier -- fichier
 Afficher un prompt en l’attente d’une nouvelle commande:
     - read ?
 Chercher et lancer le bon executable:
-    - $PATH stock les chemins qui permet d'accéder aux exécutables
+    - $PATH cmd les chemins qui permet d'accéder aux exécutables
 echo:
     - arg -n => pas de retour a la ligne
     - $ =>

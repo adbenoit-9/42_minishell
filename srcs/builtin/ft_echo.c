@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/09 11:59:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_echo_n(t_stock *cmd, int *i)
+static int	ft_echo_n(t_cmd *cmd, int *i)
 {
 	int	n;
 	int j;
@@ -33,7 +33,7 @@ static int	ft_echo_n(t_stock *cmd, int *i)
 	return (n);
 }
 
-void		ft_echo(t_stock **cmd, char *envp[], int *fd)
+void		ft_echo(t_cmd **cmd, char *envp[], int *fd)
 {
 	int	i;
 	int k;

@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 20:30:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_stock	*g_cmd;
+t_cmd	*g_cmd;
 t_shell	g_shell;
 
 void	init_mshell(void)
@@ -62,7 +62,7 @@ void	term(char *str, char *envp[], int argc, char **argv)
 	{
 		parsing(str, envp);
 		free(str);
-		ft_stockclear(&g_cmd, clear_one);
+		ft_cmdclear(&g_cmd, clear_one);
 	}
 	if (argc > 1 && ft_strcmp(argv[1], "-c") == 0)
 		exit(g_status);
@@ -92,6 +92,6 @@ int		main(int argc, char *argv[], char *envp[])
 	}
 	free(str); //rajout pour leaks
 	write(1, "exit\n", 5);
-	ft_stockclear(&g_cmd, clear_one);
+	ft_cmdclear(&g_cmd, clear_one);
 	exit(EXIT_SUCCESS);
 }

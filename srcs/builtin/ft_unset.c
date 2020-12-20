@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deal_redirecting.c                                 :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/21 14:40:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 23:07:56 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_redirect(t_stock **cmd, int *fd_in, int *fd_out)
+void	ft_unset(t_cmd **cmd, char *envp[], int *fd)
 {
-	if ((*cmd)->output && *fd_out)
+	int	pos;
+	int	j;
+	int	k;
+
+	k = 0;
+	(void)fd;
+	while ((*cmd)->tokens[++k])
 	{
-		if ((*cmd)->r_type == RIGHT)
+		if (ft_check_var((*cmd)->tokens[k]) == 0)
 		{
-			*fd_out = open((*cmd)->output, O_WRONLY | O_TRUNC | O_CREAT,
-			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			error_msg("unset: `", (*cmd)->tokens[k],
+			"': not a valid identifier\n", 1);
 		}
-		else
+		if ((pos = find_var(envp, (*cmd)->tokens[k])) != -1)
 		{
-			*fd_out = open((*cmd)->output, O_WRONLY | O_APPEND | O_CREAT,
-			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+			j = pos;
+			while (envp[++j])
+			{
+				ft_strcpy(envp[pos], envp[j]);
+				++pos;
+			}
+			envp[pos] = 0;
 		}
 	}
-	if ((*cmd)->input && fd_in)
-		*fd_in = open((*cmd)->input, O_RDONLY);
-	return (0);
 }

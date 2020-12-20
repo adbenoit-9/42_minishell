@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/17 22:17:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_arg_env(t_stock **cmd)
+static int	ft_arg_env(t_cmd **cmd)
 {
 	int	ret;
 
@@ -74,7 +74,7 @@ void		ft_sort_env(char *envp[])
 	return ;
 }
 
-void		ft_env(t_stock **cmd, char *envp[], int *fd)
+void		ft_env(t_cmd **cmd, char *envp[], int *fd)
 {
 	int		index;
 	int		i;

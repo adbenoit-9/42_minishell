@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int			parsing(char *str, char *envp[])
 {
 	int		ret;
 	int		i;
-	t_stock *tmp;
+	t_cmd *tmp;
 
-	ft_stockclear(&g_cmd, clear_one);
+	ft_cmdclear(&g_cmd, clear_one);
 	ret = save_cmd(str, &g_cmd, envp);
 	i = 0;
 	tmp = g_cmd;
@@ -89,9 +89,9 @@ int			parsing(char *str, char *envp[])
 	if (ret >= 0)
 		i += ret;
 	if (g_cmd->err == 0)
-		ft_loop_pipe(g_cmd, envp);
+		ft_loop_handle(g_cmd, envp);
 	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
-	ft_stockclear(&g_cmd, clear_one);
+	ft_cmdclear(&g_cmd, clear_one);
 	return (0);
 }

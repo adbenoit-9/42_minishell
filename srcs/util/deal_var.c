@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 18:46:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 22:01:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 22:06:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ int	replace_var_by_value(char *var, char *envp[], char **value, int *start)
 	if ((i = find_var(envp, var)) == VAR_NOT_FOUND)
 		return (VAR_NOT_FOUND);
 	k = ft_strlen(var);
+	len = ft_strlen(envp[i]);
 	if (ft_strcmp(envp[i] + k, "=\'\'") == 0)
-		len = 0;
-	else
-		len = ft_strlen(envp[i]);
+		len -= 3;
 	if (len != k)
 	{
-		if (!(*value = ft_realloc(*value, ft_strlen(*value) + len - k + 1)))
-			return (MALL_ERR);
+		if (!(*value = ft_realloc(*value, len - k + ft_strlen(*value) + 1)))
+			return (errno_msg(NULL, NULL, MALL_ERR));
 	}
-	while (len != 0 && envp[i][++k])
+	while (ft_strcmp(envp[i] + k, "=\'\'") != 0 && envp[i][++k])
 	{
 		(*value)[*start] = envp[i][k];
 		++(*start);

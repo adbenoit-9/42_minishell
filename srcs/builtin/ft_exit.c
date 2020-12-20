@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 20:30:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	exit_error(int i, t_stock *cmd, unsigned long long int *nb)
+static int	exit_error(int i, t_cmd *cmd, unsigned long long int *nb)
 {
 	unsigned long long int x;
 
@@ -34,7 +34,7 @@ static int	exit_error(int i, t_stock *cmd, unsigned long long int *nb)
 	return (0);
 }
 
-void		ft_exit(t_stock **cmd, char *envp[], int *fd)
+void		ft_exit(t_cmd **cmd, char *envp[], int *fd)
 {
 	int						i;
 	int						err;
@@ -64,6 +64,6 @@ void		ft_exit(t_stock **cmd, char *envp[], int *fd)
 			return ;
 		}
 	}
-	ft_stockclear(&g_cmd, clear_one);
+	ft_cmdclear(&g_cmd, clear_one);
 	exit(g_status);
 }

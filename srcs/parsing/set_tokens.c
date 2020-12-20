@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 19:03:25 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	parse_char(char *token, char **new, int *k, char **envp)
 	return (ret);
 }
 
-int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
+int			parse_token(char *token, char **new, t_cmd **cmd, char **envp)
 {
 	int		j;
 	int		k;
@@ -42,7 +42,7 @@ int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
 
 	k = 0;
 	if (!(*new = malloc(ft_strlen(token) + 1)))
-		return (errno_msg(NULL, NULL, MALL_ERR));
+		return (MALL_ERR);
 	j = 0;
 	ret = 0;
 	while (ret >= 0 && token[j])
@@ -63,7 +63,7 @@ int			parse_token(char *token, char **new, t_stock **cmd, char **envp)
 	return (ret);
 }
 
-int			set_token(char **tokens, t_stock **cmd, char **envp)
+int			set_token(char **tokens, t_cmd **cmd, char **envp)
 {
 	int	i;
 	int	ret;
@@ -73,7 +73,7 @@ int			set_token(char **tokens, t_stock **cmd, char **envp)
 	if (!((*cmd)->tokens = malloc((sizeof(char *) * (ft_tabsize(tokens) + 1)))))
 	{
 		ft_free(tokens);
-		return (errno_msg(NULL, NULL, MALL_ERR));
+		return (MALL_ERR);
 	}
 	i = -1;
 	while (tokens[++i])

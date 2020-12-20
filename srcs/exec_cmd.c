@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unknow.c                                        :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 00:07:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** besoin d'un retour ?
 */
 
-int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
+static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 {
 	int		ret;
 	int		i;
@@ -47,7 +47,7 @@ int		ft_try_path(t_stock *cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
-void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
+void		ft_not_builtin(t_cmd **cmd, char *envp[], int *fd)
 {
 	int	ret;
 	int	i;
@@ -55,7 +55,7 @@ void	ft_unknow(t_stock **cmd, char *envp[], int *fd)
 	i = -1;
 	if (!((*cmd)->tokens[0][0]))
 		return ;
-	ret = ft_try_path(*cmd, envp, (*cmd)->tokens, fd);
+	ret = is_executable(*cmd, envp, (*cmd)->tokens, fd);
 	while (ret == -1 && (*cmd)->tokens[0][++i])
 	{
 		if ((*cmd)->tokens[0][i] == '/')
