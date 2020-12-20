@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 00:34:38 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_mshell(void)
 	g_shell.bool = 0;
 }
 
-int		start(int argc, char **argv, int *ret, char **str)
+int		display_prompt(int argc, char **argv, int *ret, char **str)
 {
 	int i;
 
@@ -83,7 +83,7 @@ int		main(int argc, char *argv[], char *envp[])
 	}
 	while (ret > 0)
 	{
-		if (start(argc, argv, &ret, &str) == 0)
+		if (display_prompt(argc, argv, &ret, &str) == 0)
 			return (0);
 		if (ret == 0)
 			g_shell.bool = 0;
