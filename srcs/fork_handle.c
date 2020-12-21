@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 01:02:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 17:45:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,25 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_parent(int *fd, int *p, int status)
-{
+static void	ft_putstatus(int status)
+{ 
+	g_status = WEXITSTATUS(status);
 	if (g_shell.sig == 1)
 	{
 		if (WIFSIGNALED(status) == 1)
-		{
-			write(1, "\n", 1);
 			g_status = 130;
-		}
 		else
 			g_status = 255;
 	}
 	else if (status % 255 != 0)
 		g_status = status % 255;
 	else if (status != 0)
-		g_status = 255;
-	close(p[1]);
-	fd[0] = p[0];
+		g_status = 255;	
 }
 
 static void	ft_mana_sig(t_cmd *cmd)
 {
-	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "make") == 0)
+	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "./minishell") == 0)
 		g_shell.bool = 1;
 	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "exit") == 0)
 	{
@@ -59,7 +55,7 @@ static void	ft_mana_sig(t_cmd *cmd)
 	g_shell.pid = 0;
 }
 
-void		ft_loop_handle(t_cmd *cmd, char *envp[])
+void		ft_fork_handle(t_cmd *cmd, char *envp[])
 {
 	int		p[2];
 	int		fd[2];
@@ -83,7 +79,8 @@ void		ft_loop_handle(t_cmd *cmd, char *envp[])
 		else
 		{
 			run_cmd(cmd, envp, fd, 1);
-			ft_parent(fd, p, status);
+			close(p[1]);
+			fd[0] = p[0];
 			if (cmd->next != NULL)
 				cmd = cmd->next;
 			else
@@ -93,4 +90,5 @@ void		ft_loop_handle(t_cmd *cmd, char *envp[])
 	}
 	while (nb_wait-- >= 0)
 		wait(&status);
+	ft_putstatus(status);
 }

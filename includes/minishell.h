@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:42:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:34:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int				ft_add_to_envp(char *envp[], char *str);
 void			ft_modify_envp(char *envp[], char *var, char *new, int pos);
 void			ft_sort_env(char *envp[]);
 int				ft_redirect(t_cmd **cmd, int *fd_in, int *fd_out);
-void			ft_loop_handle(t_cmd *cmd, char *envp[]);
+void			ft_fork_handle(t_cmd *cmd, char *envp[]);
 int				ft_launch_process(t_cmd **cmd, char **args, char *envp[]);
 char			*ft_correct_path(char *path);
 int				modify_pwd(char *path, char *envp[], char *var);

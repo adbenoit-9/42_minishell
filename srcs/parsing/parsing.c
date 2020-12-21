@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:15:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:34:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			parsing(char *str, char *envp[])
 	if (ret >= 0)
 		i += ret;
 	if (g_cmd->err == 0)
-		ft_loop_handle(g_cmd, envp);
+		ft_fork_handle(g_cmd, envp);
 	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
 	ft_cmdclear(&g_cmd, clear_one);

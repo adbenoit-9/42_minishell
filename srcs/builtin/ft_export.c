@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 05:50:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 18:16:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int			ft_add_to_envp(char *envp[], char *str)
 	if (!(envp[i] = (char *)malloc(sizeof(char) * size)))
 		return (errno_msg(NULL, NULL, MALL_ERR));
 	ft_strcpy(envp[i], str);
-	j = (str[j - 1] == '=') ? j - 1 : j;
-	if (bool == 0)
+	if (bool == 0 && str[j - 1] != '=')
 		ft_strcpy(envp[i] + j, "=\'\'");
 	envp[i + 1] = 0;
 	return (0);
@@ -78,12 +77,24 @@ void		ft_modify_envp(char *envp[], char *var, char *new, int pos)
 static void	ft_none_arg(char *token, char *envp[], int *fd)
 {
 	char	**copy;
+	int		i;
+	int		j;
 
 	if (!token)
 	{
 		copy = ft_tabdup(envp);
 		ft_sort_env(copy);
-		ft_puttab_fd(copy, fd[1]);
+		i = -1;
+		while (copy[++i])
+		{
+			write(fd[1], copy[i], ft_strlen(copy[i]));
+			j = 0;
+			while (copy[i][j] && copy[i][j] != '=')
+				++j;
+			if (copy[i][j] && !copy[i][j + 1])
+				write(fd[1], "\'\'", 2);
+			write(fd[1], "\n", 1);
+		}
 		ft_free(copy);
 		return ;
 	}

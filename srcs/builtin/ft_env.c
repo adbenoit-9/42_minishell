@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:46:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	ft_arg_env(t_cmd **cmd)
 		write(2, "env: ", 5);
 		write(2, (*cmd)->tokens[1], ft_strlen((*cmd)->tokens[1]));
 		write(2, ": No argument required\n", 24);
+		g_status = 127;
 	}
 	return (ret);
 }
