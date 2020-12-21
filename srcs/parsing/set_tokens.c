@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 03:06:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ int			parse_token(char *token, char **new, t_cmd **cmd, char **envp)
 	return (ret);
 }
 
+static int	free_tokens(char **tokens, t_cmd **cmd, int err, int k)
+{
+	ft_free(tokens);
+	(*cmd)->tokens[k] = NULL;
+	return (err);
+}
+
 int			set_token(char **tokens, t_cmd **cmd, char **envp)
 {
 	int	i;
@@ -80,11 +87,7 @@ int			set_token(char **tokens, t_cmd **cmd, char **envp)
 	{
 		if ((ret = parse_token(tokens[i], &(*cmd)->tokens[k],
 		cmd, envp)) < -1)
-		{
-			ft_free(tokens);
-			(*cmd)->tokens[++k] = NULL;
-			return (ret);
-		}
+			return (free_tokens(tokens, cmd, ret, k + 1));
 		k = (ret != -1) ? k + 1 : k;
 		if (ret == -1)
 			free((*cmd)->tokens[k]);

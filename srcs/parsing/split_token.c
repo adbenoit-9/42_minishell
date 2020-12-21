@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 02:03:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:15:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		ft_is_new_arg(char const *s, char c, size_t n, int quote)
+static int	ft_is_new_arg(char const *s, char c, int n, int quote)
 {
 	int	bs;
 	int i;
@@ -34,7 +34,7 @@ static int		ft_is_new_arg(char const *s, char c, size_t n, int quote)
 	return (ret);
 }
 
-static	int ft_is_redirect(char const *s, int quote, size_t *i, int r)
+static int	is_redirect(char const *s, int *quote, int *i, int r)
 {
 	int	bs;
 
@@ -42,17 +42,18 @@ static	int ft_is_redirect(char const *s, int quote, size_t *i, int r)
 	--(*i);
 	while (s[++(*i)] == '\\')
 		++bs;
-	if (quote == 0 && bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
+	is_in_quote(s, *i - bs, quote);
+	if (*quote == 0 && bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
 		return (1);
 	return (0);
 }
 
-static size_t	ft_countrow(char const *s, char c, size_t n)
+static int	ft_countrow(char const *s, char c, int n)
 {
-	size_t	count;
-	size_t	i;
-	int		quote;
-	int		r;
+	int	count;
+	int	i;
+	int	quote;
+	int	r;
 
 	count = 0;
 	i = 0;
@@ -64,8 +65,7 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 	{
 		while (r == 1 && (s[i] == c || s[i] == '>'))
 			++i;
-		ft_is_in_quote(s, i, &quote);
-		r = ft_is_redirect(s, quote, &i, r);
+		r = is_redirect(s, &quote, &i, r);
 		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
 			count++;
 		++i;
@@ -75,46 +75,40 @@ static size_t	ft_countrow(char const *s, char c, size_t n)
 	return (count);
 }
 
-static size_t	ft_size(char const *s, char c, size_t i, size_t n)
+static int	ft_size(char const *s, char c, int i, int n)
 {
-	size_t	size;
-	int		quote;
-	int		tmp;
-	int		r;
+	int	size[2];
+	int	quote;
+	int	r;
 
-	size = 0;
+	size[0] = 0;
 	r = 0;
 	quote = 0;
 	if (s[i] == '>' || s[i] == '<')
 	{
-		++size;
-		if (s[i + 1] == '>')
-		{
-			++i;
-			++size;
-		}
+		size[0] = (s[i + 1] == '>') ? 2 : 1;
+		i += size[0] - 1;
 		while (s[++i] == c)
-			++size;
+			++size[0];
 	}
 	while (i < n && s[i])
 	{
-		tmp = i;
-		ft_is_in_quote(s, i, &quote);
-		r = ft_is_redirect(s, quote, &i, r);
-		size += (i - tmp);
+		size[1] = i;
+		r = is_redirect(s, &quote, &i, r);
+		size[0] += (i - size[1]);
 		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
 			break ;
-		++size;
+		++size[0];
 		++i;
 	}
-	return (size);
+	return (size[0]);
 }
 
-char			**split_token(char const *s, char c, size_t n)
+char		**split_token(char const *s, char c, int n)
 {
 	char	**tab;
-	size_t	index[3];
-	size_t	size[2];
+	int		index[3];
+	int		size[2];
 
 	if (s == NULL)
 		return (NULL);

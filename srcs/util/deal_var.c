@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_var.c                                       :+:      :+:    :+:   */
+/*   deal_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/10 18:46:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 22:06:18 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/12/21 04:16:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	find_var(char *envp[], char *var)
 
 int	replace_var_by_value(char *var, char *envp[], char **value, int *start)
 {
-	int		i;
-	size_t	k;
-	size_t	len;
+	int	i;
+	int	k;
+	int	len;
 
 	if ((i = find_var(envp, var)) == VAR_NOT_FOUND)
 		return (VAR_NOT_FOUND);

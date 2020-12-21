@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 19:03:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 03:58:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_sep(char *str, size_t *i)
+int	set_sep(char *str, int *i)
 {
 	static char	sep[NUM_SEP] = "|;><";
 	int			s;
@@ -43,7 +43,7 @@ int	sep_error(int s1, int s2, char *str)
 	int ret;
 
 	ret = 0;
-;	if (!str[0] && ((s1 == COMA && s2 != NONE) || (s1 != COMA && s1 != NONE)))
+	if (!str[0] && ((s1 == COMA && s2 != NONE) || (s1 != COMA && s1 != NONE)))
 		ret = -1;
 	else if (s1 == COMA && (s2 == RIGHT || s2 == LEFT || s2 == D_RIGHT))
 		return (0);

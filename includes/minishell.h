@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 00:09:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:42:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@
 # include <signal.h>
 # include "../libft/libft_header/libft.h"
 
-int g_status;
-int	g_wait;
-int	g_tmp;
+int			g_status;
+int			g_wait;
+int			g_tmp;
 
 typedef struct	s_shell
 {
@@ -92,7 +92,7 @@ void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
 void			clear_one(t_cmd **cmd);
 int				replace_var_by_value(char *var, char *envp[], char **value,
 				int *start);
-size_t			ft_tabsize(char **tab);
+int				ft_tabsize(char **tab);
 char			**ft_tabdup(char *tab[]);
 void			ft_puttab_fd(char **tab, int fd);
 int				ft_check_var(char *var);
@@ -111,12 +111,11 @@ int				deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
 int				deal_double_quote(char *str, char **tokens, int *j,
 				char *env[]);
-int				set_sep(char *str, size_t *i);
+int				set_sep(char *str, int *i);
 int				ft_issep(char c);
 int				sep_error(int s1, int s2, char *str);
-char			**split_token(char const *s, char c, size_t n);
-size_t          ft_is_in_quote(char const *s, size_t i, int *quote);
-int				is_bs(char *str, size_t *i);
+char			**split_token(char const *s, char c, int n);
+int				is_in_quote(char const *s, int i, int *quote);
 int				parse_token(char *token, char **new_token, t_cmd **cmd,
 				char **envp);
 int				parse_str(char *str);
@@ -148,6 +147,5 @@ int				run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid);
 void			proc_sig_handler(int signo);
 void			ft_sig_handler(int signo);
 void			init_mshell(void);
-
 
 #endif

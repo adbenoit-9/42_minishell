@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:20:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	cd_without_arg(t_cmd **cmd, char **envp)
 	return (0);
 }
 
-void			ft_cd(t_cmd **cmd, char *envp[], int *fd)
+void		ft_cd(t_cmd **cmd, char *envp[], int *fd)
 {
 	char	*path;
 	int		pos;
@@ -90,7 +90,7 @@ void			ft_cd(t_cmd **cmd, char *envp[], int *fd)
 	if (errno == 0)
 	{
 		path = ft_correct_path(path);
-		if((pos = find_var(envp, "PWD")) != VAR_NOT_FOUND)
+		if ((pos = find_var(envp, "PWD")) != VAR_NOT_FOUND)
 			modify_pwd(envp[pos] + 4, envp, "OLDPWD");
 		else
 			modify_pwd("\'\'", envp, "OLDPWD");

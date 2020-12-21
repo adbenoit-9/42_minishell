@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/16 00:23:28 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:14:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,20 +100,18 @@ int			deal_double_quote(char *str, char **tokens, int *j, char *env[])
 	return (QUOTE_NOT_FOUND);
 }
 
-size_t		ft_is_in_quote(char const *s, size_t i, int *quote)
+int			is_in_quote(char const *s, int i, int *quote)
 {
 	int	bs;
-	int tmp;
 
 	bs = 0;
-	tmp = i;
 	--i;
 	while (s[++i] == '\\')
 		++bs;
 	if (s[i] == '\'' || s[i] == '\"')
 	{
 		if (*quote == 0 && bs % 2 == 1)
-			return (tmp);
+			return (i);
 		else if (s[i] == '\'' && i > 0 && s[i - 1] == '$' && *quote == 0)
 			*quote = 3;
 		else if (s[i] == '\'' && *quote == 0)
@@ -127,7 +125,5 @@ size_t		ft_is_in_quote(char const *s, size_t i, int *quote)
 		else if (*quote == 3 && s[i] == '\'' && bs % 2 == 0)
 			*quote = 0;
 	}
-	if (quote == 0)
-		return (tmp);
 	return (i);
 }

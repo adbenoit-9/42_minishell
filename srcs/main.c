@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 00:34:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:00:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ int		display_prompt(int argc, char **argv, int *ret, char **str)
 		if (!str)
 			return (0);
 	}
-	//free(str); // +1 free 
 	return (1);
 }
 
 void	term(char *str, char *envp[], int argc, char **argv)
 {
-	size_t i;
+	int i;
 
 	i = 0;
 	while (str[i] == ' ')
@@ -90,7 +89,7 @@ int		main(int argc, char *argv[], char *envp[])
 		g_cmd = NULL;
 		term(str, envp, argc, argv);
 	}
-	free(str); //rajout pour leaks
+	free(str);
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
 	exit(EXIT_SUCCESS);

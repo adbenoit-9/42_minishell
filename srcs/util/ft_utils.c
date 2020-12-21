@@ -6,15 +6,15 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 17:18:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/12 15:43:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:18:24 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ft_tabsize(char **tab)
+int		ft_tabsize(char **tab)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -25,8 +25,8 @@ size_t	ft_tabsize(char **tab)
 char	**ft_tabdup(char *tab[])
 {
 	char	**copy;
-	size_t	size;
-	size_t	i;
+	int		size;
+	int		i;
 
 	copy = NULL;
 	size = 0;
@@ -45,7 +45,7 @@ char	**ft_tabdup(char *tab[])
 
 void	ft_puttab_fd(char **tab, int fd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (tab[i])

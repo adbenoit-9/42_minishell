@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:15:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	check_bs(char *str, int *sep)
 
 static int	check_sep(char *str, int *s1, int k)
 {
-	int		s2;
-	size_t	i;
+	int	s2;
+	int	i;
 
 	i = 0;
 	s2 = -1;
@@ -46,7 +46,7 @@ static int	check_sep(char *str, int *s1, int k)
 
 int			parse_str(char *str)
 {
-	size_t	i;
+	int		i;
 	int		ret;
 	int		quote;
 	int		s1;
@@ -57,7 +57,7 @@ int			parse_str(char *str)
 	while (str[i])
 	{
 		str[i] = (str[i] == '\t') ? ' ' : str[i];
-		ft_is_in_quote(str, i, &quote);
+		is_in_quote(str, i, &quote);
 		ret = (str[i] == '\\') ? check_bs(str + i, &s1) : 1;
 		if (ret == 1 && quote == 0 && ft_issep(str[i]) == 1)
 			ret = check_sep(str + i, &s1, i);
@@ -74,7 +74,7 @@ int			parsing(char *str, char *envp[])
 {
 	int		ret;
 	int		i;
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	ft_cmdclear(&g_cmd, clear_one);
 	ret = save_cmd(str, &g_cmd, envp);

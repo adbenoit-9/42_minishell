@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 00:08:47 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 01:13:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid)
 {
 	int					i;
 	static t_function	cmd_fct[NUM_CMD + 1] = {ft_echo, ft_cd, ft_pwd, ft_env,
-									ft_export, ft_unset, ft_exit, ft_not_builtin};
+								ft_export, ft_unset, ft_exit, ft_not_builtin};
 	static char			*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 

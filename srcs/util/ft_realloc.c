@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 16:41:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/11/16 21:09:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 03:58:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ double	**realloc_doub(double **ptr, int newsize)
 
 void	*ft_free(char **tab)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (tab[i])

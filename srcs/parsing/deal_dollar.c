@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:03:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:09:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	deal_var(char *str, char **token, int *j, char *envp[])
 int			deal_status(char **new_token, int *k, int size)
 {
 	char	*nb;
-	size_t	len;
+	int		len;
 
 	nb = ft_itoa(g_status);
 	if ((len = ft_strlen(nb)) > 2)

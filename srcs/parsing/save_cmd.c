@@ -6,23 +6,24 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 04:11:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			is_bs(char *str, size_t *i)
+static int	is_cmd_sep(char *str, int *i, int *quote)
 {
-	size_t	n;
+	int	bs;
 
-	n = 0;
-	while (str[n + *i] == '\\')
-		++n;
-	(*i) += n;
-	if ((n % 2) == 0)
-		return (0);
-	return (1);
+	is_in_quote(str, *i, quote);
+	--(*i);
+	bs = 0;
+	while (str[++(*i)] == '\\')
+		++bs;
+	if (bs % 2 == 0 && *quote == 0 && (str[*i] == ';' || str[*i] == '|'))
+		return (1);
+	return (0);
 }
 
 static int	is_error(t_cmd *cmd)
@@ -40,21 +41,15 @@ static int	is_error(t_cmd *cmd)
 
 int			save_cmd(char *str, t_cmd **cmd, char *envp[])
 {
-	size_t	i;
+	int		i;
 	int		ret;
-	int		bs;
 	char	**tokens;
 
 	ret = 0;
 	i = -1;
 	while (str[++i])
 	{
-		bs = 0;
-		--i;
-		while (str[++i] == '\\')
-			++bs;
-		ft_is_in_quote(str, i, &ret);
-		if (bs % 2 == 0 && ret == 0 && is_bs(str, &i) == 0 && (str[i] == ';' || str[i] == '|'))
+		if (is_cmd_sep(str, &i, &ret) == 1)
 			break ;
 	}
 	if (!(tokens = split_token(str, ' ', i)))
