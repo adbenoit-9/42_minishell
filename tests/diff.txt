@@ -124,7 +124,7 @@
 >     #1 0x10052e791 in without_arg ft_cd.c:68
 >     #2 0x10052e3de in ft_cd ft_cd.c:105
 >     #3 0x10052a9e9 in execute execute.c:34
->     #4 0x10052d5f2 in ft_loop_handle test.c:81
+>     #4 0x10052d5f2 in ft_fork_handle test.c:81
 >     #5 0x100535dbb in parsing parsing.c:95
 >     #6 0x10052a1e4 in main main.c:83
 >     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -136,7 +136,7 @@
 >     #2 0x10052e791 in without_arg ft_cd.c:68
 >     #3 0x10052e3de in ft_cd ft_cd.c:105
 >     #4 0x10052a9e9 in execute execute.c:34
->     #5 0x10052d5f2 in ft_loop_handle test.c:81
+>     #5 0x10052d5f2 in ft_fork_handle test.c:81
 >     #6 0x100535dbb in parsing parsing.c:95
 >     #7 0x10052a1e4 in main main.c:83
 >     #8 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -203,7 +203,7 @@
 >     #0 0x104856e2a in modify_pwd ft_cd.c:46
 >     #1 0x104856553 in ft_cd ft_cd.c:114
 >     #2 0x1048529e9 in execute execute.c:34
->     #3 0x1048555f2 in ft_loop_handle test.c:81
+>     #3 0x1048555f2 in ft_fork_handle test.c:81
 >     #4 0x10485ddbb in parsing parsing.c:95
 >     #5 0x1048521e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -234,7 +234,7 @@
 >     #0 0x10248ee2a in modify_pwd ft_cd.c:46
 >     #1 0x10248e553 in ft_cd ft_cd.c:114
 >     #2 0x10248a9e9 in execute execute.c:34
->     #3 0x10248d5f2 in ft_loop_handle test.c:81
+>     #3 0x10248d5f2 in ft_fork_handle test.c:81
 >     #4 0x102495dbb in parsing parsing.c:95
 >     #5 0x10248a1e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -261,7 +261,7 @@
 >     #1 0x100a3c791 in without_arg ft_cd.c:68
 >     #2 0x100a3c3de in ft_cd ft_cd.c:105
 >     #3 0x100a389e9 in execute execute.c:34
->     #4 0x100a3b5f2 in ft_loop_handle test.c:81
+>     #4 0x100a3b5f2 in ft_fork_handle test.c:81
 >     #5 0x100a43dbb in parsing parsing.c:95
 >     #6 0x100a381e4 in main main.c:83
 >     #7 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -273,7 +273,7 @@
 >     #2 0x100a3c791 in without_arg ft_cd.c:68
 >     #3 0x100a3c3de in ft_cd ft_cd.c:105
 >     #4 0x100a389e9 in execute execute.c:34
->     #5 0x100a3b5f2 in ft_loop_handle test.c:81
+>     #5 0x100a3b5f2 in ft_fork_handle test.c:81
 >     #6 0x100a43dbb in parsing parsing.c:95
 >     #7 0x100a381e4 in main main.c:83
 >     #8 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -340,7 +340,7 @@
 >     #0 0x102fcde2a in modify_pwd ft_cd.c:46
 >     #1 0x102fcd553 in ft_cd ft_cd.c:114
 >     #2 0x102fc99e9 in execute execute.c:34
->     #3 0x102fcc5f2 in ft_loop_handle test.c:81
+>     #3 0x102fcc5f2 in ft_fork_handle test.c:81
 >     #4 0x102fd4dbb in parsing parsing.c:95
 >     #5 0x102fc91e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -371,7 +371,7 @@
 >     #0 0x1005e6e2a in modify_pwd ft_cd.c:46
 >     #1 0x1005e6553 in ft_cd ft_cd.c:114
 >     #2 0x1005e29e9 in execute execute.c:34
->     #3 0x1005e55f2 in ft_loop_handle test.c:81
+>     #3 0x1005e55f2 in ft_fork_handle test.c:81
 >     #4 0x1005eddbb in parsing parsing.c:95
 >     #5 0x1005e21e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -462,7 +462,7 @@
 >     #0 0x10205ee2a in modify_pwd ft_cd.c:46
 >     #1 0x10205e553 in ft_cd ft_cd.c:114
 >     #2 0x10205a9e9 in execute execute.c:34
->     #3 0x10205d5f2 in ft_loop_handle test.c:81
+>     #3 0x10205d5f2 in ft_fork_handle test.c:81
 >     #4 0x102065dbb in parsing parsing.c:95
 >     #5 0x10205a1e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
@@ -490,7 +490,7 @@
 >     #0 0x102b66e2a in modify_pwd ft_cd.c:46
 >     #1 0x102b66553 in ft_cd ft_cd.c:114
 >     #2 0x102b629e9 in execute execute.c:34
->     #3 0x102b655f2 in ft_loop_handle test.c:81
+>     #3 0x102b655f2 in ft_fork_handle test.c:81
 >     #4 0x102b6ddbb in parsing parsing.c:95
 >     #5 0x102b621e4 in main main.c:83
 >     #6 0x7fff20415630 in start+0x0 (libdyld.dylib:x86_64+0x15630)
