@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:56:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 22:58:35 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_sep(char *str, int *s1, int k)
 		s2 = set_sep(str + i, &i);
 	while (str[i] == ' ')
 		++i;
-	if ((!str[i] && *s1 != COMA) || k == 0)
+	if ((!str[i] && *s1 != COMA) || (k == 0 && (*s1 == COMA || *s1 == PIPE)))
 		s2 = *s1;
 	if (sep_error(*s1, s2, str + i) == -1)
 		return (-1);
