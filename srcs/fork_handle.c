@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 17:34:54 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 17:37:51 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static void	ft_putstatus(int status)
 	else if (status % 255 != 0)
 		g_status = status % 255;
 	else if (status != 0)
-		g_status = 255;
-	
+		g_status = 255;	
 }
 
 static void	ft_mana_sig(t_cmd *cmd)
