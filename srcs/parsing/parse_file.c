@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:10:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 19:03:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	parse_file(char **file, char *str, t_cmd **cmd, char **envp)
 		if ((ret = parse_token(str + i + 1, file, cmd, envp)) < -1)
 			return (ret);
 		error_msg("$", *file, ": ", 1);
-		write(2, "ambiguous redirect\n", 19);
+		write(2, "ambiguous redirect\n", 127);
 		free(*file);
 		*file = NULL;
 		return (FILE_ERR);
