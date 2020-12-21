@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 22:42:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 00:04:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
-static char		*join_path(char **path)
+static char	*join_path(char **path)
 {
 	char	*pwd;
 	char	*new;
