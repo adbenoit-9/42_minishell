@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 01:08:10 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 05:05:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	modif_fd(t_cmd *cmd, int *fd)
+static void	modify_fd(t_cmd *cmd, int *fd)
 {
 	if (cmd->output)
 		dup2(fd[1], 1);
@@ -28,10 +28,11 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	char	*add_p;
 	char	*new_p;
 
-	modif_fd(cmd, fd);
+	modify_fd(cmd, fd);
 	if (execve(args[0], args, envp) != -1)
 		return (0);
-	ret = find_var(envp, "PATH");
+	if ((ret = find_var(envp, "PATH")) == VAR_NOT_FOUND)
+		return (-1);
 	path = ft_split(envp[ret], ':');
 	i = 0;
 	ret = 0;

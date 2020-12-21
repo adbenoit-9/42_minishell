@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:11:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 05:42:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	is_cmd_sep(char *str, int *i, int *quote)
 		++bs;
 	if (bs % 2 == 0 && *quote == 0 && (str[*i] == ';' || str[*i] == '|'))
 		return (1);
+	if (!str[*i])
+		--(*i);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:15:40 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 05:33:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_is_new_arg(char const *s, char c, int n, int quote)
 	int	ret;
 
 	bs = 0;
-	i = n;
+	i = n + 1;
 	ret = 0;
 	while (s[--i] == '\\')
 		++bs;
