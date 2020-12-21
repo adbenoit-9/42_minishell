@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:16:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 18:42:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static void	ft_none_arg(char *token, char *envp[], int *fd)
 		return ;
 	}
 	error_msg("export: `", token, "\': not a valid identifier\n", 1);
-	write(2, "\n", 1);
 }
 
 void		ft_export(t_cmd **cmd, char *envp[], int *fd)

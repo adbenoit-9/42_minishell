@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/18 14:41:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 03:58:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 18:54:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	sep_error(int s1, int s2, char *str)
 		return (0);
 	if (ret == -1 || (s1 != NONE && s2 != NONE))
 	{
-		error_msg(NULL, NULL, "syntax error\n", 258);
+		error_msg(NULL, NULL, "syntax error\n", 2);
 		return (-1);
 	}
 	return (0);
