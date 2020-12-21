@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 17:37:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/21 17:45:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_putstatus(int status)
 
 static void	ft_mana_sig(t_cmd *cmd)
 {
-	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "make") == 0)
+	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "./minishell") == 0)
 		g_shell.bool = 1;
 	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "exit") == 0)
 	{
