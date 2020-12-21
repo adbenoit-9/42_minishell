@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 17:34:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 00:04:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,47 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
+static char	*join_path(char **path)
+{
+	char	*pwd;
+	char	*new;
+
+	if (ft_strncmp(*path, "./", 2) == 0)
+	{
+		pwd = getcwd(NULL, 0);
+		new = ft_strjoin(pwd, *path + 1);
+		pwd = *path;
+		*path = new;
+		return (pwd);
+	}
+	return (*path);
+}
+
 void		ft_not_builtin(t_cmd **cmd, char *envp[], int *fd)
 {
-	int	ret;
-	int	i;
+	int		ret;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	if (!((*cmd)->tokens[0][0]))
 		return ;
+	tmp = join_path(&(*cmd)->tokens[0]);
 	ret = is_executable(*cmd, envp, (*cmd)->tokens, fd);
 	while (ret == -1 && (*cmd)->tokens[0][++i])
 	{
 		if ((*cmd)->tokens[0][i] == '/')
 		{
-			error_msg("\0", (*cmd)->tokens[0],
+			error_msg("\0", tmp,
 			": No such file or directory\n", 127);
-			return ;
+			free(tmp);
+			exit(127);
 		}
 	}
 	if (ret == -1)
 	{
-		error_msg("\0", (*cmd)->tokens[0], ": command not found\n", 127);
-		exit(EXIT_FAILURE);
+		error_msg("\0", tmp, ": command not found\n", 127);
+		free(tmp);
+		exit(127);
 	}
 }
