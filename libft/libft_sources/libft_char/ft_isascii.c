@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabriand <mabriand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/25 15:52:05 by mabriand          #+#    #+#             */
-/*   Updated: 2020/08/25 17:01:04 by mabriand         ###   ########.fr       */
+/*   Created: 2019/11/05 10:25:03 by mabriand          #+#    #+#             */
+/*   Updated: 2019/11/18 17:47:57 by mabriand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../../libft_header/libft.h"
 
-int main(int argc, char **argv)
+/*
+** Vérifie si le caractère c est un unsigned char sur 7 bits,
+** entrant dans le jeu de caractère de la table ASCII.
+** =========
+** #1 : le carctère à analyser.
+** =========
+** Retourne 1 si c'est le cas (VRAI),
+** 0 si ce n'est pas le cas (FAUX).
+*/
+
+int	ft_isascii(int c)
 {
-	char shell[] = {0xF0, 0x9F, 0x90, 0x9A};
-	char buffer[4098];
-
-	write(1, "\033[1;45mLesPetitsCoquillages", 27);
-	write(1, shell, 4);
-	write(1, ":\033[0m ", 4);
-	read(0, buffer, 4098);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

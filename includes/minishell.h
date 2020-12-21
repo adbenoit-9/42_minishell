@@ -1,0 +1,151 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/12/21 04:42:13 by adbenoit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# define ECHO 0
+# define CD 1
+# define PWD 2
+# define ENV 3
+# define EXPORT 4
+# define UNSET 5
+# define EXIT 6
+# define UNKNOW 7
+# define ERROR 9
+# define NUM_CMD 7
+
+# define NONE -1
+# define PIPE 0
+# define COMA 1
+# define RIGHT 2
+# define LEFT 3
+# define D_RIGHT 4
+# define D_LEFT 5
+# define AND 6
+# define OR 7
+# define NUM_SEP 5
+
+# define EXIT_ERROR -6
+# define FILE_ERR -5
+# define MALL_ERR -4
+# define SEP_ERR -3
+# define QUOTE_NOT_FOUND -2
+# define VAR_NOT_FOUND -1
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <sys/errno.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include "../libft/libft_header/libft.h"
+
+int			g_status;
+int			g_wait;
+int			g_tmp;
+
+typedef struct	s_shell
+{
+	pid_t		pid;
+	int			bool;
+	int			sig;
+}				t_shell;
+
+typedef struct	s_cmd
+{
+	char			**tokens;
+	char			*input;
+	char			*output;
+	int				sep;
+	int				r_type;
+	int				err;
+	struct s_cmd	*next;
+}				t_cmd;
+
+extern t_cmd	*g_cmd;
+extern t_shell	g_shell;
+
+typedef void	(*t_function)(t_cmd **, char **, int *);
+
+/*
+**	UTILS
+*/
+
+void			*ft_realloc(void *ptr, int newsize);
+char			**ft_realloc_tab(char **ptr, int newsize);
+void			*ft_free(char **tab);
+int				find_var(char *envp[], char *var);
+int				error_msg(char *g_cmd, char *arg, char *err, int error);
+int				errno_msg(char *cmd, char *str, int ret);
+void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
+void			clear_one(t_cmd **cmd);
+int				replace_var_by_value(char *var, char *envp[], char **value,
+				int *start);
+int				ft_tabsize(char **tab);
+char			**ft_tabdup(char *tab[]);
+void			ft_puttab_fd(char **tab, int fd);
+int				ft_check_var(char *var);
+
+/*
+**	PARSING
+*/
+
+int				set_token(char **tokens, t_cmd **cmd, char **envp);
+int				parsing(char *str, char *envp[]);
+int				save_cmd(char *str, t_cmd **cmd, char *envp[]);
+t_cmd			*ft_cmdnew(int sep);
+void			ft_cmdadd_back(t_cmd **alst, t_cmd *new);
+void			ft_exit(t_cmd **cmd, char *envp[], int *fd);
+int				deal_dollar(char *str, char **tokens, int *j, char *envp[]);
+int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
+int				deal_double_quote(char *str, char **tokens, int *j,
+				char *env[]);
+int				set_sep(char *str, int *i);
+int				ft_issep(char c);
+int				sep_error(int s1, int s2, char *str);
+char			**split_token(char const *s, char c, int n);
+int				is_in_quote(char const *s, int i, int *quote);
+int				parse_token(char *token, char **new_token, t_cmd **cmd,
+				char **envp);
+int				parse_str(char *str);
+int				deal_status(char **new_token, int *k, int size);
+int				set_file_name(t_cmd **cmd, char *str, char **envp);
+
+/*
+**	COMMANDS
+*/
+
+void			ft_pwd(t_cmd **cmd, char *envp[], int *fd);
+void			ft_cd(t_cmd **cmd, char *envp[], int *fd);
+void			ft_env(t_cmd **cmd, char *envp[], int *fd);
+void			ft_export(t_cmd **cmd, char *envp[], int *fd);
+void			ft_unset(t_cmd **cmd, char *envp[], int *fd);
+void			ft_echo(t_cmd **cmd, char *envp[], int *fd);
+void			ft_not_builtin(t_cmd **cmd, char *envp[], int *fd);
+
+int				ft_add_to_envp(char *envp[], char *str);
+void			ft_modify_envp(char *envp[], char *var, char *new, int pos);
+void			ft_sort_env(char *envp[]);
+int				ft_redirect(t_cmd **cmd, int *fd_in, int *fd_out);
+void			ft_loop_handle(t_cmd *cmd, char *envp[]);
+int				ft_launch_process(t_cmd **cmd, char **args, char *envp[]);
+char			*ft_correct_path(char *path);
+int				modify_pwd(char *path, char *envp[], char *var);
+int				run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid);
+
+void			proc_sig_handler(int signo);
+void			ft_sig_handler(int signo);
+void			init_mshell(void);
+
+#endif
