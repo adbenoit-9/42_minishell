@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 15:15:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 15:30:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,6 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_putstatus(int status)
-{
-	if (g_shell.pid == 1)
-		g_status = WEXITSTATUS(status);
-	if (g_shell.sig == 1)
-	{
-		if (WIFSIGNALED(status) == 1)
-			g_status = WCOREDUMP(status) ? 131 : 130;
-		else
-			g_status = 255;
-	}
-	else if (status % 255 != 0)
-		g_status = status % 255;
-	else if (status != 0)
-		g_status = 255;
-}
-
 static void	set_status(int n, int pid)
 {
 	int	status;
@@ -49,7 +32,11 @@ static void	set_status(int n, int pid)
 	while (n-- >= 0)
 	{
 		if (wait(&status) == pid)
-			ft_putstatus(status);
+		{
+			g_status = WEXITSTATUS(status);
+			if (WIFSIGNALED(status) == 1)
+				g_status = 128 + WTERMSIG(status);
+		}
 	}
 }
 
