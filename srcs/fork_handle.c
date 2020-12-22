@@ -24,14 +24,17 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_putstatus(int status)
+static void	ft_putstatus(int status, int final, int nb_wait)
 {
+	nb_wait++;
 	if (g_shell.pid == 1)
 		g_status = WEXITSTATUS(status);
 	if (g_shell.sig == 1)
 	{
-		if (WIFSIGNALED(status) == 1)
+		if (WIFSIGNALED(status) == 1 && (nb_wait != 0 || final == 0))
 			g_status = 130;
+		else if (WIFSIGNALED(status) == 1 && nb_wait == 0 && final != 0)
+			g_status = 0;
 		else
 			g_status = 255;
 	}
@@ -89,7 +92,10 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 			nb_wait++;
 		}
 	}
+	int final = nb_wait;
 	while (nb_wait-- >= 0)
+	{	
 		wait(&status);
-	ft_putstatus(status);
+		ft_putstatus(status, final, nb_wait);
+	}	
 }
