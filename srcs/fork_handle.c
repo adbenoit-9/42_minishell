@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 14:07:45 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 15:30:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,20 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_putstatus(int status)
+static void	set_status(int n, int pid)
 {
-	if (g_shell.pid == 1)
-		g_status = WEXITSTATUS(status);
-	if (g_shell.sig == 1)
-	{
-		if (WIFSIGNALED(status) == 1)
-			g_status = 130;
-		else
-			g_status = 255;
-	}
-	else if (status % 255 != 0)
-		g_status = status % 255;
-	else if (status != 0)
-		g_status = 255;
-}
-
-static void	set_status(int n)
-{
-	int nb_pipe;
 	int	status;
-	int	tmp;
-	int bool;
 
 	status = 0;
-	nb_pipe = n;
-	bool = 0;
 	while (n-- >= 0)
 	{
-		if (WIFSIGNALED(status) == 0)
+		if (wait(&status) == pid)
 		{
-			tmp = status;
-			bool = 1;
+			g_status = WEXITSTATUS(status);
+			if (WIFSIGNALED(status) == 1)
+				g_status = 128 + WTERMSIG(status);
 		}
-		wait(&status);
 	}
-	if (nb_pipe > 0 && WIFSIGNALED(status) == 1 && bool == 1)
-	{
-		g_shell.sig = 0;
-		status = tmp;
-	}
-	ft_putstatus(status);
 }
 
 void		ft_fork_handle(t_cmd *cmd, char *envp[])
@@ -94,5 +66,5 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 		cmd = cmd->next;
 		nb_wait++;
 	}
-	set_status(nb_wait);
+	set_status(nb_wait, pid);
 }
