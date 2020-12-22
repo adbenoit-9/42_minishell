@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 16:34:47 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 13:54:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int				modify_pwd(char *path, char *envp[], char *var);
 int				run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid);
 
 void			proc_sig_handler(int signo);
+void			ft_mana_sig(t_cmd *cmd);
 void			ft_sig_handler(int signo);
 void			init_mshell(void);
 

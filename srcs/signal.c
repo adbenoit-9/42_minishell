@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:54:27 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 01:03:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 13:53:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void	proc_sig_handler(int signo)
 		g_shell.pid = 1;
 	}
 	return ;
+}
+
+void	ft_mana_sig(t_cmd *cmd)
+{
+	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "./minishell") == 0)
+		g_shell.bool = 1;
+	if (cmd->tokens[0] && ft_strcmp(cmd->tokens[0], "exit") == 0)
+	{
+		g_shell.bool = 0;
+		g_shell.pid = 1;
+	}
+	g_shell.sig = 0;
+	signal(SIGINT, proc_sig_handler);
+	signal(SIGQUIT, proc_sig_handler);
+	g_shell.pid = 0;
 }
