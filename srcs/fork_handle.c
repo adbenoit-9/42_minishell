@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 22:56:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 13:47:10 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,14 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	exit(EXIT_SUCCESS);
 }
 
-static void	ft_putstatus(int status, int final, int nb_wait)
+static void	ft_putstatus(int status)
 {
-	nb_wait++;
 	if (g_shell.pid == 1)
 		g_status = WEXITSTATUS(status);
 	if (g_shell.sig == 1)
 	{
-		if (WIFSIGNALED(status) == 1 && (nb_wait != 0 || final == 0))
+		if (WIFSIGNALED(status) == 1)
 			g_status = 130;
-		else if (WIFSIGNALED(status) == 1 && nb_wait == 0 && final != 0)
-			g_status = 0;
 		else
 			g_status = 255;
 	}
@@ -42,6 +39,27 @@ static void	ft_putstatus(int status, int final, int nb_wait)
 		g_status = status % 255;
 	else if (status != 0)
 		g_status = 255;
+}
+
+static void	set_status(int n)
+{
+	int nb_pipe;
+	int	status;
+	int	tmp;
+
+	status = 0;
+	nb_pipe = n;
+	while (n-- >= 0)
+	{
+		tmp = status;
+		wait(&status);
+	}
+	if (nb_pipe > 0 && WIFSIGNALED(status) == 1)
+	{
+		g_shell.sig = 0;
+		status = tmp;
+	}
+	ft_putstatus(status);
 }
 
 static void	ft_mana_sig(t_cmd *cmd)
@@ -63,11 +81,9 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 {
 	int		p[2];
 	int		fd[2];
-	int		status;
 	int		nb_wait;
 	pid_t	pid;
 
-	status = 0;
 	nb_wait = 0;
 	fd[0] = 1;
 	fd[1] = 1;
@@ -85,17 +101,10 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 			run_cmd(cmd, envp, fd, 1);
 			close(p[1]);
 			fd[0] = p[0];
-			if (cmd->next != NULL)
-				cmd = cmd->next;
-			else
-				break ;
-			nb_wait++;
+			cmd = cmd->next;
+			if (cmd)
+				nb_wait++;
 		}
 	}
-	int final = nb_wait;
-	while (nb_wait-- >= 0)
-	{	
-		wait(&status);
-		ft_putstatus(status, final, nb_wait);
-	}	
+	set_status(nb_wait);
 }
