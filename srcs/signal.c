@@ -14,6 +14,7 @@
 
 void	ft_sig_handler(int signo)
 {
+	g_status = 130;
 	if (g_shell.pid == 0)
 	{
 		write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
