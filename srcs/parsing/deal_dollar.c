@@ -6,30 +6,57 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:06:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 15:08:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	replace_var_by_value(char *name, char **value, int *start, char *envp[])
+{
+	int	i;
+	int	k;
+	int	len;
+
+	i = 0;
+	if (!ft_getenv(name, &i, envp))
+		return (VAR_NOT_FOUND);
+	k = ft_strlen(name);
+	len = ft_strlen(envp[i]);
+	if (len != k)
+	{
+		if (!(*value = ft_realloc(*value, len - k + ft_strlen(*value) + 1)))
+			return (MALL_ERR);
+	}
+	while (ft_strcmp(envp[i] + k, "=") != 0 && envp[i][k] && envp[i][++k])
+	{
+		(*value)[*start] = envp[i][k];
+		++(*start);
+	}
+	(*value)[*start] = 0;
+	return (0);
+}
+
 static int	deal_var(char *str, char **token, int *j, char *envp[])
 {
-	char	*var;
+	char	*name;
 	int		i;
 	int		k;
 
 	i = 0;
 	while (ft_isalnum(str[i]) == 1 || str[i] == '_')
 		++i;
-	if (!(var = malloc(i + 1)))
+	if (!(name = malloc(i + 1)))
 		return (MALL_ERR);
-	ft_strncpy(var, str, i);
-	var[i] = 0;
-	k = ft_replace_by_env(var, token, j, envp);
-	free(var);
-	var = NULL;
+	ft_strncpy(name, str, i);
+	name[i] = 0;
+	k = replace_var_by_value(name, token, j, envp);
+	free(name);
+	name = NULL;
 	if (k == VAR_NOT_FOUND && *j == 0 && !str[i])
 		return (VAR_NOT_FOUND);
+	else if (k == MALL_ERR)
+		return (k);
 	return (i);
 }
 

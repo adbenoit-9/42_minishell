@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:12:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 13:54:19 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef void	(*t_function)(t_cmd **, int *, char **);
 void			*ft_realloc(void *ptr, int newsize);
 char			**ft_realloc_tab(char **ptr, int newsize);
 void			*ft_free(char **tab);
+char			*ft_strcat(char *dest, char *src);
 int				error_msg(char *g_cmd, char *arg, char *err, int error);
 int				errno_msg(char *cmd, char *str, int ret);
 void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
@@ -94,9 +95,9 @@ char			**ft_tabdup(char *tab[]);
 void			ft_puttab_fd(char **tab, int fd);
 int				check_var_name(char *var);
 char			*ft_getenv(char *name, int *n, char *envp[]);
-int				ft_putenv(char *str, char *envp[]);
-int				ft_setenv(char *name, char *value, int add, char *envp[]);
-int				ft_replace_by_env(char *var, char **value, int *start, char *envp[]);
+int				ft_putenv(char *name, char *str, char *envp[]);
+int				ft_setenv(char *name, char *value, int mode, char *envp[]);
+char			*get_var_name(char *name, char *str);
 
 /*
 **	PARSING

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 03:07:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 13:31:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,41 +61,57 @@ char	*ft_getenv(char *name, int *n, char *envp[])
 	return (NULL);
 }
 
-int			ft_setenv(char *name, char *value, int add, char *envp[])
+/*
+** str have to be malloc
+*/
+
+int			ft_putenv(char *name, char *str, char *envp[])
+{
+	int	n;
+
+	if (!name || !name[0])
+		return (-1);
+	n = 0;
+	if (!ft_getenv(name, &n, envp))
+	{
+		n = ft_tabsize(envp);
+		envp[n + 1] = 0;
+	}
+	free(envp[n]);
+	envp[n] = str;
+	return (0);
+}
+
+/*
+** mode can be worth 0 (= replace value) or 1 (= mode to value)
+*/
+
+int			ft_setenv(char *name, char *value, int mode, char *envp[])
 {
 	char	*new;
 	int		size;
-	int		new_size;
 	int		len;
 	int		n;
 
 	if (!name || !name[0])
 		return (-1);
-	new = NULL;
 	size = ft_tabsize(envp);
-	len = ft_strlen(name);
-	new_size = len + ft_strlen(value) + 1;
+	len = ft_strlen(name) + ft_strlen(value) + 1;
 	if (!ft_getenv(name, &n, envp))
 		n = size;
-	else if (add == 1)
-		new_size = ft_strlen(envp[n]) + ft_strlen(value);
-	if (!(new = malloc(new_size + 1)))
+	else if (mode == 1)
+		len = ft_strlen(envp[n]) + ft_strlen(value);
+	if (!(new = malloc(len + 1)))
 		return (-1);
-	if (add == 0)
+	if (mode == 0)
 	{
 		ft_strcpy(new, name);
-		ft_strcpy(new + len, "=");
+		ft_strcat(new, "=");
 	}
 	else
-	{
 		ft_strcpy(new, envp[n]);
-		len = ft_strlen(envp[n]) - 1;
-	}
-	ft_strcpy(new + len + 1, value);
-	new[new_size] = 0;
-	envp[n] = new;
-	envp[n + 1] = 0;
-	return (0);
+	ft_strcat(new, value);
+	return (ft_putenv(name, new, envp));
 }
 
 static int	ft_place(char *s1, char *s2)

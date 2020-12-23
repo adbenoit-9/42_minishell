@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:06:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 12:56:54 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,9 @@ int		main(int argc, char *argv[], char **envp)
 		error_msg(": ", argv[1], ": No argument requiered\n", 127);
 		exit(g_status);
 	}
-	// printf("%s\nenvp = %s\n", envp[0], envp[0]);
-	// int i = -1;
-	// while(envp[++i])
-	// 	envp[i] = envp[i];
-	// envp[i] = 0;
-	// ft_bzero(envp + i, 4098);
+	int i = -1;
+	while(envp[++i])
+		envp[i] = ft_strdup(envp[i]);
 	while (ret > 0)
 	{
 		if (display_prompt(argc, argv, &ret, &str) == 0)
