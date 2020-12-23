@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:43:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 03:07:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_getenv(char *name, int *n, char *envp[])
 		if (ft_strncmp(envp[i], name, size) == 0 &&
 		(envp[i][size] == '=' || !envp[i][size]))
 		{
-			if (*n)
+			if (n)
 				*n = i;
 			return (envp[i] + size + 1);
 		}

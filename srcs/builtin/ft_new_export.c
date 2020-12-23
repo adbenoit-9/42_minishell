@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:51:04 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 03:30:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,29 @@ static char	*get_var_name(char *var, char *str)
 	var = ft_strncpy(var, str, i);
 	var[i] = 0;
 	return (var);
+}
+
+static void ft_display(char *str, int fd)
+{
+	int		i;
+	int		j;
+	char	new[4096];
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' || str[i] == '\\')
+		{
+			new[j] = '\\';
+			++j;
+		}
+		new[j] = str[i];
+		++j;
+		++i;
+	}
+	new[j] = 0;
+	ft_putstr_fd(new, fd);
 }
 
 static void	ft_putenv_fd(char *token, int fd, char *envp[])
@@ -43,7 +66,7 @@ static void	ft_putenv_fd(char *token, int fd, char *envp[])
 			ft_putstr_fd("declare -x ", fd);
 			ft_putstr_fd(var, fd);
 			ft_putstr_fd( "=\"", fd);
-			ft_putstr_fd(copy[i] + len + 1, fd);
+			ft_display(copy[i] + len + 1, fd);
 			ft_putstr_fd( "\"\n", fd);
 		}
 		ft_free(copy);
@@ -62,10 +85,11 @@ void		ft_export(t_cmd **cmd, int *fd, char *envp[])
 	{
 		get_var_name(var, (*cmd)->tokens[i]);
 		len = ft_strlen(var);
-		if (check_var_name(var) == -1)
+		if (check_var_name(var) == 0)
 		{
 			error_msg("export: `", (*cmd)->tokens[i],
 			"\': not a valid identifier\n", 1);
+			return ;
 		}
 		if ((*cmd)->tokens[i][len] == '+' && (*cmd)->tokens[i][len + 1] == '=')
 			ft_setenv(var, (*cmd)->tokens[i] + len + 2, 1, envp);

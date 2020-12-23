@@ -5,7 +5,7 @@ export ; echo -------------------------- ; export ok ; export ;echo ------------
 echo pwd = $PWD; echo oldpwd = $OLDPWD ; cd .. ; echo --------;echo pwd = $PWD ; echo oldpwd = $OLDPWD ; cd Minishell	|ok
 echo -n -n -n $potato$orange; unset																						|ok
 export ""; export test= ; export > export.txt                                                                           |ok
-export test="ok'\\'\\" ; export                                                                                         |ko (+simple quote with \)
+export test="ok'\\'\\" ; export                                                                                         |ko
 export testvar10= ; env | grep -a testvar10                                                                             |ko
 exit 9887
 export SHLVL=8 && run_test 'env' 'grep -a SHLVL' (tester)

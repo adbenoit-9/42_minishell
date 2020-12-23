@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 17:18:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 17:01:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 03:24:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int		check_var_name(char *var)
 {
 	int i;
 
+	if (!var)
+		return (1);
 	if (!var[0])
 		return (0);
 	if (var[0] && ft_isalpha(var[0]) == 0 && var[0] != '_')
