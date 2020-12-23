@@ -1,0 +1,2 @@
+unset ok
+export ok= ; export ok

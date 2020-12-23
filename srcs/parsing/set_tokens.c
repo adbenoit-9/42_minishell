@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 03:06:04 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:12:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	parse_char(char *token, char **new, int *k, char **envp)
+static int	parse_char(char *token, char **new, int *k, char *envp[])
 {
 	int	ret;
 
@@ -34,7 +34,7 @@ static int	parse_char(char *token, char **new, int *k, char **envp)
 	return (ret);
 }
 
-int			parse_token(char *token, char **new, t_cmd **cmd, char **envp)
+int			parse_token(char *token, char **new, t_cmd **cmd, char *envp[])
 {
 	int		j;
 	int		k;
@@ -70,7 +70,7 @@ static int	free_tokens(char **tokens, t_cmd **cmd, int err, int k)
 	return (err);
 }
 
-int			set_token(char **tokens, t_cmd **cmd, char **envp)
+int			set_token(char **tokens, t_cmd **cmd, char *envp[])
 {
 	int	i;
 	int	ret;

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:09:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:06:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	deal_var(char *str, char **token, int *j, char *envp[])
 		return (MALL_ERR);
 	ft_strncpy(var, str, i);
 	var[i] = 0;
-	k = replace_var_by_value(var, envp, token, j);
+	k = ft_replace_by_env(var, token, j, envp);
 	free(var);
 	var = NULL;
 	if (k == VAR_NOT_FOUND && *j == 0 && !str[i])

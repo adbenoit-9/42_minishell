@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 15:30:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 01:53:16 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	if (cmd->next)
 		dup2(p[1], 1);
 	close(p[0]);
-	run_cmd(cmd, envp, fd, 0);
+	run_cmd(cmd, fd, 0, envp);
 	exit(EXIT_SUCCESS);
 }
 
@@ -59,7 +59,7 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 			ft_son(cmd, fd, p, envp);
 		else
 		{
-			run_cmd(cmd, envp, fd, 1);
+			run_cmd(cmd, fd, 1, envp);
 			close(p[1]);
 			fd[0] = p[0];
 		}

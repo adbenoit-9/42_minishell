@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:39:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:00:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ static int	check_arg(t_cmd **cmd)
 	return (0);
 }
 
-void		ft_exit(t_cmd **cmd, char *envp[], int *fd)
+void		ft_exit(t_cmd **cmd, int *fd, char *envp[])
 {
 	int	ret;
 
-	(void)envp;
 	(void)fd;
+	(void)envp;
 	ret = 0;
 	write(1, "exit\n", 5);
 	if ((*cmd)->tokens[1])

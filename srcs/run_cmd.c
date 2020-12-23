@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 15:15:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 01:51:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid)
+int	run_cmd(t_cmd *cmd, int *fd, int pid, char *envp[])
 {
 	int					i;
 	static t_function	cmd_fct[NUM_CMD + 1] = {ft_echo, ft_cd, ft_pwd, ft_env,
@@ -31,7 +31,7 @@ int	run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid)
 			g_status = 0;
 			errno = 0;
 			ft_redirect(&cmd, &fd[0], &fd[1]);
-			cmd_fct[i](&cmd, envp, fd);
+			cmd_fct[i](&cmd, fd, envp);
 		}
 	}
 	if (fd[0] != 1)

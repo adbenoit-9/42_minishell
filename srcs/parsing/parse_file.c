@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 19:07:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:11:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	parse_file(char **file, char *str, t_cmd **cmd, char **envp)
+static int	parse_file(char **file, char *str, t_cmd **cmd, char *envp[])
 {
 	int	i;
 	int	ret;
@@ -57,7 +57,7 @@ static int	open_output(t_cmd *cmd, int i)
 	return (fd);
 }
 
-int			set_file_name(t_cmd **cmd, char *str, char **envp)
+int			set_file_name(t_cmd **cmd, char *str, char *envp[])
 {
 	int i;
 	int fd;

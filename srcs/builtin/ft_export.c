@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:42:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 01:50:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*ft_create_var(char *str, int *pos)
 	while (str[++i] && str[i] != '=')
 		var[i] = str[i];
 	var[i] = '\0';
-	if (ft_check_var(var) == 0)
+	if (check_var_name(var) == 0)
 	{
 		error_msg("export: `", str, "\': not a valid identifier\n", 1);
 		return (NULL);
@@ -41,7 +41,7 @@ static char	*ft_create_var(char *str, int *pos)
 	return (var);
 }
 
-int			ft_add_to_envp(char *envp[], char *str)
+int			ft_add_to_env(char *str)
 {
 	int	i;
 	int	j;
@@ -67,14 +67,14 @@ int			ft_add_to_envp(char *envp[], char *str)
 	return (0);
 }
 
-void		ft_modify_envp(char *envp[], char *var, char *new, int pos)
+void		ft_modify_envp(char *var, char *new, int pos)
 {
 	if (new[0] == '\0' || new == NULL)
 		return ;
 	ft_strcpy(envp[pos] + ft_strlen(var) + 1, new);
 }
 
-static void	ft_none_arg(char *token, char *envp[], int *fd)
+static void	ft_none_arg(char *token, int *fd, char *envp[])
 {
 	char	**copy;
 	int		i;
@@ -101,7 +101,7 @@ static void	ft_none_arg(char *token, char *envp[], int *fd)
 	error_msg("export: `", token, "\': not a valid identifier\n", 1);
 }
 
-void		ft_export(t_cmd **cmd, char *envp[], int *fd)
+void		ft_export(t_cmd **cmd, int *fd)
 {
 	int		pos;
 	int		i;
@@ -109,20 +109,20 @@ void		ft_export(t_cmd **cmd, char *envp[], int *fd)
 	char	*new;
 
 	if ((*cmd)->tokens[1] == NULL || !(*cmd)->tokens[1][0])
-		return (ft_none_arg((*cmd)->tokens[1], envp, fd));
+		return (ft_none_arg((*cmd)->tokens[1], fd));
 	i = 0;
 	while ((*cmd)->tokens[++i])
 	{
 		if ((var = ft_create_var((*cmd)->tokens[i], &pos)))
 		{
 			new = ft_strdup((*cmd)->tokens[i] + pos + 1);
-			if ((pos = find_var(envp, var)) == -1)
+			if ((pos = ft_getpos(var)) == -1)
 			{
-				if ((ft_add_to_envp(envp, (*cmd)->tokens[i])) == -1)
+				if ((ft_add_to_env((*cmd)->tokens[i])) == -1)
 					errno_msg("env", NULL, MALL_ERR);
 			}
 			else
-				ft_modify_envp(envp, var, new, pos);
+				ft_modify_env(var, new, pos);
 			free(var);
 			free(new);
 		}

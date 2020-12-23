@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/20 23:52:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:00:46 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static int	ft_echo_n(t_cmd *cmd, int *i)
 	return (n);
 }
 
-void		ft_echo(t_cmd **cmd, char *envp[], int *fd)
+void		ft_echo(t_cmd **cmd, int *fd, char *envp[])
 {
 	int	i;
 	int k;
 	int n;
 
-	(void)envp;
 	i = 1;
+	(void)envp;
 	if (!(*cmd)->tokens)
 		return ;
 	n = ft_echo_n(*cmd, &i);

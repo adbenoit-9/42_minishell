@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/21 05:26:14 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/22 21:23:07 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ SRCS		=	main.c				run_cmd.c \
 				signal.c			exec_cmd.c
 
 UTIL		=	ft_error.c			deal_lst.c\
-				ft_realloc.c		deal_var.c \
+				ft_realloc.c		ft_env_utils.c \
 				ft_utils.c
 
 BUILTIN 	=	ft_cd.c				ft_env.c \
-				ft_export.c			ft_echo.c \
+				ft_new_export.c			ft_echo.c \
 				ft_exit.c			ft_pwd.c \
 				ft_unset.c
 

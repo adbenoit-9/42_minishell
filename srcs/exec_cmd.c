@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 00:04:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 01:57:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	modify_fd(t_cmd *cmd, int *fd)
 		dup2(fd[0], 0);
 }
 
-static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
+static int	is_executable(t_cmd *cmd, char *args[], int *fd, char *envp[])
 {
 	int		ret;
 	int		i;
@@ -31,8 +31,9 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	modify_fd(cmd, fd);
 	if (execve(args[0], args, envp) != -1)
 		return (0);
-	if ((ret = find_var(envp, "PATH")) == VAR_NOT_FOUND)
+	if (!ft_getenv("PATH", &ret, envp))
 		return (-1);
+	ret = 0;
 	path = ft_split(envp[ret], ':');
 	i = 0;
 	ret = 0;
@@ -65,7 +66,7 @@ static char	*join_path(char **path)
 	return (*path);
 }
 
-void		ft_not_builtin(t_cmd **cmd, char *envp[], int *fd)
+void		ft_not_builtin(t_cmd **cmd, int *fd, char *envp[])
 {
 	int		ret;
 	int		i;
@@ -75,7 +76,7 @@ void		ft_not_builtin(t_cmd **cmd, char *envp[], int *fd)
 	if (!((*cmd)->tokens[0][0]))
 		return ;
 	tmp = join_path(&(*cmd)->tokens[0]);
-	ret = is_executable(*cmd, envp, (*cmd)->tokens, fd);
+	ret = is_executable(*cmd, (*cmd)->tokens, fd, envp);
 	while (ret == -1 && (*cmd)->tokens[0][++i])
 	{
 		if ((*cmd)->tokens[0][i] == '/')

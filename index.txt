@@ -45,7 +45,7 @@ unset:
         ex : 'unset test= test1' erreur sur 'test=' et test1 supprimées d'env
 env:
     ** OÙ ? **
-        - int main(int argc, char *argv[], char *envp[])
+        - int main(int argc, char *argv[])
 exit:
     - juste fermer notre programme de va pas etre correcte car
     plusieurs ouvertures de bash = plusieurs exit.

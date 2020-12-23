@@ -92,7 +92,7 @@
 > ==40336==ERROR: AddressSanitizer: requested allocation size 0xfffffffffffffffe (0x800 after adjustments for alignment, red zones etc.) exceeds maximum supported size of 0x10000000000 (thread T0)
 >     #0 0x10cbfbe5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
 >     #1 0x1048bb51b in ft_realloc ft_realloc.c:22
->     #2 0x1048bbe27 in replace_var_by_value manage_var.c:46
+>     #2 0x1048bbe27 in ft_getenv manage_var.c:46
 >     #3 0x1048c83f1 in deal_var deal_dollar.c:28
 >     #4 0x1048c7dbd in deal_dollar deal_dollar.c:60
 >     #5 0x1048c9d67 in parse_char set_tokens.c:26
@@ -589,7 +589,7 @@
 > allocated by thread T0 here:
 >     #0 0x108f07e5d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64+0x45e5d)
 >     #1 0x100bc751b in ft_realloc ft_realloc.c:22
->     #2 0x100bc7e27 in replace_var_by_value manage_var.c:46
+>     #2 0x100bc7e27 in ft_getenv manage_var.c:46
 >     #3 0x100bd43f1 in deal_var deal_dollar.c:28
 >     #4 0x100bd3dbd in deal_dollar deal_dollar.c:60
 >     #5 0x100bd29c9 in deal_double_quote deal_quote.c:84

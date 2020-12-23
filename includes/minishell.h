@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 13:54:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:12:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct	s_cmd
 extern t_cmd	*g_cmd;
 extern t_shell	g_shell;
 
-typedef void	(*t_function)(t_cmd **, char **, int *);
+typedef void	(*t_function)(t_cmd **, int *, char **);
 
 /*
 **	UTILS
@@ -85,64 +85,60 @@ typedef void	(*t_function)(t_cmd **, char **, int *);
 void			*ft_realloc(void *ptr, int newsize);
 char			**ft_realloc_tab(char **ptr, int newsize);
 void			*ft_free(char **tab);
-int				find_var(char *envp[], char *var);
 int				error_msg(char *g_cmd, char *arg, char *err, int error);
 int				errno_msg(char *cmd, char *str, int ret);
 void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
 void			clear_one(t_cmd **cmd);
-int				replace_var_by_value(char *var, char *envp[], char **value,
-				int *start);
 int				ft_tabsize(char **tab);
 char			**ft_tabdup(char *tab[]);
 void			ft_puttab_fd(char **tab, int fd);
-int				ft_check_var(char *var);
+int				check_var_name(char *var);
+char			*ft_getenv(char *name, int *n, char *envp[]);
+int				ft_putenv(char *str, char *envp[]);
+int				ft_setenv(char *name, char *value, int add, char *envp[]);
+int				ft_replace_by_env(char *var, char **value, int *start, char *envp[]);
 
 /*
 **	PARSING
 */
 
-int				set_token(char **tokens, t_cmd **cmd, char **envp);
+int				set_token(char **tokens, t_cmd **cmd, char *envp[]);
 int				parsing(char *str, char *envp[]);
 int				save_cmd(char *str, t_cmd **cmd, char *envp[]);
 t_cmd			*ft_cmdnew(int sep);
 void			ft_cmdadd_back(t_cmd **alst, t_cmd *new);
-void			ft_exit(t_cmd **cmd, char *envp[], int *fd);
 int				deal_dollar(char *str, char **tokens, int *j, char *envp[]);
 int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
-int				deal_double_quote(char *str, char **tokens, int *j,
-				char *env[]);
+int				deal_double_quote(char *str, char **tokens, int *j, char *envp[]);
 int				set_sep(char *str, int *i);
 int				ft_issep(char c);
 int				sep_error(int s1, int s2, char *str);
 char			**split_token(char const *s, char c, int n);
 int				is_in_quote(char const *s, int i, int *quote);
-int				parse_token(char *token, char **new_token, t_cmd **cmd,
-				char **envp);
+int				parse_token(char *token, char **new_token, t_cmd **cmd, char *envp[]);
 int				parse_str(char *str);
 int				deal_status(char **new_token, int *k, int size);
-int				set_file_name(t_cmd **cmd, char *str, char **envp);
+int				set_file_name(t_cmd **cmd, char *str, char *envp[]);
 
 /*
 **	COMMANDS
 */
 
-void			ft_pwd(t_cmd **cmd, char *envp[], int *fd);
-void			ft_cd(t_cmd **cmd, char *envp[], int *fd);
-void			ft_env(t_cmd **cmd, char *envp[], int *fd);
-void			ft_export(t_cmd **cmd, char *envp[], int *fd);
-void			ft_unset(t_cmd **cmd, char *envp[], int *fd);
-void			ft_echo(t_cmd **cmd, char *envp[], int *fd);
-void			ft_not_builtin(t_cmd **cmd, char *envp[], int *fd);
+void			ft_pwd(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_cd(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_env(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_exit(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_export(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_unset(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_echo(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_not_builtin(t_cmd **cmd, int *fd, char *envp[]);
 
-int				ft_add_to_envp(char *envp[], char *str);
-void			ft_modify_envp(char *envp[], char *var, char *new, int pos);
-void			ft_sort_env(char *envp[]);
+void			ft_sort_env(char **env);
 int				ft_redirect(t_cmd **cmd, int *fd_in, int *fd_out);
 void			ft_fork_handle(t_cmd *cmd, char *envp[]);
-int				ft_launch_process(t_cmd **cmd, char **args, char *envp[]);
+int				ft_launch_process(t_cmd **cmd, char **args);
 char			*ft_correct_path(char *path);
-int				modify_pwd(char *path, char *envp[], char *var);
-int				run_cmd(t_cmd *cmd, char *envp[], int *fd, int pid);
+int				run_cmd(t_cmd *cmd, int *fd, int pid, char *envp[]);
 
 void			proc_sig_handler(int signo);
 void			ft_mana_sig(t_cmd *cmd);

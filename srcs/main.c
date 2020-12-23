@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:00:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:06:15 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 t_cmd	*g_cmd;
 t_shell	g_shell;
 
-void	init_mshell(void)
+void		init_mshell(void)
 {
 	g_shell.pid = 0;
 	g_shell.bool = 0;
 }
 
-int		display_prompt(int argc, char **argv, int *ret, char **str)
+static int	display_prompt(int argc, char **argv, int *ret, char **str)
 {
 	int i;
 
@@ -50,7 +50,7 @@ int		display_prompt(int argc, char **argv, int *ret, char **str)
 	return (1);
 }
 
-void	term(char *str, char *envp[], int argc, char **argv)
+static void	term(char *str, int argc, char **argv, char *envp[])
 {
 	int i;
 
@@ -68,7 +68,7 @@ void	term(char *str, char *envp[], int argc, char **argv)
 	return ;
 }
 
-int		main(int argc, char *argv[], char *envp[])
+int		main(int argc, char *argv[], char **envp)
 {
 	char	*str;
 	int		ret;
@@ -80,6 +80,12 @@ int		main(int argc, char *argv[], char *envp[])
 		error_msg(": ", argv[1], ": No argument requiered\n", 127);
 		exit(g_status);
 	}
+	// printf("%s\nenvp = %s\n", envp[0], envp[0]);
+	// int i = -1;
+	// while(envp[++i])
+	// 	envp[i] = envp[i];
+	// envp[i] = 0;
+	// ft_bzero(envp + i, 4098);
 	while (ret > 0)
 	{
 		if (display_prompt(argc, argv, &ret, &str) == 0)
@@ -87,7 +93,7 @@ int		main(int argc, char *argv[], char *envp[])
 		if (ret == 0)
 			g_shell.bool = 0;
 		g_cmd = NULL;
-		term(str, envp, argc, argv);
+		term(str, argc, argv, envp);
 	}
 	free(str);
 	write(1, "exit\n", 5);

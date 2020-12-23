@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:14:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 02:02:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			deal_simple_quote(char *str, char **tokens, int *j, int dollar)
 	return (len + 1);
 }
 
-int			deal_double_quote(char *str, char **tokens, int *j, char *env[])
+int			deal_double_quote(char *str, char **tokens, int *j, char *envp[])
 {
 	int i;
 
@@ -81,7 +81,7 @@ int			deal_double_quote(char *str, char **tokens, int *j, char *env[])
 	while (str[++i] && str[i] != '\"')
 	{
 		if (str[i] == '$')
-			i += deal_dollar(str + i, tokens, j, env) - 1;
+			i += deal_dollar(str + i, tokens, j, envp) - 1;
 		else if (str[i] == '\\' && (str[i + 1] == '\"' ||
 		str[i + 1] == '\\' || str[i + 1] == '$'))
 		{

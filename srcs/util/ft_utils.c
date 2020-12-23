@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 17:18:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 00:06:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/22 17:01:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_puttab_fd(char **tab, int fd)
 	return ;
 }
 
-int		ft_check_var(char *var)
+int		check_var_name(char *var)
 {
 	int i;
 
