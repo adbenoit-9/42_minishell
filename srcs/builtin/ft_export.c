@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_export.c                                    :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 13:58:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 22:34:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ static void ft_display(char *str, int fd)
 	ft_putstr_fd(new, fd);
 }
 
-static void	ft_putenv_fd(char *token, int fd, char *envp[])
+static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
 {
 	char	**copy;
 	char	var[4096];
 	int		i;
 	int		len;
 
-	if (!token)
+	if (!ptr)
 	{
 		copy = ft_tabdup(envp);
 		ft_sort_env(copy);
@@ -77,34 +77,34 @@ static void	ft_putenv_fd(char *token, int fd, char *envp[])
 	}
 }
 
-void		ft_export(t_cmd **cmd, int *fd, char *envp[])
+void		ft_export(t_cmd *cmd, int *fd, char *envp[])
 {
-	int		i;
 	int		len;
 	char	var[4096];
+	t_list	*tmp;
 
-	i = 0;
-	while ((*cmd)->tokens[++i])
+	tmp = cmd->tok->next;
+	while (tmp)
 	{
-		get_var_name(var, (*cmd)->tokens[i]);
+		get_var_name(var, tmp->content);
 		len = ft_strlen(var);
 		if (check_var_name(var) == 0)
 		{
-			error_msg("export: `", (*cmd)->tokens[i],
+			error_msg("export: `", tmp->content,
 			"\': not a valid identifier\n", 1);
-			return ;
 		}
-		if ((*cmd)->tokens[i][len] == '+' && (*cmd)->tokens[i][len + 1] == '=')
-			ft_setenv(var, (*cmd)->tokens[i] + len + 2, 1, envp);
-		else if ((*cmd)->tokens[i][len] == '=')
-			ft_setenv(var, (*cmd)->tokens[i] + len + 1, 0, envp);
-		else if (!(*cmd)->tokens[i][len] && !ft_getenv((*cmd)->tokens[i], 0, envp))
+		else if (tmp->content[len] == '+' && tmp->content[len + 1] == '=')
+			ft_setenv(var, tmp->content + len + 2, 1, envp);
+		else if (tmp->content[len] == '=')
+			ft_setenv(var, tmp->content + len + 1, 0, envp);
+		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, envp))
 		{
 			len = ft_tabsize(envp);
 			envp[len] = strdup(var);
 			envp[len + 1] = 0;
 		}
+		tmp = tmp->next;
 	}
-	ft_putenv_fd((*cmd)->tokens[1], fd[1], envp);
+	ft_putenv_fd(cmd->tok->next, fd[1], envp);
 	return ;
 }

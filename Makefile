@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/22 21:23:07 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/23 22:25:23 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ UTIL		=	ft_error.c			deal_lst.c\
 				ft_utils.c
 
 BUILTIN 	=	ft_cd.c				ft_env.c \
-				ft_new_export.c			ft_echo.c \
+				ft_export.c			ft_echo.c \
 				ft_exit.c			ft_pwd.c \
 				ft_unset.c
 

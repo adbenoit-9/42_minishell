@@ -7,7 +7,7 @@ declare -x LESS="-R"
 declare -x LOGNAME="Adeline"
 declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
 declare -x LaunchInstanceID="C72811DC-33DB-485B-B16C-C810F395C740"
-declare -x OLDPWD
+declare -x OLDPWD="/Users/Adeline/42"
 declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
 declare -x PAGER="less"
 declare -x PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/Adeline/.rbenv/shims:/Users/Adeline/anaconda3/bin"

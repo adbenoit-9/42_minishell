@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 12:56:54 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 22:17:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	term(char *str, int argc, char **argv, char *envp[])
 	{
 		parsing(str, envp);
 		free(str);
-		ft_cmdclear(&g_cmd, clear_one);
+		// ft_cmdclear(&g_cmd, clear_one);
 	}
 	if (argc > 1 && ft_strcmp(argv[1], "-c") == 0)
 		exit(g_status);
@@ -94,6 +94,6 @@ int		main(int argc, char *argv[], char **envp)
 	}
 	free(str);
 	write(1, "exit\n", 5);
-	ft_cmdclear(&g_cmd, clear_one);
+	// ft_cmdclear(&g_cmd, clear_one);
 	exit(EXIT_SUCCESS);
 }

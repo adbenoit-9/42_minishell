@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:17:15 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/10 01:05:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 20:51:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 ** Retourne un nouvel élément de type t_list.
 */
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char *content)
 {
 	t_list	*new;
 

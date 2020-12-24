@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 01:51:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/24 02:09:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ int	run_cmd(t_cmd *cmd, int *fd, int pid, char *envp[])
 	static char			*cmd_str[NUM_CMD] = {"echo", "cd", "pwd", "env",
 								"export", "unset", "exit"};
 
-	if (cmd && cmd->tokens[0])
+	if (cmd && cmd->tok && cmd->tok->content)
 	{
 		i = 0;
-		while (i < NUM_CMD && ft_strcmp(cmd_str[i], cmd->tokens[0]) != 0)
+		while (i < NUM_CMD && ft_strcmp(cmd_str[i], cmd->tok->content) != 0)
 			++i;
 		if ((i < UNKNOW && ((pid == 0 && cmd->sep == PIPE) ||
 		(pid == 1 && cmd->sep != PIPE))) || (i == UNKNOW && pid == 0))
 		{
 			g_status = 0;
 			errno = 0;
-			ft_redirect(&cmd, &fd[0], &fd[1]);
-			cmd_fct[i](&cmd, fd, envp);
+			ft_redirect(cmd, &fd[0], &fd[1]);
+			cmd_fct[i](cmd, fd, envp);
 		}
 	}
 	if (fd[0] != 1)

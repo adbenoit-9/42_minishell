@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 13:54:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 21:39:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ typedef struct	s_shell
 
 typedef struct	s_cmd
 {
-	char			**tokens;
-	char			*input;
-	char			*output;
+	t_list			*tok;
+	t_list			*input;
+	t_list			*output;
 	int				sep;
 	int				r_type;
 	int				err;
@@ -76,7 +76,7 @@ typedef struct	s_cmd
 extern t_cmd	*g_cmd;
 extern t_shell	g_shell;
 
-typedef void	(*t_function)(t_cmd **, int *, char **);
+typedef void	(*t_function)(t_cmd *, int *, char **);
 
 /*
 **	UTILS
@@ -108,34 +108,34 @@ int				parsing(char *str, char *envp[]);
 int				save_cmd(char *str, t_cmd **cmd, char *envp[]);
 t_cmd			*ft_cmdnew(int sep);
 void			ft_cmdadd_back(t_cmd **alst, t_cmd *new);
-int				deal_dollar(char *str, char **tokens, int *j, char *envp[]);
-int				deal_simple_quote(char *str, char **tokens, int *j, int dollar);
-int				deal_double_quote(char *str, char **tokens, int *j, char *envp[]);
+int				deal_dollar(char *str, t_list **lst, int *j, char *envp[]);
+int				deal_simple_quote(char *str, char *token, int *j, int dollar);
+int				deal_double_quote(char *str, t_list **lst, int *j, char *envp[]);
 int				set_sep(char *str, int *i);
 int				ft_issep(char c);
 int				sep_error(int s1, int s2, char *str);
 char			**split_token(char const *s, char c, int n);
 int				is_in_quote(char const *s, int i, int *quote);
-int				parse_token(char *token, char **new_token, t_cmd **cmd, char *envp[]);
+int				parse_token(char *token, t_list **new, t_cmd **cmd, char *envp[]);
 int				parse_str(char *str);
-int				deal_status(char **new_token, int *k, int size);
+int				deal_status(char **tokens, int *k, int size);
 int				set_file_name(t_cmd **cmd, char *str, char *envp[]);
 
 /*
 **	COMMANDS
 */
 
-void			ft_pwd(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_cd(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_env(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_exit(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_export(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_unset(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_echo(t_cmd **cmd, int *fd, char *envp[]);
-void			ft_not_builtin(t_cmd **cmd, int *fd, char *envp[]);
+void			ft_pwd(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_cd(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_env(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_exit(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_export(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_unset(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_echo(t_cmd *cmd, int *fd, char *envp[]);
+void			ft_not_builtin(t_cmd *cmd, int *fd, char *envp[]);
 
 void			ft_sort_env(char **env);
-int				ft_redirect(t_cmd **cmd, int *fd_in, int *fd_out);
+int				ft_redirect(t_cmd *cmd, int *fd_in, int *fd_out);
 void			ft_fork_handle(t_cmd *cmd, char *envp[]);
 int				ft_launch_process(t_cmd **cmd, char **args);
 char			*ft_correct_path(char *path);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:08:43 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 01:08:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 20:52:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd			*ft_cmdnew(int sep)
 	list->r_type = 0;
 	list->err = 0;
 	list->sep = sep;
-	list->tokens = NULL;
+	list->tok = NULL;
 	list->input = NULL;
 	list->output = NULL;
 	list->next = NULL;
@@ -50,10 +50,11 @@ void			ft_cmdadd_back(t_cmd **alst, t_cmd *new)
 
 void			clear_one(t_cmd **lst)
 {
-	ft_free((*lst)->tokens);
+	free((*lst)->tok->content);
+	free((*lst)->tok);
 	free((*lst)->input);
 	free((*lst)->output);
-	(*lst)->tokens = NULL;
+	(*lst)->tok = NULL;
 	(*lst)->input = NULL;
 	(*lst)->output = NULL;
 	free(*lst);

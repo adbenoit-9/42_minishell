@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 03:07:28 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/24 02:09:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,22 +66,38 @@ static char	*join_path(char **path)
 	return (*path);
 }
 
-void		ft_not_builtin(t_cmd **cmd, int *fd, char *envp[])
+void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 {
 	int		ret;
 	int		i;
-	char	*tmp;
+	char	*copy;
+	char	**args;
+	t_list	*tmp;
 
-	i = -1;
-	if (!((*cmd)->tokens[0][0]))
+	i = 0;
+	if (!cmd->tok || !(cmd->tok->content[0]))
 		return ;
-	tmp = join_path(&(*cmd)->tokens[0]);
-	ret = is_executable(*cmd, (*cmd)->tokens, fd, envp);
-	while (ret == -1 && (*cmd)->tokens[0][++i])
+	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
-		if ((*cmd)->tokens[0][i] == '/')
+		errno_msg(NULL, NULL, MALL_ERR);
+		return ;
+	}
+	tmp = cmd->tok;
+	while (tmp)
+	{
+		args[i] = tmp->content;
+		tmp = tmp->next;
+		++i;
+	}
+	args[i] = NULL;
+	i = -1;
+	copy = join_path(&cmd->tok->content);
+	ret = is_executable(cmd, args, fd, envp);
+	while (ret == -1 && cmd->tok->content[++i])
+	{
+		if (cmd->tok->content[i] == '/')
 		{
-			error_msg("\0", tmp,
+			error_msg("\0", copy,
 			": No such file or directory\n", 127);
 			free(tmp);
 			exit(127);
@@ -89,7 +105,7 @@ void		ft_not_builtin(t_cmd **cmd, int *fd, char *envp[])
 	}
 	if (ret == -1)
 	{
-		error_msg("\0", tmp, ": command not found\n", 127);
+		error_msg("\0", copy, ": command not found\n", 127);
 		free(tmp);
 		exit(127);
 	}

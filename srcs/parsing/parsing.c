@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 02:06:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 23:15:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			parsing(char *str, char *envp[])
 	int		i;
 	t_cmd	*tmp;
 
-	ft_cmdclear(&g_cmd, clear_one);
+	// ft_cmdclear(&g_cmd, clear_one);
 	ret = save_cmd(str, &g_cmd, envp);
 	i = 0;
 	tmp = g_cmd;
@@ -92,6 +92,6 @@ int			parsing(char *str, char *envp[])
 		ft_fork_handle(g_cmd, envp);
 	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
 		return (parsing(str + i, envp));
-	ft_cmdclear(&g_cmd, clear_one);
+	// ft_cmdclear(&g_cmd, clear_one);
 	return (0);
 }
