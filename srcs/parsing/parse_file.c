@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 21:42:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:13:29 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			set_file_name(t_cmd **cmd, char *str, char *envp[])
 			return (ret);
 		fd = (errno == 0) ? open((*cmd)->input->content, O_RDONLY) : 0;
 		if (errno != 0)
-			return (errno_msg(NULL, (*cmd)->input->content, FILE_ERR));
+			return (errno_msg(NULL, (*cmd)->input->content, FILE_ERR, 0));
 	}
 	else if (str[i] == '>' && str[++i])
 	{
@@ -78,7 +78,7 @@ int			set_file_name(t_cmd **cmd, char *str, char *envp[])
 		if ((ret = parse_file(&(*cmd)->output, str + i, cmd, envp)) < 0)
 			return (ret);
 		if ((fd = open_output(*cmd, i)) < 0)
-			return (errno_msg(NULL, (*cmd)->output->content, FILE_ERR));
+			return (errno_msg(NULL, (*cmd)->output->content, FILE_ERR, 0));
 	}
 	if (fd != 0)
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/24 02:09:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:11:29 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 		return ;
 	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
-		errno_msg(NULL, NULL, MALL_ERR);
+		errno_msg(NULL, NULL, MALL_ERR, 0);
 		return ;
 	}
 	tmp = cmd->tok;
@@ -97,16 +97,15 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 	{
 		if (cmd->tok->content[i] == '/')
 		{
-			error_msg("\0", copy,
-			": No such file or directory\n", 127);
+			g_status = errno_msg(copy, NULL, 127, ENOENT);
 			free(tmp);
-			exit(127);
+			exit(g_status);
 		}
 	}
 	if (ret == -1)
 	{
 		error_msg("\0", copy, ": command not found\n", 127);
 		free(tmp);
-		exit(127);
+		exit(g_status);
 	}
 }

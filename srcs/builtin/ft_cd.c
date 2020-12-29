@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 20:56:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 12:03:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	cd_without_arg(t_cmd **cmd, char *envp[])
 	}
 	(*cmd)->tok->next = ft_lstnew(ft_strdup(envp[pos] + 5));
 	if (!((*cmd)->tok->next->content))
-		return (errno_msg(NULL, NULL, MALL_ERR));
+		return (errno_msg(NULL, NULL, MALL_ERR, 0));
 	return (0);
 }
 
@@ -80,6 +80,6 @@ void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
 		free(path);
 	}
 	if (errno != 0)
-		errno_msg("cd", cmd->tok->next->content, 0);
+		errno_msg("cd", cmd->tok->next->content, 0, 0);
 	return ;
 }

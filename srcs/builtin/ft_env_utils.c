@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 13:31:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 12:02:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_replace_by_env(char *var, char **value, int *start, char *envp[])
 	if (len != k)
 	{
 		if (!(*value = ft_realloc(*value, len - k + ft_strlen(*value) + 1)))
-			return (errno_msg(NULL, NULL, MALL_ERR));
+			return (errno_msg(NULL, NULL, MALL_ERR, 0));
 	}
 	while (ft_strcmp(envp[i] + k, "=\'\'") != 0 && envp[i][++k])
 	{
@@ -37,6 +37,10 @@ int	ft_replace_by_env(char *var, char **value, int *start, char *envp[])
 	(*value)[*start] = 0;
 	return (0);
 }
+
+/*
+** n is the index of the variable in env
+*/
 
 char	*ft_getenv(char *name, int *n, char *envp[])
 {
@@ -52,9 +56,11 @@ char	*ft_getenv(char *name, int *n, char *envp[])
 		if (ft_strncmp(envp[i], name, size) == 0 &&
 		(envp[i][size] == '=' || !envp[i][size]))
 		{
+			if (envp[i][size] == '=')
+				++size;
 			if (n)
 				*n = i;
-			return (envp[i] + size + 1);
+			return (envp[i] + size);
 		}
 		++i;
 	}

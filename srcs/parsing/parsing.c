@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 23:15:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:21:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_bs(char *str, int *sep)
 	if (!str[1])
 	{
 		error_msg(NULL, NULL,
-		"syntax error :char expected after `\\'\n", 2);
+		"syntax error\n", 2);
 		return (-1);
 	}
 	*sep = NONE;

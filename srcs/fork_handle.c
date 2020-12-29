@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/24 02:08:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 12:19:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 	{
 		ft_mana_sig(cmd);
 		if (pipe(p) == -1 || (pid = fork()) == -1)
-			exit(errno_msg(NULL, NULL, EXIT_FAILURE));
+			exit(errno_msg(NULL, NULL, EXIT_FAILURE, 0));
 		if (pid == 0)
 			ft_son(cmd, fd, p, envp);
 		else

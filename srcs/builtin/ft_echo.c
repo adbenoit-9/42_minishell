@@ -6,32 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 23:02:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 11:51:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static int	ft_echo_n(t_list **lst)
-// {
-// 	int	n;
-// 	int j;
-
-// 	n = 0;
-// 	if (!*lst)
-// 		return (0);
-// 	while (*lst && ft_strncmp((*lst)->content, "-n", 2) == 0)
-// 	{
-// 		j = 2;
-// 		while ((*lst)->content[j] == 'n')
-// 			++j;
-// 		if ((*lst)->content[j])
-// 			return (n);
-// 		++n;
-// 		*lst = (*lst)->next;
-// 	}
-// 	return (n);
-// }
 
 void		ft_echo(t_cmd *cmd, int *fd, char *envp[])
 {

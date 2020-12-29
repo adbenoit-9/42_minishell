@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/24 02:00:51 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 11:42:11 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 	int		len;
 
 	i = 0;
-	if (!value)
+	if (!value || !value[0])
 		return (VAR_NOT_FOUND);
 	len = ft_strlen(value) + ft_strlen(str) + *j + 1;
 	if (!((*lst)->content = ft_realloc((*lst)->content, len)))
@@ -75,7 +75,7 @@ static int	deal_var(char *str, t_list **lst, int *j, char *envp[])
 		return (MALL_ERR);
 	ft_strncpy(name, str, i);
 	name[i] = 0;
-	k = replace_var_by_value(ft_getenv(name, &i, envp), lst, j, str + i);
+	k = replace_var_by_value(ft_getenv(name, 0, envp), lst, j, str + i);
 	free(name);
 	name = NULL;
 	if (k == VAR_NOT_FOUND && *j == 0 && !str[i])

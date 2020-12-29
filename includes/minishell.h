@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 21:39:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/28 12:03:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char			**ft_realloc_tab(char **ptr, int newsize);
 void			*ft_free(char **tab);
 char			*ft_strcat(char *dest, char *src);
 int				error_msg(char *g_cmd, char *arg, char *err, int error);
-int				errno_msg(char *cmd, char *str, int ret);
+int				errno_msg(char *cmd, char *str, int ret, int new_errno);
 void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
 void			clear_one(t_cmd **cmd);
 int				ft_tabsize(char **tab);

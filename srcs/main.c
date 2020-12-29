@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 22:17:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:15:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,9 @@ int		main(int argc, char *argv[], char **envp)
 
 	str = NULL;
 	ret = 1;
+	errno = EIO;
 	if (argc > 1 && ft_strcmp(argv[1], "-c") != 0)
-	{
-		error_msg(": ", argv[1], ": No argument requiered\n", 127);
-		exit(g_status);
-	}
+		exit(errno_msg(argv[1], NULL, 127, EINVAL));
 	int i = -1;
 	while(envp[++i])
 		envp[i] = ft_strdup(envp[i]);
