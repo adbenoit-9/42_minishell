@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 11:19:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 17:58:54 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	is_error(t_cmd *cmd)
 	if (cmd->err >= -1)
 		return (0);
 	if (cmd->err == MALL_ERR)
-		errno_msg(NULL, NULL, MALL_ERR, 0);
+		errno_msg(NULL, NULL, MALL_ERR);
 	else if (cmd->err == QUOTE_NOT_FOUND)
 		error_msg(NULL, NULL, "syntax error\n", 2);
 	else

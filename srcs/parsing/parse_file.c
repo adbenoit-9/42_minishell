@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 11:13:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 20:07:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	parse_file(t_list **file, char *str, t_cmd **cmd, char *envp[])
 
 	i = 0;
 	ft_lstclear(file, free);
-	*file = ft_lstnew(ft_strdup(str));
+	if (!(*file = ft_lstnew(ft_strdup(str))) || !(*file)->content)
+		return (MALL_ERR);
 	if ((ret = parse_token(str, file, cmd, envp)) < -1)
 		return (ret);
 	if (ret == -1)
@@ -28,8 +29,7 @@ static int	parse_file(t_list **file, char *str, t_cmd **cmd, char *envp[])
 			++i;
 		if ((ret = parse_token(str + i + 1, file, cmd, envp)) < -1)
 			return (ret);
-		error_msg("$", (*file)->content, ": ", 1);
-		write(2, "ambiguous redirect\n", 127);
+		error_msg("$", (*file)->content, ": ambiguous redirect\n", 127);
 		ft_lstclear(file, free);
 		return (FILE_ERR);
 	}
@@ -70,7 +70,7 @@ int			set_file_name(t_cmd **cmd, char *str, char *envp[])
 			return (ret);
 		fd = (errno == 0) ? open((*cmd)->input->content, O_RDONLY) : 0;
 		if (errno != 0)
-			return (errno_msg(NULL, (*cmd)->input->content, FILE_ERR, 0));
+			return (errno_msg(NULL, (*cmd)->input->content, FILE_ERR));
 	}
 	else if (str[i] == '>' && str[++i])
 	{
@@ -78,7 +78,7 @@ int			set_file_name(t_cmd **cmd, char *str, char *envp[])
 		if ((ret = parse_file(&(*cmd)->output, str + i, cmd, envp)) < 0)
 			return (ret);
 		if ((fd = open_output(*cmd, i)) < 0)
-			return (errno_msg(NULL, (*cmd)->output->content, FILE_ERR, 0));
+			return (errno_msg(NULL, (*cmd)->output->content, FILE_ERR));
 	}
 	if (fd != 0)
 		close(fd);

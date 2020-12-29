@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/24 01:42:15 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 20:17:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	parse_char(char *token, t_list **new, int *k, char *envp[])
 	else if (token[0] == '$' && token[1] == '?')
 		ret = deal_status(&(*new)->content, k, ft_strlen(token));
 	else if (token[0] == '$')
-		ret = deal_dollar(token, new, k, envp);
+		ret = deal_dollar(token, new, k, envp, 0);
 	else if (token[0] == ' ')
 		ret = 1;
 	else

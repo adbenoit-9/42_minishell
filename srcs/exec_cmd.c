@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 12:08:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 20:06:19 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,36 @@ static char	*join_path(char *path)
 	return (ft_strdup(path));
 }
 
+static int	deal_error(char *cmd, void *next)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '/')
+		{
+			if (chdir(cmd) == 0)
+				errno = EISDIR;
+			errno = errno == ENOTDIR ? EACCES : errno;
+			if (errno == EISDIR)
+				error_msg(cmd, NULL, ": is a directory\n", 126);
+			else
+				g_status = errno_msg(cmd, NULL, 127); //g_status vim ?
+			g_status = errno == EACCES ? 126 : g_status;
+			return (g_status);
+		}
+		else if (cmd[i] == '.' && !cmd[i + 1] && !next)
+		{
+			error_msg(cmd, NULL, "filename argument required\n\
+			\r.:usage: . filename [arguments]\n", 2); //g_status vim ?
+			return (2);
+		}
+	}
+	error_msg(cmd, NULL, ": command not found\n", 127);
+	return (127);
+}
+
 void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 {
 	int		ret;
@@ -71,40 +101,27 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 	char	**args;
 	t_list	*tmp;
 
-	i = 0;
 	if (!cmd->tok || !(cmd->tok->content[0]))
 		return ;
 	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
-		errno_msg(NULL, NULL, MALL_ERR, 0);
+		errno_msg(NULL, NULL, MALL_ERR);
 		return ;
 	}
+	i = 0;
 	tmp = cmd->tok;
 	while (tmp)
 	{
 		args[i] = tmp->content;
 		tmp = tmp->next;
-		++i;
+		i++;
 	}
 	args[i] = NULL;
-	i = -1;
 	copy = join_path(cmd->tok->content);
 	modify_fd(cmd, fd);
 	ret = is_executable(copy, args, envp);
 	free(copy);
-	while (ret == -1 && cmd->tok->content[++i])
-	{
-		if (cmd->tok->content[i] == '/')
-		{
-			g_status = errno_msg(cmd->tok->content, NULL, 127, ENOENT);
-			free(tmp);
-			exit(g_status);
-		}
-	}
 	if (ret == -1)
-	{
-		error_msg("\0", cmd->tok->content, ": command not found\n", 127);
-		free(tmp);
-		exit(g_status);
-	}
+		g_status = deal_error(cmd->tok->content, cmd->tok->next);
+	exit(g_status);
 }

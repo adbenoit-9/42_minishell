@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/28 12:02:59 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 17:58:39 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_replace_by_env(char *var, char **value, int *start, char *envp[])
 	if (len != k)
 	{
 		if (!(*value = ft_realloc(*value, len - k + ft_strlen(*value) + 1)))
-			return (errno_msg(NULL, NULL, MALL_ERR, 0));
+			return (errno_msg(NULL, NULL, MALL_ERR));
 	}
 	while (ft_strcmp(envp[i] + k, "=\'\'") != 0 && envp[i][++k])
 	{

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/28 12:03:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 20:17:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char			**ft_realloc_tab(char **ptr, int newsize);
 void			*ft_free(char **tab);
 char			*ft_strcat(char *dest, char *src);
 int				error_msg(char *g_cmd, char *arg, char *err, int error);
-int				errno_msg(char *cmd, char *str, int ret, int new_errno);
+int				errno_msg(char *cmd, char *str, int ret);
 void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
 void			clear_one(t_cmd **cmd);
 int				ft_tabsize(char **tab);
@@ -108,7 +108,7 @@ int				parsing(char *str, char *envp[]);
 int				save_cmd(char *str, t_cmd **cmd, char *envp[]);
 t_cmd			*ft_cmdnew(int sep);
 void			ft_cmdadd_back(t_cmd **alst, t_cmd *new);
-int				deal_dollar(char *str, t_list **lst, int *j, char *envp[]);
+int				deal_dollar(char *str, t_list **lst, int *j, char *envp[], int quote);
 int				deal_simple_quote(char *str, char *token, int *j, int dollar);
 int				deal_double_quote(char *str, t_list **lst, int *j, char *envp[]);
 int				set_sep(char *str, int *i);

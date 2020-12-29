@@ -44,10 +44,8 @@
 
 [33mecho $? ; echo ko > $VAR_NOT_FOUND(B[m
 [35m< bash       (exited with 1)(B[m
-[35m> minishell  (exited with 134)
-(B[m[94m----- STDERR -----(B[m
-Binary files err1 and err2 differ
-
+[35m> minishell  (exited with 127)
+(B[m
 
 [33mecho $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >(B[m
 [35m< bash       (exited with 2)(B[m
@@ -60,26 +58,6 @@ Binary files err1 and err2 differ
 > minishell: syntax error
 
 
-[33mecho $? ; ./echo ko; echo $?(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDOUT -----(B[m
-2c2
-< 127
----
-> 0
-
-
-[33mexport ok;  echo $ok.ko(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDOUT -----(B[m
-1c1
-< .ko
----
-> .ko 
-
-
 [33munset HOME ; cd ; pwd(B[m
 [35m< bash       (exited with 0)(B[m
 [35m> minishell  (exited with 0)
@@ -88,16 +66,6 @@ Binary files err1 and err2 differ
 < minishell: cd: HOME not set
 ---
 > minishell: cd : HOME not set
-
-
-[33m/; pwd(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: /: is a directory
----
-> minishell: /: No such file or directory
 
 
 [33mexit(B[m
@@ -179,167 +147,6 @@ Binary files err1 and err2 differ
 1a2
 > exit
 
-
-[33m/(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: /: is a directory
----
-> minishell: /: No such file or directory
-
-
-[33m./(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: ./: is a directory
----
-> minishell: ./: No such file or directory
-
-
-[33m/.(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: /.: is a directory
----
-> minishell: /.: No such file or directory
-
-
-[33mls imnotaflag meneither(B[m
-[35m< bash       (exited with 1)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33midontexist(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m./meneither(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m./dir(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: ./dir: is a directory
----
-> minishell: ./dir: No such file or directory
-
-
-[33mtouch ucantexecme.e ; chmod 000 ucantexecme.e ; ./ucantexecme.e(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: ./ucantexecme.e: Permission denied
----
-> minishell: ./ucantexecme.e: No such file or directory
-
-
-[33mecho "'$'"(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDOUT -----(B[m
-1d0
-< '$'
-[94m----- STDERR -----(B[m
-0a1
-> minishell: syntax error
-
-
-[33m\"asdasdasd\"$asdasd$HOME(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m> a echo cucu cantaba la rana; cat a(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDOUT -----(B[m
-1c1
-< cucu cantaba la rana
----
-> cucu cantaba la rana 
-
-
-[33mnotacommand > a(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33mls > a imnotaflag meneither(B[m
-[35m< bash       (exited with 1)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m>> a echo cucu cantaba la rana; cat a(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDOUT -----(B[m
-1c1
-< cucu cantaba la rana
----
-> cucu cantaba la rana 
-
-
-[33mnotacommand >> a(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33mls >> a imnotaflag meneither(B[m
-[35m< bash       (exited with 1)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m/(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: /: is a directory
----
-> minishell: /: No such file or directory
-
-
-[33m./(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: ./: is a directory
----
-> minishell: ./: No such file or directory
-
-
-[33m/.(B[m
-[35m< bash       (exited with 126)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: /.: is a directory
----
-> minishell: /.: No such file or directory
-
-
-[33mecho\" asdasdasd\"$asdasd$HOME coucou(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
-
-[33m\"asdasdasd\"$asdasd$HOME(B[m
-[35m< bash       (exited with 127)(B[m
-[35m> minishell  (exited with 0)
-(B[m
 
 [33mexit 42\"asdasdasd\"$asdasd$HOME coucou(B[m
 [35m< bash       (exited with 255)(B[m

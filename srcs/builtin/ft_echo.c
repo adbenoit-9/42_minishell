@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/28 11:51:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 19:08:07 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void		ft_echo(t_cmd *cmd, int *fd, char *envp[])
 	while (tmp)
 	{
 		ft_putstr_fd(tmp->content, fd[1]);
-		tmp = tmp->next;
-		if (tmp)
+		if ((tmp = tmp->next))
 			write(fd[1], " ", 1);
 	}
 	if (n == 0)
