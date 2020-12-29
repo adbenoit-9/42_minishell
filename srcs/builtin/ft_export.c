@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 22:34:52 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 14:45:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void ft_display(char *str, int fd)
 		return ;
 	i = 0;
 	j = 0;
+	ft_putstr_fd( "=\"", fd);
 	while (str[++i])
 	{
 		if (str[i] == '\"' || str[i] == '\\')
@@ -48,6 +49,7 @@ static void ft_display(char *str, int fd)
 	}
 	new[j] = 0;
 	ft_putstr_fd(new, fd);
+	ft_putchar_fd( '\"', fd);
 }
 
 static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
@@ -68,9 +70,8 @@ static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
 			len = ft_strlen(var);
 			ft_putstr_fd("declare -x ", fd);
 			ft_putstr_fd(var, fd);
-			ft_putstr_fd( "=\"", fd);
 			ft_display(copy[i] + len, fd);
-			ft_putstr_fd( "\"\n", fd);
+			ft_putchar_fd( '\n', fd);
 		}
 		ft_free(copy);
 		return ;

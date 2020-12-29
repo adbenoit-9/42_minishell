@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/28 12:03:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 16:02:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,25 @@ char		*ft_correct_path(char *path)
 	return (ft_strdup(path));
 }
 
-static int	cd_without_arg(t_cmd **cmd, char *envp[])
+static int	ft_cd_home(t_cmd **cmd, char *envp[])
 {
 	int	pos;
 
+	pos = 0;
+	if ((*cmd)->tok->next && (*cmd)->tok->next->content)
+		return (0);
+	else if ((*cmd)->tok->next)
+		free((*cmd)->tok->next);
 	if (!ft_getenv("HOME", &pos, envp))
 	{
+
 		error_msg("cd : ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
-	(*cmd)->tok->next = ft_lstnew(ft_strdup(envp[pos] + 5));
-	if (!((*cmd)->tok->next->content))
+	if (!((*cmd)->tok->next = ft_lstnew(ft_strdup(envp[pos] + 5)))
+	|| !((*cmd)->tok->next->content))
 		return (errno_msg(NULL, NULL, MALL_ERR, 0));
-	return (0);
+	return (1);
 }
 
 void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
@@ -64,11 +70,11 @@ void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
 	int		pos;
 
 	(void)fd;
-	if (!cmd->tok->next->content && cd_without_arg(&cmd, envp) < 0)
+	if (ft_cd_home(&cmd, envp) == -1)
 		return ;
 	g_tmp = check_path(cmd->tok->next->content);
-	chdir((const char *)cmd->tok->next->content);
-	path = getcwd(NULL, 0);
+	if (chdir((const char *)cmd->tok->next->content) == 0)
+		path = getcwd(NULL, 0);
 	if (errno == 0)
 	{
 		path = ft_correct_path(path);

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 11:11:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 12:08:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	modify_fd(t_cmd *cmd, int *fd)
 		dup2(fd[0], 0);
 }
 
-static int	is_executable(t_cmd *cmd, char *args[], int *fd, char *envp[])
+static int	is_executable(char *pwd, char *args[], char *envp[])
 {
 	int		ret;
 	int		i;
@@ -28,8 +28,7 @@ static int	is_executable(t_cmd *cmd, char *args[], int *fd, char *envp[])
 	char	*add_p;
 	char	*new_p;
 
-	modify_fd(cmd, fd);
-	if (execve(args[0], args, envp) != -1)
+	if (execve(pwd, args, envp) != -1)
 		return (0);
 	ret = 0;
 	if (!ft_getenv("PATH", &ret, envp))
@@ -40,7 +39,7 @@ static int	is_executable(t_cmd *cmd, char *args[], int *fd, char *envp[])
 	while (path[i])
 	{
 		add_p = ft_strjoin(path[i++], "/");
-		new_p = ft_strjoin(add_p, args[0]);
+		new_p = ft_strjoin(add_p, pwd);
 		free(add_p);
 		if (execve(new_p, args, envp) == -1)
 			ret = -1;
@@ -50,20 +49,18 @@ static int	is_executable(t_cmd *cmd, char *args[], int *fd, char *envp[])
 	return (ret);
 }
 
-static char	*join_path(char **path)
+static char	*join_path(char *path)
 {
 	char	*pwd;
 	char	*new;
 
-	if (ft_strncmp(*path, "./", 2) == 0)
+	if (ft_strncmp(path, "./", 2) == 0)
 	{
 		pwd = getcwd(NULL, 0);
-		new = ft_strjoin(pwd, *path + 1);
-		pwd = *path;
-		*path = new;
-		return (pwd);
+		new = ft_strjoin(pwd, path + 1);
+		return (new);
 	}
-	return (*path);
+	return (ft_strdup(path));
 }
 
 void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
@@ -91,20 +88,22 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 	}
 	args[i] = NULL;
 	i = -1;
-	copy = join_path(&cmd->tok->content);
-	ret = is_executable(cmd, args, fd, envp);
+	copy = join_path(cmd->tok->content);
+	modify_fd(cmd, fd);
+	ret = is_executable(copy, args, envp);
+	free(copy);
 	while (ret == -1 && cmd->tok->content[++i])
 	{
 		if (cmd->tok->content[i] == '/')
 		{
-			g_status = errno_msg(copy, NULL, 127, ENOENT);
+			g_status = errno_msg(cmd->tok->content, NULL, 127, ENOENT);
 			free(tmp);
 			exit(g_status);
 		}
 	}
 	if (ret == -1)
 	{
-		error_msg("\0", copy, ": command not found\n", 127);
+		error_msg("\0", cmd->tok->content, ": command not found\n", 127);
 		free(tmp);
 		exit(g_status);
 	}
