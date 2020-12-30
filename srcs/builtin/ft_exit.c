@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:43:09 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:52:32 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ void		ft_exit(t_cmd *cmd, int *fd, char **envp[])
 	if (ret == 1)
 		return ;
 	ft_cmdclear(&g_cmd, clear_one);
+	ft_free(*envp);
 	exit(g_status);
 }
