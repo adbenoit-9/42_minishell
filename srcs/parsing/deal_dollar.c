@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 23:00:44 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 23:20:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 	if (!value || !value[0])
 		return (VAR_NOT_FOUND);
 	len = ft_strlen(value) + ft_strlen(str) + *j + 1;
+	(*lst)->content[*j] = 0;
 	if (!((*lst)->content = ft_realloc((*lst)->content, len)))
 		return (MALL_ERR);
 	while (value[i] && value[i] != ' ')
