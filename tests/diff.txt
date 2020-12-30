@@ -144,8 +144,12 @@
 [35m< bash       (exited with 255)(B[m
 [35m> minishell  (exited with 255)
 (B[m[94m----- STDERR -----(B[m
-1a2
+1c1
+< minishell: pwdd: command not found
+---
 > exit
+2a3
+> minishell: pwdd: command not found
 
 
 [33m> a ; ls(B[m
