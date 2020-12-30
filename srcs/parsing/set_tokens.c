@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 17:44:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 00:13:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			parse_token(char *token, t_list **new, t_cmd **cmd, char *env[])
 			ret = parse_char(token + j, &tmp, &k, env);
 		j = (ret > 0) ? j + ret : j;
 	}
+	tmp = ft_lstlast(tmp);
 	tmp->content[k] = 0;
 	return (ret);
 }
