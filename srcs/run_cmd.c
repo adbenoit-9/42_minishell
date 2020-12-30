@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 16:24:24 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 18:22:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:46:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd(t_cmd *cmd, int *fd, int pid, char *envp[])
+int	run_cmd(t_cmd *cmd, int *fd, int pid, char **envp[])
 {
 	int					i;
 	static t_function	cmd_fct[NUM_CMD + 1] = {ft_echo, ft_cd, ft_pwd, ft_env,

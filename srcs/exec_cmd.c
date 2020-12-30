@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 18:00:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:48:19 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	exec_error(char *cmd, void *next)
 	return (error_msg(cmd, NULL, ": command not found\n", 127));
 }
 
-void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
+void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 {
 	int		i;
 	char	*copy;
@@ -115,7 +115,7 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 		return ;
 	}
 	modify_fd(cmd, fd);
-	i = is_executable(copy, args, envp);
+	i = is_executable(copy, args, *envp);
 	free(copy);
 	if (i == -1)
 		g_status = exec_error(cmd->tok->content, cmd->tok->next);

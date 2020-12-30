@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 18:00:56 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:50:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
 	}
 }
 
-void		ft_export(t_cmd *cmd, int *fd, char *envp[])
+void		ft_export(t_cmd *cmd, int *fd, char **envp[])
 {
 	int		len;
 	char	var[4096];
@@ -100,17 +100,19 @@ void		ft_export(t_cmd *cmd, int *fd, char *envp[])
 			ft_setenv(var, tmp->content + len + 2, 1, envp);
 		else if (tmp->content[len] == '=')
 			ft_setenv(var, tmp->content + len + 1, 0, envp);
-		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, envp))
+		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, *envp))
 		{
-			len = ft_tabsize(envp);
-			if (!(envp[len] = strdup(var)))
+			len = ft_tabsize(*envp);
+			*envp = ft_realloc_tab(*envp, len + 2);
+			if (!*envp || !((*envp)[len] = strdup(var)))
 			{
 				errno_msg(NULL, NULL, MALL_ERR);
 				return ;
 			}
-			envp[len + 1] = 0;
+			(*envp)[len + 1] = 0;
+			ft_puttab_fd(*envp, 0);
 		}
 		tmp = tmp->next;
 	}
-	ft_putenv_fd(cmd->tok->next, fd[1], envp);
+	ft_putenv_fd(cmd->tok->next, fd[1], *envp);
 }

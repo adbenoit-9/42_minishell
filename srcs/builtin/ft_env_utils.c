@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 13:09:28 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:50:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,30 @@ char		*ft_getenv(char *name, int *n, char *envp[])
 ** str have to be malloc
 */
 
-int			ft_putenv(char *name, char *str, char *envp[])
+int			ft_putenv(char *name, char *str, char **envp[])
 {
 	int	n;
 
 	if (!name || !name[0])
 		return (-1);
 	n = 0;
-	if (!ft_getenv(name, &n, envp))
+	if (!ft_getenv(name, &n, *envp))
 	{
-		n = ft_tabsize(envp);
-		envp[n + 1] = 0;
+		n = ft_tabsize(*envp);
+		*envp = ft_realloc_tab(*envp, n + 2);
+		(*envp)[n + 1] = 0;
 	}
-	free(envp[n]);
-	envp[n] = str;
+	else
+		free((*envp)[n]);
+	(*envp)[n] = str;
 	return (0);
 }
 
 /*
-** mode can be worth 0 (= replace value) or 1 (= mode to value)
+** mode can be worth 0 (= replace value) or 1 (= add to value)
 */
 
-int			ft_setenv(char *name, char *value, int mode, char *envp[])
+int			ft_setenv(char *name, char *value, int mode, char **envp[])
 {
 	char	*new;
 	int		size;
@@ -75,12 +77,12 @@ int			ft_setenv(char *name, char *value, int mode, char *envp[])
 
 	if (!name || !name[0])
 		return (-1);
-	size = ft_tabsize(envp);
+	size = ft_tabsize(*envp);
 	len = ft_strlen(name) + ft_strlen(value) + 1;
-	if (!ft_getenv(name, &n, envp))
+	if (!ft_getenv(name, &n, *envp))
 		n = size;
 	else if (mode == 1)
-		len = ft_strlen(envp[n]) + ft_strlen(value);
+		len = ft_strlen((*envp)[n]) + ft_strlen(value);
 	if (!(new = malloc(len + 1)))
 		return (-1);
 	if (mode == 0)
@@ -89,7 +91,7 @@ int			ft_setenv(char *name, char *value, int mode, char *envp[])
 		ft_strcat(new, "=");
 	}
 	else
-		ft_strcpy(new, envp[n]);
+		ft_strcpy(new, (*envp)[n]);
 	ft_strcat(new, value);
 	return (ft_putenv(name, new, envp));
 }

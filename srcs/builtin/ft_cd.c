@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 18:00:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:48:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ static int	ft_cd_home(t_cmd **cmd, char *envp[])
 	return (1);
 }
 
-void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
+void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 {
 	char	*path;
 	int		pos;
 
 	(void)fd;
-	if (ft_cd_home(&cmd, envp) == -1)
+	if (ft_cd_home(&cmd, *envp) == -1)
 		return ;
 	g_tmp = check_path(cmd->tok->next->content);
 	if (chdir((const char *)cmd->tok->next->content) == 0)
@@ -81,8 +81,8 @@ void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
 			errno_msg(NULL, NULL, MALL_ERR);
 			return ;
 		}
-		if (!ft_getenv("PWD", &pos, envp))
-			ft_setenv("OLDPWD", envp[pos] + 4, 0, envp);
+		if (!ft_getenv("PWD", &pos, *envp))
+			ft_setenv("OLDPWD", *envp[pos] + 4, 0, envp);
 		else
 			ft_setenv("OLDPWD", "\'\'", 0, envp);
 		ft_setenv("PWD", path, 0, envp);

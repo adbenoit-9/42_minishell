@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 21:58:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:49:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(t_cmd *cmd, int *fd, char *envp[])
+void	ft_unset(t_cmd *cmd, int *fd, char **envp[])
 {
 	int		pos;
 	int		j;
@@ -24,16 +24,16 @@ void	ft_unset(t_cmd *cmd, int *fd, char *envp[])
 		if (check_var_name(cmd->tok->next->content) == 0)
 			error_msg("unset: `", cmd->tok->next->content,
 			"': not a valid identifier\n", 1);
-		if (ft_getenv(cmd->tok->next->content, &pos, envp))
+		if (ft_getenv(cmd->tok->next->content, &pos, *envp))
 		{
-			free(envp[pos]);
+			free((*envp)[pos]);
 			j = pos;
-			while (envp[++j])
+			while ((*envp)[++j])
 			{
-				envp[pos] = envp[j];
+				(*envp)[pos] = (*envp)[j];
 				++pos;
 			}
-			envp[pos] = 0;
+			(*envp)[pos] = 0;
 		}
 		cmd->tok->next = cmd->tok->next->next;
 	}

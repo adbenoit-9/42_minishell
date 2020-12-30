@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 20:58:38 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:44:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_cmd *cmd, int *fd, char *envp[])
+void	ft_pwd(t_cmd *cmd, int *fd, char **envp[])
 {
 	size_t	size;
 	char	*buf;

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:08:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:47:45 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,11 @@ static int	display_prompt(int n, char **argv, char **str)
 	else
 		ret = read_from_str(n, argv, str);
 	if (ret == -1)
-	{
-		free(str);
 		return (errno_msg(NULL, NULL, MALL_ERR));
-	}
 	return (ret);
 }
 
-static int	launch_mshell(char *str, int n, char *envp[], int ret)
+static int	launch_mshell(char *str, int n, char **envp[], int ret)
 {
 	int i;
 
@@ -75,7 +72,7 @@ static int	launch_mshell(char *str, int n, char *envp[], int ret)
 	g_cmd = NULL;
 	if (ret == 0)
 		g_shell.bool = 0;
-	if (!envp)
+	if (!*envp)
 		exit(errno_msg("envp :", NULL, MALL_ERR));
 	while (str[i] == ' ')
 		++i;
@@ -92,8 +89,8 @@ static int	launch_mshell(char *str, int n, char *envp[], int ret)
 int			main(int argc, char *argv[], char **envp)
 {
 	char	*str;
+	char	**env_cpy;
 	int		ret;
-	int		i;
 
 	ret = 1;
 	errno = 0;
@@ -102,23 +99,13 @@ int			main(int argc, char *argv[], char **envp)
 		errno = EINVAL;
 		exit(errno_msg(argv[1], NULL, 127));
 	}
-	i = -1;
-	while (envp[++i])
-	{
-		if (!(envp[i] = ft_strdup(envp[i])))
-		{
-			i = -1;
-			while (envp[++i])
-				free(envp[i]);
-			exit(errno_msg(NULL, NULL, 1));
-		}
-	}
+	env_cpy = ft_tabdup(envp);
 	while (ret > 0)
 	{
 		str = NULL;
 		if ((ret = display_prompt(argc, argv, &str)) == -1)
 			return (0);
-		launch_mshell(str, argc, envp, ret);
+		launch_mshell(str, argc, &env_cpy, ret);
 		// free(str);
 	}
 	write(1, "exit\n", 5);

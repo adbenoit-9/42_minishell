@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 00:04:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:46:01 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
+static void	ft_son(t_cmd *cmd, int *fd, int *p, char **envp[])
 {
 	g_shell.pid = 1;
 	g_shell.bool = 0;
@@ -40,7 +40,7 @@ static void	set_status(int n, int pid, int cmd)
 	}
 }
 
-void		ft_fork_handle(t_cmd *cmd, char *envp[])
+void		ft_fork_handle(t_cmd *cmd, char **envp[])
 {
 	int		p[2];
 	int		fd[2];
