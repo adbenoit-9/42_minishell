@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 22:01:36 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:58:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
 
 	if (!ptr)
 	{
-		copy = ft_tabdup(envp);
+		if (!(copy = ft_tabdup(envp)))
+		{
+			errno_msg(NULL, NULL, MALL_ERR);
+			return ;
+		}
 		ft_sortenv(copy);
 		i = -1;
 		while (copy[++i])
@@ -99,7 +103,11 @@ void		ft_export(t_cmd *cmd, int *fd, char *envp[])
 		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, envp))
 		{
 			len = ft_tabsize(envp);
-			envp[len] = strdup(var);
+			if (!(envp[len] = strdup(var))
+			{
+				errno_msg(NULL, NULL, MALL_ERR);
+				return ;
+			}
 			envp[len + 1] = 0;
 		}
 		tmp = tmp->next;

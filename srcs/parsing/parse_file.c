@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 14:13:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 22:52:48 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:47:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ static int	parse_file(t_list **file, char *str, t_cmd **cmd, char *envp[])
 	i = 0;
 	ft_lstclear(file, free);
 	if (!(*file = ft_lstnew(ft_strdup(str))) || !(*file)->content)
+	{
+		ft_lstclear(file, free);
 		return (MALL_ERR);
+	}
 	if ((ret = parse_token(str, file, cmd, envp)) < -1)
+	{
+		ft_lstclear(file, free);
 		return (ret);
+	}
 	if (ret == -1)
 	{
 		while (str[i] == ' ')

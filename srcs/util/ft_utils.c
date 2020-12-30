@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 17:18:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 13:22:32 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:57:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ char	**ft_tabdup(char *tab[])
 		return (NULL);
 	while (i < size)
 	{
-		copy[i] = ft_strdup(tab[i]);
+		if (!(copy[i] = ft_strdup(tab[i])))
+		{
+			ft_free(copy);
+			return (NULL);
+		}
 		i++;
 	}
 	copy[i] = NULL;

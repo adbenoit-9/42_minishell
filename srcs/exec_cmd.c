@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:13:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:52:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,11 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 	while ((tmp = tmp->next))
 		args[i++] = tmp->content;
 	args[i] = NULL;
-	copy = join_path(cmd->tok->content);
+	if (!(copy = join_path(cmd->tok->content))
+	{
+		errno_msg(NULL, NULL, MALL_ERR);
+		return ;
+	}
 	modify_fd(cmd, fd);
 	i = is_executable(copy, args, envp);
 	free(copy);
