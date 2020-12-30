@@ -6,37 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 22:13:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 13:09:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int			ft_replace_by_env(char *var, char **value, int *start, char *envp[])
-{
-	int	i;
-	int	k;
-	int	len;
-
-	if (!ft_getenv(var, &i, envp))
-		return (VAR_NOT_FOUND);
-	k = ft_strlen(var);
-	len = ft_strlen(envp[i]);
-	if (ft_strcmp(envp[i] + k, "=\'\'") == 0)
-		len -= 3;
-	if (len != k)
-	{
-		if (!(*value = ft_realloc(*value, len - k + ft_strlen(*value) + 1)))
-			return (errno_msg(NULL, NULL, MALL_ERR));
-	}
-	while (ft_strcmp(envp[i] + k, "=\'\'") != 0 && envp[i][++k])
-	{
-		(*value)[*start] = envp[i][k];
-		++(*start);
-	}
-	(*value)[*start] = 0;
-	return (0);
-}
 
 /*
 ** n is the index of the variable in env
@@ -120,6 +94,27 @@ int			ft_setenv(char *name, char *value, int mode, char *envp[])
 	return (ft_putenv(name, new, envp));
 }
 
+static int	ft_envcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] < s2[i])
+			return (-1);
+		else if (s1[i] > s2[i])
+			return (1);
+		else
+			i++;
+	}
+	if (s1[i] == '\0' && s2[i] != '\0')
+		return (-1);
+	if (s1[i] != '\0' && s2[i] == '\0')
+		return (1);
+	return (0);
+}
+
 void		ft_sortenv(char **env)
 {
 	char	*swap;
@@ -134,7 +129,7 @@ void		ft_sortenv(char **env)
 		j = -1;
 		while (++j < size - i - 1)
 		{
-			if (ft_strcmp(env[j], env[j + 1]) > 0)
+			if (ft_envcmp(env[j], env[j + 1]) > 0)
 			{
 				swap = env[j];
 				env[j] = env[j + 1];

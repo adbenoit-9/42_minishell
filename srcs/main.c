@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:59:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 12:56:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int			main(int argc, char *argv[], char **envp)
 		if ((ret = display_prompt(argc, argv, &str)) == -1)
 			return (0);
 		launch_mshell(str, argc, envp, ret);
-		free(str);
+		// free(str);
 	}
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
