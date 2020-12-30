@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 17:58:41 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 18:00:56 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		ft_export(t_cmd *cmd, int *fd, char *envp[])
 		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, envp))
 		{
 			len = ft_tabsize(envp);
-			if (!(envp[len] = strdup(var))
+			if (!(envp[len] = strdup(var)))
 			{
 				errno_msg(NULL, NULL, MALL_ERR);
 				return ;
