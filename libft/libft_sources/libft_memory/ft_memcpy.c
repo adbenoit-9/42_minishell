@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 12:39:11 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/10 01:11:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 00:41:02 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,14 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t		i;
-	char		*d;
-	const char	*s;
+	unsigned long int	i;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
 	i = 0;
-	d = (char *)dst;
-	s = (const char *)src;
+	if (src == NULL && dst == NULL)
+		return (NULL);
 	while (i < n)
 	{
-		d[i] = s[i];
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 		i++;
 	}
 	return (dst);
