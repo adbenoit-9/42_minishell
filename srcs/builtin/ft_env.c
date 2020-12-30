@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 23:41:16 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:44:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_arenvp(t_list *lst)
+static int	ft_env_error(t_list *lst)
 {
 	int	ret;
 
@@ -28,13 +28,12 @@ static int	ft_arenvp(t_list *lst)
 	return (ret);
 }
 
-
 void		ft_env(t_cmd *cmd, int *fd, char *envp[])
 {
 	int		index;
 	int		i;
 
-	if (ft_arenvp(cmd->tok->next) == 1)
+	if (ft_env_error(cmd->tok->next) == 1)
 		return ;
 	index = 0;
 	while (envp[index])

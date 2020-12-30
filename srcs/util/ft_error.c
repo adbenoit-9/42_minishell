@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 17:57:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 23:08:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	error_msg(char *cmd, char *arg, char *err, int error)
 		write(2, arg, ft_strlen(arg));
 	if (err)
 		write(2, err, ft_strlen(err));
-	return (0);
+	return (error);
 }
 
 int	errno_msg(char *cmd, char *str, int ret)

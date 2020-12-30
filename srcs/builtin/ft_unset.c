@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/24 02:13:29 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:58:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,15 @@ void	ft_unset(t_cmd *cmd, int *fd, char *envp[])
 {
 	int		pos;
 	int		j;
-	t_list	*tmp;
 
 	pos = 0;
 	(void)fd;
-	tmp = cmd->tok->next;
-	while (tmp)
+	while (cmd->tok->next)
 	{
-		if (check_var_name(tmp->content) == 0)
-		{
-			error_msg("unset: `", tmp->content,
+		if (check_var_name(cmd->tok->next->content) == 0)
+			error_msg("unset: `", cmd->tok->next->content,
 			"': not a valid identifier\n", 1);
-		}
-		if (ft_getenv(tmp->content, &pos, envp))
+		if (ft_getenv(cmd->tok->next->content, &pos, envp))
 		{
 			free(envp[pos]);
 			j = pos;
@@ -39,6 +35,6 @@ void	ft_unset(t_cmd *cmd, int *fd, char *envp[])
 			}
 			envp[pos] = 0;
 		}
-		tmp = tmp->next;
+		cmd->tok->next = cmd->tok->next->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 20:16:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 22:45:08 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_cutenv(char *value, t_list **lst, int *j, char *str)
 {
-	int 	i;
+	int		i;
 	t_list	*new;
 	char	**token;
 
@@ -102,7 +102,7 @@ int			deal_status(char **token, int *k, int size)
 	return (2);
 }
 
-int			deal_dollar(char *str, t_list **lst, int *j, char *envp[], int quote)
+int			deal_dollar(char *str, t_list **lst, int *j, char *envp[])
 {
 	int	i;
 	int ret;
@@ -110,7 +110,7 @@ int			deal_dollar(char *str, t_list **lst, int *j, char *envp[], int quote)
 	i = 1;
 	if (ft_isalnum(str[i]) == 1 || str[i] == '_')
 		i += deal_var(str + i, lst, j, envp);
-	else if (quote == 0 && str[i] == '\'')
+	else if (str[i] == '\'')
 		i += deal_simple_quote(str + i, (*lst)->content, j, 1);
 	else if (str[i] == '\"' && str[i + 1])
 		i += deal_double_quote(str + i, lst, j, envp);

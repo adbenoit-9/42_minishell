@@ -6,16 +6,16 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:54 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 19:08:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:38:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_echo(t_cmd *cmd, int *fd, char *envp[])
+void	ft_echo(t_cmd *cmd, int *fd, char *envp[])
 {
-	int 	n;
-	int 	j;
+	int		n;
+	int		j;
 	t_list	*tmp;
 
 	(void)envp;
@@ -27,7 +27,7 @@ void		ft_echo(t_cmd *cmd, int *fd, char *envp[])
 		while ((tmp)->content[j] == 'n')
 			++j;
 		if ((tmp)->content[j])
-			break ;	
+			break ;
 		++n;
 	}
 	while (tmp)

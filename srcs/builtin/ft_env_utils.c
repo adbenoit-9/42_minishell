@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 17:58:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 22:13:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_replace_by_env(char *var, char **value, int *start, char *envp[])
+int			ft_replace_by_env(char *var, char **value, int *start, char *envp[])
 {
 	int	i;
 	int	k;
@@ -42,7 +42,7 @@ int	ft_replace_by_env(char *var, char **value, int *start, char *envp[])
 ** n is the index of the variable in env
 */
 
-char	*ft_getenv(char *name, int *n, char *envp[])
+char		*ft_getenv(char *name, int *n, char *envp[])
 {
 	int size;
 	int i;
@@ -120,35 +120,13 @@ int			ft_setenv(char *name, char *value, int mode, char *envp[])
 	return (ft_putenv(name, new, envp));
 }
 
-static int	ft_place(char *s1, char *s2)
-{
-	int i;
-
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		if (s1[i] < s2[i])
-			return (1);
-		else if (s1[i] > s2[i])
-			return (2);
-		else
-			i++;
-	}
-	if (s1[i] == '\0' && s2[i] != '\0')
-		return (1);
-	if (s1[i] != '\0' && s2[i] == '\0')
-		return (2);
-	return (0);
-}
-
-void		ft_sort_env(char **env)
+void		ft_sortenv(char **env)
 {
 	char	*swap;
 	int		size;
 	int		i;
 	int		j;
 
-	swap = NULL;
 	size = ft_tabsize(env);
 	i = -1;
 	while (++i < size - 1)
@@ -156,7 +134,7 @@ void		ft_sort_env(char **env)
 		j = -1;
 		while (++j < size - i - 1)
 		{
-			if (ft_place(env[j], env[j + 1]) == 2)
+			if (ft_strcmp(env[j], env[j + 1]) > 0)
 			{
 				swap = env[j];
 				env[j] = env[j + 1];

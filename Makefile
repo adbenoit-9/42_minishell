@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/23 22:25:23 by adbenoit         ###   ########.fr        #
+#    Updated: 2020/12/30 01:04:34 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ OBJS_NAME	+=	$(PARS:.c=.o)
 OBJS		=	$(addprefix $(OBJ_PATH),$(OBJS_NAME))
 
 all: $(LIB) $(NAME)
+	@cat minishell.txt
 
 $(LIB) :
 	@make -C $(LIB_DIR)
@@ -68,7 +69,7 @@ $(LIB) :
 
 $(NAME) : $(OBJS)
 	@printf "\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) 
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB)
 	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
 
 $(OBJ_PATH)%.o:	$(UTIL_PATH)%.c $(HEADER)
@@ -92,7 +93,6 @@ $(OBJ_PATH)%.o:	$(PARS_PATH)%.c $(HEADER)
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
 run: $(NAME)
-	@cat minishell.txt
 	@./$(NAME)
 
 clean:

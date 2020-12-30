@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 19:03:59 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 23:25:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_sep(char *str, int *s1, int k)
 	return ((int)i);
 }
 
-int			parse_str(char *str)
+int			parse_syntax(char *str)
 {
 	int		i;
 	int		ret;

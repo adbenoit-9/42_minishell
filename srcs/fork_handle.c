@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 19:03:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 00:04:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 {
 	int		p[2];
 	int		fd[2];
-	int		nb_wait;
-	int		i_cmd;
+	int		index[2];
 	pid_t	pid;
 
-	nb_wait = -1;
+	index[0] = -1;
 	fd[0] = 1;
 	fd[1] = 1;
-	g_cmd = cmd;
 	while (cmd)
 	{
 		ft_mana_sig(cmd);
@@ -61,12 +59,12 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 			ft_son(cmd, fd, p, envp);
 		else
 		{
-			i_cmd = run_cmd(cmd, fd, 1, envp);
+			index[1] = run_cmd(cmd, fd, 1, envp);
 			close(p[1]);
 			fd[0] = p[0];
 		}
 		cmd = cmd->next;
-		nb_wait++;
+		++index[0];
 	}
-	set_status(nb_wait, pid, i_cmd);
+	set_status(index[0], pid, index[1]);
 }

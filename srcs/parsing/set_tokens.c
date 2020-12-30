@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:16:21 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 20:17:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 00:02:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	parse_char(char *token, t_list **new, int *k, char *envp[])
 	else if (token[0] == '$' && token[1] == '?')
 		ret = deal_status(&(*new)->content, k, ft_strlen(token));
 	else if (token[0] == '$')
-		ret = deal_dollar(token, new, k, envp, 0);
+		ret = deal_dollar(token, new, k, envp);
 	else if (token[0] == ' ')
 		ret = 1;
 	else
@@ -34,7 +34,7 @@ static int	parse_char(char *token, t_list **new, int *k, char *envp[])
 	return (ret);
 }
 
-int			parse_token(char *token, t_list **new, t_cmd **cmd, char *envp[])
+int			parse_token(char *token, t_list **new, t_cmd **cmd, char *env[])
 {
 	int		j;
 	int		k;
@@ -53,12 +53,9 @@ int			parse_token(char *token, t_list **new, t_cmd **cmd, char *envp[])
 		if (token[j] == '\\' && token[++j])
 			tmp->content[k++] = token[j++];
 		else if (token[0] == '>' || token[0] == '<')
-		{
-			tmp->content[k] = 0;
-			return (set_file_name(cmd, token + j, envp));
-		}
+			return (set_file_name(cmd, token + j, env));
 		else
-			ret = parse_char(token + j, &tmp, &k, envp);
+			ret = parse_char(token + j, &tmp, &k, env);
 		j = (ret > 0) ? j + ret : j;
 	}
 	tmp->content[k] = 0;

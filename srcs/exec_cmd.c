@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 20:06:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 23:13:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*join_path(char *path)
 	return (ft_strdup(path));
 }
 
-static int	deal_error(char *cmd, void *next)
+static int	exec_error(char *cmd, void *next)
 {
 	int	i;
 
@@ -83,19 +83,14 @@ static int	deal_error(char *cmd, void *next)
 			return (g_status);
 		}
 		else if (cmd[i] == '.' && !cmd[i + 1] && !next)
-		{
-			error_msg(cmd, NULL, "filename argument required\n\
-			\r.:usage: . filename [arguments]\n", 2); //g_status vim ?
-			return (2);
-		}
+			return (error_msg(cmd, NULL, "filename argument required\n\
+			\r.:usage: . filename [arguments]\n", 2)); //g_status vim ?
 	}
-	error_msg(cmd, NULL, ": command not found\n", 127);
-	return (127);
+	return (error_msg(cmd, NULL, ": command not found\n", 127));
 }
 
 void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 {
-	int		ret;
 	int		i;
 	char	*copy;
 	char	**args;
@@ -110,18 +105,15 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
 	}
 	i = 0;
 	tmp = cmd->tok;
-	while (tmp)
-	{
-		args[i] = tmp->content;
-		tmp = tmp->next;
-		i++;
-	}
+	args[i++] = tmp->content;
+	while ((tmp = tmp->next))
+		args[i++] = tmp->content;
 	args[i] = NULL;
 	copy = join_path(cmd->tok->content);
 	modify_fd(cmd, fd);
-	ret = is_executable(copy, args, envp);
+	i = is_executable(copy, args, envp);
 	free(copy);
-	if (ret == -1)
-		g_status = deal_error(cmd->tok->content, cmd->tok->next);
+	if (i == -1)
+		g_status = exec_error(cmd->tok->content, cmd->tok->next);
 	exit(g_status);
 }
