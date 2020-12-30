@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 17:53:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:06:10 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,15 @@ int			main(int argc, char *argv[], char **envp)
 	}
 	i = -1;
 	while (envp[++i])
+	{
 		if (!(envp[i] = ft_strdup(envp[i])))
+		{
+			i = 0;
+			while (envp[i])
+				free(envp[i]);
 			exit(errno_msg(NULL, NULL, 1));
+		}
+	}
 	while (ret > 0)
 	{
 		str = NULL;
