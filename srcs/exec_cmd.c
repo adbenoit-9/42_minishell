@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:48:19 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 22:36:50 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ static char	*join_path(char *path)
 	{
 		pwd = getcwd(NULL, 0);
 		new = ft_strjoin(pwd, path + 1);
-		return (new);
 	}
-	return (ft_strdup(path));
+	else
+		new = ft_strdup(path);
+	if (!new)
+		errno_msg(NULL, NULL, MALL_ERR);
+	return (new);
 }
 
 static int	exec_error(char *cmd, void *next)
@@ -96,8 +99,6 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 	char	**args;
 	t_list	*tmp;
 
-	if (!cmd->tok || !(cmd->tok->content[0]))
-		return ;
 	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
 		errno_msg(NULL, NULL, MALL_ERR);
@@ -110,10 +111,7 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 		args[i++] = tmp->content;
 	args[i] = NULL;
 	if (!(copy = join_path(cmd->tok->content)))
-	{
-		errno_msg(NULL, NULL, MALL_ERR);
 		return ;
-	}
 	modify_fd(cmd, fd);
 	i = is_executable(copy, args, *envp);
 	free(copy);

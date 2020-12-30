@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:48:50 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 22:14:27 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,4 @@ void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 	}
 	if (errno != 0)
 		errno_msg("cd", cmd->tok->next->content, 0);
-	return ;
 }

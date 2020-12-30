@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:52:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 22:41:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ static int	launch_mshell(char *str, int n, char **envp[], int ret)
 	while (str[i] == ' ')
 		++i;
 	if (str[i] && parse_syntax(str + i) == 0)
-	{
 		parsing(str, envp);
-		free(str);
-	}
+	free(str);
 	if (n > 1)
 		exit(g_status);
 	return (0);

@@ -148,6 +148,22 @@
 > exit
 
 
+[33m> a ; ls(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> minishell: : command not found
+
+
+[33m>> a; ls(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> minishell: : command not found
+
+
 [33mexit 42\"asdasdasd\"$asdasd$HOME coucou(B[m
 [35m< bash       (exited with 255)(B[m
 [35m> minishell  (exited with 255)
