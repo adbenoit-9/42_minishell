@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:07:07 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:08:41 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static int	display_prompt(int n, char **argv, char **str)
 	else
 		ret = read_from_str(n, argv, str);
 	if (ret == -1)
+	{
+		free(str);
 		return (errno_msg(NULL, NULL, MALL_ERR));
+	}
 	return (ret);
 }
 
