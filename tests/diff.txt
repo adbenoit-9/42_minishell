@@ -144,11 +144,8 @@
 [35m< bash       (exited with 255)(B[m
 [35m> minishell  (exited with 255)
 (B[m[94m----- STDERR -----(B[m
-1d0
-< minishell: exit: /Users/AdelinecoucouCOMO TE ENCUENTRAS: numeric argument required
-2a2,3
+1a2
 > exit
-> minishell: exit: /Users/AdelinecoucouCOMO TE ENCUENTRAS: numeric argument required
 
 
 [33m> a ; ls(B[m

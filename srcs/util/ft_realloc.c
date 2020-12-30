@@ -6,25 +6,24 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 16:41:55 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 00:39:49 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 00:56:40 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ft_realloc(void *ptr, int newsize)
+char	*ft_realloc(char *ptr, int newsize)
 {
-	void	*newptr;
+	char	*newptr;
 	int		size;
 
 	if (ptr == 0)
 		return (malloc(newsize));
+	size = ft_strlen((char *)ptr);
+	if (newsize <= size)
+		return (ptr);
 	newptr = malloc(newsize);
-	size = ft_strlen(ptr);
-	if (newsize > size)
-		ft_memcpy(newptr, ptr, newsize);
-	else
-		ft_memcpy(newptr, ptr, size);
+	ft_memcpy(newptr, ptr, size);
 	free(ptr);
 	ptr = NULL;
 	return (newptr);
