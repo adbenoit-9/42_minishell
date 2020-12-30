@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 22:45:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 23:00:44 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	ft_cutenv(char *value, t_list **lst, int *j, char *str)
 			ft_free(token);
 			return (MALL_ERR);
 		}
+		ft_lstadd_back(lst, new);
 	}
-	ft_lstadd_back(lst, new);
 	ft_free(token);
 	return (0);
 }
