@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 22:58:35 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 23:25:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_bs(char *str, int *sep)
 	if (!str[1])
 	{
 		error_msg(NULL, NULL,
-		"syntax error :char expected after `\\'\n", 2);
+		"syntax error\n", 2);
 		return (-1);
 	}
 	*sep = NONE;
@@ -44,7 +44,7 @@ static int	check_sep(char *str, int *s1, int k)
 	return ((int)i);
 }
 
-int			parse_str(char *str)
+int			parse_syntax(char *str)
 {
 	int		i;
 	int		ret;
@@ -76,7 +76,6 @@ int			parsing(char *str, char *envp[])
 	int		i;
 	t_cmd	*tmp;
 
-	ft_cmdclear(&g_cmd, clear_one);
 	ret = save_cmd(str, &g_cmd, envp);
 	i = 0;
 	tmp = g_cmd;
@@ -91,7 +90,10 @@ int			parsing(char *str, char *envp[])
 	if (g_cmd->err == 0)
 		ft_fork_handle(g_cmd, envp);
 	if (g_cmd->err != EXIT_ERROR && ret >= 0 && str[i])
+	{
+		ft_cmdclear(&g_cmd, clear_one);
 		return (parsing(str + i, envp));
+	}
 	ft_cmdclear(&g_cmd, clear_one);
 	return (0);
 }

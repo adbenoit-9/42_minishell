@@ -5,127 +5,104 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/29 22:29:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:42:21 by adbenoit         ###   ########.fr       */
+/*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
+/*   Updated: 2020/12/29 22:01:36 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_create_var(char *str, int *pos)
-{
-	char	*var;
-	int		i;
-
-	var = NULL;
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	if (!(var = (char *)malloc(sizeof(char) * i + 1)))
-	{
-		errno_msg("export", NULL, MALL_ERR);
-		return (NULL);
-	}
-	i = -1;
-	while (str[++i] && str[i] != '=')
-		var[i] = str[i];
-	var[i] = '\0';
-	if (ft_check_var(var) == 0)
-	{
-		error_msg("export: `", str, "\': not a valid identifier\n", 1);
-		return (NULL);
-	}
-	if (str[i] != '=' && str[i] != '\0')
-		return (NULL);
-	*pos = i;
-	return (var);
-}
-
-int			ft_add_to_envp(char *envp[], char *str)
+char		*get_var_name(char *name, char *str)
 {
 	int	i;
-	int	j;
-	int	bool;
-	int	size;
 
-	bool = 0;
-	size = ft_strlen(str) + 1;
-	size = size > 4098 ? size : 4098;
-	i = ft_tabsize(envp);
-	j = -1;
-	while (str[++j] != 0)
-	{
-		if (str[j] == '=' && str[j + 1])
-			bool = 1;
-	}
-	if (!(envp[i] = (char *)malloc(sizeof(char) * size)))
-		return (errno_msg(NULL, NULL, MALL_ERR));
-	ft_strcpy(envp[i], str);
-	if (bool == 0 && str[j - 1] != '=')
-		ft_strcpy(envp[i] + j, "=\'\'");
-	envp[i + 1] = 0;
-	return (0);
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i] && str[i] != '+' && str[i] != '=')
+		++i;
+	name = ft_strncpy(name, str, i);
+	name[i] = 0;
+	return (name);
 }
 
-void		ft_modify_envp(char *envp[], char *var, char *new, int pos)
+static void	ft_display(char *str, int fd)
 {
-	if (new[0] == '\0' || new == NULL)
-		return ;
-	ft_strcpy(envp[pos] + ft_strlen(var) + 1, new);
-}
-
-static void	ft_none_arg(char *token, char *envp[], int *fd)
-{
-	char	**copy;
 	int		i;
 	int		j;
+	char	new[4096];
 
-	if (!token)
+	if (!str || !str[0])
+		return ;
+	i = 0;
+	j = 0;
+	ft_putstr_fd("=\"", fd);
+	while (str[++i])
+	{
+		if (str[i] == '\"' || str[i] == '\\')
+		{
+			new[j] = '\\';
+			++j;
+		}
+		new[j] = str[i];
+		++j;
+	}
+	new[j] = 0;
+	ft_putstr_fd(new, fd);
+	ft_putchar_fd('\"', fd);
+}
+
+static void	ft_putenv_fd(t_list *ptr, int fd, char *envp[])
+{
+	char	**copy;
+	char	var[4096];
+	int		i;
+	int		len;
+
+	if (!ptr)
 	{
 		copy = ft_tabdup(envp);
-		ft_sort_env(copy);
+		ft_sortenv(copy);
 		i = -1;
 		while (copy[++i])
 		{
-			write(fd[1], copy[i], ft_strlen(copy[i]));
-			j = 0;
-			while (copy[i][j] && copy[i][j] != '=')
-				++j;
-			if (copy[i][j] && !copy[i][j + 1])
-				write(fd[1], "\'\'", 2);
-			write(fd[1], "\n", 1);
+			get_var_name(var, copy[i]);
+			len = ft_strlen(var);
+			ft_putstr_fd("declare -x ", fd);
+			ft_putstr_fd(var, fd);
+			ft_display(copy[i] + len, fd);
+			ft_putchar_fd('\n', fd);
 		}
 		ft_free(copy);
 		return ;
 	}
-	error_msg("export: `", token, "\': not a valid identifier\n", 1);
 }
 
-void		ft_export(t_cmd **cmd, char *envp[], int *fd)
+void		ft_export(t_cmd *cmd, int *fd, char *envp[])
 {
-	int		pos;
-	int		i;
-	char	*var;
-	char	*new;
+	int		len;
+	char	var[4096];
+	t_list	*tmp;
 
-	if ((*cmd)->tokens[1] == NULL || !(*cmd)->tokens[1][0])
-		return (ft_none_arg((*cmd)->tokens[1], envp, fd));
-	i = 0;
-	while ((*cmd)->tokens[++i])
+	tmp = cmd->tok->next;
+	while (tmp)
 	{
-		if ((var = ft_create_var((*cmd)->tokens[i], &pos)))
+		get_var_name(var, tmp->content);
+		len = ft_strlen(var);
+		if (check_var_name(var) == 0)
+			error_msg("export: `", tmp->content,
+			"\': not a valid identifier\n", 1);
+		else if (tmp->content[len] == '+' && tmp->content[len + 1] == '=')
+			ft_setenv(var, tmp->content + len + 2, 1, envp);
+		else if (tmp->content[len] == '=')
+			ft_setenv(var, tmp->content + len + 1, 0, envp);
+		else if (!tmp->content[len] && !ft_getenv(tmp->content, 0, envp))
 		{
-			new = ft_strdup((*cmd)->tokens[i] + pos + 1);
-			if ((pos = find_var(envp, var)) == -1)
-			{
-				if ((ft_add_to_envp(envp, (*cmd)->tokens[i])) == -1)
-					errno_msg("env", NULL, MALL_ERR);
-			}
-			else
-				ft_modify_envp(envp, var, new, pos);
-			free(var);
-			free(new);
+			len = ft_tabsize(envp);
+			envp[len] = strdup(var);
+			envp[len + 1] = 0;
 		}
+		tmp = tmp->next;
 	}
-	return ;
+	ft_putenv_fd(cmd->tok->next, fd[1], envp);
 }

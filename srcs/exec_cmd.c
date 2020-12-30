@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 00:04:02 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 23:13:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	modify_fd(t_cmd *cmd, int *fd)
 		dup2(fd[0], 0);
 }
 
-static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
+static int	is_executable(char *pwd, char *args[], char *envp[])
 {
 	int		ret;
 	int		i;
@@ -28,10 +28,10 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	char	*add_p;
 	char	*new_p;
 
-	modify_fd(cmd, fd);
-	if (execve(args[0], args, envp) != -1)
+	if (execve(pwd, args, envp) != -1)
 		return (0);
-	if ((ret = find_var(envp, "PATH")) == VAR_NOT_FOUND)
+	ret = 0;
+	if (!ft_getenv("PATH", &ret, envp))
 		return (-1);
 	path = ft_split(envp[ret], ':');
 	i = 0;
@@ -39,7 +39,7 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	while (path[i])
 	{
 		add_p = ft_strjoin(path[i++], "/");
-		new_p = ft_strjoin(add_p, args[0]);
+		new_p = ft_strjoin(add_p, pwd);
 		free(add_p);
 		if (execve(new_p, args, envp) == -1)
 			ret = -1;
@@ -49,47 +49,71 @@ static int	is_executable(t_cmd *cmd, char *envp[], char *args[], int *fd)
 	return (ret);
 }
 
-static char	*join_path(char **path)
+static char	*join_path(char *path)
 {
 	char	*pwd;
 	char	*new;
 
-	if (ft_strncmp(*path, "./", 2) == 0)
+	if (ft_strncmp(path, "./", 2) == 0)
 	{
 		pwd = getcwd(NULL, 0);
-		new = ft_strjoin(pwd, *path + 1);
-		pwd = *path;
-		*path = new;
-		return (pwd);
+		new = ft_strjoin(pwd, path + 1);
+		return (new);
 	}
-	return (*path);
+	return (ft_strdup(path));
 }
 
-void		ft_not_builtin(t_cmd **cmd, char *envp[], int *fd)
+static int	exec_error(char *cmd, void *next)
 {
-	int		ret;
-	int		i;
-	char	*tmp;
+	int	i;
 
 	i = -1;
-	if (!((*cmd)->tokens[0][0]))
-		return ;
-	tmp = join_path(&(*cmd)->tokens[0]);
-	ret = is_executable(*cmd, envp, (*cmd)->tokens, fd);
-	while (ret == -1 && (*cmd)->tokens[0][++i])
+	while (cmd[++i])
 	{
-		if ((*cmd)->tokens[0][i] == '/')
+		if (cmd[i] == '/')
 		{
-			error_msg("\0", tmp,
-			": No such file or directory\n", 127);
-			free(tmp);
-			exit(127);
+			if (chdir(cmd) == 0)
+				errno = EISDIR;
+			errno = errno == ENOTDIR ? EACCES : errno;
+			if (errno == EISDIR)
+				error_msg(cmd, NULL, ": is a directory\n", 126);
+			else
+				g_status = errno_msg(cmd, NULL, 127); //g_status vim ?
+			g_status = errno == EACCES ? 126 : g_status;
+			return (g_status);
 		}
+		else if (cmd[i] == '.' && !cmd[i + 1] && !next)
+			return (error_msg(cmd, NULL, "filename argument required\n\
+			\r.:usage: . filename [arguments]\n", 2)); //g_status vim ?
 	}
-	if (ret == -1)
+	return (error_msg(cmd, NULL, ": command not found\n", 127));
+}
+
+void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
+{
+	int		i;
+	char	*copy;
+	char	**args;
+	t_list	*tmp;
+
+	if (!cmd->tok || !(cmd->tok->content[0]))
+		return ;
+	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
-		error_msg("\0", tmp, ": command not found\n", 127);
-		free(tmp);
-		exit(127);
+		errno_msg(NULL, NULL, MALL_ERR);
+		return ;
 	}
+	i = 0;
+	tmp = cmd->tok;
+	args[i++] = tmp->content;
+	while ((tmp = tmp->next))
+		args[i++] = tmp->content;
+	args[i] = NULL;
+	copy = join_path(cmd->tok->content);
+	modify_fd(cmd, fd);
+	i = is_executable(copy, args, envp);
+	free(copy);
+	if (i == -1)
+		g_status = exec_error(cmd->tok->content, cmd->tok->next);
+	exit(g_status);
 }

@@ -6,36 +6,35 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 00:06:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:58:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(t_cmd **cmd, char *envp[], int *fd)
+void	ft_unset(t_cmd *cmd, int *fd, char *envp[])
 {
-	int	pos;
-	int	j;
-	int	k;
+	int		pos;
+	int		j;
 
-	k = 0;
+	pos = 0;
 	(void)fd;
-	while ((*cmd)->tokens[++k])
+	while (cmd->tok->next)
 	{
-		if (ft_check_var((*cmd)->tokens[k]) == 0)
-		{
-			error_msg("unset: `", (*cmd)->tokens[k],
+		if (check_var_name(cmd->tok->next->content) == 0)
+			error_msg("unset: `", cmd->tok->next->content,
 			"': not a valid identifier\n", 1);
-		}
-		if ((pos = find_var(envp, (*cmd)->tokens[k])) != -1)
+		if (ft_getenv(cmd->tok->next->content, &pos, envp))
 		{
+			free(envp[pos]);
 			j = pos;
 			while (envp[++j])
 			{
-				ft_strcpy(envp[pos], envp[j]);
+				envp[pos] = envp[j];
 				++pos;
 			}
 			envp[pos] = 0;
 		}
+		cmd->tok->next = cmd->tok->next->next;
 	}
 }

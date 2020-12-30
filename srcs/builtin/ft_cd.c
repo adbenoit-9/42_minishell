@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:36:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 21:40:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,61 +43,48 @@ char		*ft_correct_path(char *path)
 	return (ft_strdup(path));
 }
 
-int			modify_pwd(char *path, char *envp[], char *var)
-{
-	int		pos;
-	char	*tmp;
-
-	if ((pos = find_var(envp, var)) == VAR_NOT_FOUND)
-	{
-		tmp = ft_strjoin(var, "=");
-		path = ft_strjoin(tmp, path);
-		free(tmp);
-		ft_add_to_envp(envp, path);
-	}
-	else
-		ft_modify_envp(envp, var, path, pos);
-	return (0);
-}
-
-static int	cd_without_arg(t_cmd **cmd, char **envp)
+static int	ft_cd_home(t_cmd **cmd, char *envp[])
 {
 	int	pos;
 
-	if ((pos = find_var(envp, "HOME")) == -1)
+	pos = 0;
+	if ((*cmd)->tok->next && (*cmd)->tok->next->content)
+		return (0);
+	else if ((*cmd)->tok->next)
+		free((*cmd)->tok->next);
+	if (!ft_getenv("HOME", &pos, envp))
 	{
 		error_msg("cd : ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
-	if (!((*cmd)->tokens = ft_realloc_tab((*cmd)->tokens, 3)))
+	if (!((*cmd)->tok->next = ft_lstnew(ft_strdup(envp[pos] + 5)))
+	|| !((*cmd)->tok->next->content))
 		return (errno_msg(NULL, NULL, MALL_ERR));
-	(*cmd)->tokens[1] = ft_strdup(envp[pos] + 5);
-	(*cmd)->tokens[2] = NULL;
-	return (0);
+	return (1);
 }
 
-void		ft_cd(t_cmd **cmd, char *envp[], int *fd)
+void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
 {
 	char	*path;
 	int		pos;
 
 	(void)fd;
-	if (!(*cmd)->tokens[1] && cd_without_arg(cmd, envp) < 0)
+	if (ft_cd_home(&cmd, envp) == -1)
 		return ;
-	g_tmp = check_path((*cmd)->tokens[1]);
-	chdir((const char *)(*cmd)->tokens[1]);
-	path = getcwd(NULL, 0);
+	g_tmp = check_path(cmd->tok->next->content);
+	if (chdir((const char *)cmd->tok->next->content) == 0)
+		path = getcwd(NULL, 0);
 	if (errno == 0)
 	{
 		path = ft_correct_path(path);
-		if ((pos = find_var(envp, "PWD")) != VAR_NOT_FOUND)
-			modify_pwd(envp[pos] + 4, envp, "OLDPWD");
+		if (!ft_getenv("PWD", &pos, envp))
+			ft_setenv("OLDPWD", envp[pos] + 4, 0, envp);
 		else
-			modify_pwd("\'\'", envp, "OLDPWD");
-		modify_pwd(path, envp, "PWD");
+			ft_setenv("OLDPWD", "\'\'", 0, envp);
+		ft_setenv("PWD", path, 0, envp);
 		free(path);
 	}
 	if (errno != 0)
-		errno_msg("cd", (*cmd)->tokens[1], 0);
+		errno_msg("cd", cmd->tok->next->content, 0);
 	return ;
 }

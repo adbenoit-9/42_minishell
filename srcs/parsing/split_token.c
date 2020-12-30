@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 05:33:08 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 19:26:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static int	ft_is_new_arg(char const *s, char c, int n, int quote)
 	int	ret;
 
 	bs = 0;
-	i = n + 1;
+	i = n;
 	ret = 0;
-	while (s[--i] == '\\')
+	while (i != 0 && s[--i] == '\\')
 		++bs;
 	if (bs % 2 != 0 || quote != 0)
 		return (0);
-	if (s[n] == c)
+	if (s[n] == c && (n == 0 || s[n - 1] != c))
 		ret = 1;
 	while (s[n] == c)
 		++n;
@@ -120,7 +120,7 @@ char		**split_token(char const *s, char c, int n)
 	while (++index[1] < size[0])
 	{
 		while (s[index[0]] == c)
-			index[0]++;
+			++index[0];
 		size[1] = ft_size(s, c, index[0], n);
 		if (!(tab[index[1]] = malloc(size[1] + 1)))
 			return (ft_free(tab));

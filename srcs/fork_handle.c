@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:53:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/22 15:30:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 00:04:49 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ static void	ft_son(t_cmd *cmd, int *fd, int *p, char *envp[])
 	if (cmd->next)
 		dup2(p[1], 1);
 	close(p[0]);
-	run_cmd(cmd, envp, fd, 0);
+	run_cmd(cmd, fd, 0, envp);
 	exit(EXIT_SUCCESS);
 }
 
-static void	set_status(int n, int pid)
+static void	set_status(int n, int pid, int cmd)
 {
 	int	status;
 
 	status = 0;
 	while (n-- >= 0)
 	{
-		if (wait(&status) == pid)
+		if (wait(&status) == pid && cmd == UNKNOW)
 		{
 			g_status = WEXITSTATUS(status);
 			if (WIFSIGNALED(status) == 1)
@@ -44,10 +44,10 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 {
 	int		p[2];
 	int		fd[2];
-	int		nb_wait;
+	int		index[2];
 	pid_t	pid;
 
-	nb_wait = -1;
+	index[0] = -1;
 	fd[0] = 1;
 	fd[1] = 1;
 	while (cmd)
@@ -59,12 +59,12 @@ void		ft_fork_handle(t_cmd *cmd, char *envp[])
 			ft_son(cmd, fd, p, envp);
 		else
 		{
-			run_cmd(cmd, envp, fd, 1);
+			index[1] = run_cmd(cmd, fd, 1, envp);
 			close(p[1]);
 			fd[0] = p[0];
 		}
 		cmd = cmd->next;
-		nb_wait++;
+		++index[0];
 	}
-	set_status(nb_wait, pid);
+	set_status(index[0], pid, index[1]);
 }

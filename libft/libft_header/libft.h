@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:43:44 by mabriand          #+#    #+#             */
-/*   Updated: 2020/11/10 01:00:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/23 20:47:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 typedef struct	s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }				t_list;
 
@@ -60,7 +60,7 @@ char			*ft_uitoa(unsigned int n);
 ** List
 */
 
-t_list			*ft_lstnew(void *content);
+t_list			*ft_lstnew(char *content);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_front(t_list **alst, t_list *new);

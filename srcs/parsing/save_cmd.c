@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 18:57:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/29 17:58:54 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	is_error(t_cmd *cmd)
 	if (cmd->err == MALL_ERR)
 		errno_msg(NULL, NULL, MALL_ERR);
 	else if (cmd->err == QUOTE_NOT_FOUND)
-		error_msg(NULL, NULL, "syntax error : quote expected\n", 2);
+		error_msg(NULL, NULL, "syntax error\n", 2);
 	else
 		return (0);
 	return (cmd->err);
@@ -61,6 +61,7 @@ int			save_cmd(char *str, t_cmd **cmd, char *envp[])
 		*cmd = ft_cmdnew(set_sep(str + i, &i));
 		(*cmd)->err = set_token(tokens, cmd, envp);
 	}
+	ft_free(tokens);
 	if ((ret = is_error(*cmd)) == 0)
 		return (i);
 	return (ret);
