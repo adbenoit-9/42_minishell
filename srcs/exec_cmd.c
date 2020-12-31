@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 22:36:50 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:54:37 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ static int	exec_error(char *cmd, void *next)
 			if (errno == EISDIR)
 				error_msg(cmd, NULL, ": is a directory\n", 126);
 			else
-				g_status = errno_msg(cmd, NULL, 127); //g_status vim ?
+				g_status = errno_msg(cmd, NULL, 127);
 			g_status = errno == EACCES ? 126 : g_status;
 			return (g_status);
 		}
 		else if (cmd[i] == '.' && !cmd[i + 1] && !next)
 			return (error_msg(cmd, NULL, "filename argument required\n\
-			\r.:usage: . filename [arguments]\n", 2)); //g_status vim ?
+			\r.:usage: . filename [arguments]\n", 2));
 	}
 	return (error_msg(cmd, NULL, ": command not found\n", 127));
 }

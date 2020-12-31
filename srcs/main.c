@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 22:41:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:00:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static int	launch_mshell(char *str, int n, char **envp[], int ret)
 	if (ret == 0)
 		g_shell.bool = 0;
 	if (!*envp)
-		exit(errno_msg("envp :", NULL, MALL_ERR));
+	{
+		errno_msg("envp", NULL, MALL_ERR);
+		exit(1);
+	}
 	while (str[i] == ' ')
 		++i;
 	if (str[i] && parse_syntax(str + i) == 0)
@@ -95,7 +98,7 @@ int			main(int argc, char *argv[], char **envp)
 	if (argc > 1 && ft_strcmp(argv[1], "-c") != 0)
 	{
 		errno = EINVAL;
-		exit(errno_msg(argv[1], NULL, 127));
+		exit(errno_msg(argv[1], NULL, 1));
 	}
 	env_cpy = ft_tabdup(envp);
 	while (ret > 0)
@@ -104,7 +107,6 @@ int			main(int argc, char *argv[], char **envp)
 		if ((ret = display_prompt(argc, argv, &str)) == -1)
 			return (0);
 		launch_mshell(str, argc, &env_cpy, ret);
-		// free(str);
 	}
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
