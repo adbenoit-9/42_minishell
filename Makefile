@@ -44,7 +44,7 @@ PARS 		=	parsing.c			deal_quote.c \
 
 CC			=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror
 
 LIB_DIR		=	libft
 

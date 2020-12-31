@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:10:44 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:25:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:45:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,19 @@ int			parse_syntax(char *str)
 	return (0);
 }
 
-int			parsing(char *str, char *envp[])
+int			parsing(char *str, char **envp[])
 {
 	int		ret;
 	int		i;
 	t_cmd	*tmp;
 
-	ret = save_cmd(str, &g_cmd, envp);
+	ret = save_cmd(str, &g_cmd, *envp);
 	i = 0;
 	tmp = g_cmd;
 	while (ret >= 0 && tmp->sep == PIPE)
 	{
 		i += ret;
-		ret = save_cmd(str + i, &tmp->next, envp);
+		ret = save_cmd(str + i, &tmp->next, *envp);
 		tmp = tmp->next;
 	}
 	if (ret >= 0)

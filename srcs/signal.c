@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:54:27 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 20:40:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 15:30:58 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void	proc_sig_handler(int signo)
 
 void	ft_mana_sig(t_cmd *cmd)
 {
-	if (cmd->tok->content && ft_strcmp(cmd->tok->content, "./minishell") == 0)
+	if (cmd->tok && cmd->tok->content &&
+	ft_strcmp(cmd->tok->content, "./minishell") == 0)
 		g_shell.bool = 1;
-	if (cmd->tok->content && ft_strcmp(cmd->tok->content, "exit") == 0)
+	if (cmd->tok && cmd->tok->content &&
+	ft_strcmp(cmd->tok->content, "exit") == 0)
 	{
 		g_shell.bool = 0;
 		g_shell.pid = 1;

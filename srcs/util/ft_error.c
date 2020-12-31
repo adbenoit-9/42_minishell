@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:02:12 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:08:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 01:53:23 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	errno_msg(char *cmd, char *str, int ret)
 	char	*str_errno;
 
 	g_status = 1;
+	if (ret == MALL_ERR)
+		errno = ENOMEM;
 	write(2, "minishell: ", 11);
 	if (cmd)
 	{

@@ -6,19 +6,11 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:13:22 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 14:06:28 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	modify_fd(t_cmd *cmd, int *fd)
-{
-	if (cmd->output)
-		dup2(fd[1], 1);
-	if (cmd->input)
-		dup2(fd[0], 0);
-}
 
 static int	is_executable(char *pwd, char *args[], char *envp[])
 {
@@ -58,9 +50,12 @@ static char	*join_path(char *path)
 	{
 		pwd = getcwd(NULL, 0);
 		new = ft_strjoin(pwd, path + 1);
-		return (new);
 	}
-	return (ft_strdup(path));
+	else
+		new = ft_strdup(path);
+	if (!new)
+		errno_msg(NULL, NULL, MALL_ERR);
+	return (new);
 }
 
 static int	exec_error(char *cmd, void *next)
@@ -78,40 +73,49 @@ static int	exec_error(char *cmd, void *next)
 			if (errno == EISDIR)
 				error_msg(cmd, NULL, ": is a directory\n", 126);
 			else
-				g_status = errno_msg(cmd, NULL, 127); //g_status vim ?
+				g_status = errno_msg(cmd, NULL, 127);
 			g_status = errno == EACCES ? 126 : g_status;
 			return (g_status);
 		}
 		else if (cmd[i] == '.' && !cmd[i + 1] && !next)
 			return (error_msg(cmd, NULL, "filename argument required\n\
-			\r.:usage: . filename [arguments]\n", 2)); //g_status vim ?
+			\r.:usage: . filename [arguments]\n", 2));
 	}
 	return (error_msg(cmd, NULL, ": command not found\n", 127));
 }
 
-void		ft_not_builtin(t_cmd *cmd, int *fd, char *envp[])
+int			ft_protec(t_cmd *cmd, char ***args)
+{
+	if (!cmd->tok->content || !cmd->tok->content[0])
+		return (1);
+	if (!(*args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
+	{
+		errno_msg(NULL, NULL, MALL_ERR);
+		return (1);
+	}
+	return (0);
+}
+
+void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 {
 	int		i;
 	char	*copy;
 	char	**args;
 	t_list	*tmp;
 
-	if (!cmd->tok || !(cmd->tok->content[0]))
+	args = NULL;
+	if (ft_protec(cmd, &args) == 1)
 		return ;
-	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
-	{
-		errno_msg(NULL, NULL, MALL_ERR);
-		return ;
-	}
 	i = 0;
 	tmp = cmd->tok;
 	args[i++] = tmp->content;
 	while ((tmp = tmp->next))
 		args[i++] = tmp->content;
 	args[i] = NULL;
-	copy = join_path(cmd->tok->content);
+	if (!(copy = join_path(cmd->tok->content)))
+		return ;
 	modify_fd(cmd, fd);
-	i = is_executable(copy, args, envp);
+	i = is_executable(copy, args, *envp);
 	free(copy);
 	if (i == -1)
 		g_status = exec_error(cmd->tok->content, cmd->tok->next);

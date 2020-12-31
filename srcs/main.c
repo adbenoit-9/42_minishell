@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 23:59:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 15:30:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void		init_mshell(void)
 
 static int	read_from_str(int n, char **argv, char **str)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	if (n > 2)
 	{
@@ -31,8 +32,10 @@ static int	read_from_str(int n, char **argv, char **str)
 		*str = ft_strdup(argv[2]);
 		while (*str && argv[++i])
 		{
-			*str = ft_strjoin(*str, ";");
-			*str = ft_strjoin(*str, argv[i]);
+			tmp = ft_strjoin(*str, ";");
+			free(*str);
+			*str = ft_strjoin(tmp, argv[i]);
+			free(tmp);
 		}
 	}
 	else
@@ -64,7 +67,7 @@ static int	display_prompt(int n, char **argv, char **str)
 	return (ret);
 }
 
-static int	launch_mshell(char *str, int n, char *envp[], int ret)
+static int	launch_mshell(char *str, int n, char **envp[], int ret)
 {
 	int i;
 
@@ -72,15 +75,16 @@ static int	launch_mshell(char *str, int n, char *envp[], int ret)
 	g_cmd = NULL;
 	if (ret == 0)
 		g_shell.bool = 0;
-	if (!envp)
-		exit(errno_msg("envp :", NULL, MALL_ERR));
+	if (!*envp)
+	{
+		errno_msg("envp", NULL, MALL_ERR);
+		exit(1);
+	}
 	while (str[i] == ' ')
 		++i;
 	if (str[i] && parse_syntax(str + i) == 0)
-	{
 		parsing(str, envp);
-		free(str);
-	}
+	free(str);
 	if (n > 1)
 		exit(g_status);
 	return (0);
@@ -89,28 +93,26 @@ static int	launch_mshell(char *str, int n, char *envp[], int ret)
 int			main(int argc, char *argv[], char **envp)
 {
 	char	*str;
+	char	**env_cpy;
 	int		ret;
-	int		i;
 
 	ret = 1;
 	errno = 0;
 	if (argc > 1 && ft_strcmp(argv[1], "-c") != 0)
 	{
 		errno = EINVAL;
-		exit(errno_msg(argv[1], NULL, 127));
+		exit(errno_msg(argv[1], NULL, 1));
 	}
-	i = -1;
-	while (envp[++i])
-		envp[i] = ft_strdup(envp[i]);
+	env_cpy = ft_tabdup(envp);
 	while (ret > 0)
 	{
 		str = NULL;
 		if ((ret = display_prompt(argc, argv, &str)) == -1)
 			return (0);
-		launch_mshell(str, argc, envp, ret);
-		free(str);
+		launch_mshell(str, argc, &env_cpy, ret);
 	}
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
+	ft_free(env_cpy);
 	exit(EXIT_SUCCESS);
 }

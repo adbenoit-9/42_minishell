@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 21:40:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:50:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,35 @@ static int	ft_cd_home(t_cmd **cmd, char *envp[])
 	return (1);
 }
 
-void		ft_cd(t_cmd *cmd, int *fd, char *envp[])
+void		ft_no_err(char **path, int *pos, char **envp[])
+{
+	if (!(*path = ft_correct_path(*path)))
+	{
+		errno_msg(NULL, NULL, MALL_ERR);
+		return ;
+	}
+	*pos = 0;
+	if (ft_getenv("PWD", pos, *envp))
+		ft_setenv("OLDPWD", (*envp)[*pos] + 4, 0, envp);
+	else
+		ft_setenv("OLDPWD", "", 0, envp);
+	ft_setenv("PWD", *path, 0, envp);
+	free(*path);
+}
+
+void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 {
 	char	*path;
 	int		pos;
 
 	(void)fd;
-	if (ft_cd_home(&cmd, envp) == -1)
+	if (ft_cd_home(&cmd, *envp) == -1)
 		return ;
 	g_tmp = check_path(cmd->tok->next->content);
 	if (chdir((const char *)cmd->tok->next->content) == 0)
 		path = getcwd(NULL, 0);
 	if (errno == 0)
-	{
-		path = ft_correct_path(path);
-		if (!ft_getenv("PWD", &pos, envp))
-			ft_setenv("OLDPWD", envp[pos] + 4, 0, envp);
-		else
-			ft_setenv("OLDPWD", "\'\'", 0, envp);
-		ft_setenv("PWD", path, 0, envp);
-		free(path);
-	}
+		ft_no_err(&path, &pos, envp);
 	if (errno != 0)
 		errno_msg("cd", cmd->tok->next->content, 0);
-	return ;
 }

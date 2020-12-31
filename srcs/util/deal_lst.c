@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:08:43 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/23 20:52:40 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 22:24:09 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,9 @@ void			ft_cmdadd_back(t_cmd **alst, t_cmd *new)
 
 void			clear_one(t_cmd **lst)
 {
-	free((*lst)->tok->content);
-	free((*lst)->tok);
-	free((*lst)->input);
-	free((*lst)->output);
-	(*lst)->tok = NULL;
-	(*lst)->input = NULL;
-	(*lst)->output = NULL;
+	ft_lstclear(&(*lst)->tok, free);
+	ft_lstclear(&(*lst)->input, free);
+	ft_lstclear(&(*lst)->output, free);
 	free(*lst);
 }
 

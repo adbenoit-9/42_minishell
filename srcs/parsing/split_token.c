@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 19:26:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:51:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char		**split_token(char const *s, char c, int n)
 	index[1] = -1;
 	size[0] = ft_countrow(s, c, n);
 	if (!(tab = malloc(sizeof(char *) * (size[0] + 1))))
-		return (0);
+		return (NULL);
 	while (++index[1] < size[0])
 	{
 		while (s[index[0]] == c)
