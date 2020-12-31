@@ -1,0 +1,464 @@
+[33mecho erreur ;; echo nul(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: ligne 0: erreur de syntaxe près du symbole inattendu « ;; »
+< minishell: -c: ligne 0: `echo erreur ;; echo nul'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; export valid_var=ok ; export unvalid-var=ko ; unset valid_var ; unset unvalid=ko(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1,2c1,2
+< minishell: ligne 0 : export: « unvalid-var=ko » : identifiant non valable
+< minishell: ligne 0 : unset: « unvalid=ko » : identifiant non valable
+---
+> minishell: export: `unvalid-var=ko': not a valid identifier
+> minishell: unset: `unvalid=ko': not a valid identifier
+
+
+[33mecho $? ; export ok$HOME(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ligne 0 : export: « ok/home/user42 » : identifiant non valable
+---
+> minishell: export: `ok/home/user42': not a valid identifier
+
+
+[33mecho $? ; unset po1 1op 2 po2; echo $? $po1 $po2(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1,2c1,2
+< minishell: ligne 0 : unset: « 1op » : identifiant non valable
+< minishell: ligne 0 : unset: « 2 » : identifiant non valable
+---
+> minishell: unset: `1op': not a valid identifier
+> minishell: unset: `2': not a valid identifier
+
+
+[33mecho $? ; exit 0 1 ;;(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: ligne 0: erreur de syntaxe près du symbole inattendu « ;; »
+< minishell: -c: ligne 0: `echo $? ; exit 0 1 ;;'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; export valid unvalid. unvalid2$ ; unset valid unvalid. unvalid2$(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1,4c1,4
+< minishell: ligne 0 : export: « unvalid. » : identifiant non valable
+< minishell: ligne 0 : export: « unvalid2$ » : identifiant non valable
+< minishell: ligne 0 : unset: « unvalid. » : identifiant non valable
+< minishell: ligne 0 : unset: « unvalid2$ » : identifiant non valable
+---
+> minishell: export: `unvalid.': not a valid identifier
+> minishell: export: `unvalid2$': not a valid identifier
+> minishell: unset: `unvalid.': not a valid identifier
+> minishell: unset: `unvalid2$': not a valid identifier
+
+
+[33mecho $? ; echo error > ; echo KO(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: ligne 0: erreur de syntaxe près du symbole inattendu « ; »
+< minishell: -c: ligne 0: `echo $? ; echo error > ; echo KO'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; echo error >; echo KO(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: ligne 0: erreur de syntaxe près du symbole inattendu « ; »
+< minishell: -c: ligne 0: `echo $? ; echo error >; echo KO'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; echo ko > is_$HOME(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: is_/home/user42: Aucun fichier ou dossier de ce type
+---
+> minishell: is_/home/user42: No such file or directory
+
+
+[33mecho $? ; echo ko > $VAR_NOT_FOUND(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: $VAR_NOT_FOUND : redirection ambiguë
+---
+> minishell: $VAR_NOT_FOUND: ambiguous redirect
+
+
+[33mecho $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 2)
+(B[m[94m----- STDERR -----(B[m
+1,2c1
+< minishell: -c: ligne 0: erreur de syntaxe près du symbole inattendu « ; »
+< minishell: -c: ligne 0: `echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >'
+---
+> minishell: syntax error
+
+
+[33mecho $? ; ./echo ko; echo $?(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./echo: Aucun fichier ou dossier de ce type
+---
+> minishell: ./echo: No such file or directory
+
+
+[33mexport $HOME=hola ; echo $HOME(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ligne 0 : export: « /home/user42=hola » : identifiant non valable
+---
+> minishell: export: `/home/user42=hola': not a valid identifier
+
+
+[33munset HOME ; cd ; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ligne 0 : cd: « HOME » non défini
+---
+> minishell: cd : HOME not set
+
+
+[33m/; pwd(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: / : est un dossier
+---
+> minishell: /: is a directory
+
+
+[33mcd dirwithoutpermissions(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ligne 0 : cd: dirwithoutpermissions: Permission non accordée
+---
+> minishell: cd: dirwithoutpermissions: Permission denied
+
+
+[33mexit(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> exit
+
+
+[33mexit 42(B[m
+[35m< bash       (exited with 42)(B[m
+[35m> minishell  (exited with 42)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> exit
+
+
+[33mexit -42(B[m
+[35m< bash       (exited with 214)(B[m
+[35m> minishell  (exited with 214)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> exit
+
+
+[33mexit 512(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> exit
+
+
+[33mexit 1407(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+0a1
+> exit
+
+
+[33mexit 21 42(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: trop d'arguments
+---
+> exit
+> minishell: exit: too many arguments
+
+
+[33mexit $HOME"coucou"COMO" "TE" "ENCUENTRAS |rev(B[m
+[35m< bash       (exited with 0)(B[m
+[35m> minishell  (exited with 0)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: /home/user42coucouCOMO TE ENCUENTRAS : argument numérique nécessaire
+---
+> exit
+> minishell: exit: /home/user42coucouCOMO TE ENCUENTRAS: numeric argument required
+
+
+[33mexit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: /home/user42coucouCOMO TE ENCUENTRAS : argument numérique nécessaire
+---
+> exit
+> minishell: exit: /home/user42coucouCOMO TE ENCUENTRAS: numeric argument required
+
+
+[33mpwd | exit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: /home/user42coucouCOMO TE ENCUENTRAS : argument numérique nécessaire
+---
+> exit
+> minishell: exit: /home/user42coucouCOMO TE ENCUENTRAS: numeric argument required
+
+
+[33mpwdd | exit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDERR -----(B[m
+1,2c1,3
+< minishell: ligne 0 : exit: /home/user42coucouCOMO TE ENCUENTRAS : argument numérique nécessaire
+< minishell: pwdd : commande introuvable
+---
+> exit
+> minishell: exit: /home/user42coucouCOMO TE ENCUENTRAS: numeric argument required
+> minishell: pwdd: command not found
+
+
+[33m/(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: / : est un dossier
+---
+> minishell: /: is a directory
+
+
+[33m./(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./ : est un dossier
+---
+> minishell: ./: is a directory
+
+
+[33m/.(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /. : est un dossier
+---
+> minishell: /.: is a directory
+
+
+[33midontexist(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: idontexist : commande introuvable
+---
+> minishell: idontexist: command not found
+
+
+[33m./meneither(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./meneither: Aucun fichier ou dossier de ce type
+---
+> minishell: ./meneither: No such file or directory
+
+
+[33m./dir(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./dir : est un dossier
+---
+> minishell: ./dir: is a directory
+
+
+[33mtouch ucantexecme.e ; chmod 000 ucantexecme.e ; ./ucantexecme.e(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./ucantexecme.e: Permission non accordée
+---
+> minishell: ./ucantexecme.e: Permission denied
+
+
+[33m\"asdasdasd\"$asdasd$HOME(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: "asdasdasd"/home/user42: Aucun fichier ou dossier de ce type
+---
+> minishell: "asdasdasd"/home/user42: No such file or directory
+
+
+[33mnotacommand > a(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: notacommand : commande introuvable
+---
+> minishell: notacommand: command not found
+
+
+[33mpwd > dir(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: dir: est un dossier
+---
+> minishell: dir: Is a directory
+
+
+[33mnotacommand >> a(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: notacommand : commande introuvable
+---
+> minishell: notacommand: command not found
+
+
+[33mpwd >> dir(B[m
+[35m< bash       (exited with 1)(B[m
+[35m> minishell  (exited with 1)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: dir: est un dossier
+---
+> minishell: dir: Is a directory
+
+
+[33m/(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: / : est un dossier
+---
+> minishell: /: is a directory
+
+
+[33m./(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: ./ : est un dossier
+---
+> minishell: ./: is a directory
+
+
+[33m/.(B[m
+[35m< bash       (exited with 126)(B[m
+[35m> minishell  (exited with 126)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: /. : est un dossier
+---
+> minishell: /.: is a directory
+
+
+[33mecho\" asdasdasd\"$asdasd$HOME coucou(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: echo" : commande introuvable
+---
+> minishell: echo": command not found
+
+
+[33m\"asdasdasd\"$asdasd$HOME(B[m
+[35m< bash       (exited with 127)(B[m
+[35m> minishell  (exited with 127)
+(B[m[94m----- STDERR -----(B[m
+1c1
+< minishell: "asdasdasd"/home/user42: Aucun fichier ou dossier de ce type
+---
+> minishell: "asdasdasd"/home/user42: No such file or directory
+
+
+[33mexit 42\"asdasdasd\"$asdasd$HOME coucou(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: 42"asdasdasd"/home/user42 : argument numérique nécessaire
+---
+> exit
+> minishell: exit: 42"asdasdasd"/home/user42: numeric argument required
+
+
+[33mexit 42"asdasdasd"$asdasd$HOME coucou(B[m
+[35m< bash       (exited with 2)(B[m
+[35m> minishell  (exited with 255)
+(B[m[94m----- STDERR -----(B[m
+1c1,2
+< minishell: ligne 0 : exit: 42asdasdasd/home/user42 : argument numérique nécessaire
+---
+> exit
+> minishell: exit: 42asdasdasd/home/user42: numeric argument required
+
+

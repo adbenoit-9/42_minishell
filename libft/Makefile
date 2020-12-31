@@ -62,7 +62,7 @@ SRCS += $(STRING)ft_strlen.c	$(STRING)ft_strchr.c	$(STRING)ft_strrchr.c \
 		$(STRING)ft_strncpy.c	$(STRING)ft_strcmp.c
 
 #--------------------------------GNL-#
-SRCS += $(GNL)get-next-line.c							$(GNL)get-next-line_utils.c
+SRCS += $(GNL)get_next_line.c							$(GNL)get_next_line_utils.c
 
 #--------------------------------PTF-#
 SRCS += $(PTF)ft_calloc_flag.c							$(PTF)ft_char_add_width.c \

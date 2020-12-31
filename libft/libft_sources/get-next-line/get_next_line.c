@@ -126,10 +126,7 @@ int		get_next_line(int fd, char **line)
 	{
 		ret_search = ft_search_line(buffer);
 		if (ft_get_line(line, buffer, ret_search, ret_read) == 1)
-		{
-			//free(*line);
 			return (1);
-		}
 	}
 	if (ret_read == 0)
 		return (0);

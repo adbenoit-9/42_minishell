@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-static void	modify_fd(t_cmd *cmd, int *fd)
-{
-	if (cmd->output)
-		dup2(fd[1], 1);
-	if (cmd->input)
-		dup2(fd[0], 0);
-}
-
 static int	is_executable(char *pwd, char *args[], char *envp[])
 {
 	int		ret;
@@ -92,6 +84,18 @@ static int	exec_error(char *cmd, void *next)
 	return (error_msg(cmd, NULL, ": command not found\n", 127));
 }
 
+int			ft_protec(t_cmd *cmd, char ***args)
+{
+	if (!cmd->tok->content || !cmd->tok->content[0])
+		return (1);
+	if (!(*args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
+	{
+		errno_msg(NULL, NULL, MALL_ERR);
+		return (1);
+	}
+	return (0);
+}
+
 void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 {
 	int		i;
@@ -99,13 +103,9 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 	char	**args;
 	t_list	*tmp;
 
-	if (!cmd->tok->content || !cmd->tok->content[0])
+	args = NULL;
+	if (ft_protec(cmd, &args) == 1)
 		return ;
-	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
-	{
-		errno_msg(NULL, NULL, MALL_ERR);
-		return ;
-	}
 	i = 0;
 	tmp = cmd->tok;
 	args[i++] = tmp->content;

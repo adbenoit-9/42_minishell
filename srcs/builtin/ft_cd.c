@@ -63,6 +63,22 @@ static int	ft_cd_home(t_cmd **cmd, char *envp[])
 	return (1);
 }
 
+void		ft_no_err(char **path, int *pos, char **envp[])
+{
+	if (!(*path = ft_correct_path(*path)))
+	{
+		errno_msg(NULL, NULL, MALL_ERR);
+		return ;
+	}
+	*pos = 0;
+	if (ft_getenv("PWD", pos, *envp))
+		ft_setenv("OLDPWD", (*envp)[*pos] + 4, 0, envp);
+	else
+		ft_setenv("OLDPWD", "", 0, envp);
+	ft_setenv("PWD", *path, 0, envp);
+	free(*path);
+}
+
 void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 {
 	char	*path;
@@ -75,20 +91,7 @@ void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 	if (chdir((const char *)cmd->tok->next->content) == 0)
 		path = getcwd(NULL, 0);
 	if (errno == 0)
-	{
-		if (!(path = ft_correct_path(path)))
-		{
-			errno_msg(NULL, NULL, MALL_ERR);
-			return ;
-		}
-		pos = 0;
-		if (ft_getenv("PWD", &pos, *envp))
-			ft_setenv("OLDPWD", (*envp)[pos] + 4, 0, envp);
-		else
-			ft_setenv("OLDPWD", "", 0, envp);
-		ft_setenv("PWD", path, 0, envp);
-		free(path);
-	}
+		ft_no_err(&path, &pos, envp);
 	if (errno != 0)
 		errno_msg("cd", cmd->tok->next->content, 0);
 }

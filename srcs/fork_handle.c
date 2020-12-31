@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+void		modify_fd(t_cmd *cmd, int *fd)
+{
+	if (cmd->output)
+		dup2(fd[1], 1);
+	if (cmd->input)
+		dup2(fd[0], 0);
+}
+
 static void	ft_son(t_cmd *cmd, int *fd, int *p, char **envp[])
 {
 	g_shell.pid = 1;

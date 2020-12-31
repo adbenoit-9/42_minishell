@@ -145,5 +145,6 @@ void			proc_sig_handler(int signo);
 void			ft_mana_sig(t_cmd *cmd);
 void			ft_sig_handler(int signo);
 void			init_mshell(void);
+void			modify_fd(t_cmd *cmd, int *fd);
 
 #endif
