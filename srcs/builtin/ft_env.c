@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:28:09 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 19:42:57 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:32:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static int	ft_env_error(t_list *lst)
 	if (lst != NULL)
 	{
 		ret = 1;
-		ft_putstr_fd("env: ", 2);
-		ft_putstr_fd(lst->content, 2);
-		ft_putstr_fd(": No argument required\n", 2);
-		g_status = 127;
+		error_msg("env", NULL, ": No argument required\n", 127);
 	}
 	return (ret);
 }

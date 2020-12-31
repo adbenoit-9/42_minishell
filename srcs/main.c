@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 02:00:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:49:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void		init_mshell(void)
 
 static int	read_from_str(int n, char **argv, char **str)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	if (n > 2)
 	{
@@ -31,8 +32,10 @@ static int	read_from_str(int n, char **argv, char **str)
 		*str = ft_strdup(argv[2]);
 		while (*str && argv[++i])
 		{
-			*str = ft_strjoin(*str, ";");
-			*str = ft_strjoin(*str, argv[i]);
+			tmp = ft_strjoin(*str, ";");
+			free(*str);
+			*str = ft_strjoin(tmp, argv[i]);
+			free(tmp);
 		}
 	}
 	else

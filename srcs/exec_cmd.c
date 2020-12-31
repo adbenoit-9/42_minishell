@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 01:54:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2020/12/31 02:39:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 	char	**args;
 	t_list	*tmp;
 
+	if (!cmd->tok->content || !cmd->tok->content[0])
+		return ;
 	if (!(args = (char **)malloc(sizeof(char *) * (ft_lstsize(cmd->tok) + 1))))
 	{
 		errno_msg(NULL, NULL, MALL_ERR);
