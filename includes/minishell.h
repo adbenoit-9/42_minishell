@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 01:54:11 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/02 15:44:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_shell
 	pid_t		pid;
 	int			bool;
 	int			sig;
+	char		*pwd;
 }				t_shell;
 
 typedef struct	s_cmd
@@ -67,6 +68,7 @@ typedef struct	s_cmd
 	t_list			*tok;
 	t_list			*input;
 	t_list			*output;
+	char			*pwd;
 	int				sep;
 	int				r_type;
 	int				err;

@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 14:06:28 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/02 15:13:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_executable(char *pwd, char *args[], char *envp[])
 	ret = 0;
 	if (!ft_getenv("PATH", &ret, envp))
 		return (-1);
-	path = ft_split(envp[ret], ':');
+	path = ft_split(envp[ret] + 5, ':');
 	i = 0;
 	ret = 0;
 	while (path[i])

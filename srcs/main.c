@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 15:30:43 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/02 15:52:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			main(int argc, char *argv[], char **envp)
 
 	ret = 1;
 	errno = 0;
+	g_shell.pwd = NULL;
 	if (argc > 1 && ft_strcmp(argv[1], "-c") != 0)
 	{
 		errno = EINVAL;
