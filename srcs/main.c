@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/02 15:52:17 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:42:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		init_mshell(void)
 {
 	g_shell.pid = 0;
 	g_shell.bool = 0;
+	g_quote = 0;
 }
 
 static int	read_from_str(int n, char **argv, char **str)

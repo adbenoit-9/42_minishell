@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/04 18:24:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 19:21:42 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	ft_cutenv(char *value, t_list **lst, int *j, char *str)
 	t_list	*new;
 	char	**token;
 
+	if (!value)
+		return (0);
 	if (!(token = ft_split(value, ' ')))
 		return (MALL_ERR);
 	i = -1;
@@ -33,7 +35,14 @@ static int	ft_cutenv(char *value, t_list **lst, int *j, char *str)
 			ft_free(token);
 			return (MALL_ERR);
 		}
-		ft_lstadd_back(lst, new);
+		if ((*lst)->content[0])
+			ft_lstadd_back(lst, new);
+		else
+		{
+			free((*lst)->content);
+			(*lst)->content = new->content;
+			free(new);
+		}
 	}
 	ft_free(token);
 	return (0);
@@ -57,9 +66,10 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 		++i;
 	}
 	(*lst)->content[(*j)] = 0;
-	if (value[i] && g_quote == 0)
+	if (g_quote == 0)
 		return (ft_cutenv(value + i, lst, j, str));
 	ft_strcat((*lst)->content, value + i);
+	*j = ft_strlen((*lst)->content);
 	return (0);
 }
 
