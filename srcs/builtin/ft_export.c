@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 22:14:14 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:14:30 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_display(char *str, int fd)
 	ft_putstr_fd("=\"", fd);
 	while (str[++i])
 	{
-		if (str[i] == '\"' || str[i] == '\\')
+		if (str[i] == '\"' || str[i] == '\\' || str[i] == '$' || str[i] == '`')
 		{
 			new[j] = '\\';
 			++j;

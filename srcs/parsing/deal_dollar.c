@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 00:33:39 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:24:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 		++i;
 	}
 	(*lst)->content[(*j)] = 0;
-	if (value[i])
+	if (value[i] && g_quote == 0)
 		return (ft_cutenv(value + i, lst, j, str));
+	ft_strcat((*lst)->content, value + i);
 	return (0);
 }
 

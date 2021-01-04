@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 22:32:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 22:20:34 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:20:59 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			deal_double_quote(char *str, t_list **lst, int *j, char *envp[])
 	int i;
 
 	i = 0;
+	g_quote = 1;
 	while (str[++i] && str[i] != '\"')
 	{
 		if (str[i] == '$' && str[i + 1] != '\'')
@@ -95,6 +96,7 @@ int			deal_double_quote(char *str, t_list **lst, int *j, char *envp[])
 			++(*j);
 		}
 	}
+	g_quote = 0;
 	if (str[i] == '\"')
 		return (i + 1);
 	return (QUOTE_NOT_FOUND);
