@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 18:00:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 18:57:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			main(int argc, char *argv[], char **envp)
 		exit(errno_msg(argv[1], NULL, 1));
 	}
 	env_cpy = ft_tabdup(envp);
-	ft_change_shlvl(&env_cpy);
+	ft_incr_shlvl(&env_cpy);
 	while (ret > 0)
 	{
 		str = NULL;

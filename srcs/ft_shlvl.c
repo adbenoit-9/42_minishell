@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shlvl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:39:06 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 17:23:01 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 19:01:17 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_change_shlvl(char ***envp)
+int		ft_incr_shlvl(char ***envp)
 {
 	char	*value;
 	int		nb;
@@ -32,6 +32,7 @@ int		ft_change_shlvl(char ***envp)
 		free(value);
 		return (ret);
 	}
-	ft_putstr_fd("minishell: avertissement : niveau de shell trop élevé (1000), initialisation à 1\n", 2);
+	error_msg(NULL, "avertissement : ",
+	"niveau de shell trop élevé (1000), initialisation à 1\n", 0);
 	return (ft_setenv("SHLVL", "1", 0, envp));
 }
