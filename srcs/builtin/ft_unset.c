@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/04 14:50:59 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:49:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,17 @@ static int	ft_unsetenv(char *name, char **envp[])
 
 void		ft_unset(t_cmd *cmd, int *fd, char **envp[])
 {
+	t_list	*tmp;
+
 	(void)fd;
-	while (cmd->tok->next)
+	(void)envp;
+	tmp = cmd->tok->next;
+	while (tmp)
 	{
-		if (check_var_name(cmd->tok->next->content) == 0)
-			error_msg("unset: `", cmd->tok->next->content,
+		if (check_var_name(tmp->content) == 0)
+			error_msg("unset: `", tmp->content,
 			"': not a valid identifier\n", 1);
-		ft_unsetenv(cmd->tok->next->content, envp);
-		cmd->tok->next = cmd->tok->next->next;
+		ft_unsetenv(tmp->content, envp);
+		tmp = tmp->next;
 	}
 }

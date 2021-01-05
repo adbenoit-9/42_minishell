@@ -1,0 +1,20 @@
+echo \a-phrase simple \n$'\n'$'-carateres speciaux activés:\n\0apparait pas''-non activé:\t', "non activé:\t" '|' ; echo   - "$HOME " $'\n'-\\n '$var2'	 $'\n'-$LANG$'\n'- $"\'$var4"$'\n'- $'\'$var5'$'\n'-'\n' $'var6'$'\\\n'-   $"var7"  ;    echo -"'""phrase:'entre guillemets'ok"\\//\\$'\n- suite de caracteres speciaux: \n\"\ttab\"\"\"\"'; echo -test guillemets: $'\n''\'', '\'', \', \", '\"', "\"", "\'"	|ok
+
+echo "bonjour\toi" ; echo "bonjour\\toi" ; echo "bonjour\"toi" ; echo "bonjour\'toi"	; echo "bonjour'toi"; echo bonjour\toi	 ; echo bonjour\\toi	; echo bonjour\"toi	; echo   bonjour\'toi	; echo  bonjour\ toi	; echo 'bonjour\toi';echo $'bonjour\'toi';echo 'bonjour\\toi'	;echo 'bonjour\"toi'; echo 'bonjour"toi'; echo '\bonjourtoi'																|ok
+
+echo $var bonjour ; echo "" bonjour ; echo "12\"" ; echo bonjour \; ls				|ok
+
+echo ; echo simple ; echo -n simple ; echo simple text ; echo $HOME ; echo "$HOME" ; echo '$HOME' ; echo '\' ; echo "\\" ; echo "\n \n \n" ; echo "\n \\n \\\n" ; echo hi; echo hihi; echo hi";" hihi ; echo hi "   ;   " hihi			|ok
+
+echo one; echo two; echo three;								|ok
+
+echo erreur ;; echo nul										|ok
+
+echo -nnnn -n Test option n $'\n'; echo $					|ok
+
+echo 123$USER----$ ; echo "hallo$"							|ok
+echo abc$USERdef ; echo "hoi$USERmaran" ; echo $var test	|ok
+echo "'\$USER'"	; echo "\$USER"	; echo "123\$456"			|ok
+echo $_1234 ; echo $lol.ok ; echo $/.ok						|ok
+export ok;  echo $ok.ko										|ok
+export test="    h    "; echo "$test"                       |ko
