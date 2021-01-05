@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/04 19:21:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 13:06:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,14 @@ static int	ft_cutenv(char *value, t_list **lst, int *j, char *str)
 	while (token[++i])
 	{
 		*j = ft_strlen(token[i]);
-		if (token[i + 1])
-			new = ft_lstnew(ft_strdup(token[i]));
-		else
-			new = ft_lstnew(ft_strjoin(token[i], str));
+		new = (token[i + 1]) ? ft_lstnew(ft_strdup(token[i])) :
+		ft_lstnew(ft_strjoin(token[i], str));
 		if (!new)
 		{
 			ft_free(token);
 			return (MALL_ERR);
 		}
-		if ((*lst)->content[0])
-			ft_lstadd_back(lst, new);
-		else
-		{
-			free((*lst)->content);
-			(*lst)->content = new->content;
-			free(new);
-		}
+		ft_lstadd_back(lst, new);
 	}
 	ft_free(token);
 	return (0);
@@ -59,6 +50,8 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 	len = ft_strlen(value) + ft_strlen(str) + *j + 1;
 	if (!((*lst)->content = ft_realloc((*lst)->content, len)))
 		return (MALL_ERR);
+	while (value[i] == ' ')
+		++i;
 	while (value[i] && value[i] != ' ')
 	{
 		(*lst)->content[*j] = value[i];
