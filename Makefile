@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2020/12/30 01:04:34 by adbenoit         ###   ########.fr        #
+#    Updated: 2021/01/05 15:56:29 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ PARS_PATH 	= srcs/parsing/
 
 SRCS		=	main.c				run_cmd.c \
 				redirect.c			fork_handle.c \
-				signal.c			exec_cmd.c
+				signal.c			exec_cmd.c \
+				ft_shlvl.c
 
 UTIL		=	ft_error.c			deal_lst.c\
 				ft_realloc.c		ft_env_utils.c \
