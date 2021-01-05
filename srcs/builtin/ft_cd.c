@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 18:37:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 20:02:31 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,13 @@ static int	check_path(char *str)
 {
 	int	i;
 	int	count;
-	int	ret;
 
 	i = -1;
 	count = 0;
 	while (str[++i] == '/')
 		++count;
-	ret = ft_strncmp("tmp", str + i, 3);
-	if (ret != 0 && count == 2)
-		return (3);
-	else if (ret == 0 && count == 2)
+	if (count == 2)
 		return (2);
-	else if (ret == 0)
-		return (1);
 	return (0);
 }
 
@@ -36,17 +30,13 @@ char		*ft_correct_path(char *path)
 {
 	char	*new;
 
-	printf("path to correct = %s\n", path);
-	if (g_tmp == 1)
-		new = ft_strdup(path + 8);
-	else if (g_tmp == 2)
-		new = ft_strjoin("/", path + 8);
-	else if (g_tmp == 3)
+	if (g_tmp == 2)
+	{
 		new = ft_strjoin("/", path);
-	else
-		new = ft_strdup(path);
-	free(path);
-	return (new);
+		free(path);
+		return (new);
+	}
+	return (path);
 }
 
 static int	ft_cd_home(t_cmd **cmd, char *envp[])
