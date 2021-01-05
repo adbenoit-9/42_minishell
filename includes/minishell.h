@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 16:02:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:43:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void			ft_fork_handle(t_cmd *cmd, char **envp[]);
 int				ft_launch_process(t_cmd **cmd, char **args);
 char			*ft_correct_path(char *path);
 int				run_cmd(t_cmd *cmd, int *fd, int pid, char **envp[]);
-int				ft_change_shlvl(char ***envp);
+int				ft_incr_shlvl(char ***envp);
 
 void			proc_sig_handler(int signo);
 void			ft_mana_sig(t_cmd *cmd);

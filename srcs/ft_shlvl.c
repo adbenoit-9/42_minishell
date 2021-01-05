@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 15:39:06 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 16:02:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:43:34 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_change_shlvl(char ***envp)
+int		ft_incr_shlvl(char ***envp)
 {
 	char	*value;
 	int		nb;
