@@ -41,7 +41,7 @@ Display error messages ? [ Y / N ]
 
 Minishell output
 -------------------------------------------------------------
- /Users/adbenoit/42_cursus/minishell
+ /Users/adbenoit/42_cursus/Minishell
 -------------------------------------------------------------
 
 Bash output
@@ -58,7 +58,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- OLDPWD=/Users/adbenoit/42_cursus/minishell
+ OLDPWD=/Users/adbenoit/42_cursus/Minishell
  SHLVL=2
 -------------------------------------------------------------
 
@@ -221,7 +221,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -384,8 +384,8 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
@@ -406,9 +406,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -426,9 +426,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -446,9 +446,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -466,9 +466,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -486,9 +486,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -506,9 +506,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -526,9 +526,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -546,9 +546,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -566,9 +566,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -586,9 +586,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -606,9 +606,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -626,9 +626,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -646,9 +646,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -666,9 +666,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -686,9 +686,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -706,9 +706,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -726,9 +726,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -746,9 +746,9 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -760,43 +760,185 @@ Bash output
  declare -x SHLVL="1"
 -------------------------------------------------------------
 
- TEST 110 ✓
- TEST 111 ✓
- TEST 112 ✓
- TEST 113 ✓
+
+======================== TEST 110 ✗ ========================
+ Command : pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 111 ✗ ========================
+ Command : pwd test
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 112 ✗ ========================
+ Command : pwd test lala
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 113 ✗ ========================
+ Command : pwd "test"
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
 
 ======================== TEST 114 ✗ ========================
  Command : pwd ; cd .. ; pwd ; cd / ; pwd ; cd . ; pwd ; cd ~/ ; pwd
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
  minishell: cd: ~/: No such file or directory
  /
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
  /Users/adbenoit
 -------------------------------------------------------------
 
- TEST 115 ✓
- TEST 116 ✓
- TEST 117 ✓
- TEST 118 ✓
- TEST 119 ✓
- TEST 120 ✓
+
+======================== TEST 115 ✗ ========================
+ Command : pwd .
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 116 ✗ ========================
+ Command : pwd ..
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 117 ✗ ========================
+ Command : pwd ; cd ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 118 ✗ ========================
+ Command : pwd ; cd .. ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
+-------------------------------------------------------------
+
+
+======================== TEST 119 ✗ ========================
+ Command : pwd ; cd $dir ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
+-------------------------------------------------------------
+
+
+======================== TEST 120 ✗ ========================
+ Command : pwd ; cd test_cd ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester/test_cd
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester/test_cd
+-------------------------------------------------------------
+
 
 ======================== TEST 121 ✗ ========================
  Command : pwd ; cd ~/ ; pwd
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ~/: No such file or directory
  /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  /Users/adbenoit
 -------------------------------------------------------------
 
@@ -806,12 +948,14 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ~/test_cd: No such file or directory
  /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  /Users/adbenoit/test_cd
 -------------------------------------------------------------
 
@@ -821,23 +965,145 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- minishell: cd: ~/: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
  /Users/adbenoit/42_cursus
+ minishell: cd: ~/: No such file or directory
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
  /Users/adbenoit
 -------------------------------------------------------------
 
- TEST 124 ✓
- TEST 125 ✓
- TEST 126 ✓
- TEST 127 ✓
- TEST 128 ✓
- TEST 129 ✓
- TEST 130 ✓
- TEST 131 ✓
+
+======================== TEST 124 ✗ ========================
+ Command : pwd ; cd /
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 125 ✗ ========================
+ Command : pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
+-------------------------------------------------------------
+
+
+======================== TEST 126 ✗ ========================
+ Command : pwd ; cd .. | pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 127 ✗ ========================
+ Command : pwd | cd | pwd ; cd | pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 128 ✗ ========================
+ Command : pwd ; cd ../minishell_tester ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 129 ✗ ========================
+ Command : pwd ; cd . ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 130 ✗ ========================
+ Command : pwd ; cd ./ ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 131 ✗ ========================
+ Command : pwd ; cd ../ ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell
+-------------------------------------------------------------
+
 
  >> THOSE TESTS MAY HAVE TO BE CHANGED BY A DIFFERENT PATH 
 
@@ -846,12 +1112,16 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ../../../Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: ../../../Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -860,12 +1130,16 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ./../../../Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: ./../../../Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -874,12 +1148,16 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ./../../../Bureau/././././../Bureau/././././../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: ./../../../Bureau/././././../Bureau/././././../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -888,12 +1166,16 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ~/../../home/../home/user42/Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: /Users/adbenoit/../../home/../home/user42/Bureau/../Bureau/../Bureau: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -902,28 +1184,58 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ~/..: No such file or directory
  /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  /Users
 -------------------------------------------------------------
 
- TEST 137 ✓
- TEST 138 ✓
+
+======================== TEST 137 ✗ ========================
+ Command : pwd ; cd ../.. ; cd minishell/../minishell/.. ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
+
+======================== TEST 138 ✗ ========================
+ Command : pwd ; cd ../../ ; cd ./minishell/.././minishell/../. ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
 
 ======================== TEST 139 ✗ ========================
  Command : pwd ; cd ~ ; cd ../../../../../ ; pwd
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ~: No such file or directory
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -932,12 +1244,16 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ../.../: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: ../.../: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
 
@@ -946,17 +1262,66 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
  minishell: cd: ../...: No such file or directory
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
 -------------------------------------------------------------
 
 Bash output
 -------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
  bash: line 1: cd: ../...: No such file or directory
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
 -------------------------------------------------------------
 
- TEST 142 ✓
- TEST 143 ✓
- TEST 144 ✓
+
+======================== TEST 142 ✗ ========================
+ Command : pwd ; cd ... ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester/...
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester/...
+-------------------------------------------------------------
+
+
+======================== TEST 143 ✗ ========================
+ Command : pwd ; cd ../minishell_tester/... ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester/...
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester/...
+-------------------------------------------------------------
+
+
+======================== TEST 144 ✗ ========================
+ Command : pwd ; cd .../../..././././../... ; pwd
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+ /Users/adbenoit/42_cursus/minishell/minishell_tester/...
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester/...
+-------------------------------------------------------------
+
  TEST 145 ✓
  TEST 146 ✓
  TEST 147 ✓
@@ -1185,7 +1550,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1201,7 +1566,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1217,7 +1582,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1243,7 +1608,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1260,7 +1625,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1276,7 +1641,7 @@ Bash output
 
 Minishell output
 -------------------------------------------------------------
- declare -x OLDPWD="/Users/adbenoit/42_cursus/minishell"
+ declare -x OLDPWD="/Users/adbenoit/42_cursus/Minishell"
  declare -x SHLVL="9-8"
 -------------------------------------------------------------
 
@@ -1293,12 +1658,50 @@ Bash output
  TEST 206 ✓
  TEST 207 ✓
  TEST 208 ✓
- TEST 209 ✓
+
+======================== TEST 209 ✗ ========================
+ Command : echo \|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ |
+-------------------------------------------------------------
+
  TEST 210 ✓
  TEST 211 ✓
  TEST 212 ✓
- TEST 213 ✓
- TEST 214 ✓
+
+======================== TEST 213 ✗ ========================
+ Command : echo \|\|
+
+Minishell output
+-------------------------------------------------------------
+ minishell: |: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ ||
+-------------------------------------------------------------
+
+
+======================== TEST 214 ✗ ========================
+ Command : echo \\\|\\\|
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \|: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ \|\|
+-------------------------------------------------------------
+
  TEST 215 ✓
  TEST 216 ✓
  TEST 217 ✓
@@ -1320,18 +1723,130 @@ Bash output
  TEST 233 ✓
  TEST 234 ✓
  TEST 235 ✓
- TEST 236 ✓
- TEST 237 ✓
+
+======================== TEST 236 ✗ ========================
+ Command : echo \|\\$USER
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \adbenoit: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ |\adbenoit
+-------------------------------------------------------------
+
+
+======================== TEST 237 ✗ ========================
+ Command : echo \|\\\$USER
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \$USER: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ |\$USER
+-------------------------------------------------------------
+
  TEST 238 ✓
- TEST 239 ✓
- TEST 240 ✓
+
+======================== TEST 239 ✗ ========================
+ Command : echo \|\\$USER
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \adbenoit: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ |\adbenoit
+-------------------------------------------------------------
+
+
+======================== TEST 240 ✗ ========================
+ Command : echo \|\\\$USER
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \$USER: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ |\$USER
+-------------------------------------------------------------
+
  TEST 241 ✓
- TEST 242 ✓
- TEST 243 ✓
+
+======================== TEST 242 ✗ ========================
+ Command : echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ $ ! @ # % ^ & * ( ) _ + |
+-------------------------------------------------------------
+
+
+======================== TEST 243 ✗ ========================
+ Command : echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ $ ! @ # % ^ & * ( ) _ + |
+-------------------------------------------------------------
+
  TEST 244 ✓
- TEST 245 ✓
- TEST 246 ✓
- TEST 247 ✓
+
+======================== TEST 245 ✗ ========================
+ Command : echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ $ ! @ # % ^ & * ( ) _ + |
+-------------------------------------------------------------
+
+
+======================== TEST 246 ✗ ========================
+ Command : echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ $ ! @ # % ^ & * ( ) _ + |
+-------------------------------------------------------------
+
+
+======================== TEST 247 ✗ ========================
+ Command : echo \\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|
+
+Minishell output
+-------------------------------------------------------------
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|
+-------------------------------------------------------------
+
  TEST 248 ✓
  TEST 249 ✓
  TEST 250 ✓
@@ -1356,7 +1871,20 @@ Bash output
  bash: line 1: \: command not found
 -------------------------------------------------------------
 
- TEST 259 ✓
+
+======================== TEST 259 ✗ ========================
+ Command : echo \\ \| \\
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ \ | \
+-------------------------------------------------------------
+
 
 ======================== TEST 260 ✗ ========================
  Command : echo \\ \\| \\
@@ -1385,7 +1913,21 @@ Bash output
  bash: line 1: \: command not found
 -------------------------------------------------------------
 
- TEST 262 ✓
+
+======================== TEST 262 ✗ ========================
+ Command : echo \\ \; \\
+
+Minishell output
+-------------------------------------------------------------
+ \ ;
+ minishell: \: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ \ ; \
+-------------------------------------------------------------
+
 
 ======================== TEST 263 ✗ ========================
  Command : echo \\ \\; \\
@@ -1408,7 +1950,20 @@ Bash output
  TEST 267 ✓
  TEST 268 ✓
  TEST 269 ✓
- TEST 270 ✓
+
+======================== TEST 270 ✗ ========================
+ Command : echo \ \| \\
+
+Minishell output
+-------------------------------------------------------------
+ minishell: \: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+  | \
+-------------------------------------------------------------
+
 
 ======================== TEST 271 ✗ ========================
  Command : echo \ \\| \\
@@ -1423,7 +1978,21 @@ Bash output
  bash: line 1: \: command not found
 -------------------------------------------------------------
 
- TEST 272 ✓
+
+======================== TEST 272 ✗ ========================
+ Command : echo \ \; \\
+
+Minishell output
+-------------------------------------------------------------
+  ;
+ minishell: \: command not found
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+  ; \
+-------------------------------------------------------------
+
 
 ======================== TEST 273 ✗ ========================
  Command : echo \ \\; \\
@@ -1967,11 +2536,37 @@ Bash output
  TEST 369 ✓
  TEST 370 ✓
  TEST 371 ✓
- TEST 372 ✓
+
+======================== TEST 372 ✗ ========================
+ Command : pwd ; echo $?
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
  TEST 373 ✓
  TEST 374 ✓
  TEST 375 ✓
- TEST 376 ✓
+
+======================== TEST 376 ✗ ========================
+ Command : pwd ; echo $?
+
+Minishell output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/minishell/minishell_tester
+-------------------------------------------------------------
+
+Bash output
+-------------------------------------------------------------
+ /Users/adbenoit/42_cursus/Minishell/minishell_tester
+-------------------------------------------------------------
+
  TEST 377 ✓
  TEST 378 ✓
  TEST 379 ✓
