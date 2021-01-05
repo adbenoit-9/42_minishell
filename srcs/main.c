@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/04 18:42:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 14:13:52 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int	display_prompt(int n, char **argv, char **str)
 	signal(SIGQUIT, ft_sig_handler);
 	if (n == 1)
 	{
-		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
-		write(1, "\xF0\x9F\x90\x9A: ", 6);
+		// write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
+		// write(1, "\xF0\x9F\x90\x9A: ", 6);
 		*str = NULL;
 		ret = get_next_line(0, str);
 	}
@@ -113,7 +113,7 @@ int			main(int argc, char *argv[], char **envp)
 			return (0);
 		launch_mshell(str, argc, &env_cpy, ret);
 	}
-	write(1, "exit\n", 5);
+	// write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
 	ft_free(env_cpy);
 	exit(EXIT_SUCCESS);
