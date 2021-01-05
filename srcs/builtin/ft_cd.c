@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 18:01:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 18:37:55 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char		*ft_correct_path(char *path)
 {
 	char	*new;
 
+	printf("path to correct = %s\n", path);
 	if (g_tmp == 1)
 		new = ft_strdup(path + 8);
 	else if (g_tmp == 2)
@@ -44,7 +45,6 @@ char		*ft_correct_path(char *path)
 		new = ft_strjoin("/", path);
 	else
 		new = ft_strdup(path);
-	printf("new = %s\n", new);
 	free(path);
 	return (new);
 }
