@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 17:30:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 21:09:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,19 @@ void	ft_pwd(t_cmd *cmd, int *fd, char **envp[])
 
 	size = 0;
 	buf = NULL;
+	n = 0;
+	(void)envp;
 	if (!(str = getcwd(buf, size)))
-		if (!(str = ft_getenv("PWD", &n, *envp)))
-			if (!(str = g_shell.pwd))
-				return ;
-	str = ft_correct_path(str);
+	{
+		if (!(str = g_shell.pwd))
+			return ;
+		n = 1;
+	}
+	if (n == 0)
+		str = ft_correct_path(str);
 	ft_putstr_fd(str, fd[1]);
-	free(str);
+	if (n == 0)
+		free(str);
 	write(fd[1], "\n", 1);
 	cmd->err = NONE;
 	return ;

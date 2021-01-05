@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 20:11:21 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 21:08:12 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,14 @@ void		ft_no_err(char **path, int *pos, char **envp[])
 		errno_msg(NULL, NULL, MALL_ERR);
 		return ;
 	}
+	free(g_shell.pwd);
+	g_shell.pwd = *path;
 	*pos = 0;
 	if (ft_getenv("PWD", pos, *envp))
 		ft_setenv("OLDPWD", (*envp)[*pos] + 4, 0, envp);
 	else
 		ft_setenv("OLDPWD", "", 0, envp);
 	ft_setenv("PWD", *path, 0, envp);
-	free(*path);
 }
 
 void		ft_cd(t_cmd *cmd, int *fd, char **envp[])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:01:45 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 17:49:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 20:54:33 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ static int	ft_unsetenv(char *name, char **envp[])
 	n = 0;
 	if ((value = ft_getenv(name, &n, *envp)))
 	{
-		if (ft_strcmp(name, "PWD") == 0)
-		{
-			free(g_shell.pwd);
-			g_shell.pwd = ft_strdup(value);
-		}
 		free((*envp)[n]);
 		i = n;
 		while ((*envp)[++i])
