@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:54:27 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 14:14:01 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 16:11:04 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ft_sig_handler(int signo)
 	if (g_shell.pid == 0)
 	{
 		g_status = 130;
-		// write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
-		// write(1, "\xF0\x9F\x90\x9A: ", 6);
+		write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
+		write(1, "\xF0\x9F\x90\x9A: ", 6);
 		g_shell.pid = 1;
 	}
 	else

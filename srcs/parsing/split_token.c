@@ -6,13 +6,13 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:50:26 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/30 17:51:00 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:24:22 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_is_new_arg(char const *s, char c, int n, int quote)
+static int	ft_is_new_arg(char const *s, char c, int n, int g_quote)
 {
 	int	bs;
 	int i;
@@ -23,7 +23,7 @@ static int	ft_is_new_arg(char const *s, char c, int n, int quote)
 	ret = 0;
 	while (i != 0 && s[--i] == '\\')
 		++bs;
-	if (bs % 2 != 0 || quote != 0)
+	if (bs % 2 != 0 || g_quote != 0)
 		return (0);
 	if (s[n] == c && (n == 0 || s[n - 1] != c))
 		ret = 1;
@@ -34,7 +34,7 @@ static int	ft_is_new_arg(char const *s, char c, int n, int quote)
 	return (ret);
 }
 
-static int	is_redirect(char const *s, int *quote, int *i, int r)
+static int	is_redirect(char const *s, int *i, int r, int n)
 {
 	int	bs;
 
@@ -42,8 +42,13 @@ static int	is_redirect(char const *s, int *quote, int *i, int r)
 	--(*i);
 	while (s[++(*i)] == '\\')
 		++bs;
-	is_in_quote(s, *i - bs, quote);
-	if (*quote == 0 && bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
+	if (*i == n)
+	{
+		--(*i);
+		return (0);
+	}
+	is_in_quote(s, *i - bs, &g_quote);
+	if (g_quote == 0 && bs % 2 == 0 && (s[*i] == '<' || s[*i] == '>') && r == 0)
 		return (1);
 	return (0);
 }
@@ -52,12 +57,11 @@ static int	ft_countrow(char const *s, char c, int n)
 {
 	int	count;
 	int	i;
-	int	quote;
 	int	r;
 
 	count = 0;
 	i = 0;
-	quote = 0;
+	g_quote = 0;
 	r = 0;
 	if (s[0] && s[0] != c)
 		++count;
@@ -65,8 +69,8 @@ static int	ft_countrow(char const *s, char c, int n)
 	{
 		while (r == 1 && (s[i] == c || s[i] == '>'))
 			++i;
-		r = is_redirect(s, &quote, &i, r);
-		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
+		r = is_redirect(s, &i, r, n);
+		if (ft_is_new_arg(s, c, i, g_quote) == 1 || r == 1)
 			count++;
 		++i;
 	}
@@ -78,12 +82,11 @@ static int	ft_countrow(char const *s, char c, int n)
 static int	ft_size(char const *s, char c, int i, int n)
 {
 	int	size[2];
-	int	quote;
 	int	r;
 
 	size[0] = 0;
 	r = 0;
-	quote = 0;
+	g_quote = 0;
 	if (s[i] == '>' || s[i] == '<')
 	{
 		size[0] = (s[i + 1] == '>') ? 2 : 1;
@@ -94,9 +97,9 @@ static int	ft_size(char const *s, char c, int i, int n)
 	while (i < n && s[i])
 	{
 		size[1] = i;
-		r = is_redirect(s, &quote, &i, r);
+		r = is_redirect(s, &i, r, n);
 		size[0] += (i - size[1]);
-		if (ft_is_new_arg(s, c, i, quote) == 1 || r == 1)
+		if (ft_is_new_arg(s, c, i, g_quote) == 1 || r == 1)
 			break ;
 		++size[0];
 		++i;

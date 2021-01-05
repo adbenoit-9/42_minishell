@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/02 15:13:33 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 15:35:20 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	is_executable(char *pwd, char *args[], char *envp[])
 		return (0);
 	ret = 0;
 	if (!ft_getenv("PATH", &ret, envp))
-		return (-1);
+		return (-2);
 	path = ft_split(envp[ret] + 5, ':');
 	i = 0;
 	ret = 0;
@@ -117,7 +117,9 @@ void		ft_not_builtin(t_cmd *cmd, int *fd, char **envp[])
 	modify_fd(cmd, fd);
 	i = is_executable(copy, args, *envp);
 	free(copy);
-	if (i == -1)
+	if (i == -2)
+		error_msg(cmd->tok->content, NULL, ": No such file or directory\n", 1);
+	else if (i == -1)
 		g_status = exec_error(cmd->tok->content, cmd->tok->next);
 	exit(g_status);
 }

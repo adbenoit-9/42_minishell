@@ -1,0 +1,17 @@
+touch "test numero1" test\ numero2 'test numero3' test4																	|ok
+rm "test numero1" test\ numero2 test_not_found 'test numero3' test4														|ok   
+cd .. ; cd Minishell ; cd file_not_found ; echo $OLDPWD																	|ko
+export ; echo -------------------------- ; export ok ; export ;echo -------------------------- ; env					|ok
+echo pwd = $PWD; echo oldpwd = $OLDPWD ; cd .. ; echo --------;echo pwd = $PWD ; echo oldpwd = $OLDPWD ; cd Minishell	|ok
+echo -n -n -n $potato$orange; unset																						|ok
+export ""; export test= ; export > export.txt                                                                           |ok
+export test="ok'\\'\\" ; export                                                                                         |ok
+export testvar10= ; env | grep -a testvar10                                                                             |ok
+exit 9887
+export SHLVL=8 && run_test 'env' 'grep -a SHLVL' (tester)
+echo ok ;>test                                                                                                          |ok
+echo \"\\\|\"\\                                                                                                         |ok
+export PATH=$PWD/add_path:$PATH ; export | grep PATH ; ls                                                               |ok
+unset PATH ; ls ; cd /bin ; ls                                                                                          |ko
+cd                                                                                                                      |ok
+<test                                                                                                                   |ok
