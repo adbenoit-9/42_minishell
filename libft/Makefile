@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/06 16:47:32 by mabriand          #+#    #+#              #
-#    Updated: 2020/09/04 00:12:49 by adbenoit         ###   ########.fr        #
+#    Updated: 2021/01/05 23:06:16 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MEMORY = libft_sources/libft_memory/
 NBR = libft_sources/libft_nbr/
 OUTPUT = libft_sources/libft_output/
 STRING = libft_sources/libft_string/
-GNL = libft_sources/get-next-line/
+GNL = libft_sources/get_next_line/
 PTF = libft_sources/ft_printf/
 
 #################################### SOURCES ###################################

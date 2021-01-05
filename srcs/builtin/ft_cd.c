@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 21:08:12 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 22:34:18 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ void		ft_cd(t_cmd *cmd, int *fd, char **envp[])
 		path = getcwd(NULL, 0);
 	if (errno == 0)
 		ft_no_err(&path, &pos, envp);
-	if (errno != 0)
+	else
 		errno_msg("cd", cmd->tok->next->content, 0);
 }
