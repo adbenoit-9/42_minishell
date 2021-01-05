@@ -15,3 +15,4 @@ export PATH=$PWD/add_path:$PATH ; export | grep PATH ; ls                       
 unset PATH ; ls ; cd /bin ; ls                                                                                          |ko
 cd                                                                                                                      |ok
 <test                                                                                                                   |ok
+mkdir ok ; cd ok ; rm -rf ../ok ; pwd ; export PWD=coucou ; pwd ; unset PWD ; pwd                                       |ok
