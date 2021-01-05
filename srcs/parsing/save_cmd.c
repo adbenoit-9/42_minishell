@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 23:12:03 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/29 17:58:54 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 14:34:25 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 static int	is_cmd_sep(char *str, int *i, int *quote)
 {
-	int	bs;
-
-	is_in_quote(str, *i, quote);
-	--(*i);
-	bs = 0;
-	while (str[++(*i)] == '\\')
-		++bs;
-	if (bs % 2 == 0 && *quote == 0 && (str[*i] == ';' || str[*i] == '|'))
+	if (str[*i] == '\\')
+			++(*i);
+	else if (str[*i] == '\'' && *quote != 1)
+		*quote = 1;
+	else if (str[*i] == '\"' && *quote != 2)
+		*quote = 2;
+	else if (str[*i] == '\'' && *quote == 1)
+		*quote = 0;
+	else if (str[*i] == '\"' && *quote == 2)
+		*quote = 0;
+	else if (*quote == 0 && (str[*i] == ';' || str[*i] == '|'))
 		return (1);
 	if (!str[*i])
 		--(*i);
@@ -49,11 +52,9 @@ int			save_cmd(char *str, t_cmd **cmd, char *envp[])
 
 	ret = 0;
 	i = -1;
-	while (str[++i])
-	{
+	while (str[++i])	
 		if (is_cmd_sep(str, &i, &ret) == 1)
 			break ;
-	}
 	if (!(tokens = split_token(str, ' ', i)))
 		(*cmd)->err = MALL_ERR;
 	else
