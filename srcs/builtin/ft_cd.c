@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 20:05:58 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 20:11:21 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_cd_home(t_cmd **cmd, char *envp[])
 		free((*cmd)->tok->next);
 	if (!ft_getenv("HOME", &pos, envp))
 	{
-		error_msg("cd : ", "HOME not set\n", NULL, 1);
+		error_msg("cd: ", "HOME not set\n", NULL, 1);
 		return (-1);
 	}
 	if (!((*cmd)->tok->next = ft_lstnew(ft_strdup(envp[pos] + 5)))

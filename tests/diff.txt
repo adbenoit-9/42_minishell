@@ -1,72 +1,3 @@
-[33mecho erreur ;; echo nul(B[m
-[35m< bash       (exited with 2)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDERR -----(B[m
-1,2c1
-< minishell: -c: syntax error near unexpected token `;;'
-< minishell: -c: `echo erreur ;; echo nul'
----
-> minishell: syntax error
-
-
-[33mecho $? ; exit 0 1 ;;(B[m
-[35m< bash       (exited with 2)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDERR -----(B[m
-1,2c1
-< minishell: -c: syntax error near unexpected token `;;'
-< minishell: -c: `echo $? ; exit 0 1 ;;'
----
-> minishell: syntax error
-
-
-[33mecho $? ; echo error > ; echo KO(B[m
-[35m< bash       (exited with 2)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDERR -----(B[m
-1,2c1
-< minishell: -c: syntax error near unexpected token `;'
-< minishell: -c: `echo $? ; echo error > ; echo KO'
----
-> minishell: syntax error
-
-
-[33mecho $? ; echo error >; echo KO(B[m
-[35m< bash       (exited with 2)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDERR -----(B[m
-1,2c1
-< minishell: -c: syntax error near unexpected token `;'
-< minishell: -c: `echo $? ; echo error >; echo KO'
----
-> minishell: syntax error
-
-
-[33mecho $? ; echo ko > $VAR_NOT_FOUND(B[m
-[35m< bash       (exited with 1)(B[m
-[35m> minishell  (exited with 127)
-(B[m
-
-[33mecho $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >(B[m
-[35m< bash       (exited with 2)(B[m
-[35m> minishell  (exited with 2)
-(B[m[94m----- STDERR -----(B[m
-1,2c1
-< minishell: -c: syntax error near unexpected token `;'
-< minishell: -c: `echo $? ; echo ko > \$VAR_NOT_FOUND;echo ko > ;echo ko >'
----
-> minishell: syntax error
-
-
-[33munset HOME ; cd ; pwd(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-1c1
-< minishell: cd: HOME not set
----
-> minishell: cd : HOME not set
-
 
 [33mexit(B[m
 [35m< bash       (exited with 0)(B[m
@@ -126,7 +57,7 @@
 
 [33mexit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
 [35m< bash       (exited with 255)(B[m
-[35m> minishell  (exited with 255)
+[35m> minishell  (exited with 2)
 (B[m[94m----- STDERR -----(B[m
 0a1
 > exit
@@ -134,7 +65,7 @@
 
 [33mpwd | exit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
 [35m< bash       (exited with 255)(B[m
-[35m> minishell  (exited with 255)
+[35m> minishell  (exited with 2)
 (B[m[94m----- STDERR -----(B[m
 0a1
 > exit
@@ -142,31 +73,19 @@
 
 [33mpwdd | exit $HOME"coucou"COMO" "TE" "ENCUENTRAS(B[m
 [35m< bash       (exited with 255)(B[m
-[35m> minishell  (exited with 255)
+[35m> minishell  (exited with 2)
 (B[m[94m----- STDERR -----(B[m
-1a2
+1c1
+< minishell: pwdd: command not found
+---
 > exit
-
-
-[33m> a ; ls(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-0a1
-> minishell: : command not found
-
-
-[33m>> a; ls(B[m
-[35m< bash       (exited with 0)(B[m
-[35m> minishell  (exited with 0)
-(B[m[94m----- STDERR -----(B[m
-0a1
-> minishell: : command not found
+2a3
+> minishell: pwdd: command not found
 
 
 [33mexit 42\"asdasdasd\"$asdasd$HOME coucou(B[m
 [35m< bash       (exited with 255)(B[m
-[35m> minishell  (exited with 255)
+[35m> minishell  (exited with 2)
 (B[m[94m----- STDERR -----(B[m
 0a1
 > exit
@@ -174,7 +93,7 @@
 
 [33mexit 42"asdasdasd"$asdasd$HOME coucou(B[m
 [35m< bash       (exited with 255)(B[m
-[35m> minishell  (exited with 255)
+[35m> minishell  (exited with 2)
 (B[m[94m----- STDERR -----(B[m
 0a1
 > exit
