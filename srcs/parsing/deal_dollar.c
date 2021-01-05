@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deal_dollar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 17:28:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/05 20:29:47 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	replace_var_by_value(char *value, t_list **lst, int *j, char *str)
 	len = ft_strlen(value) + ft_strlen(str) + *j + 1;
 	if (!((*lst)->content = ft_realloc((*lst)->content, len)))
 		return (MALL_ERR);
-	while (value[i] == ' ')
+	while (g_quote == 0 && value[i] == ' ')
 		++i;
 	while (value[i] && value[i] != ' ')
 	{
