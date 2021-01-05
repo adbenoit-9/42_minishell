@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/02 15:44:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:20:13 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 int			g_status;
 int			g_wait;
 int			g_tmp;
+int			g_quote;
 
 typedef struct	s_shell
 {
