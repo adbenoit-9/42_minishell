@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 15:35:20 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 22:29:05 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static char	*join_path(char *path)
 	{
 		pwd = getcwd(NULL, 0);
 		new = ft_strjoin(pwd, path + 1);
+		free(pwd);
 	}
 	else
 		new = ft_strdup(path);
