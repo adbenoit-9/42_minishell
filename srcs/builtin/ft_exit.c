@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 16:10:03 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 18:00:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	exit_error(int i, t_list *lst, unsigned long long int *nb)
 	if (ft_isdigit(lst->content[i]) == 0)
 	{
 		error_msg("exit: ", lst->content,
-		": numeric argument required\n", 255);
+		": numeric argument required\n", 2);
 		return (1);
 	}
 	*nb = (*nb * 10) + lst->content[i] - '0';
@@ -28,7 +28,7 @@ static int	exit_error(int i, t_list *lst, unsigned long long int *nb)
 	(lst->content[0] != '-' && *nb > x))
 	{
 		error_msg("exit: ", lst->content,
-		": numeric argument required\n", 255);
+		": numeric argument required\n", 2);
 		return (1);
 	}
 	return (0);
@@ -73,10 +73,7 @@ void		ft_exit(t_cmd *cmd, int *fd, char **envp[])
 		ret = check_arg(cmd->tok->next, cmd);
 	}
 	if (ret == 1)
-	{
-		g_status = 1;
 		return ;
-	}
 	ft_cmdclear(&g_cmd, clear_one);
 	ft_free(*envp);
 	exit(g_status);

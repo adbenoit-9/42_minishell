@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 16:10:55 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 18:00:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,5 @@ int			main(int argc, char *argv[], char **envp)
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
 	ft_free(env_cpy);
-	exit(EXIT_SUCCESS);
+	exit(g_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:27:30 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/31 02:50:47 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 18:01:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ static int	check_path(char *str)
 
 char		*ft_correct_path(char *path)
 {
+	char	*new;
+
 	if (g_tmp == 1)
-		return (ft_strdup(path + 8));
+		new = ft_strdup(path + 8);
 	else if (g_tmp == 2)
-		return (ft_strjoin("/", path + 8));
+		new = ft_strjoin("/", path + 8);
 	else if (g_tmp == 3)
-		return (ft_strjoin("/", path));
-	return (ft_strdup(path));
+		new = ft_strjoin("/", path);
+	else
+		new = ft_strdup(path);
+	printf("new = %s\n", new);
+	free(path);
+	return (new);
 }
 
 static int	ft_cd_home(t_cmd **cmd, char *envp[])

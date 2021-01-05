@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 22:29:18 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/02 15:47:13 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:30:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_pwd(t_cmd *cmd, int *fd, char **envp[])
 	ft_putstr_fd(str, fd[1]);
 	free(str);
 	write(fd[1], "\n", 1);
-	(void)fd;
 	cmd->err = NONE;
 	return ;
 }

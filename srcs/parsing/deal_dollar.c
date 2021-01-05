@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deal_dollar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:16:05 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 13:06:31 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/05 17:28:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int			deal_status(char **token, int *k, int size)
 	if ((len = ft_strlen(nb)) > 2)
 	{
 		if (!(*token = ft_realloc(*token, size + len)))
+		{
+			free(nb);
 			return (MALL_ERR);
+		}
 	}
 	ft_strcpy(*token + *k, nb);
 	(*k) += len;
