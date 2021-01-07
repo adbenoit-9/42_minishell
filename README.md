@@ -11,7 +11,7 @@ The objective of this project is to create a simple shell.
 
 `make run`
 
-or `make ; ./minishell -c [arg]`
+or `make ; ./minishell -c [command]`
 
 ## Screenshot
 
