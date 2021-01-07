@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 18:57:18 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/07 10:18:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static int	display_prompt(int n, char **argv, char **str)
 	signal(SIGQUIT, ft_sig_handler);
 	if (n == 1)
 	{
-		write(1, "\033[1mLesPetitsCoquillages\033[0m", 29);
-		write(1, "\xF0\x9F\x90\x9A: ", 6);
+		ft_putstr_fd("\033[35mminishell\033[0m", 1);
+		ft_putstr_fd("\xF0\x9F\x90\x9A\033[35m: \033[0m", 1);
 		*str = NULL;
 		ret = get_next_line(0, str);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 00:54:27 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 17:59:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/07 10:22:00 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ft_sig_handler(int signo)
 	if (g_shell.pid == 0)
 	{
 		g_status = 130;
-		write(1, "\b\b  \b\b\n\033[1mLesPetitsCoquillages\033[0m", 35);
-		write(1, "\xF0\x9F\x90\x9A: ", 6);
+		ft_putstr_fd("\b\b  \b\b\n\033[35mminishell\033[0m", 1);
+		ft_putstr_fd("\xF0\x9F\x90\x9A\033[35m: \033[0m", 1);
 		g_shell.pid = 1;
 	}
 	else
