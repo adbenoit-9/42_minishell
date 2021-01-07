@@ -13,6 +13,6 @@ The objective of this project is to create a simple shell.
 
 or `make ; ./minishell -c [command]`
 
-## Screenshot
+## Preview
 
 ![Example](img/screenshot.png)
