@@ -16,3 +16,5 @@ or `make ; ./minishell -c [command]`
 ## Preview
 
 ![Example](img/screenshot.png)
+
+In collaboration whith @mabriand-42 :two_hearts:
