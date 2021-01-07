@@ -6,7 +6,7 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2021/01/05 15:56:29 by adbenoit         ###   ########.fr        #
+#    Updated: 2021/01/07 11:24:05 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,12 +66,12 @@ all: $(LIB) $(NAME)
 $(LIB) :
 	@make -C $(LIB_DIR)
 	@printf "\n"
-	@echo "Compilation of \033[33;1m$(LIB_DIR)\033[0;1m: [\033[1;32mOK\0]"
+	@echo "Compilation of \033[33;1m$(LIB_DIR)\033[0;1m: [\033[1;32mOK\033[0;1m]\033[0m"
 
 $(NAME) : $(OBJS)
 	@printf "\n"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB)
-	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]"
+	@echo "Compilation of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]\033[0m"
 
 $(OBJ_PATH)%.o:	$(UTIL_PATH)%.c $(HEADER)
 	@printf "\033[34;1m|\033[0;m"
@@ -93,7 +93,7 @@ $(OBJ_PATH)%.o:	$(PARS_PATH)%.c $(HEADER)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -I$(INC) -c $< -o $@
 
-run: $(NAME)
+run: all
 	@./$(NAME)
 
 clean:
