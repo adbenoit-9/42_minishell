@@ -11,6 +11,6 @@ The objective of this project is to create a simple shell.
 
 make run
 
-## SCREENSHOT
+## Screenshot
 
 ![Example](img/screenshot.png)
