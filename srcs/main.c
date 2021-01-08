@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/07 10:18:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:58:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ int			main(int argc, char *argv[], char **envp)
 	}
 	write(1, "exit\n", 5);
 	ft_cmdclear(&g_cmd, clear_one);
-	ft_free(env_cpy);
+	ft_freetab(env_cpy);
 	exit(g_status);
 }

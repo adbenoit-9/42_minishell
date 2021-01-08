@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 16:45:38 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/04 18:14:30 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:58:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	ft_putexp_fd(t_list *ptr, int fd, char *envp[])
 			ft_display(copy[i] + len, fd);
 			ft_putchar_fd('\n', fd);
 		}
-		ft_free(copy);
+		ft_freetab(copy);
 	}
 }
 

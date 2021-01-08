@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/22 15:55:33 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 22:29:05 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:58:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	is_executable(char *pwd, char *args[], char *envp[])
 			ret = -1;
 		free(new_p);
 	}
-	ft_free(path);
+	ft_freetab(path);
 	return (ret);
 }
 

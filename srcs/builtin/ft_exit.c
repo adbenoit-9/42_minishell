@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 21:47:07 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 18:00:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/08 13:58:06 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void		ft_exit(t_cmd *cmd, int *fd, char **envp[])
 	if (ret == 1)
 		return ;
 	ft_cmdclear(&g_cmd, clear_one);
-	ft_free(*envp);
+	ft_freetab(*envp);
 	exit(g_status);
 }

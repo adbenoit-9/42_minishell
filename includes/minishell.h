@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/05 20:53:37 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:58:26 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
-# include "../libft/libft_header/libft.h"
+# include "../libft/inc/libft.h"
 
 int			g_status;
 int			g_wait;
@@ -85,17 +85,10 @@ typedef void	(*t_function)(t_cmd *, int *, char ***);
 **	UTILS
 */
 
-char			*ft_realloc(char *ptr, int newsize);
-char			**ft_realloc_tab(char **ptr, int newsize);
-void			*ft_free(char **tab);
-char			*ft_strcat(char *dest, char *src);
 int				error_msg(char *g_cmd, char *arg, char *err, int error);
 int				errno_msg(char *cmd, char *str, int ret);
 void			ft_cmdclear(t_cmd **lst, void (del)(t_cmd**));
 void			clear_one(t_cmd **cmd);
-int				ft_tabsize(char **tab);
-char			**ft_tabdup(char *tab[]);
-void			ft_puttab_fd(char **tab, int fd);
 int				check_var_name(char *var);
 char			*ft_getenv(char *name, int *n, char *envp[]);
 int				ft_putenv(char *name, char *str, char **envp[]);

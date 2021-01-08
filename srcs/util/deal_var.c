@@ -6,11 +6,30 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 01:04:20 by adbenoit          #+#    #+#             */
-/*   Updated: 2020/12/21 04:16:46 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 14:04:03 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_var_name(char *var)
+{
+	int i;
+
+	if (!var)
+		return (1);
+	if (!var[0])
+		return (0);
+	if (var[0] && ft_isalpha(var[0]) == 0 && var[0] != '_')
+		return (0);
+	i = -1;
+	while (var[++i])
+	{
+		if (ft_isalnum(var[i]) == 0 && var[i] != '_')
+			return (0);
+	}
+	return (1);
+}
 
 int	find_var(char *envp[], char *var)
 {

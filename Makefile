@@ -6,23 +6,19 @@
 #    By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/25 23:32:24 by adbenoit          #+#    #+#              #
-#    Updated: 2021/01/07 11:24:05 by adbenoit         ###   ########.fr        #
+#    Updated: 2021/01/08 14:24:48 by adbenoit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	minishell
 
 INC			=	includes/
-
 HEADER		=	$(INC)minishell.h
 
 SRCS_PATH	=	srcs/
-
-UTIL_PATH 	= srcs/util/
-
-BUILTIN_PATH= srcs/builtin/
-
-PARS_PATH 	= srcs/parsing/
+UTIL_PATH 	=	srcs/util/
+BUILTIN_PATH=	srcs/builtin/
+PARS_PATH 	=	srcs/parsing/
 
 SRCS		=	main.c				run_cmd.c \
 				redirect.c			fork_handle.c \
@@ -30,8 +26,7 @@ SRCS		=	main.c				run_cmd.c \
 				ft_shlvl.c
 
 UTIL		=	ft_error.c			deal_lst.c\
-				ft_realloc.c		ft_env_utils.c \
-				ft_utils.c
+				deal_var.c			ft_env_utils.c 
 
 BUILTIN 	=	ft_cd.c				ft_env.c \
 				ft_export.c			ft_echo.c \
@@ -65,8 +60,6 @@ all: $(LIB) $(NAME)
 
 $(LIB) :
 	@make -C $(LIB_DIR)
-	@printf "\n"
-	@echo "Compilation of \033[33;1m$(LIB_DIR)\033[0;1m: [\033[1;32mOK\033[0;1m]\033[0m"
 
 $(NAME) : $(OBJS)
 	@printf "\n"
@@ -108,6 +101,17 @@ fclean:	clean
 	@echo "\033[33;1m$(NAME)\033[0;1m: $(NAME) deleted\033[0m"
 
 re: fclean all
+
+FILE=norme_error.txt
+ERROR= `cat $(FILE) | grep -B 1 "Error"`
+norme:
+	@make -C $(LIB_DIR) norme
+	@printf "\033[33mLaunching ...\033[0m"
+	@norminette */*/*c */*c */*h > $(FILE)
+	@printf "\rNorme of \033[33;1m$(NAME)\033[0;1m: [\033[1;32mOK\033[0;1m]\033[0m"
+	@ echo "\r$(ERROR)"
+	@rm $(FILE)
+	
 
 debug:
 	@echo "\033[34;1mOBJS\033[0;m = $(OBJS)"
