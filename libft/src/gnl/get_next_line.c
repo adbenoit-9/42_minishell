@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:44:13 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/06 22:23:42 by adbenoit         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:29:48 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ static int	ft_set_line(char *buf, size_t *len, t_list **lst)
 		++i;
 	}
 	str = ft_strndup(buf, i);
+	if (str == NULL)
+		return (-1);
 	new = ft_lstnew(str);
-	if (str == NULL || new == NULL)
+	if (new == NULL)
 	{
 		free(str);
 		return (-1);
@@ -71,12 +73,11 @@ static int	ft_put_line(t_list **lst, char **line, size_t len)
 		++i;
 	}
 	tmp = *lst;
-	while (*lst)
+	while (tmp)
 	{
-		ft_strcat(*line, (*lst)->content);
-		*lst = (*lst)->next;
+		ft_strcat(*line, tmp->content);
+		tmp = tmp->next;
 	}
-	ft_lstclear(&tmp, free);
 	return (1);
 }
 
@@ -117,7 +118,7 @@ int			get_next_line(int fd, char **line)
 	gnl.len = 0;
 	gnl.fd = fd;
 	lst = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (gnl.fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	status = ft_set_line(buf, &gnl.len, &lst);
 	if (status == 0)
@@ -125,7 +126,7 @@ int			get_next_line(int fd, char **line)
 	if (status == 1)
 	{
 		ft_reset_buf(buf);
-		return (ft_put_line(&lst, line, gnl.len));
+		status = ft_put_line(&lst, line, gnl.len);
 	}
 	ft_lstclear(&lst, free);
 	return (status);
