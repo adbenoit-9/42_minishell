@@ -7,11 +7,20 @@ The objective of this project is to create a simple shell.
 
 (learn a lot about processes and file descriptors)
 
-## Execution
-
-`make run`
-
-or `make ; ./minishell -c [command]`
+## Usage
+```
+$ git clone https://github.com/adbenoit-9/42_minishell.git
+$ cd 42_minishell/
+```
+### Execution
+```
+$ make run
+enter [command]
+```
+or
+```
+$ make ; ./minishell -c [command]
+```
 
 ## Preview
 
