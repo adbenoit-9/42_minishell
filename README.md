@@ -15,7 +15,7 @@ $ cd 42_minishell/
 ### Execution
 ```
 $ make run
-enter [command]
+[command]
 ```
 or
 ```
