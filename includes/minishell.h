@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 00:45:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/08 13:58:26 by adbenoit         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:45:05 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@
 # include <signal.h>
 # include "../libft/inc/libft.h"
 
-int			g_status;
-int			g_wait;
-int			g_tmp;
-int			g_quote;
+extern int	g_status;
+extern int	g_wait;
+extern int	g_tmp;
+extern int	g_quote;
 
 typedef struct	s_shell
 {

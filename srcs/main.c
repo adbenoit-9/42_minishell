@@ -6,7 +6,7 @@
 /*   By: adbenoit <adbenoit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/12 16:12:42 by adbenoit          #+#    #+#             */
-/*   Updated: 2021/01/08 13:58:06 by adbenoit         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:45:43 by adbenoit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 t_cmd	*g_cmd;
 t_shell	g_shell;
+int		g_status;
+int		g_wait;
+int		g_tmp;
+int		g_quote;
 
 void		init_mshell(void)
 {
